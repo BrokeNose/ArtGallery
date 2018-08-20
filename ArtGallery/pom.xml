@@ -128,24 +128,28 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>1.2.0</version>
 		</dependency> 
+		
 		<!-- Spring JDBC 라이브러리 -->
 	  	<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>4.0.0.RELEASE</version>
 		</dependency>
+		
 		<!-- JSON 문자열 응답을 도와주는 라이브러리 -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-databind</artifactId>
 		    <version>2.6.0</version>
 		</dependency>
+		
 		<!-- Spring Security 관련 라이브러리 -->
 	  	<dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-web</artifactId>
 		    <version>4.0.0.RELEASE</version>
 	    </dependency>
+	    
 	    <!-- Aop 용 라이브러리 -->
     	<dependency>
   		<groupId>org.springframework</groupId>
@@ -162,7 +166,8 @@
 	  		<artifactId>cglib</artifactId>
 	  		<version>3.2.0</version>
 	  	</dependency>  
-	  			<!-- 파일업로드 처리를 위한 라이브러리 (SmartEditor 에서도 필요함)-->
+	  	
+	  	<!-- 파일업로드 처리를 위한 라이브러리 (SmartEditor 에서도 필요함)-->
 	  	<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -175,7 +180,6 @@
 		</dependency>	
 		
 		<!-- 트랜젝션 처리를 위한 라이브러리 -->
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-tx</artifactId>
