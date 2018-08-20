@@ -43,6 +43,7 @@
 			<param-value>utf-8</param-value>
 		</init-param>
 	</filter>
+	
 	<!-- Spring 인코딩 필터 맵핑하기 -->
 	<filter-mapping>
 		<filter-name>EncodingFilter</filter-name>
