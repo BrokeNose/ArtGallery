@@ -1,5 +1,3 @@
-SELECT * FROM TAB;
-=======
 CREATE TABLE T_Category(
 	seq NUMBER PRIMARY KEY,
 	code CHAR(1) DEFAULT 'A',
@@ -18,12 +16,16 @@ values (TCategory_seq.NEXTVAL, 'A', 'sejan', '세잔', null, null, '1800/01/01 A
 
 CREATE TABLE T_Art(
 	seq NUMBER PRIMARY KEY,
-	title VARCHAR2(100),
+	title VARCHAR2(200),
 	createyear VARCHAR2(4),
-	artsize VARCHAR2(20),
+	artsize VARCHAR2(100),
 	remark CLOB, 
 	imagepath VARCHAR2(200), --이미지 경로
-	viewcount NUMBER --작품에 대한 조회수
+	viewcount NUMBER, --작품에 대한 조회수
+	regdate DATE DEFAULT SYSDATE,  -- 등록일
+  artist VARCHAR2(200),
+  painter VARCHAR2(100),
+  material VARCHAR2(100)
 );
 CREATE SEQUENCE TArt_seq;
 
@@ -78,3 +80,27 @@ CREATE TABLE T_Config(
         displayrow NUMBER DEFAULT 5,
         CONSTRAINT TConfig_displayrow_ck CHECK (displayrow > 0)
 );
+
+
+CREATE VIEW V_ART AS
+select a.seq, a.title, a.createyear, a.artsize, a.remark, a.imagepath, nvl(a.viewcount, 0) viewcount, a.regdate,
+	   b.artist, b.painter, b.material,
+	   d.seq as cseq, d.code, d.name
+from t_art a, 
+	(
+		select aseq, max(decode(code, 'A', val)) artist, max(decode(code, 'P', val)) painter, max(decode(code, 'M', val)) material
+		from (
+			select  b.code, a.aseq, 
+			        substr(xmlagg(xmlelement(a,',' || b.name) order by b.name).extract('//text()'), 2) val
+			  from  t_artrel a, t_category b
+			where a.cseq=b.seq
+			group by b.code, a.aseq
+			) b
+		group by aseq
+		order by aseq
+	) b, t_artrel c, t_category d
+where a.seq=b.aseq(+)
+and   a.seq=c.aseq(+)
+and   c.cseq=d.seq(+)
+order by a.seq;
+
