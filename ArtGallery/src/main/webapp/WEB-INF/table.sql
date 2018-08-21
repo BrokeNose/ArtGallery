@@ -6,13 +6,15 @@ CREATE TABLE T_Category(
 	remark CLOB,
 	imagepath VARCHAR2(200),
 	bdate VARCHAR2(10),
-	ddate VARCHAR2(10)
+	ddate VARCHAR2(10),
+	viewcount NUMMBER
 );
 CREATE SEQUENCE TCategory_seq;
 
--- sample data
-insert into T_Category(seq, code, engname, korname, remark, imagepath, bdate, ddate) 
-values (TCategory_seq.NEXTVAL, 'A', 'sejan', '세잔', null, null, '1800/01/01 AM 10:10:10', null);
+CREATE UNIQUE INDEX IDX_TCategory_01 ON T_Category(code, name, seq);
+
+CREATE UNIQUE INDEX IDX_TCategory_02 ON T_Category(code, viewcount desc, name, seq);
+
 
 CREATE TABLE T_Art(
 	seq NUMBER PRIMARY KEY,
@@ -22,18 +24,27 @@ CREATE TABLE T_Art(
 	remark CLOB, 
 	imagepath VARCHAR2(200), --이미지 경로
 	viewcount NUMBER, --작품에 대한 조회수
-	regdate DATE DEFAULT SYSDATE,  -- 등록일
-  artist VARCHAR2(200),
-  painter VARCHAR2(100),
-  material VARCHAR2(100)
+	regdate DATE DEFAULT SYSDATE  -- 등록일
 );
 CREATE SEQUENCE TArt_seq;
+
+CREATE UNIQUE INDEX IDX_Tart_01 ON T_Art(title asc, seq desc);
+
+CREATE UNIQUE INDEX IDX_Tart_02 ON T_Art(regdate desc, seq desc);
+
+CREATE INDEX IDX_Tart_03 ON T_Art(viewcount desc, title desc);
+
 
 CREATE TABLE T_ArtRel(
   	cseq NUMBER,
   	aseq NUMBER,
-  	CONSTRAINT TArtRel_cseq_aseq_pk PRIMARY KEY(cseq, aseq)
+  	CONSTRAINT TArtRel_cseq_aseq_pk PRIMARY KEY(cseq, aseq),
+		sortseq NUMBER
 );
+
+CREATE UNIQUE INDEX IDX_TartRel_01 ON T_ArtRel(aseq, cseq);
+
+
 
 CREATE TABLE T_User(
 	id VARCHAR2(11) PRIMARY KEY,
@@ -81,7 +92,7 @@ CREATE TABLE T_Config(
         CONSTRAINT TConfig_displayrow_ck CHECK (displayrow > 0)
 );
 
-
+-------------------------------------------------------------------------
 CREATE VIEW V_ART AS
 select a.seq, a.title, a.createyear, a.artsize, a.remark, a.imagepath, nvl(a.viewcount, 0) viewcount, a.regdate,
 	   b.artist, b.painter, b.material,
@@ -104,3 +115,8 @@ and   a.seq=c.aseq(+)
 and   c.cseq=d.seq(+)
 order by a.seq;
 
+CREATE VIEW V_CATEGORY AS
+SELECT seq, code, name
+     , DECODE(code, 'A','아티스트', 'P','화파', 'M','재료') codeName
+	   , NVL((SELECT MAX(ROWNUM) FROM t_artrel a WHERE a.cseq=c.seq), 0) artCount
+  FROM t_category c;

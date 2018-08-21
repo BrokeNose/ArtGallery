@@ -18,9 +18,9 @@
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">카테고리<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">아티스트</a></li>
-            <li><a href="#">재료</a></li>
-            <li><a href="#">화파</a></li>
+            <li><a href="adminCategory.do?categorytype=A">아티스트</a></li>
+            <li><a href="adminCategory.do?categorytype=M">재료</a></li>
+            <li><a href="adminCategory.do?categorytype=P">화파</a></li>
           </ul>
         </li>       
         <li><a href="list.jsp">회원</a></li> 
