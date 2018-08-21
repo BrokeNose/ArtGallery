@@ -1278,5 +1278,3 @@ update t_artrel set sortseq=3 WHERE cseq=198 and aseq=107;
 update t_artrel set sortseq=1 WHERE cseq=25 and aseq=107;
 update t_artrel set sortseq=1 WHERE cseq=374 and aseq=108;
 update t_artrel set sortseq=1 WHERE cseq=127 and aseq=108;
-
-
