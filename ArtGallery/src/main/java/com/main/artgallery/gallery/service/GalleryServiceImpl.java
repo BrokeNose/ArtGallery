@@ -28,4 +28,10 @@ public class GalleryServiceImpl implements GalleryService {
 			mView.addObject("list",dao.PGetList());
 		}
 	}
+
+	@Override
+	public void insert() {
+		// TODO Auto-generated method stub
+		
+	}
 }
