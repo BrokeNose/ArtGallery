@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.main.artgallery.user.dto.UserDto" alias="userDto"/>
 	</typeAliases>
 	<mappers>
-		<mapper resource="com/main/artgallery/mybatis/ArtistMapper.xml"/>
+		<mapper resource="com/main/artgallery/mybatis/CategoryMapper.xml"/>
 		<mapper resource="com/main/artgallery/mybatis/UserMapper.xml"/>
 	</mappers>
 </configuration>

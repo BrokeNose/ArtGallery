@@ -3,9 +3,7 @@
 <mapper namespace="category">
 	<!-- 자주 사용하는 sql 문을 미리 정의해 놓기 -->
 	<sql id="categoryColumn">
-		seq, code, name, remark, imagePath, ddate
-		TO_CHAR(bdate,'YYYY.MM.DD AM HH:MI') AS bdate,
-		TO_CHAR(ddate,'YYYY.MM.DD AM HH:MI') AS ddate
+		seq, code, name, remark, imagePath, bdate, ddate
 	</sql>
 	
 	<!-- 추가 -->	
@@ -42,33 +40,33 @@
 		DELETE FROM T_Category WHERE seq=#{seq}
 	</delete>
 	
-	<select id="getDataArtist" parameterType="int">
+	<select id="getDataArtist" parameterType="int" resultType="category">
 		SELECT <include refid="categoryColumn" />
 		  FROM T_Category
 		 WHERE code='A' AND num=#{num}
 	</select>
-	<select id="getDataMaterial" parameterType="int">
+	<select id="getDataMaterial" parameterType="int" resultType="category">
 		SELECT <include refid="categoryColumn" />
 		  FROM T_Category
 		 WHERE code='M' AND num=#{num}
 	</select>
-	<select id="getDataArtistPart" parameterType="int">
+	<select id="getDataArtistPart" parameterType="int" resultType="category">
 		SELECT <include refid="categoryColumn" />
 		  FROM T_Category
 		 WHERE code='P' AND num=#{num}
 	</select>
 	
-	<select id="getListArtist">
+	<select id="getListArtist" resultType="category">
 		SELECT <include refid="categoryColumn" />
 		  FROM T_Category
 		 WHERE code='A'
 	</select>
-	<select id="getListMaterial">
+	<select id="getListMaterial" resultType="category">
 		SELECT <include refid="categoryColumn" />
 		  FROM T_Category
 		 WHERE code='M'
 	</select>
-	<select id="getListArtistPart">
+	<select id="getListArtistPart" resultType="category">
 		SELECT <include refid="categoryColumn" />
 		  FROM T_Category
 		 WHERE code='P'
