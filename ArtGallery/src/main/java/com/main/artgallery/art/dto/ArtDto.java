@@ -1,7 +1,7 @@
 package com.main.artgallery.art.dto;
 /*
 작성자 : Son
-비고   : 간단설명
+비고   : v_art 와 페이징 관련 dto
 */
 public class ArtDto {
 	private int seq;
@@ -18,7 +18,7 @@ public class ArtDto {
     private String painter;
     private String material;
 	
-    //t_cateogry 항목
+    //v_art의 t_cateogory 항목
     private int cseq;
     private String code;	//A, P, M
     private String name;
@@ -28,12 +28,13 @@ public class ArtDto {
 	private int endRowNum;
 	private int prevNum; //이전글의 글번호
 	private int nextNum; //다음글의 글번호
+	private int sortField;	// 목록 소트 구분자
 	
 	public ArtDto() {}
 
 	public ArtDto(int seq, String title, String createyear, String artsize, String remark, String imagepath,
-			int viewcount, String regdate, String artist, String painter, String material) {
-		super();
+			int viewcount, String regdate, String artist, String painter, String material, int cseq, String code,
+			String name, int startRowNum, int endRowNum, int prevNum, int nextNum, int sortField) {
 		this.seq = seq;
 		this.title = title;
 		this.createyear = createyear;
@@ -45,6 +46,14 @@ public class ArtDto {
 		this.artist = artist;
 		this.painter = painter;
 		this.material = material;
+		this.cseq = cseq;
+		this.code = code;
+		this.name = name;
+		this.startRowNum = startRowNum;
+		this.endRowNum = endRowNum;
+		this.prevNum = prevNum;
+		this.nextNum = nextNum;
+		this.sortField = sortField;
 	}
 
 	public int getSeq() {
@@ -134,7 +143,69 @@ public class ArtDto {
 	public void setMaterial(String material) {
 		this.material = material;
 	}
-	
-	
-	
+
+	public int getCseq() {
+		return cseq;
+	}
+
+	public void setCseq(int cseq) {
+		this.cseq = cseq;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getStartRowNum() {
+		return startRowNum;
+	}
+
+	public void setStartRowNum(int startRowNum) {
+		this.startRowNum = startRowNum;
+	}
+
+	public int getEndRowNum() {
+		return endRowNum;
+	}
+
+	public void setEndRowNum(int endRowNum) {
+		this.endRowNum = endRowNum;
+	}
+
+	public int getPrevNum() {
+		return prevNum;
+	}
+
+	public void setPrevNum(int prevNum) {
+		this.prevNum = prevNum;
+	}
+
+	public int getNextNum() {
+		return nextNum;
+	}
+
+	public void setNextNum(int nextNum) {
+		this.nextNum = nextNum;
+	}
+
+	public int getSortField() {
+		return sortField;
+	}
+
+	public void setSortField(int sortField) {
+		this.sortField = sortField;
+	}
+
 }
