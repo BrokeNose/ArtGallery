@@ -7,7 +7,7 @@ CREATE TABLE T_Category(
 	imagepath VARCHAR2(200),
 	bdate VARCHAR2(10),
 	ddate VARCHAR2(10),
-	viewcount NUMMBER
+	viewcount NUMBER
 );
 CREATE SEQUENCE TCategory_seq;
 
