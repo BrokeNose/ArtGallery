@@ -5,7 +5,16 @@ import java.util.List;
 import com.main.artgallery.category.dto.CategoryDto;
 
 public interface CategoryDao {
-	public List<CategoryDto> AGetList(CategoryDto Adto);
-	public List<CategoryDto> PGetList(CategoryDto Pdto);
-	public List<CategoryDto> MGetList(CategoryDto Mdto);
+	public List<CategoryDto> AGetList();
+	public List<CategoryDto> PGetList();
+	public List<CategoryDto> MGetList();
+	public CategoryDto getDataArtist(int seq);
+	public CategoryDto getDataMaterial(int seq);
+	public CategoryDto getDataArtistPart(int seq);
+	public void insert(CategoryDto dto);
+	public void insertArtist(CategoryDto dto);
+	public void insertMaterial(CategoryDto dto);
+	public void insertArtistPart(CategoryDto dto);
+	public void update(int seq);
+	public void delete(int seq);
 }
