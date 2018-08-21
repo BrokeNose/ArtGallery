@@ -7,10 +7,14 @@ public class UserDto {
 	private char roll;
 	private String regdate;
 	private String deldate;
+	private String rollName;
+	private int startRowNum;
+	private int endRowNum;
 	
 	public UserDto() {}
 
-	public UserDto(String id, String pwd, String email, char roll, String regdate, String deldate) {
+	public UserDto(String id, String pwd, String email, char roll, String regdate, String deldate, String rollName,
+			int startRowNum, int endRowNum) {
 		super();
 		this.id = id;
 		this.pwd = pwd;
@@ -18,6 +22,9 @@ public class UserDto {
 		this.roll = roll;
 		this.regdate = regdate;
 		this.deldate = deldate;
+		this.rollName = rollName;
+		this.startRowNum = startRowNum;
+		this.endRowNum = endRowNum;
 	}
 
 	public String getId() {
@@ -67,5 +74,32 @@ public class UserDto {
 	public void setDeldate(String deldate) {
 		this.deldate = deldate;
 	}
+
+	public String getRollName() {
+		return rollName;
+	}
+
+	public void setRollName(String rollName) {
+		this.rollName = rollName;
+	}
+
+	public int getStartRowNum() {
+		return startRowNum;
+	}
+
+	public void setStartRowNum(int startRowNum) {
+		this.startRowNum = startRowNum;
+	}
+
+	public int getEndRowNum() {
+		return endRowNum;
+	}
+
+	public void setEndRowNum(int endRowNum) {
+		this.endRowNum = endRowNum;
+	}
+
 	
+
+		
 }

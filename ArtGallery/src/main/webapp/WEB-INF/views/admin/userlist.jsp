@@ -54,6 +54,7 @@
 	  <table class="table table-bordered">
 	  	<thead>
 	  		<tr>
+	  				
 	  			<td>#</td>
 	  			<td>아이디</td>
 	  			<td>이메일</td>
@@ -65,11 +66,11 @@
 	  	<tbody>
 		  	<c:forEach var="tmp" items="${list }">
 				<tr>
-					<td></td>					
+					<td></td>				
 					<td>${tmp.id }</td>
 					<td>${tmp.email }</td>
 					<td>${tmp.regdate }</td>
-					<td>${tmp.roll }</td>
+					<td>${tmp.rollName }</td>
 					<td></td>
 				</tr>
 			
