@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 SELECT * FROM TAB;
 =======
 CREATE TABLE T_Category(
@@ -79,4 +78,3 @@ CREATE TABLE T_Config(
         displayrow NUMBER DEFAULT 5,
         CONSTRAINT TConfig_displayrow_ck CHECK (displayrow > 0)
 );
->>>>>>> refs/remotes/origin/master
