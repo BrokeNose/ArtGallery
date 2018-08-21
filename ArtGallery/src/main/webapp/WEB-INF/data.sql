@@ -1,3 +1,15 @@
+--비밀번호 1234
+insert into t_user(id, pwd, email, roll, regdate)
+values('hyung', '$2a$10$ieO.RCUjTR0T.I6jBgMEzOM.Jo4XVH9WERybs9.hx2OCqW4LXoG72', '1@1.com', 'A', sysdate);
+insert into t_user(id, pwd, email, roll, regdate)
+values('nalara', '$2a$10$ieO.RCUjTR0T.I6jBgMEzOM.Jo4XVH9WERybs9.hx2OCqW4LXoG72', '1@1.com', 'A', sysdate);
+insert into t_user(id, pwd, email, roll, regdate)
+values('ths8976', '$2a$10$ieO.RCUjTR0T.I6jBgMEzOM.Jo4XVH9WERybs9.hx2OCqW4LXoG72', '1@1.com', 'A', sysdate);
+insert into t_user(id, pwd, email, roll, regdate)
+values('', '$2a$10$ieO.RCUjTR0T.I6jBgMEzOM.Jo4XVH9WERybs9.hx2OCqW4LXoG72', '1@1.com', 'A', sysdate);
+insert into t_user(id, pwd, email, roll, regdate)
+values('', '$2a$10$ieO.RCUjTR0T.I6jBgMEzOM.Jo4XVH9WERybs9.hx2OCqW4LXoG72', '1@1.com', 'A', sysdate);
+
 -- t_category
 
 insert into t_category(seq, code, name) values(1, 'P', '근대미술');
