@@ -83,6 +83,12 @@ public class CategoryDaoImpl implements CategoryDao{
 		
 	}
 
+	@Override
+	public void getCount(int count) {
+		session.selectList("category.getCount", count);
+		
+	}
+
 	
 	
 }

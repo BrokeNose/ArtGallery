@@ -17,4 +17,5 @@ public interface CategoryDao {
 	public void insertArtistPart(CategoryDto dto);
 	public void update(int seq);
 	public void delete(int seq);
+	public void getCount(int count);
 }
