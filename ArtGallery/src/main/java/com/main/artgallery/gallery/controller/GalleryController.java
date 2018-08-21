@@ -21,4 +21,5 @@ public class GalleryController {
 		mView.setViewName("redirect:/admin/admin_category.jsp");
 		return mView;
 	}
+	
 }

@@ -28,4 +28,8 @@ public class GalleryServiceImpl implements GalleryService {
 			mView.addObject("list",dao.PGetList());
 		}
 	}
+	
+	public void getWWW(HttpServletRequest request, ModelAndView mView) {
+		System.out.println("손대원");
+	}
 }
