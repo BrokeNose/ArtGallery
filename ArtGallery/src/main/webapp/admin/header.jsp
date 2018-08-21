@@ -28,14 +28,6 @@
       <!-- right menu //  -->
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></a></li>       
-        <li><a href="#">아티스트</a></li>
-        <li><a href="#">재료</a></li>
-        <li><a href="#">화파</a></li>
-        <li><a href="userlist.do">회원</a></li> 
-      </ul>
-      <!-- right menu //  -->
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="${pageContext.request.contextPath }/ "><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></a></li>       
       </ul>
       <!-- // right menu -->
     </div><!-- /.navbar-collapse -->

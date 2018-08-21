@@ -16,8 +16,8 @@ public class GalleryServiceImpl implements GalleryService {
 	@Override
 	public void getList(HttpServletRequest request,ModelAndView mView) {
 		String categoryType=(String)request.getParameter("categorytype");
-
 		if (categoryType==null) {
+		}else if(categoryType.equals("A")) {
 			mView.addObject("list",dao.AGetList());
 			mView.addObject("categoryType", "A");
 		}else if(categoryType.equals("A")) {

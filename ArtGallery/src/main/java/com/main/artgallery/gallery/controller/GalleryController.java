@@ -22,4 +22,5 @@ public class GalleryController {
 		System.out.println("11xxxxxxxxxxxxxxxxxxvvvvvvvvvvvv");
 		return mView;
 	}
+	
 }
