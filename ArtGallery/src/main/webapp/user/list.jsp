@@ -15,7 +15,7 @@
 	<h4><i class="fas fa-kiss-wink-heart"></i> 아티스트</h4>
   	<div class="row">	  	
 	  	<div class="col-md-3 col-sm-6 col-xs-6">
-	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>	  		
+	  		<a href="detail.jsp"><img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/></a>
 	  	</div>
 	  	<div class="col-md-3 col-sm-6 col-xs-6">
 	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
@@ -32,9 +32,6 @@
 </div>
 
 
-
-<script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
-<script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"  ></script>
-
+<jsp:include page="footer.jsp"/>
 </body>
 </html>
