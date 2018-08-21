@@ -53,8 +53,7 @@
 	<div class="table-responsive">
 	  <table class="table table-bordered">
 	  	<thead>
-	  		<tr>
-	  		
+	  		<tr>	  		
 	  			<td>#</td>
 	  			<td>아이디</td>
 	  			<td>이메일</td>
