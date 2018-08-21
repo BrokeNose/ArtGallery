@@ -44,7 +44,7 @@
 		   </div>
 		  </div>
 		  <div class="pull-right">
-		  	<!-- <button type="button" class="btn btn-primary">작품등록</button>-->
+		  		  	<!-- <button type="button" class="btn btn-primary">작품등록</button>-->
 		  </div>	  
 		</form>
 		
