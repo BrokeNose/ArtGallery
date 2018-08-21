@@ -1,5 +1,7 @@
 package com.main.artgallery.user.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,5 +80,12 @@ public class UserServiceImpl implements UserService {
 		dao.delete(id);
 		session.invalidate();
 		mView.addObject("msg", id+" 회원님 탈퇴됐습니다.");
+	}
+	
+	@Override
+	public void list(ModelAndView mView, UserDto dto) {
+		List<UserDto> list=dao.getList(dto);
+		mView.addObject("list", list);
+			
 	}
 }
