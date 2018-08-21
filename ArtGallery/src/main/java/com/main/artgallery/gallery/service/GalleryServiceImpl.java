@@ -29,9 +29,14 @@ public class GalleryServiceImpl implements GalleryService {
 		}
 	}
 
+
 	@Override
 	public void insert() {
 		// TODO Auto-generated method stub
-		
+	}	
+
+	
+	public void getWWW(HttpServletRequest request, ModelAndView mView) {
+		System.out.println("손대원");
 	}
 }
