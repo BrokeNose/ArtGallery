@@ -1,5 +1,8 @@
 package com.main.artgallery.art.dto;
-
+/*
+작성자 : Son
+비고   : 간단설명
+*/
 public class ArtDto {
 	private int seq;
 	private String title;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="artist">
+<mapper namespace="category">
 	<!-- 자주 사용하는 sql 문을 미리 정의해 놓기 -->
 	<sql id="categoryColumn">
 		seq, code, name, remark, imagePath, ddate
@@ -21,6 +21,11 @@
 		INSERT INTO T_Category(seq, code, name, remark, imagePath, bdate, ddate)
 		VALUES(TCategory_seq.NEXTVAL, 'P', #{name}, #{remark}, #{imagePath}, #{bdate} ,#{ddate})
 	</insert>
+	<insert id="insert" parameterType="category">
+		INSERT INTO T_Category(seq, code, name, remark, imagePath, bdate, ddate)
+		VALUES(TCategory_seq.NEXTVAL, #{code}, #{name}, #{remark}, #{imagePath}, #{bdate} ,#{ddate})
+	</insert>
+	
 	
 	<!-- 변경 -->
 	<update id="update" parameterType="category">
@@ -37,17 +42,17 @@
 		DELETE FROM T_Category WHERE seq=#{seq}
 	</delete>
 	
-	<select id="getDataArtist">
+	<select id="getDataArtist" parameterType="int">
 		SELECT <include refid="categoryColumn" />
 		  FROM T_Category
 		 WHERE code='A' AND num=#{num}
 	</select>
-	<select id="getDataMaterial">
+	<select id="getDataMaterial" parameterType="int">
 		SELECT <include refid="categoryColumn" />
 		  FROM T_Category
 		 WHERE code='M' AND num=#{num}
 	</select>
-	<select id="getDataArtistPart">
+	<select id="getDataArtistPart" parameterType="int">
 		SELECT <include refid="categoryColumn" />
 		  FROM T_Category
 		 WHERE code='P' AND num=#{num}

@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.main.artgallery.category.dto.CategoryDto;
-
+/*
+ * Son
+ * list 출력 dao 생성
+ */
 @Repository
 public class CategoryDaoImpl implements CategoryDao{
 	
@@ -15,21 +18,71 @@ public class CategoryDaoImpl implements CategoryDao{
 	private SqlSession session;
 
 	@Override
-	public List<CategoryDto> AGetList(CategoryDto Adto) {
-		List<CategoryDto> Alist=session.selectList("?",Adto);
-		return Alist;
+	public List<CategoryDto> AGetList() {
+		return session.selectList("category.getListArtist");
 	}
 
 	@Override
-	public List<CategoryDto> PGetList(CategoryDto Pdto) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<CategoryDto> PGetList() {
+		return session.selectList("category.getListArtistPart");
 	}
 
 	@Override
-	public List<CategoryDto> MGetList(CategoryDto Mdto) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<CategoryDto> MGetList() {
+		return session.selectList("category.getListMaterial");
 	}
 
+	@Override
+	public CategoryDto getDataArtist(int seq) {
+		return session.selectOne("category.getDataArtist",seq);
+	}
+
+	@Override
+	public CategoryDto getDataMaterial(int seq) {
+		return session.selectOne("category.getDataMaterial",seq);
+	}
+
+	@Override
+	public CategoryDto getDataArtistPart(int seq) {
+		return session.selectOne("category.getDataArtistPart",seq);
+	}
+
+	@Override
+	public void insert(CategoryDto dto) {
+		session.insert("category.insert",dto);
+		
+	}
+
+	@Override
+	public void insertArtist(CategoryDto dto) {
+		session.insert("category.insertArtist",dto);
+		
+	}
+
+	@Override
+	public void insertMaterial(CategoryDto dto) {
+		session.insert("category.insertMaterial",dto);
+		
+	}
+
+	@Override
+	public void insertArtistPart(CategoryDto dto) {
+		session.insert("category.insertArtistPart",dto);
+		
+	}
+
+	@Override
+	public void update(int seq) {
+		session.update("category.update",seq);
+		
+	}
+
+	@Override
+	public void delete(int seq) {
+		session.delete("category.delete",seq);
+		
+	}
+
+	
+	
 }
