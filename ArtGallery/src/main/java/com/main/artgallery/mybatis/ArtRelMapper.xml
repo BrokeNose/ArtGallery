@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="adminArtRel">
+<mapper namespace="artRel">
 <!-- 작성자 : hyung -->
 	<select id="getList" parameterType="artRelDto" resultType="artRelDto">
 		SELECT a.aseq, a.cseq, b.code, b.name, a.sortseq,

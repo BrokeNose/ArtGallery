@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="adminArt">
+<mapper namespace="art">
 <!-- 작성자 : hyung -->
 	<!-- column01 - remark(CLOB)는 빠져있음. -->
 	<sql id="column01">
