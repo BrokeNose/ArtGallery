@@ -18,7 +18,8 @@ public class GalleryController {
 	@RequestMapping("/admin/adminCategory")
 	public ModelAndView AdminCategory(HttpServletRequest request, ModelAndView mView) {
 		galleryService.getList(request, mView);
-		mView.setViewName("redirect:/admin/admin_category.jsp");
+		mView.setViewName("admin/admin_category");
+		System.out.println("11xxxxxxxxxxxxxxxxxxvvvvvvvvvvvv");
 		return mView;
 	}
 }

@@ -11,7 +11,7 @@ public class HomeController {
 //	public String home(HttpServletRequest request) {
 //		String rPath = request.getSession().getServletContext().getRealPath("/upload");
 //		System.out.println(rPath);
-	public String home() {	
+	public String home(HttpServletRequest request) {	
 		return "home";
 	}
 }

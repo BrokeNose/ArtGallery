@@ -49,22 +49,25 @@
 			</form>
 	  </div><!-- /panel-body -->
 	</div><!-- /panel -->
+	
+	categoryType : ${PcategoryType }
+	
 	<div class="table-responsive">
 	  <table class="table table-bordered">
 	  	<thead>
 	  		<tr>
 	  			<c:choose>
-	  				<c:when test="${list.code eq 'A' }">
+	  				<c:when test="${categoryType eq 'A' }">
 			  			<td>#</td>
 			  			<td>작가명</td>
 			  			<td>출생일</td>
 			  			<td>사망일</td>
 		  			</c:when>
-		  			<c:when test="${list.code eq 'P' }">
+		  			<c:when test="${categoryType eq 'P' }">
 			  			<td>#</td>
 			  			<td>화파</td>
 		  			</c:when>
-		  			<c:when test="${list.code eq 'M' }">
+		  			<c:when test="${categoryType eq 'M' }">
 			  			<td>#</td>
 			  			<td>재료</td>
 		  			</c:when>
@@ -76,15 +79,15 @@
 	  		<c:forEach var="dto" items="${list }">
 		  		<tr>
 		  			<c:choose>
-		  				<c:when test="${list.code eq 'A' }">
-				  			<td>${list.seq }</td>
-				  			<td>${list.name }</td>
-				  			<td>${list.bdate }</td>
-				  			<td>${list.ddate }</td>
+		  				<c:when test="${categoryType eq 'A' }">
+				  			<td>${dto.seq }</td>
+				  			<td>${dto.name }</td>
+				  			<td>${dto.bdate }</td>
+				  			<td>${dto.ddate }</td>
 			  			</c:when>
 			  			<c:otherwise>
-				  			<td>${list.seq }</td>
-				  			<td>${list.name }</td>
+				  			<td>${dto.seq }</td>
+				  			<td>${dto.name }</td>
 			  			</c:otherwise>
 			  		</c:choose>
 		  		</tr>
