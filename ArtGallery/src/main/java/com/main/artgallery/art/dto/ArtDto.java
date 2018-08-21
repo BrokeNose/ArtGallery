@@ -12,9 +12,22 @@ public class ArtDto {
 	private String imagepath;
 	private int viewcount;
 	private String regdate;
+	
+	//view 추가 항목 (v_art)
 	private String artist;
     private String painter;
     private String material;
+	
+    //t_cateogry 항목
+    private int cseq;
+    private String code;	//A, P, M
+    private String name;
+    
+    //페이징관련
+    private int startRowNum;
+	private int endRowNum;
+	private int prevNum; //이전글의 글번호
+	private int nextNum; //다음글의 글번호
 	
 	public ArtDto() {}
 
