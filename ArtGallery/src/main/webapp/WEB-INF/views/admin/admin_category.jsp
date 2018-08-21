@@ -50,7 +50,7 @@
 	  </div><!-- /panel-body -->
 	</div><!-- /panel -->
 	
-	categoryType : ${PcategoryType }
+	categoryType : ${categoryType }
 	
 	<div class="table-responsive">
 	  <table class="table table-bordered">

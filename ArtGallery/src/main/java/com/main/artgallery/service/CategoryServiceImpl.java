@@ -18,14 +18,17 @@ public class CategoryServiceImpl implements CategoryService {
 		String categoryType=(String)request.getParameter("categorytype");
 		
 		if (categoryType==null) {
-			
+			mView.addObject("list",dao.AGetList());
+			mView.addObject("categoryType", "A");
 		}else if(categoryType.equals("A")) {
 			mView.addObject("list",dao.AGetList());
-			
+			mView.addObject("categoryType", "A");
 		}else if(categoryType.equals("M")) {
 			mView.addObject("list",dao.MGetList());
+			mView.addObject("categoryType", "M");
 		}else if(categoryType.equals("P")) {
 			mView.addObject("list",dao.PGetList());
+			mView.addObject("categoryType", "P");
 		}
 	}
 
