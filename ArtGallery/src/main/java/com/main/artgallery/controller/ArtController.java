@@ -13,10 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.main.artgallery.art.dto.ArtDto;
 import com.main.artgallery.service.ArtService;
 
-/*
- * 작성자 : hyung
- * 비고 : 
- */
 
 @Controller
 public class ArtController {
@@ -37,8 +33,7 @@ public class ArtController {
 	 * ----------------------------------------------------------------------------
 	 * 관리자 서비스 영역 시작
 	 * ----------------------------------------------------------------------------
-	 */
-	
+	 */	
 	// 임시 로그인 처리
 	@RequestMapping("/loginAuto")
 	public String loginAuto(HttpSession session, @RequestParam String id) {

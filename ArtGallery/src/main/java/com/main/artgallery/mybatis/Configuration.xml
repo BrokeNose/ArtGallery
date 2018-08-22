@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.main.artgallery.category.dto.CategoryDto" alias="category"/>
 		<typeAlias type="com.main.artgallery.user.dto.UserDto" alias="userDto"/>
 		<typeAlias type="com.main.artgallery.art.dto.ArtDto" alias="artDto"/>
-		<typeAlias type="com.main.artgallery.artrel.dto.ArtRelDto" alias="artRelDto"/>
+		<typeAlias type="com.main.artgallery.art.dto.ArtRelDto" alias="artRelDto"/>
 	</typeAliases>	
 	<mappers>
 		<mapper resource="com/main/artgallery/mybatis/CategoryMapper.xml"/>

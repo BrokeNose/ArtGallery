@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.main.artgallery.art.dao.ArtDao;
-import com.main.artgallery.art.dao.ArtRelDao;
 import com.main.artgallery.art.dto.ArtDto;
+import com.main.artgallery.art.dao.ArtRelDao;
 import com.main.artgallery.art.dto.ArtRelDto;
 
 /*
