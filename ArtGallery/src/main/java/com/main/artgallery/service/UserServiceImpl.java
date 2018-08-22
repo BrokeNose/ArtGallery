@@ -1,4 +1,4 @@
-package com.main.artgallery.user.service;
+package com.main.artgallery.service;
 
 import java.util.List;
 

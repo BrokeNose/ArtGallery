@@ -1,12 +1,12 @@
-package com.main.artgallery.user.controller;
+package com.main.artgallery.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.main.artgallery.service.UserService;
 import com.main.artgallery.user.dto.UserDto;
-import com.main.artgallery.user.service.UserService;
 
 @Controller
 public class UserController {
