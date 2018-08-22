@@ -42,7 +42,7 @@ public class AdminAuthAspect {
 					mView.setViewName("redirect:/user/signin_form.do?url="+url);
 					// Spring Framework 에 ModelAndView 객체를 바로 리턴
 					return mView;
-				} else if(!id.equals(null)&&roll=='U') {
+				} else if(id!=null&&roll=='U') {
 					//throws new ForbiddenException();
 				}
 			}

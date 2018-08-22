@@ -2,6 +2,7 @@ package com.main.artgallery.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,22 @@ import com.main.artgallery.user.dto.UserDto;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao dao;
+	@Override
+	public void getList(HttpServletRequest request, ModelAndView mView, UserDto dto) {
+		String keyword=request.getParameter("keyword");
+		String condition=request.getParameter("condition");
+		if(keyword!=null) {
+			if(condition.equals("id")) {
+				dto.setId(keyword);
+			} else if(condition.equals("email")) {
+				dto.setEmail(keyword);
+			}
+			mView.addObject("keyword", keyword);
+			mView.addObject("condition", condition);
+		}
+		List<UserDto> list=dao.getList(dto);
+		mView.addObject("list", list);
+	}
 	@Override
 	public boolean canUseId(String id) {
 		return dao.canUseId(id);
@@ -75,17 +92,15 @@ public class UserServiceImpl implements UserService {
 		dao.changePwd(dto);
 	}
 	@Override
-	public void delete(ModelAndView mView, HttpSession session) {
+	public void leave(ModelAndView mView, HttpSession session) {
 		String id=(String)session.getAttribute("id");
-		dao.delete(id);
+		dao.leave(id);
 		session.invalidate();
 		mView.addObject("msg", id+" 회원님 탈퇴됐습니다.");
 	}
-	
 	@Override
-	public void list(ModelAndView mView, UserDto dto) {
-		List<UserDto> list=dao.getList(dto);
-		mView.addObject("list", list);
-			
+	public void delete(ModelAndView mView, HttpSession session) {
+		String id=(String)session.getAttribute("id");
+		dao.delete(id);
 	}
 }

@@ -13,6 +13,11 @@
 			</if>
 		</where>
 	</select>
+	<select id="isExist" parameterType="string" resultType="string">
+		SELECT id 
+		FROM T_User 
+		WHERE id=#{id}
+	</select>
 	<insert id="insert" parameterType="userDto">
   		INSERT INTO T_User 
 		(id, pwd, email, roll, regdate) 
@@ -28,19 +33,18 @@
 		SET email=#{email}, roll=#{roll}
 		WHERE id=#{id}
 	</update>
-  <update id="changePwd" parameterType="userDto">
-  	UPDATE T_User 
-  	SET pwd=#{pwd} 
-  	WHERE id=#{id}
-  </update>
-  <delete id="delete" parameterType="string">
-  	UPDATE T_User
-  	SET deldate=SYSDATE
-  	WHERE id=#{id}
-  </delete>
-  <select id="isExist" parameterType="string" resultType="string">
-  	SELECT id 
-  	FROM T_User 
-  	WHERE id=#{id}
-  </select>
+	<update id="changePwd" parameterType="userDto">
+		UPDATE T_User 
+		SET pwd=#{pwd} 
+		WHERE id=#{id}
+	</update>
+	<update id="leave" parameterType="string">
+		UPDATE T_User
+		SET deldate=SYSDATE
+		WHERE id=#{id}
+	</update>
+	<delete id="delete" parameterType="string">
+		DELETE FROM T_User
+		WHERE id=#{id}
+	</delete>
 </mapper>
