@@ -134,8 +134,7 @@ public class ArtServiceImpl implements ArtService {
 
 	@Override
 	public int getSequence() {
-		// TODO Auto-generated method stub
-		return 0;
+		return artDao.getSequence();
 	}
 	
 	
