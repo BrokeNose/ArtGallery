@@ -26,15 +26,22 @@ public class ArtDto {
     //페이징관련
     private int startRowNum;
 	private int endRowNum;
-	private int prevNum; //이전글의 글번호
-	private int nextNum; //다음글의 글번호
-	private int sortField;	// 목록 소트 구분자
+	private int prevNum; 	//이전글의 글번호
+	private int nextNum; 	//다음글의 글번호
+	private int sortField;	//목록 소트 구분자
+	
+	// 검색, 페이징 관련
+	private String searchKeyword;	 // 검색어
+	private String searchCondition;  // 항목
+	private int pageNum;			 // 조회페이지
 	
 	public ArtDto() {}
 
 	public ArtDto(int seq, String title, String createyear, String artsize, String remark, String imagepath,
 			int viewcount, String regdate, String artist, String painter, String material, int cseq, String code,
-			String name, int startRowNum, int endRowNum, int prevNum, int nextNum, int sortField) {
+			String name, int startRowNum, int endRowNum, int prevNum, int nextNum, int sortField, String searchKeyword,
+			String searchCondition, int pageNum) {
+		super();
 		this.seq = seq;
 		this.title = title;
 		this.createyear = createyear;
@@ -54,6 +61,9 @@ public class ArtDto {
 		this.prevNum = prevNum;
 		this.nextNum = nextNum;
 		this.sortField = sortField;
+		this.searchKeyword = searchKeyword;
+		this.searchCondition = searchCondition;
+		this.pageNum = pageNum;
 	}
 
 	public int getSeq() {
@@ -206,6 +216,30 @@ public class ArtDto {
 
 	public void setSortField(int sortField) {
 		this.sortField = sortField;
+	}
+
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+
+	public String getSearchCondition() {
+		return searchCondition;
+	}
+
+	public void setSearchCondition(String searchCondition) {
+		this.searchCondition = searchCondition;
+	}
+
+	public int getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
 	}
 
 }
