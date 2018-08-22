@@ -9,6 +9,6 @@
 </head>
 <body>
 <h3>인덱스 페이지 입니다.</h3>
-<a href="admin/home.do">Admin</a>
+<a href="${pageContext.request.contextPath }/admin">Admin</a>
 </body>
 </html>

@@ -14,6 +14,7 @@ public class HomeController {
 //	public String home() {	
 		return "home";
 	}
+	
 	@RequestMapping("/admin/home.do")
 	public String adminHome(HttpServletRequest request) {
 		return "redirect:/admin/art/list.do";

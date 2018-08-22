@@ -29,6 +29,7 @@ public class ArtDto {
 	private int prevNum; 	//이전글의 글번호
 	private int nextNum; 	//다음글의 글번호
 	private int sortField;	//목록 소트 구분자
+	private int rnum;		//oracle rownum
 	
 	// 검색, 페이징 관련
 	private String searchKeyword;	 // 검색어
@@ -39,8 +40,8 @@ public class ArtDto {
 
 	public ArtDto(int seq, String title, String createyear, String artsize, String remark, String imagepath,
 			int viewcount, String regdate, String artist, String painter, String material, int cseq, String code,
-			String name, int startRowNum, int endRowNum, int prevNum, int nextNum, int sortField, String searchKeyword,
-			String searchCondition, int pageNum) {
+			String name, int startRowNum, int endRowNum, int prevNum, int nextNum, int sortField, int rnum,
+			String searchKeyword, String searchCondition, int pageNum) {
 		super();
 		this.seq = seq;
 		this.title = title;
@@ -61,6 +62,7 @@ public class ArtDto {
 		this.prevNum = prevNum;
 		this.nextNum = nextNum;
 		this.sortField = sortField;
+		this.rnum = rnum;
 		this.searchKeyword = searchKeyword;
 		this.searchCondition = searchCondition;
 		this.pageNum = pageNum;
@@ -216,6 +218,14 @@ public class ArtDto {
 
 	public void setSortField(int sortField) {
 		this.sortField = sortField;
+	}
+
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 
 	public String getSearchKeyword() {

@@ -11,25 +11,30 @@
 		artist, painter, material
 	</sql>
 	<!--  dynamic query  -->
+	<sql id="keywordWhere">
+		<trim prefix="" prefixOverrides="AND |OR ">
+			<if test="artist != null">
+				OR UPPER(artist) LIKE '%'||UPPER(#{artist})||'%'
+			</if>
+			<if test="painter != null">
+				OR UPPER(painter) LIKE '%'||UPPER(#{painter})||'%'
+			</if>
+			<if test="material != null">
+				OR UPPER(material) LIKE '%'||UPPER(#{material})||'%'
+			</if>		
+			<if test="title != null">
+				OR UPPER(title) LIKE '%'||UPPER(#{title})||'%'
+			</if>
+			<if test="remark != null">
+				OR UPPER(remark) LIKE '%'||UPPER(#{remark})||'%'
+			</if>
+		</trim>
+	</sql>
 	<sql id="artWhere">
-		<where>
-			<if test="searchKeyword != null">
+		<where>		
+			<if test="searchKeyword != null and searchKeyword != ''">
 			(
-				<if test="artist != null">
-					OR artist LIKE '%'||#{artist}||'%'
-				</if>
-				<if test="painter != null">
-					OR painter LIKE '%'||#{painter}||'%'
-				</if>
-				<if test="material != null">
-					OR material LIKE '%'||#{material}||'%'
-				</if>		
-				<if test="title != null">
-					OR title LIKE '%'||#{title}||'%'
-				</if>
-				<if test="remark != null">
-					OR remark LIKE '%'||#{remark}||'%'
-				</if>				
+			<include refid="keywordWhere"/>								
 			)	
 			</if>			
 			<if test="cseq != 0">
