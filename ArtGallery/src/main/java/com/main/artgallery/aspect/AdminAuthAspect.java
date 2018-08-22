@@ -12,7 +12,7 @@ import com.main.artgallery.user.dto.UserDto;
 @Aspect
 @Component
 public class AdminAuthAspect {
-	@Around("execution(org.springframework.web.servlet.ModelAndView adminAuth*(..))")
+	@Around("execution(org.springframework.web.servlet.ModelAndView admin*(..))")
 	public Object signinCheck(ProceedingJoinPoint joinPoint) throws Throwable {
 		//AOP 가 적용된 메소드에 전달된 인자 얻어오기
 		Object[] args=joinPoint.getArgs();
@@ -24,6 +24,8 @@ public class AdminAuthAspect {
 				HttpServletRequest request=(HttpServletRequest)tmp;
 				//로그인 정보가 있는지 확인
 				String id=(String)request.getSession().getAttribute("id");
+				//관리자 권한 있는지 확인
+				char roll=(char)request.getSession().getAttribute("roll");
 				if(id==null) {
 					//로그인 정보가 없다면 여기가 수행된다.
 					ModelAndView mView=new ModelAndView();
@@ -40,12 +42,8 @@ public class AdminAuthAspect {
 					mView.setViewName("redirect:/user/signin_form.do?url="+url);
 					// Spring Framework 에 ModelAndView 객체를 바로 리턴
 					return mView;
-				}
-			} else if(tmp instanceof UserDto) {
-				UserDto dto=(UserDto)tmp;
-				char roll=(char)dto.getRoll();
-				if(roll=='U') {
-					throw new Exception();
+				} else if(!id.equals(null)&&roll=='U') {
+					//throws new ForbiddenException();
 				}
 			}
 		}
