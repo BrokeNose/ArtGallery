@@ -18,7 +18,7 @@ public class UserDaoImpl implements UserDao {
 	}
 	@Override
 	public void insert(UserDto dto) {
-		session.insert("user.insert");
+		session.insert("user.insert", dto);
 	}
 	@Override
 	public UserDto getData(String id) {
