@@ -13,7 +13,7 @@ public interface ArtDao {
 	public List<ArtDto> getList(ArtDto dto);
 	public int getCount(ArtDto dto);
 	public void insert(ArtDto dto);
-	public ArtDto getData(int seq);
+	public ArtDto getData(ArtDto dto);
 	public void update(ArtDto dto);
 	public void delete(int seq);
 	public int getSequence();	// sequence값 가져오기

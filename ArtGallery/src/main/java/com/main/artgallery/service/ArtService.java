@@ -9,7 +9,7 @@ public interface ArtService {
 	//-------- hyung ----------------------
 	
 	public void getList(ModelAndView mView, ArtDto dto);
-	public void getData(ModelAndView mView, int seq);
+	public void getData(ModelAndView mView, ArtDto dto);
 	public void insert(ArtDto dto);
 	public void update(ArtDto dto);
 	public void delete(int seq);

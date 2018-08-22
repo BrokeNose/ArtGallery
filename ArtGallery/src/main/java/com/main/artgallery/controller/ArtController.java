@@ -64,4 +64,11 @@ public class ArtController {
 		aService.insert(dto);
 		return new ModelAndView("redirect:/admin/art/list");
 	}
+	//관리자 작품 수정화면
+	@RequestMapping("/admin/art/updateform.do")
+	public ModelAndView adminArtUpdateform(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
+		aService.getData(mView, dto);
+		mView.setViewName("admin/art/updateform");
+		return mView;
+	}
 }

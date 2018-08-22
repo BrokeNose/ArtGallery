@@ -28,7 +28,7 @@ public class ArtDto {
 	private int endRowNum;
 	private int prevNum; 	//이전글의 글번호
 	private int nextNum; 	//다음글의 글번호
-	private int sortField;	//목록 소트 구분자
+	private String sortField;	//목록 소트 구분자
 	private int rnum;		//oracle rownum
 	
 	// 검색, 페이징 관련
@@ -40,7 +40,7 @@ public class ArtDto {
 
 	public ArtDto(int seq, String title, String createyear, String artsize, String remark, String imagepath,
 			int viewcount, String regdate, String artist, String painter, String material, int cseq, String code,
-			String name, int startRowNum, int endRowNum, int prevNum, int nextNum, int sortField, int rnum,
+			String name, int startRowNum, int endRowNum, int prevNum, int nextNum, String sortField, int rnum,
 			String searchKeyword, String searchCondition, int pageNum) {
 		super();
 		this.seq = seq;
@@ -212,11 +212,11 @@ public class ArtDto {
 		this.nextNum = nextNum;
 	}
 
-	public int getSortField() {
+	public String getSortField() {
 		return sortField;
 	}
 
-	public void setSortField(int sortField) {
+	public void setSortField(String sortField) {
 		this.sortField = sortField;
 	}
 

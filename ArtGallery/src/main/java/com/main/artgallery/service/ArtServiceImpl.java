@@ -110,13 +110,13 @@ public class ArtServiceImpl implements ArtService {
 	}
 
 	@Override
-	public void getData(ModelAndView mView, int seq) {
+	public void getData(ModelAndView mView, ArtDto dto) {
 		//작품정보 가져오기
-		ArtDto dto=artDao.getData(seq);
+		ArtDto resultDto=artDao.getData(dto);
 		
 		//연계정보 가져오기
 		ArtRelDto relDto=new ArtRelDto();
-		relDto.setAseq(seq);
+		relDto.setAseq(dto.getSeq());
 		
 		relDto.setCode("A");;
 		List<ArtRelDto> aList=artRelDao.getList(relDto);
@@ -128,7 +128,7 @@ public class ArtServiceImpl implements ArtService {
 		List<ArtRelDto> pList=artRelDao.getList(relDto);
 		
 		// request에 담기
-		mView.addObject("dto", dto);		// 작품 정보
+		mView.addObject("dto", resultDto);		// 작품 정보
 		mView.addObject("aList", aList);	// 아티스트 연계
 		mView.addObject("mList", mList);	// 재료 연계
 		mView.addObject("pList", pList);	// 화파 연계

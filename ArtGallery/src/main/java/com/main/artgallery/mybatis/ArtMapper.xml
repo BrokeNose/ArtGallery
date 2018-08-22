@@ -44,13 +44,13 @@
 	</sql>
 	<sql id="artSort">		
 		<choose>
-			<when test="sortField == 1">
-				ORDER BY title ASC, seq DESC
-			</when>
-			<when test="sortField == 2">
+			<when test="sortField == null or sortfield == '' or sortField == '1'">
 				ORDER BY regdate DESC, seq DESC
 			</when>
-			<when test="sortField == 3">
+			<when test="sortField == '2'">
+				ORDER BY title ASC, seq DESC
+			</when>
+			<when test="sortField == '3'">
 				ORDER BY viewcount DESC, title ASC
 			</when>
 			<otherwise>
@@ -75,14 +75,17 @@
 		<include refid="artWhere"/>		
 	</select>
 	<select id="getData" parameterType="artDto" resultType="artDto">
-		SELECT result1.*
-		FROM (	SELECT <include refid="artColumn"/>, remark, 
+		SELECT result2.*, ( select remark from t_art where seq=#{seq}) AS remark
+		FROM   (
+				SELECT result1.*, 
 					   LAG(seq,1,0) OVER (<include refid="artSort"/>) AS prevNum,
 					   LEAD(seq,1,0) OVER (<include refid="artSort"/>) AS nextNum
-				FROM   v_art
-				<include refid="artWhere"/>
-				<include refid="artSort"/>
-			 ) result1
+				FROM (	SELECT DISTINCT <include refid="artColumn"/>
+						FROM   v_art
+						<include refid="artWhere"/>
+						<include refid="artSort"/>
+					 ) result1
+				) result2
 		WHERE  seq=#{seq}
 	</select>
 	<select id="getSequence" resultType="int">

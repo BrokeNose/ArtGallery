@@ -34,8 +34,8 @@ public class ArtDaoImpl implements ArtDao {
 	}
 
 	@Override
-	public ArtDto getData(int seq) {
-		return session.selectOne("art.getData", seq);
+	public ArtDto getData(ArtDto dto) {
+		return session.selectOne("art.getData", dto);
 	}
 
 	@Override
