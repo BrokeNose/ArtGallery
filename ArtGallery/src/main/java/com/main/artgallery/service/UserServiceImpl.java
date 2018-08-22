@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean canUseId(String id) {
 		return dao.canUseId(id);
-	}
+	}	
 	@Override
 	public void signUp(ModelAndView mView, UserDto dto) {
 		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();

@@ -2,13 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
 	<select id="getList" resultType="userDto">
-		SELECT id,email, roll, regdate, deldate
-		FROM T_User	
+		SELECT id, email, roll, regdate, deldate
+		FROM T_User
+		<where>
+			<if test="id !=null">
+				OR id LIKE '%'||#{id}||'%'
+			</if>
+			<if test="email !=null">
+				OR email LIKE '%'||#{email}||'%'
+			</if>
+		</where>
 	</select>
 	<insert id="insert" parameterType="userDto">
   		INSERT INTO T_User 
-		(id, pwd, email, roll, regdate, deldate) 
-		VALUES(#{id}, #{pwd}, #{email}, 'U', SYSDATE, NULL)
+		(id, pwd, email, roll, regdate) 
+		VALUES(#{id}, #{pwd}, #{email}, #{roll}, SYSDATE)
 	</insert>
 	<select id="getData" parameterType="string" resultType="userDto">
 		SELECT id, pwd, email, roll, regdate, deldate 

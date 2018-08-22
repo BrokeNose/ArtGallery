@@ -5,7 +5,6 @@ insert into t_user(id, pwd, email, roll, regdate)
 values('nalara', '$2a$10$ieO.RCUjTR0T.I6jBgMEzOM.Jo4XVH9WERybs9.hx2OCqW4LXoG72', '1@1.com', 'A', sysdate);
 insert into t_user(id, pwd, email, roll, regdate)
 values('ths8976', '$2a$10$ieO.RCUjTR0T.I6jBgMEzOM.Jo4XVH9WERybs9.hx2OCqW4LXoG72', '1@1.com', 'A', sysdate);
-insert into t_user(id, pwd, email, roll, regdate)
 
 
 -- t_category

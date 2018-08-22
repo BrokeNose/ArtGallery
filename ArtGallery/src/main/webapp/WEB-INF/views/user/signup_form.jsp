@@ -18,26 +18,31 @@
 		  	 <div class="form-group">
 			    <label for="id" class="col-sm-2 control-label">아이디</label>
 			    <div class="col-sm-9">
-			      <input type="text" class="form-control" name="id" id="id" placeholder="Id">
+			      <input type="text" class="form-control" name="id" id="id" placeholder="Id"/>
 			      <span id="checkResult"></span>
 			    </div>
 			  </div>
 		  <div class="form-group">
 		    <label for="email" class="col-sm-2 control-label">이메일</label>
 		    <div class="col-sm-9">
-		      <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+		      <input type="email" class="form-control" name="email" id="email" placeholder="Email"/>
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="inputPassword1" class="col-sm-2 control-label">비밀번호</label>
 		    <div class="col-sm-9">
-		      <input type="password" class="form-control" name="pwd" id="inputPassword1" placeholder="Password">
+		      <input type="password" class="form-control" name="pwd" id="inputPassword1" placeholder="Password"/>
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="inputPassword2" class="col-sm-2 control-label">비밀번호 확인</label>
 		    <div class="col-sm-9">
-		      <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+		      <input type="password" class="form-control" id="inputPassword2" placeholder="Password"/>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <div class="col-sm-9">
+		      <input type="hidden" class="form-control" name="roll" id="roll" value="U"/>
 		    </div>
 		  </div>
 		  
