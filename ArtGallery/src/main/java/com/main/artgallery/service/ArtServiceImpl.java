@@ -7,8 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.main.artgallery.art.dao.ArtDao;
+import com.main.artgallery.art.dao.ArtRelDao;
 import com.main.artgallery.art.dto.ArtDto;
-import com.main.artgallery.artrel.dao.ArtRelDao;
+import com.main.artgallery.art.dto.ArtRelDto;
 
 /*
  * 작성자 : hyung
@@ -110,25 +111,86 @@ public class ArtServiceImpl implements ArtService {
 
 	@Override
 	public void getData(ModelAndView mView, int seq) {
-		// TODO Auto-generated method stub
+		//작품정보 가져오기
+		ArtDto dto=artDao.getData(seq);
+		
+		//연계정보 가져오기
+		ArtRelDto relDto=new ArtRelDto();
+		relDto.setAseq(seq);
+		
+		relDto.setCode("A");;
+		List<ArtRelDto> aList=artRelDao.getList(relDto);
+		
+		relDto.setCode("M");;
+		List<ArtRelDto> mList=artRelDao.getList(relDto);
+
+		relDto.setCode("P");;
+		List<ArtRelDto> pList=artRelDao.getList(relDto);
+		
+		// request에 담기
+		mView.addObject("dto", dto);		// 작품 정보
+		mView.addObject("aList", aList);	// 아티스트 연계
+		mView.addObject("mList", mList);	// 재료 연계
+		mView.addObject("pList", pList);	// 화파 연계
 		
 	}
 
 	@Override
-	public void insert(ModelAndView mView, ArtDto dto) {
-		// TODO Auto-generated method stub
+	public void insert(ArtDto dto) {
+		//sequence 가져와서 t_art 작품정보 등록하기
+		int seq=getSequence();
+		dto.setSeq(seq);
+		artDao.insert(dto);
 		
+		//파일 등록 처리
+		
+		
+		//아티스트 연계 자료 처리
+		if ( dto.getArtist() != null && !dto.getArtist().equals("")) {
+			insertRel(dto.getSeq(), dto.getArtist());
+		}
+		//재료 연계 자료 처리
+		if ( dto.getMaterial() != null && !dto.getMaterial().equals("")) {
+			insertRel(dto.getSeq(), dto.getMaterial());
+		}
+		//화파 연계 자료 처리
+		if ( dto.getPainter() != null && !dto.getPainter().equals("")) {
+			insertRel(dto.getSeq(), dto.getPainter());
+		}
 	}
 
 	@Override
-	public void update(ModelAndView mView, ArtDto dto) {
-		// TODO Auto-generated method stub
+	public void update(ArtDto dto) {
+		//파일 구현
 		
+		//작품 정보 수정
+		artDao.update(dto);
+		
+		//아티스트 연계 자료 처리
+		if ( dto.getArtist() != null && !dto.getArtist().equals("")) {
+			insertRel(dto.getSeq(), dto.getArtist());
+		}
+		
+		//기존 자료 삭제
+		artRelDao.delete(dto.getSeq());
+
+		//재료 연계 자료 처리
+		if ( dto.getMaterial() != null && !dto.getMaterial().equals("")) {
+			insertRel(dto.getSeq(), dto.getMaterial());
+		}
+		//화파 연계 자료 처리
+		if ( dto.getPainter() != null && !dto.getPainter().equals("")) {
+			insertRel(dto.getSeq(), dto.getPainter());
+		}
 	}
 
 	@Override
-	public void delete(ModelAndView mView, int seq) {
-		// TODO Auto-generated method stub
+	public void delete(int seq) {
+		// 파일삭제
+		
+		artDao.delete(seq);
+		artRelDao.delete(seq);
+		//artCommentDao.delete(seq); // 댓글정보 삭제 - 구현해야함
 		
 	}
 
@@ -137,6 +199,18 @@ public class ArtServiceImpl implements ArtService {
 		return artDao.getSequence();
 	}
 	
-	
-	
+	// 연계자료  문자열 분리해서 연계정보에 insert하기
+	@Override
+	public void insertRel(int seq, String relData) {
+		ArtRelDto dto=new ArtRelDto();
+		dto.setAseq(seq);
+		String[] arr=relData.split(",");
+		for(int i=0; i<arr.length; i++) {
+			String cSeqTmp=arr[i].trim();
+			int cSeq=Integer.parseInt(cSeqTmp);
+			dto.setCseq(cSeq);
+			dto.setSortseq(i+1);
+			artRelDao.insert(dto);
+		}
+	}	
 }

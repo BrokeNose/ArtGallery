@@ -10,10 +10,10 @@
 		FROM   t_artrel a, t_category b
 		WHERE a.cseq=b.seq
 		<where>		
-			<if test="aseq != null">
+			<if test="aseq != 0">
 				and aseq = #{aseq}
 			</if>
-			<if test="cseq != null">
+			<if test="cseq != 0">
 				and cseq = #{cseq}
 			</if>
 			<if test="code != null">

@@ -1,4 +1,4 @@
-package com.main.artgallery.artrel.dto;
+package com.main.artgallery.art.dto;
 /*
  * 작성자 : Son
  * 수정자 : hyung

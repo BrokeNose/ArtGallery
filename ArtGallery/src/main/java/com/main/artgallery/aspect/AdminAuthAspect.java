@@ -25,7 +25,7 @@ public class AdminAuthAspect {
 				//로그인 정보가 있는지 확인
 				String id=(String)request.getSession().getAttribute("id");
 				//관리자 권한 있는지 확인
-				char roll=(char)request.getSession().getAttribute("roll");
+				String roll=(String)request.getSession().getAttribute("roll");
 				if(id==null) {
 					//로그인 정보가 없다면 여기가 수행된다.
 					ModelAndView mView=new ModelAndView();
@@ -42,7 +42,7 @@ public class AdminAuthAspect {
 					mView.setViewName("redirect:/user/signin_form.do?url="+url);
 					// Spring Framework 에 ModelAndView 객체를 바로 리턴
 					return mView;
-				} else if(id!=null&&roll=='U') {
+				} else if(id!=null&&!roll.equals("A")) {
 					//throws new ForbiddenException();
 				}
 			}

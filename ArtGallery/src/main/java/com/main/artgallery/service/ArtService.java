@@ -13,8 +13,9 @@ public interface ArtService {
 
 	public void getList(ModelAndView mView, ArtDto dto);
 	public void getData(ModelAndView mView, int seq);
-	public void insert(ModelAndView mView, ArtDto dto);
-	public void update(ModelAndView mView, ArtDto dto);
-	public void delete(ModelAndView mView, int seq);
-	public int  getSequence();			// sequence값 가져오기
+	public void insert(ArtDto dto);
+	public void update(ArtDto dto);
+	public void delete(int seq);
+	public int  getSequence();				// sequence값 가져오기
+	public void insertRel(int seq, String relData);	// 연계 텍스트 자료 분리해서 insert 하기
 }

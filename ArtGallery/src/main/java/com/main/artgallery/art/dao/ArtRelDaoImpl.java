@@ -1,4 +1,4 @@
-package com.main.artgallery.artrel.dao;
+package com.main.artgallery.art.dao;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.main.artgallery.artrel.dto.ArtRelDto;
+import com.main.artgallery.art.dto.ArtRelDto;
 
 /*
  * 작성자 : hyung

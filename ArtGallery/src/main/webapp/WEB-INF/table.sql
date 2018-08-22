@@ -93,6 +93,8 @@ CREATE TABLE T_Config(
 );
 
 -------------------------------------------------------------------------
+drop view v_art;
+
 CREATE VIEW V_ART AS
 select a.seq, a.title, a.createyear, a.artsize, a.remark, a.imagepath, nvl(a.viewcount, 0) viewcount, a.regdate,
 	   b.artist, b.painter, b.material,
@@ -102,7 +104,7 @@ from t_art a,
 		select aseq, max(decode(code, 'A', val)) artist, max(decode(code, 'P', val)) painter, max(decode(code, 'M', val)) material
 		from (
 			select  b.code, a.aseq, 
-			        substr(xmlagg(xmlelement(a,',' || b.name) order by b.name).extract('//text()'), 2) val
+			        substr(xmlagg(xmlelement(a,',' || b.name) order by nvl(a.sortseq, 999), b.name).extract('//text()'), 2) val
 			  from  t_artrel a, t_category b
 			where a.cseq=b.seq
 			group by b.code, a.aseq
