@@ -21,13 +21,10 @@ import com.main.artgallery.user.dto.UserDto;
 public class UserController {
 	@Autowired
 	private UserService uService;
-	@RequestMapping("/admin/userlist")
-	public ModelAndView adminAuthList() {
-		ModelAndView mView=new ModelAndView();
-		UserDto dto=new UserDto();		
-		uService.list(mView, dto);
-		// 뷰페이지의 정보 설정 
-		mView.setViewName("admin/userlist");
+	@RequestMapping("/admin/user/userlist")
+	public ModelAndView adminGetList(HttpServletRequest request, ModelAndView mView, UserDto dto) {
+		uService.getList(request, mView, dto);
+		mView.setViewName("admin/user/userlist");
 		return mView;
 	}
 	@RequestMapping("/user/signup_form")
@@ -107,14 +104,19 @@ public class UserController {
 		return map;
 	}
 	@RequestMapping("/user/pw_change")
-	public ModelAndView authPwdChange(HttpServletRequest request, @RequestParam String pwd, HttpSession session) {
+	public ModelAndView userAuthPwdChange(HttpServletRequest request, @RequestParam String pwd, HttpSession session) {
 		uService.changePwd(pwd, session);
 		return new ModelAndView("redirect:/user/info.do");
 	}
-	@RequestMapping("/user/delete")
-	public ModelAndView userAuthDelete(HttpServletRequest request, ModelAndView mView) {
+	@RequestMapping("/user/leave")
+	public ModelAndView userAuthLeave(HttpServletRequest request, ModelAndView mView) {
+		uService.leave(mView, request.getSession());
+		mView.setViewName("user/leave");
+		return mView;
+	}
+	@RequestMapping("/admin/user/delete")
+	public ModelAndView adminDelete(HttpServletRequest request, ModelAndView mView) {
 		uService.delete(mView, request.getSession());
-		mView.setViewName("user/delete");
 		return mView;
 	}
 }
