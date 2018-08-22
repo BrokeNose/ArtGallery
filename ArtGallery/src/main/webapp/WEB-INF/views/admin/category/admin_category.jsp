@@ -17,7 +17,9 @@
 </head>
 <body>
 <div class="container-fluid">
-<jsp:include page="header.jsp"/>	
+<jsp:include page="../inc/header.jsp">
+	<jsp:param name="navMenu" value="category"/>
+</jsp:include>
 	<h4><span class="glyphicon glyphicon-th" aria-hidden="true"></span>&nbsp; 작품리스트 </h4>
 	<div class="panel panel-default">
 	  <div class="panel-body">

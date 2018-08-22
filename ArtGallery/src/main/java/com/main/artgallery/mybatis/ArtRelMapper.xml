@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="artRel">
+
 <!-- 작성자 : hyung -->
+
 	<select id="getList" parameterType="artRelDto" resultType="artRelDto">
 		SELECT a.aseq, a.cseq, b.code, b.name, a.sortseq,
 			   DECODE(code, 'A','아티스트', 'P','화파', 'M','재료') codeName 
@@ -11,11 +13,11 @@
 			<if test="aseq != null">
 				and aseq = #{aseq}
 			</if>
-			<if test="code != null">
-				and code = #{code}
-			</if>
 			<if test="cseq != null">
 				and cseq = #{cseq}
+			</if>
+			<if test="code != null">
+				and code = #{code}
 			</if>
 		</where>			
 		ORDER BY b.code, nvl(b.sortseq, 999), b.name;	

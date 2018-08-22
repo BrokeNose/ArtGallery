@@ -17,8 +17,10 @@
 </head>
 <body>
 <div class="container-fluid">
-<jsp:include page="header.jsp"/>	
-	<h4><span class="glyphicon glyphicon-th" aria-hidden="true"></span>&nbsp; 작품리스트 </h4>
+<jsp:include page="../inc/header.jsp">
+	<jsp:param name="navMenu" value="user"/>
+</jsp:include>
+	<h4><span class="glyphicon glyphicon-th" aria-hidden="true"></span>&nbsp; 회원리스트 </h4>
 	<div class="panel panel-default">
 	  <div class="panel-body">
 	  	<form class="form-inline">
@@ -44,7 +46,7 @@
 		   </div>
 		  </div>
 		  <div class="pull-right">
-		  	<button type="button" class="btn btn-primary">작품등록</button>
+		  		  	<!-- <button type="button" class="btn btn-primary">작품등록</button>-->
 		  </div>	  
 		</form>
 		
@@ -54,26 +56,30 @@
 	  <table class="table table-bordered">
 	  	<thead>
 	  		<tr>
+	  				
 	  			<td>#</td>
-	  			<td>작품명</td>
-	  			<td>작가명</td>
-	  			<td>제작년도</td>
-	  			<td>사이즈</td>
-	  			<td>재료</td>
-	  			<td>화파</td>
-	  		</tr>
-	  		  		
+	  			<td>아이디</td>
+	  			<td>이메일</td>
+	  			<td>등록일</td>
+	  			<td>관리자여부</td>
+	  			<td>삭제여부</td>
+	  		</tr>	  		  		
 	  	</thead>
 	  	<tbody>
-	  		<tr>
-	  			<td>1</td>
-	  			<td><a href="admin_artdetail.jsp">작품명</a></td>
-	  			<td>작가명</td>
-	  			<td>1099</td>
-	  			<td>187*300</td>
-	  			<td>종이</td>
-	  			<td>추상</td>
-	  		</tr>
+		  	<c:forEach var="tmp" items="${list }">
+				<tr>
+					<td></td>				
+					<td>${tmp.id }</td>
+					<td>${tmp.email }</td>
+					<td>${tmp.regdate }</td>
+					<td>${tmp.rollName }</td>
+					<td></td>
+				</tr>
+			
+			
+			
+			</c:forEach>
+	  		
 	  	
 	  	</tbody>
 	  </table>

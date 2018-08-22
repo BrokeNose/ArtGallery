@@ -1,31 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="art">
+
 <!-- 작성자 : hyung -->
-	<!-- column01 - remark(CLOB)는 빠져있음. -->
-	<sql id="column01">
+
+	<!-- artColumn - remark(CLOB)는 빠져있음. -->
+	<sql id="artColumn">
 		seq, title, createyear, artsize, imagepath, viewcount,
 		TO_CHAR(regdate,'YYYY.MM.DD AM HH:MI') AS regdate,
 		artist, painter, material
 	</sql>
 	<!--  dynamic query  -->
-	<sql id="where01">
+	<sql id="artWhere">
 		<where>
-			<if test="artist != null">
-				OR artist LIKE '%'||#{artist}||'%'
-			</if>
-			<if test="painter != null">
-				OR painter LIKE '%'||#{painter}||'%'
-			</if>
-			<if test="material != null">
-				OR material LIKE '%'||#{material}||'%'
+			<if test="searchKeyword != null">
+			(
+				<if test="artist != null">
+					OR artist LIKE '%'||#{artist}||'%'
+				</if>
+				<if test="painter != null">
+					OR painter LIKE '%'||#{painter}||'%'
+				</if>
+				<if test="material != null">
+					OR material LIKE '%'||#{material}||'%'
+				</if>		
+				<if test="title != null">
+					OR title LIKE '%'||#{title}||'%'
+				</if>
+				<if test="remark != null">
+					OR remark LIKE '%'||#{remark}||'%'
+				</if>				
+			)	
 			</if>			
-			<if test="cseq != null">
-				OR cseq = #{cseq}
+			<if test="cseq != 0">
+				AND cseq = #{cseq}
 			</if>
 		</where>	
 	</sql>
-	<sql id="order01">		
+	<sql id="artSort">		
 		<choose>
 			<when test="sortField == 1">
 				ORDER BY title ASC, seq DESC
@@ -44,33 +56,36 @@
 	<select id="getList" parameterType="artDto" resultType="artDto">
 		SELECT result2.*
 		FROM   (SELECT result1.*, ROWNUM rnum
-				FROM   (SELECT DISTINCT <include refid="column01"/>		
+				FROM   (SELECT DISTINCT <include refid="artColumn"/>		
 						FROM   v_art 
-						<include refid="where01"/>
-						<include refid="order01"/>
+						<include refid="artWhere"/>
+						<include refid="artSort"/>
 						) result1
 				) result2
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}		
 	</select>
 	<select id="getCount" parameterType="artDto" resultType="int">
-		SELECT NVL(COUNT(DISTINCT seq)), 0)
+		SELECT NVL(COUNT(DISTINCT seq), 0)
 		FROM   v_art 
-		<include refid="where01"/>		
+		<include refid="artWhere"/>		
 	</select>
 	<select id="getData" parameterType="artDto" resultType="artDto">
 		SELECT result1.*
-		FROM (	SELECT <include refid="column01"/>, remark, 
-					   LAG(seq,1,0) OVER (<include refid="order01"/>) AS prevNum,
-					   LEAD(seq,1,0) OVER (<include refid="order01"/>) AS nextNum
+		FROM (	SELECT <include refid="artColumn"/>, remark, 
+					   LAG(seq,1,0) OVER (<include refid="artSort"/>) AS prevNum,
+					   LEAD(seq,1,0) OVER (<include refid="artSort"/>) AS nextNum
 				FROM   v_art
-				<include refid="where01"/>
-				<include refid="order01"/>
+				<include refid="artWhere"/>
+				<include refid="artSort"/>
 			 ) result1
 		WHERE  seq=#{seq}
 	</select>
+	<select id="getSequence" resultType="int">
+		SELECT tart_seq.NEXTVAL FROM dual
+	</select>
 	<insert id="insert" parameterType="artDto">
-		INSERT INTO t_art ( seq, title, createyear, artsize, imagepath, viewcount, remark, regdate)
-		VALUES(tart_seq.NEXTVAL, #{title}, #{createyear}, #{artsize}, #{impagepath}, #{viewcount}, #{remarks}, SYSDATE)
+		INSERT INTO t_art (seq, title, createyear, artsize, imagepath, viewcount, remark, regdate)
+		VALUES(#{seq}, #{title}, #{createyear}, #{artsize}, #{impagepath}, 0, #{remark}, SYSDATE)
 	</insert>
 	<update id="update" parameterType="artDto">
 		UPDATE t_art 
@@ -81,6 +96,7 @@
 			,  remark=#{remark}
 		WHERE seq=#{seq}
 	</update>
+	<!-- 삭제시 t_artrel, T_ArtComment 테이블도 함께 삭제해야함 -->
 	<delete id="delete" parameterType="int">
 		DELETE 
 		FROM   t_art

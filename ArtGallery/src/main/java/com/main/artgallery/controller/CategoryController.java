@@ -20,7 +20,7 @@ public class CategoryController {
 	@RequestMapping("/admin/adminCategory")
 	public ModelAndView AdminCategory(HttpServletRequest request, ModelAndView mView) {
 		categoryService.getList(request, mView);
-		mView.setViewName("admin/admin_category");
+		mView.setViewName("admin/category/admin_category");
 		return mView;
 	}
 	
