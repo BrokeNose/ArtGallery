@@ -19,7 +19,7 @@
 			    <label for="id" class="col-sm-2 control-label">아이디</label>
 			    <div class="col-sm-9">
 			      <input type="text" class="form-control" name="id" id="id" placeholder="Id"/>
-			      <span id="checkResult"></span>
+			      <span id="idCheckResult"></span>
 			    </div>
 			  </div>
 		  <div class="form-group">
@@ -59,6 +59,9 @@
 <script>
 	//폼의 유효성 여부
 	var formValid=false;
+	var idValid=false;
+	var pwdValid=false;
+	var emailValid=false;
 	$("#signupForm").submit(function(){
 		//만일 폼의 유효성 여부가 false 이면 
 		if(formValid==false){
@@ -76,18 +79,34 @@
 			data:{"inputId":inputId},
 			success:function(responseData) {
 				if(responseData.canUse) {
-					formValid=true;
-					$("#checkResult")
+					idValid=true;
+					$("#idCheckResult")
 					.text("사용가능")
 					.css("color","#00ff00");
 				} else {
-					formValid=false;
-					$("#checkResult")
+					idValid=false;
+					$("#idCheckResult")
 					.text("사용불가")
 					.css("color","#ff0000");
 				}
 			}
 		});
+	});
+	//이메일 유효성 검사
+	var emailReg=/^[0-9a-zA-Z][0-9a-zA-Z\_\-\.\+\%]+[0-9a-zA-Z]@[0-9a-zA-Z][0-9a-zA-Z\_\-]*[0-9a-zA-Z](\.[a-zA-Z]{2,}){1,2}$/;
+	$("#email").on("input", function(){
+		//입력한 이메일 주소를 읽어와서
+		var inputEmail=$(this).val();
+		//이메일 정규 표현식 통과 여부
+		var result=emailReg.test(inputEmail);
+		if(result) {
+			emailValid=true;
+			//$(this).parent().find(".help-block").hide();
+		} else {
+			emailValid=false;
+			//$(this).parent().find(".help-block").show();
+		}
+		setValid($(this), emailValid);
 	});
 	//회원가입 요청시 실행할 함수
 	function signUp() {
@@ -100,6 +119,8 @@
 				if(responseData.signupSuccess) {
 					var result=confirm(responseData.msg);
 					if(result) {
+						location.href="${pageContext.request.contextPath }/";
+					} else {
 						location.href="${pageContext.request.contextPath }/";
 					}
 				} else {
