@@ -4,12 +4,15 @@ import java.util.List;
 
 import com.main.artgallery.art.dto.ArtDto;
 
-/*
- * 작성자 : hyung
- * 비고 : 
- */
 
 public interface ArtDao {
+
+	//-------- Son ----------------------
+
+
+	
+	//-------- hyung ----------------------
+
 	public List<ArtDto> getList(ArtDto dto);
 	public int getCount(ArtDto dto);
 	public void insert(ArtDto dto);
