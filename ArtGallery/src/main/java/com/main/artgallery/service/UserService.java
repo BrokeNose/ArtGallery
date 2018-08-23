@@ -10,7 +10,7 @@ import com.main.artgallery.user.dto.UserDto;
 public interface UserService {
 	public void getList(HttpServletRequest request, ModelAndView mView, UserDto dto);
 	public boolean canUseId(String id);
-	public void signUp(ModelAndView mView, UserDto dto);
+	public boolean signUp(UserDto dto);
 	public void signIn(ModelAndView mView, UserDto dto, HttpSession session);
 	public void info(ModelAndView mView, HttpSession session);
 	public void updateForm(ModelAndView mView, HttpSession session);

@@ -14,7 +14,7 @@
 	<h4><i class="fas fa-user-plus"></i> 회원가입</h4>
 	<div class="panel panel-default">
 	  <div class="panel-body">
-	  	<form action="signup.do" method="post" class="form-horizontal" id="signupForm">
+	  	<form action="javascript:signUp()" method="post" class="form-horizontal" id="signupForm">
 		  	 <div class="form-group">
 			    <label for="id" class="col-sm-2 control-label">아이디</label>
 			    <div class="col-sm-9">
@@ -89,6 +89,26 @@
 			}
 		});
 	});
+	//회원가입 요청시 실행할 함수
+	function signUp() {
+		var param=$("#signupForm").serialize();
+		$.ajax({
+			url:"signup.do", 
+			method:"post", 
+			data:param, 
+			success:function(responseData) {
+				if(responseData.signupSuccess) {
+					var result=confirm(responseData.msg);
+					if(result) {
+						location.href="${pageContext.request.contextPath }/";
+					}
+				} else {
+					alert("회원가입 실패!");
+				}
+				
+			}
+		});
+	};
 </script>
 </body>
 </html>

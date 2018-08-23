@@ -39,12 +39,11 @@ public class UserServiceImpl implements UserService {
 		return dao.canUseId(id);
 	}	
 	@Override
-	public void signUp(ModelAndView mView, UserDto dto) {
+	public boolean signUp(UserDto dto) {
 		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
 		String encodedPwd=encoder.encode(dto.getPwd());
 		dto.setPwd(encodedPwd);
-		dao.insert(dto);
-		mView.addObject("msg", dto.getId()+" 회원님 가입됐습니다.");
+		return dao.insert(dto);
 	}
 	@Override
 	public void signIn(ModelAndView mView, UserDto dto, HttpSession session) {
@@ -55,6 +54,7 @@ public class UserServiceImpl implements UserService {
 		}
 		if(isSigninSuccess) {
 			session.setAttribute("id", dto.getId());
+			session.setAttribute("roll", dto.getRoll());
 		}
 		mView.addObject("isSigninSuccess", isSigninSuccess);
 	}

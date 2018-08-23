@@ -26,8 +26,14 @@ public class UserDaoImpl implements UserDao {
 		}
 	}
 	@Override
-	public void insert(UserDto dto) {
-		session.insert("user.insert", dto);
+	public boolean insert(UserDto dto) {
+		int flag=0;
+		flag=session.insert("user.insert", dto);
+		if(flag>0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	@Override
 	public UserDto getData(String id) {

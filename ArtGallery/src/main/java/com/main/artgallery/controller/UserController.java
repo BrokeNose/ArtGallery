@@ -40,11 +40,13 @@ public class UserController {
 		return map;
 	}
 	@RequestMapping("/user/signup")
-	public ModelAndView signup(@ModelAttribute UserDto dto) {
-		ModelAndView mView=new ModelAndView();
-		uService.signUp(mView, dto);
-		mView.setViewName("user/signup");
-		return mView;
+	@ResponseBody
+	public Map<String, Object> signup(@ModelAttribute UserDto dto) {
+		boolean signupSuccess=uService.signUp(dto);
+		Map<String, Object> map=new HashMap<>();
+		map.put("signupSuccess", signupSuccess);
+		map.put("msg", "회원가입 완료!");
+		return map;
 	}
 	@RequestMapping("/user/signin_form")
 	public ModelAndView signin_form(@RequestParam(defaultValue="") String url, HttpServletRequest request) {
