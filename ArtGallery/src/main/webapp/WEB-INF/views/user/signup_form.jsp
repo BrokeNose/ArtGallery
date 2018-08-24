@@ -91,6 +91,7 @@
 				}
 			}
 		});
+		allValid();
 	});
 	//이메일 유효성 검사
 	var emailReg=/^[0-9a-zA-Z][0-9a-zA-Z\_\-\.\+\%]+[0-9a-zA-Z]@[0-9a-zA-Z][0-9a-zA-Z\_\-]*[0-9a-zA-Z](\.[a-zA-Z]{2,}){1,2}$/;
@@ -101,13 +102,32 @@
 		var result=emailReg.test(inputEmail);
 		if(result) {
 			emailValid=true;
-			//$(this).parent().find(".help-block").hide();
 		} else {
 			emailValid=false;
-			//$(this).parent().find(".help-block").show();
 		}
-		setValid($(this), emailValid);
+		allValid();
 	});
+	//비밀번호 동일 체크
+	$("#inputPassword1, #inputPassword2").on("input", function(){
+		//입력한 비밀번호를 양쪽 모두 읽어온다.
+		var inputPwd1=$("#inputPassword1").val();
+		var inputPwd2=$("#inputPassword2").val();
+		//비밀번호를 같게 입력했는지 여부
+		var isEqual=inputPwd1==inputPwd2;
+		if(isEqual) {
+			pwdValid=true;
+		} else {
+			pwdValid=false;
+		}
+		allValid();
+	});
+	function allValid() {
+		if(idValid&&emailValid&&pwdValid) {
+			formValid=true;
+		} else {
+			formVlaid=false;
+		}
+	};
 	//회원가입 요청시 실행할 함수
 	function signUp() {
 		var param=$("#signupForm").serialize();
