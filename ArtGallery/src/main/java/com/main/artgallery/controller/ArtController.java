@@ -54,8 +54,8 @@ public class ArtController {
 	//관리자 작품 등록처리
 	@RequestMapping("/admin/art/insert.do")
 	public ModelAndView adminArtInsert(HttpServletRequest request, @ModelAttribute ArtDto dto) {
-		aService.insert(dto);
-		return new ModelAndView("redirect:/admin/art/list");
+		aService.insert(request, dto);
+		return new ModelAndView("redirect:/admin/art/list.do");
 	}
 	//관리자 작품 수정화면
 	@RequestMapping("/admin/art/updateform.do")

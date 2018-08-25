@@ -89,6 +89,9 @@ public class CategoryDaoImpl implements CategoryDao{
 		
 	}
 
-	
-	
+	@Override
+	public List<CategoryDto> getSearchList(CategoryDto dto) {
+		return session.selectList("category.getSearchList", dto);
+	}
+		
 }

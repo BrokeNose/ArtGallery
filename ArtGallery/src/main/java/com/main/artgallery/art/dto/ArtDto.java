@@ -1,4 +1,7 @@
 package com.main.artgallery.art.dto;
+
+import org.springframework.web.multipart.MultipartFile;
+
 /*
 작성자 : Son
 비고   : v_art 와 페이징 관련 dto
@@ -36,12 +39,20 @@ public class ArtDto {
 	private String searchCondition;  // 항목
 	private int pageNum;			 // 조회페이지
 	
+	/*
+	 *  업로드된 파일의 정보를 담을 필드
+	 *  <input type="file" name="file" />
+	 *  
+	 *  name 속성의 value 와 같게 필드명을 정해야 한다. 
+	 */
+	private MultipartFile file;
+
 	public ArtDto() {}
 
 	public ArtDto(int seq, String title, String createyear, String artsize, String remark, String imagepath,
 			int viewcount, String regdate, String artist, String painter, String material, int cseq, String code,
 			String name, int startRowNum, int endRowNum, int prevNum, int nextNum, String sortField, int rnum,
-			String searchKeyword, String searchCondition, int pageNum) {
+			String searchKeyword, String searchCondition, int pageNum, MultipartFile file) {
 		super();
 		this.seq = seq;
 		this.title = title;
@@ -66,6 +77,7 @@ public class ArtDto {
 		this.searchKeyword = searchKeyword;
 		this.searchCondition = searchCondition;
 		this.pageNum = pageNum;
+		this.file = file;
 	}
 
 	public int getSeq() {
@@ -250,6 +262,14 @@ public class ArtDto {
 
 	public void setPageNum(int pageNum) {
 		this.pageNum = pageNum;
+	}
+
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 
 }

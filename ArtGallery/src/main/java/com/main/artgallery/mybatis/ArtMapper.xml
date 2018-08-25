@@ -93,7 +93,7 @@
 	</select>
 	<insert id="insert" parameterType="artDto">
 		INSERT INTO t_art (seq, title, createyear, artsize, imagepath, viewcount, remark, regdate)
-		VALUES(#{seq}, #{title}, #{createyear}, #{artsize}, #{impagepath}, 0, #{remark}, SYSDATE)
+		VALUES(#{seq}, #{title}, #{createyear}, #{artsize}, #{imagepath}, 0, #{remark}, SYSDATE)
 	</insert>
 	<update id="update" parameterType="artDto">
 		UPDATE t_art 

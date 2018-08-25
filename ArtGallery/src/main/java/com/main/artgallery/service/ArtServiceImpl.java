@@ -1,9 +1,13 @@
 package com.main.artgallery.service;
 
+import java.io.File;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.main.artgallery.art.dao.ArtDao;
@@ -29,6 +33,11 @@ public class ArtServiceImpl implements ArtService {
 	private static final int PAGE_ROW_COUNT=10;
 	//하단 디스플레이 페이지 갯수
 	private static final int PAGE_DISPLAY_COUNT=5;	
+	private static final String uploadDir="/upload";
+	private static final String div1="@@@";
+	private static final String div2="\\|\\|\\|";
+	private static final String div3="|||";
+	
 
 	@Override
 	public void getList(ModelAndView mView, ArtDto dto) {
@@ -127,6 +136,46 @@ public class ArtServiceImpl implements ArtService {
 		relDto.setCode("P");;
 		List<ArtRelDto> pList=artRelDao.getList(relDto);
 		
+		// 연계정보 text 만들기
+		String code="";
+		String text="";
+		for(ArtRelDto rDto : aList) {
+			code += div1+rDto.getCseq()+div3+rDto.getName();
+			text += ","+rDto.getName();
+		}
+		if (!code.equals("")) {
+			code=code.substring(div1.length(), code.length());
+			text=text.substring(1, text.length());
+		}
+		resultDto.setArtist(code);
+		mView.addObject("artistTxt", text);
+		
+		code="";
+		text="";
+		for(ArtRelDto rDto : mList) {
+			code += div1+rDto.getCseq()+div3+rDto.getName();
+			text += ","+rDto.getName();
+		}
+		if (!code.equals("")) {
+			code=code.substring(div1.length(), code.length());
+			text=text.substring(1, text.length());
+		}
+		resultDto.setMaterial(code);
+		mView.addObject("materialTxt", text);
+
+		code="";
+		text="";
+		for(ArtRelDto rDto : pList) {
+			code += div1+rDto.getCseq()+div3+rDto.getName();
+			text += ","+rDto.getName();
+		}
+		if (!code.equals("")) {
+			code=code.substring(div1.length(), code.length());
+			text=text.substring(1, text.length());
+		}
+		resultDto.setPainter(code);
+		mView.addObject("painterTxt", text);
+
 		// request에 담기
 		mView.addObject("dto", resultDto);		// 작품 정보
 		mView.addObject("aList", aList);	// 아티스트 연계
@@ -136,15 +185,54 @@ public class ArtServiceImpl implements ArtService {
 	}
 
 	@Override
-	public void insert(ArtDto dto) {
+	public void insert(HttpServletRequest request, ArtDto dto) {
 		//sequence 가져와서 t_art 작품정보 등록하기
 		int seq=getSequence();
 		dto.setSeq(seq);
-		artDao.insert(dto);
 		
 		//파일 등록 처리
+		//파일을 저장할 폴더의 절대 경로를 얻어온다.
+		String realPath=request.getSession().getServletContext().getRealPath(uploadDir);
+		//System.out.println(realPath);
+		//MultipartFile 객체의 참조값 얻어오기
 		
+		//FileDto 에 담긴 MultipartFile 객체의 참조값을 얻어온다. - servlet-context.xml에 beans 기술해야함.
+		MultipartFile mFile=dto.getFile();
 		
+		//원본 파일명
+		String orgFileName=mFile.getOriginalFilename();
+		//저장할 파일의 상세 경로 - upload/seq 조합 번호
+		String dir=String.format("%08d", seq);
+		dir=dir.substring(0,6);
+		String filePath=realPath+File.separator+dir+File.separator;
+		System.out.println(filePath);
+		
+		//디렉토리를 만들 파일 객체 생성
+		File file=new File(filePath);
+		if(!file.exists()){//디렉토리가 존재하지 않는다면
+			file.mkdir();//디렉토리를 만든다.
+		}
+		//파일 시스템에 저장할 파일명을 만든다. (겹치치 않게)
+		//String saveFileName=System.currentTimeMillis()+orgFileName;
+		String exps[]=orgFileName.split("\\.");
+		//System.out.println(orgFileName);
+		//System.out.println(exps.length);
+		String exp=exps[exps.length-1];
+		String saveFileName=String.format("%08d", seq)+"."+exp;
+		//System.out.println(saveFileName);
+		
+		try{
+			//upload 폴더에 파일을 저장한다.
+			mFile.transferTo(new File(filePath+saveFileName));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		//FileDto 객체에 추가 정보를 담는다.
+		dto.setImagepath(uploadDir+File.separator+dir+File.separator+saveFileName);
+				
+		// DB 에 저장하기
+		artDao.insert(dto);
+
 		//아티스트 연계 자료 처리
 		if ( dto.getArtist() != null && !dto.getArtist().equals("")) {
 			insertRel(dto.getSeq(), dto.getArtist());
@@ -160,7 +248,7 @@ public class ArtServiceImpl implements ArtService {
 	}
 
 	@Override
-	public void update(ArtDto dto) {
+	public void update(HttpServletRequest request, ArtDto dto) {
 		//파일 구현
 		
 		//작품 정보 수정
@@ -185,7 +273,7 @@ public class ArtServiceImpl implements ArtService {
 	}
 
 	@Override
-	public void delete(int seq) {
+	public void delete(HttpServletRequest request, int seq) {
 		// 파일삭제
 		
 		artDao.delete(seq);
@@ -204,12 +292,16 @@ public class ArtServiceImpl implements ArtService {
 	public void insertRel(int seq, String relData) {
 		ArtRelDto dto=new ArtRelDto();
 		dto.setAseq(seq);
-		String[] arr=relData.split(",");
+		String[] arr=relData.split(div1);
+		System.out.println(relData);
 		for(int i=0; i<arr.length; i++) {
 			String cSeqTmp=arr[i].trim();
-			int cSeq=Integer.parseInt(cSeqTmp);
+			System.out.println(cSeqTmp);
+			String[] cSeqs=cSeqTmp.split(div2);
+			int cSeq=Integer.parseInt(cSeqs[0]);
 			dto.setCseq(cSeq);
 			dto.setSortseq(i+1);
+			System.out.println(seq + "=" + cSeq + "=" + i);
 			artRelDao.insert(dto);
 		}
 	}	

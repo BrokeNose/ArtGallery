@@ -1,3 +1,14 @@
+ALTER SEQUENCE TCategory_seq INCREMENT BY 377;
+select TCategory_seq.nextval from dual;
+ALTER SEQUENCE TCategory_seq INCREMENT BY 1;
+select TCategory_seq.nextval from dual;
+
+ALTER SEQUENCE tart_seq INCREMENT BY 110;
+select tart_seq.nextval from dual;
+ALTER SEQUENCE tart_seq INCREMENT BY 1;
+select tart_seq.nextval from dual;
+
+
 CREATE TABLE T_Category(
 	seq NUMBER PRIMARY KEY,
 	code CHAR(1) DEFAULT 'A',
@@ -9,6 +20,7 @@ CREATE TABLE T_Category(
 	ddate VARCHAR2(10),
 	viewcount NUMBER
 );
+
 CREATE SEQUENCE TCategory_seq;
 
 CREATE UNIQUE INDEX IDX_TCategory_01 ON T_Category(code, name, seq);
