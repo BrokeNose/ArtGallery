@@ -54,7 +54,7 @@
 		  <div class="form-group">
 		  	<label class="col-sm-2 control-label">서비스 이미지</label>
 			<div class="col-sm-10">
-				<input type="hidden" name="orgfile" value="${dto.imagepath }" />
+				<input type="hidden" name="imagepath" value="${dto.imagepath }" />
 				<a href="${pageContext.request.contextPath }${dto.imagepath }" target="_image">${dto.imagepath } 이미지보기</a>		     
 		    	<input type="file" class="form-control" id="file" name="file">
 	 		</div>
@@ -90,7 +90,8 @@
 	</div><!-- //panel  -->	
 		<!-- button // -->
 		<div class="text-center">
-			<button type="button" class="btn btn-primary" id="btnSave">확인</button>
+			<button type="button" class="btn btn-primary" id="btnSave">수정</button>
+			<button type="button" class="btn btn-warming" id="btnDelete">삭제</button>
 		  	<button type="button" class="btn btn-default" id="btnCancel">취소</button>
 		</div>
 		<!-- //button  -->
@@ -167,6 +168,13 @@
 			}
 		}
 		$("#updateForm").submit();
+	});
+	
+	$("#btnDelete").click(function(){
+		isDelete=confirm("작품을 삭제하시겠습니까?\r\n연계정보 및 comment 자료가 함께 삭제됩니다.");
+		if (isDelete){
+			location.href="delete.do?seq="+$("input[name=seq]").val();
+		}
 	});
 	
 	//-------------------------------------------------

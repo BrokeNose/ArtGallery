@@ -1,5 +1,9 @@
 insert into t_artrel(cseq, aseq) values(374,109);  -- 공동 db 추가 해야함. 
 
+
+update t_art set imagepath='/'||imagepath
+where seq <= 109
+;
 --비밀번호 1234
 insert into t_user(id, pwd, email, roll, regdate)
 values('hyung', '$2a$10$ieO.RCUjTR0T.I6jBgMEzOM.Jo4XVH9WERybs9.hx2OCqW4LXoG72', '1@1.com', 'A', sysdate);

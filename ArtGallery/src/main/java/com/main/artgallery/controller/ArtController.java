@@ -40,28 +40,40 @@ public class ArtController {
 	}
 	
 	//관리자 작품 목록
-	@RequestMapping("/admin/art/list.do")
+	@RequestMapping("/admin/art/list")
 	public ModelAndView adminArtList(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
 		aService.getList(mView, dto);
 		mView.setViewName("admin/art/list");
 		return mView;
 	}
 	//관리자 작품 등록화면
-	@RequestMapping("/admin/art/insertform.do")
+	@RequestMapping("/admin/art/insertform")
 	public ModelAndView adminArtInsertform(HttpServletRequest request) {
 		return new ModelAndView("admin/art/insertform");
 	}
 	//관리자 작품 등록처리
-	@RequestMapping("/admin/art/insert.do")
+	@RequestMapping("/admin/art/insert")
 	public ModelAndView adminArtInsert(HttpServletRequest request, @ModelAttribute ArtDto dto) {
 		aService.insert(request, dto);
 		return new ModelAndView("redirect:/admin/art/list.do");
 	}
 	//관리자 작품 수정화면
-	@RequestMapping("/admin/art/updateform.do")
+	@RequestMapping("/admin/art/updateform")
 	public ModelAndView adminArtUpdateform(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
 		aService.getData(mView, dto);
 		mView.setViewName("admin/art/updateform");
 		return mView;
+	}
+	//관리자 작품 수정처리
+	@RequestMapping("/admin/art/update")
+	public ModelAndView adminArtUpdate(HttpServletRequest request, @ModelAttribute ArtDto dto) {
+		aService.update(request, dto);
+		return new ModelAndView("redirect:/admin/art/list.do");
+	}
+	//관리자 작품 삭제처리
+	@RequestMapping("/admin/art/delete")
+	public ModelAndView adminArtDelete(HttpServletRequest request, @RequestParam int seq) {
+		aService.delete(request, seq);
+		return new ModelAndView("redirect:/admin/art/list.do");
 	}
 }

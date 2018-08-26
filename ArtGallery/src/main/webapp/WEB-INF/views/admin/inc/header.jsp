@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="admin_art.jsp">ArtGallery Admin</a>
+      <a class="navbar-brand" href="${pageContext.request.contextPath }/admin/">ArtGallery Admin</a>
     </div>
 	<!-- // 홈  -->    
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
