@@ -32,19 +32,21 @@
       	<ul class="nav navbar-nav navbar-right">
       		<c:choose>
       			<c:when test="${not empty id }">
-      				<li><a href="sighnout.do" alt="logout"><span style="font-size:1.3em;color: #333;"><i class="fas fa-sign-out-alt"></i></span></a></li>
-      				<li><a href="info.do" alt="userinfo"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-tie"></i></span></a></li>
+      				<li><a href="user/sighnout.do" alt="logout"><span style="font-size:1.3em;color: #333;"><i class="fas fa-sign-out-alt"></i></span></a></li>
+      				<li><a href="${pageContext.request.contextPath }/user/info.do" alt="userinfo"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-tie"></i></span></a></li>
 					<li><a href="#" alt="favorite"><span style="font-size:1.3em;color: #333;"><i class="fas fa-heart"></i></span></a></li>
       			</c:when>
       			<c:otherwise>
-      				<li><a href="signin_form.do" alt="login"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user"></i></span></a></li>
-	        		<li><a href="signup_form.do" alt="register"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-plus"></i></span></a></li>
+      				<li><a href="user/signin_form.do" alt="login"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user"></i></span></a></li>
+	        		<li><a href="user/signup_form.do" alt="register"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-plus"></i></span></a></li>
       			</c:otherwise>
       		</c:choose>
 	        <li><a href="#" alt="search" id="search_icon"><span style="font-size:1.3em;color: #333;"><i class="fas fa-search"></i></span></a></li>
+	        <%-- 
 	        <c:if test="${roll eq 'A' }">
 	        	<li><a href="admin/home.do" alt="admin"><span style="font-size:1.3em;color: #333;"><i class="fas fa-users-cog"></i></span></a></li>
 	        </c:if>
+	         --%>
       	</ul>
     </div>
   </div>

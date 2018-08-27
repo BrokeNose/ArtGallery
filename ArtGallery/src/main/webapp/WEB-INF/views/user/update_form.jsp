@@ -15,7 +15,7 @@
 	<h4><i class="fas fa-user-tie"></i> 회원정보</h4>
 	<div class="panel panel-default">
 	  <div class="panel-body">
-	  	<form class="form-horizontal">
+	  	<form action="update.do" method="post" class="form-horizontal">
 		  	 <div class="form-group">
 			    <label for="id" class="col-sm-2 control-label">아이디</label>
 			    <div class="col-sm-9">
@@ -30,7 +30,14 @@
 		    </div>
 		  </div>
 		  <div class="form-group">
-		  	<button type="submit" class="btn btn-default">수정 확인</button>
+		    <div class="col-sm-9">
+		      <input type="hidden" class="form-control" name="roll" id="roll" value="${dto.roll }"/>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		  	<div class="col-sm-9">
+		  	  <button type="submit" class="btn btn-default">수정 확인</button>
+		  	</div>
 		  </div> 
 		</form>
 	  </div><!-- panel-body -->
