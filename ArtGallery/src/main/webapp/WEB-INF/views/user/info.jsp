@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
 </head>
 <body>
-<jsp:include page="header.jsp"/>
+<jsp:include page="../header.jsp"/>
 <div class="container">
 	<h4><i class="fas fa-user-tie"></i> 회원정보</h4>
 	<div class="panel panel-default">
@@ -41,12 +41,8 @@
 		</form>
 	  </div><!-- panel-body -->
 	</div><!-- panel -->
-	
-	
-
-
 </div><!-- //container -->
-<jsp:include page="footer.jsp"/>
+<jsp:include page="../footer.jsp"/>
 <script>
 	function deleteConfirm(){
 		var isDelete=confirm("탈퇴 하시겠습니까?");

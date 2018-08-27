@@ -11,42 +11,33 @@
 <body>
 <jsp:include page="../header.jsp"/>
 <div class="container">
-	<h4><i class="fas fa-user-plus"></i> 회원가입</h4>
+	<h4><i class="fas fa-user-tie"></i> 회원정보</h4>
 	<div class="panel panel-default">
 	  <div class="panel-body">
 	  	<form class="form-horizontal">
 		  	 <div class="form-group">
 			    <label for="id" class="col-sm-2 control-label">아이디</label>
 			    <div class="col-sm-9">
-			      <input type="email" class="form-control" id="id" placeholder="id">
+			      <input type="email" class="form-control" id="id" placeholder="id" readonly>
 			    </div>
 			  </div>
 		  <div class="form-group">
 		    <label for="email" class="col-sm-2 control-label">이메일</label>
 		    <div class="col-sm-9">
-		      <input type="email" class="form-control" id="email" placeholder="Email">
+		      <input type="email" class="form-control" id="email" placeholder="Email" readonly>
 		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label for="inputPassword1" class="col-sm-2 control-label">비밀번호</label>
-		    <div class="col-sm-9">
-		      <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label for="inputPassword2" class="col-sm-2 control-label">비밀번호 확인</label>
-		    <div class="col-sm-9">
-		      <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
-		    </div>
-		  </div>
+		  </div>	 
 		  
-		  <div class="form-group ">
-		    <div class="col-sm-offset-5 col-sm-7">
-		      <button type="submit" class="btn btn-primary btn-lg">회원가입</button>
-		    </div>
-		  </div>
+		 
 		</form>
 	  </div><!-- panel-body -->
+	  <div class="panel-footer text-center">	  
+		      <button type="submit" class="btn btn-default">회원정보수정</button>
+		      <button type="submit" class="btn btn-default">비밀번호수정</button>
+		      <button type="submit" class="btn btn-default">회원탈퇴</button>
+		    
+	  
+	  </div><!-- panel-footer -->
 	</div><!-- panel -->
 	
 	

@@ -57,8 +57,12 @@ public class CategoryServiceImpl implements CategoryService {
 	
 	@Override
 	public void SonGetData(HttpServletRequest request, ModelAndView mView) {
+		//파라미터로 전달되는 글번호 읽어오기
 		int seq=Integer.parseInt(request.getParameter("seq"));
-
+		
+		CategoryDto dto= new CategoryDto();
+		dto=dao.getAData(seq);
+		mView.addObject("dto", dto);
 	}
 
 	

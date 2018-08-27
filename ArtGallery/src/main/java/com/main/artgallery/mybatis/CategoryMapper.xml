@@ -55,6 +55,11 @@
 		  FROM T_Category
 		 WHERE code='P' AND num=#{num}
 	</select>
+	<select id="getDataAll" parameterType="int" resultType="category">
+		SELECT <include refid="categoryColumn" />
+		  FROM T_Category
+		  WHERE seq=#{seq}
+	</select>
 	
 	<select id="getListArtist" resultType="category">
 		SELECT <include refid="categoryColumn" />
