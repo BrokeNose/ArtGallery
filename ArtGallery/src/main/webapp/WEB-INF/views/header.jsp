@@ -42,11 +42,9 @@
       			</c:otherwise>
       		</c:choose>
 	        <li><a href="#" alt="search" id="search_icon"><span style="font-size:1.3em;color: #333;"><i class="fas fa-search"></i></span></a></li>
-	        <%-- 
-	        <c:if test="${roll eq 'A' }">
+	       	<c:if test="${roll eq 'A' }">
 	        	<li><a href="admin/home.do" alt="admin"><span style="font-size:1.3em;color: #333;"><i class="fas fa-users-cog"></i></span></a></li>
 	        </c:if>
-	         --%>
       	</ul>
     </div>
   </div>
