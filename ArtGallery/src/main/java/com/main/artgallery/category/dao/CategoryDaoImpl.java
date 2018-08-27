@@ -53,23 +53,6 @@ public class CategoryDaoImpl implements CategoryDao{
 		
 	}
 
-	@Override
-	public void insertArtist(CategoryDto dto) {
-		session.insert("category.insertArtist",dto);
-		
-	}
-
-	@Override
-	public void insertMaterial(CategoryDto dto) {
-		session.insert("category.insertMaterial",dto);
-		
-	}
-
-	@Override
-	public void insertArtistPart(CategoryDto dto) {
-		session.insert("category.insertArtistPart",dto);
-		
-	}
 
 	@Override
 	public void update(int seq) {
@@ -118,6 +101,12 @@ public class CategoryDaoImpl implements CategoryDao{
 	public void getCount(int count) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<CategoryDto> getListCategory(CategoryDto dto) {
+		// TODO Auto-generated method stub
+		return session.selectList("category.getListCategory", dto);
 	}
 		
 }

@@ -9,7 +9,7 @@
 </head>
 <body>
 <h3>인덱스 페이지 입니다.</h3>
-<a href="admin/adminCategory.do?categorytype=A">아티스트</a>
+<a href="admin/adminCategory.do">아티스트</a>
 <br />
 <a href="user/list.do?soncategorytype=A">메인에서 아티스트</a>
 <a href="user/list.do?soncategorytype=M">메인에서 재료</a>

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,7 +28,20 @@ public class CategoryController {
 		mView.setViewName("admin/category/admin_category");
 		return mView;
 	}
+
+	@RequestMapping("/admin/insertform")
+	public ModelAndView InsertForm(HttpServletRequest request, ModelAndView mView) {
+		categoryService.insertForm(request, mView);
+		mView.setViewName("admin/category/insertform");
+		return mView;
+	}
 	
+	@RequestMapping("/admin/insert")
+	public ModelAndView Insert(HttpServletRequest request, ModelAndView mView, @ModelAttribute CategoryDto dto) {
+		categoryService.insert(request, dto);
+		mView.setViewName("redirect:/admin/adminCategory.do");
+		return mView;
+	}
 
 	//Son
 	@RequestMapping("/user/list")

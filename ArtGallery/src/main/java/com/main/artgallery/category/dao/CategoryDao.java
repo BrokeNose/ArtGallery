@@ -12,11 +12,11 @@ public interface CategoryDao {
 	public CategoryDto getDataMaterial(int seq);
 	public CategoryDto getDataArtistPart(int seq);
 	public void insert(CategoryDto dto);
-	public void insertArtist(CategoryDto dto);
-	public void insertMaterial(CategoryDto dto);
-	public void insertArtistPart(CategoryDto dto);
 	public void update(int seq);
 	public void delete(int seq);
+	
+	// Shin
+	public List<CategoryDto> getListCategory(CategoryDto dto);
 
 	//Son
 	public List<CategoryDto> getAList();

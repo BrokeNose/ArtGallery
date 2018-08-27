@@ -20,39 +20,42 @@
 <jsp:include page="../inc/header.jsp">
 	<jsp:param name="navMenu" value="category"/>
 </jsp:include>
-	<h4><span class="glyphicon glyphicon-th" aria-hidden="true"></span>&nbsp; 작품리스트 </h4>
+	<h4><span class="glyphicon glyphicon-th" aria-hidden="true"></span>&nbsp;
+		<c:choose>
+			<c:when test="${categoryType eq 'A' }">아티스트 리스트</c:when>
+			<c:when test="${categoryType eq 'M' }">재료 리스트</c:when>
+			<c:when test="${categoryType eq 'P' }">화파 리스트</c:when>
+		</c:choose>
+	</h4>
 	<div class="panel panel-default">
 	  <div class="panel-body">
-	  	<form class="form-inline">
-			  <div class="form-group">		   
-			    <div class="input-group">
-			      <div class="dropdown con_left">
-						  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-						   	아티스트
-						    <span class="caret"></span>
-						  </button>
-						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						    <li><a href="#">아티스트</a></li>
-						    <li><a href="#">재료</a></li>
-						    <li><a href="#">화파</a></li>
-						  </ul>
-						  <div class="input-group">
-						      <input type="text" class="form-control" placeholder="Search for...">
-						      <span class="input-group-btn">
-						        <button class="btn btn-default" type="button">Go!</button>
-						      </span>
-						  </div><!-- /input-group -->			  
-						</div>		     
-		  		</div>
-			  </div>
-			  <div class="pull-right">
-			  	<button type="button" class="btn btn-primary">작품등록</button>
-			  </div>	  
+			<form action="adminCategory.do" class="form-inline" method="post" id="searchForm">
+				<input type="hidden" name="categoryType" value="${categoryType} }"/>
+				<div class="form-group">
+					<select name="searchCondition" id="searchCondition" class="form-control">
+						<c:choose>
+							<c:when test="${categoryType eq 'A' }">
+								<option value="name">아티스트명</option>
+							</c:when>
+							<c:when test="${categoryType eq 'M' }">
+								<option value="name">재료명</option>
+							</c:when>
+							<c:when test="${categoryType eq 'P' }">
+								<option value="name">화파명</option>
+							</c:when>
+						</c:choose>
+						<option value="remark">비고</option>
+					</select>
+					<input id="searchKeyword" value="${searchKeyword }" type="text" name="searchKeyword" class="form-control" placeholder="검색어..." />
+					<button id="search" class="btn btn-default">검색</button>
+				</div>
+				<div class="pull-right">
+					<button id="btnInsert" type="button" class="btn btn-primary" onclick="location.href='insertform.do?categoryType=${categoryType}'">작품등록</button>
+				</div>	  
 			</form>
+
 	  </div><!-- /panel-body -->
 	</div><!-- /panel -->
-	
-	categoryType : ${categoryType }
 	
 	<div class="table-responsive">
 	  <table class="table table-bordered">
@@ -64,14 +67,17 @@
 			  			<td>작가명</td>
 			  			<td>출생일</td>
 			  			<td>사망일</td>
+			  			<td>비고</td>
 		  			</c:when>
 		  			<c:when test="${categoryType eq 'P' }">
 			  			<td>#</td>
 			  			<td>화파</td>
+			  			<td>비고</td>
 		  			</c:when>
 		  			<c:when test="${categoryType eq 'M' }">
 			  			<td>#</td>
 			  			<td>재료</td>
+			  			<td>비고</td>
 		  			</c:when>
 	  			</c:choose>
 	  		</tr>
@@ -86,10 +92,12 @@
 				  			<td>${dto.name }</td>
 				  			<td>${dto.bdate }</td>
 				  			<td>${dto.ddate }</td>
+				  			<td>${dto.remark }</td>
 			  			</c:when>
 			  			<c:otherwise>
 				  			<td>${dto.seq }</td>
 				  			<td>${dto.name }</td>
+				  			<td>${dto.remark }</td>
 			  			</c:otherwise>
 			  		</c:choose>
 		  		</tr>
@@ -124,11 +132,6 @@
 </div>
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"  ></script>
-<script>
-	$(".dropdown-menu li a").click(function(){
-	  var selText = $(this).text();
-	  $(this).parents('.con_left').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
-	});
-</script>
+
 </body>
 </html>

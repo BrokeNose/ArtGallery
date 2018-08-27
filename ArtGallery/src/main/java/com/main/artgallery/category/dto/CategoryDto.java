@@ -1,5 +1,7 @@
 package com.main.artgallery.category.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class CategoryDto {
 	private int seq;
 	private String code;
@@ -12,12 +14,14 @@ public class CategoryDto {
 	private String codename;
 	private int artcount;
 	
+	private MultipartFile file;	
+	
 
 	public CategoryDto() {}
 
 	//Son 추가한것 업데이트
 	public CategoryDto(int seq, String code, String name, String remark, String imagepath, String bdate, String ddate,
-			String codename, int artcount) {
+			String codename, int artcount, MultipartFile file) {
 		super();
 		this.seq = seq;
 		this.code = code;
@@ -28,6 +32,7 @@ public class CategoryDto {
 		this.ddate = ddate;
 		this.codename = codename;
 		this.artcount = artcount;
+		this.file = file;
 	}
 
 
@@ -120,5 +125,13 @@ public class CategoryDto {
 		this.artcount = artcount;
 	}
 
+
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
 	
 }

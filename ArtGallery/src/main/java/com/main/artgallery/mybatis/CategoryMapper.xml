@@ -3,25 +3,33 @@
 <mapper namespace="category">
 	<!-- 자주 사용하는 sql 문을 미리 정의해 놓기 -->
 	<sql id="categoryColumn">
-		seq, code, name, remark, imagePath, bdate, ddate
+		seq, code, name, remark, imagepath, bdate, ddate
 	</sql>
-	
-	<!-- 추가 -->	
-	<insert id="insertArtist" parameterType="category">
-		INSERT INTO T_Category(seq, code, name, remark, imagePath, bdate, ddate)
-		VALUES(TCategory_seq.NEXTVAL, 'A', #{name}, #{remark}, #{imagePath}, #{bdate} ,#{ddate})
-	</insert>
-	<insert id="insertMaterial" parameterType="category">
-		INSERT INTO T_Category(seq, code, name, remark, imagePath, bdate, ddate)
-		VALUES(TCategory_seq.NEXTVAL, 'M', #{name}, #{remark}, #{imagePath}, #{bdate} ,#{ddate})
-	</insert>
-	<insert id="insertArtistPart" parameterType="category">
-		INSERT INTO T_Category(seq, code, name, remark, imagePath, bdate, ddate)
-		VALUES(TCategory_seq.NEXTVAL, 'P', #{name}, #{remark}, #{imagePath}, #{bdate} ,#{ddate})
-	</insert>
+	<!--  
 	<insert id="insert" parameterType="category">
-		INSERT INTO T_Category(seq, code, name, remark, imagePath, bdate, ddate)
-		VALUES(TCategory_seq.NEXTVAL, #{code}, #{name}, #{remark}, #{imagePath}, #{bdate} ,#{ddate})
+		<choose>
+			<when test="bdate == null and ddate == null">
+				INSERT INTO T_Category(seq, code, name, remark, imagepath)
+				VALUES(TCategory_seq.NEXTVAL, #{code}, #{name}, #{remark}, #{imagepath})
+			</when>
+			<when test="bdate == null">
+				INSERT INTO T_Category(seq, code, name, remark, imagepath, ddate)
+				VALUES(TCategory_seq.NEXTVAL, #{code}, #{name}, #{remark}, #{imagepath}, #{ddate})
+			</when>
+			<when test="ddate == null">
+				INSERT INTO T_Category(seq, code, name, remark, imagepath, bdate)
+				VALUES(TCategory_seq.NEXTVAL, #{code}, #{name}, #{remark}, #{imagepath}, #{bdate})
+			</when>
+			<otherwise>
+				INSERT INTO T_Category(seq, code, name, remark, imagepath, bdate, ddate)
+				VALUES(TCategory_seq.NEXTVAL, #{code}, #{name}, #{remark}, #{imagepath}, #{bdate}, #{ddate})
+			</otherwise>
+		</choose>
+	</insert>
+	-->
+	<insert id="insert" parameterType="category">
+			INSERT INTO T_Category(seq, code, name, remark, imagepath, bdate, ddate)
+			VALUES(TCategory_seq.NEXTVAL, #{code}, #{name}, #{remark, jdbcType=VARCHAR}, #{imagepath}, #{bdate, jdbcType=VARCHAR}, #{ddate, jdbcType=VARCHAR})
 	</insert>
 	
 	
@@ -29,7 +37,7 @@
 	<update id="update" parameterType="category">
 		UPDATE T_Category set name=#{name}
 		     , remark=#{remark}
-		     , imagePath=#{imagePath}
+		     , imagepath=#{imagepath}
 		     , bdate=#{bdate}
 		     , ddate=#{ddate}
 		 WHERE seq=#{seq}
@@ -71,6 +79,17 @@
 		  FROM T_Category
 		 WHERE code='P'
 	</select>
+	<select id="getListCategory" parameterType="category" resultType="category">
+		SELECT <include refid="categoryColumn" />
+		  FROM T_Category
+		 WHERE code=#{code}
+		<if test="name != null">
+		   AND UPPER(name) LIKE '%'||UPPER(#{name})||'%'
+		</if>
+		<if test="remark != null">
+		   AND UPPER(remark) LIKE '%'||UPPER(#{remark})||'%'
+		</if>
+	</select>
 	
 	<select id="getAList" resultType="category">
 		SELECT * FROM V_CATEGORY
@@ -89,7 +108,7 @@
 		FROM   T_Category
 		WHERE  code=#{code}
 		<if test="name != null">
-		AND    UPPER(name) LIKE '%'||UPPER(#{name})||'%'
+		  AND  UPPER(name) LIKE '%'||UPPER(#{name})||'%'
 		</if>
 		ORDER BY name ASC		    
 	</select>

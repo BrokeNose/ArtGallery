@@ -124,7 +124,6 @@
 	  $(this).parents('.con_left').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
 	});
 	$("#btnSearch").click(function(){
-		console.log("this.......");
 		var qeuryStr = $("#inputSearch").val();
 		if(queryStr == null) {
 			alert("no data");
