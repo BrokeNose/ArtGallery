@@ -10,19 +10,24 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
+<div class="row">
+	<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive img-detail" alt="Responsive image"/>
+</div>
 <div class="container">
-	<div class="row">
-		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive img-detail" alt="Responsive image"/>
-	</div>
 	<div class="text-center">
-		<h2>대제목아티스트이름, 재료종류, 화파종류, 작품이름 </h2>
-		<h3>소제목</h3>
+		<h2>${dto.name }</h2>
+		<c:choose>
+			<c:when test="${empty dto.bdate }">
+				<h3>-</h3>
+			</c:when>
+			<c:otherwise>
+				<h3>${dto.bdate }~${dto.ddate }</h3>
+			</c:otherwise>
+		</c:choose>
+		
+		
 		<h4>세부데이터</h4>
-		<p>상세설명Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-		Doloribus obcaecati at quod 
-		doloremque molestiae vero asperiores necessitatibus aut enim quis. 
-		Ut distinctio accusantium vitae dicta 
-		quos et perspiciatis minus excepturi.</p>	
+		<p>${dto.remark }</p>	
 	</div>
 	<br />
 	<h4><i class="fas fa-kiss-wink-heart"></i> 작가의 다른 작품</h4>

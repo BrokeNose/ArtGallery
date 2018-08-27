@@ -24,8 +24,6 @@ public interface CategoryDao {
 	public List<CategoryDto> getMList();
 	public List<CategoryDto> getFavorList();
 	public CategoryDto getAData(int seq);
-	public CategoryDto getMData(int seq);
-	public CategoryDto getPData(int seq);
 	public void getCount(int count);
 	
 	//hyung
