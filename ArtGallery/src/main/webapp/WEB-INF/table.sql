@@ -1,4 +1,3 @@
-
 ALTER SEQUENCE TCategory_seq INCREMENT BY 377;
 select TCategory_seq.nextval from dual;
 ALTER SEQUENCE TCategory_seq INCREMENT BY 1;

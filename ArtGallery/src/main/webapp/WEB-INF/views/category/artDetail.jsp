@@ -43,6 +43,8 @@
 		<h4><c:forEach var="tmp" items="${aList }">
 			<b>${tmp.name }</b> ${tmp.bdate }/${tmp.ddate }
 		</c:forEach></h4>
+		<a href="javascript:goFavorArt(${dto.seq });"><span style="font-size:1.3em;color: #333;"><i class="fas fa-heart"></i></span></a>
+		<br />
 		<pre>${dto.remark }</pre>	
 	</div>
 	<br />

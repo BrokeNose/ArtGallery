@@ -35,7 +35,7 @@ public class ArtController {
 	@RequestMapping("/artDetail")
 	public ModelAndView artDetail(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
 		aService.getData(mView, dto);
-		mView.setViewName("artDetail");
+		mView.setViewName("category/artDetail");
 		return mView;
 	}
 	
