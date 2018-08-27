@@ -32,9 +32,8 @@
 			    <span class="caret"></span>
 			  </button>
 			  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-			    <li><a href="#">아티스트</a></li>
-			    <li><a href="#">재료</a></li>
-			    <li><a href="#">화파</a></li>
+			    <li><a href="#">아이디</a></li>
+			    <li><a href="#">이메일</a></li>			    
 			  </ul>
 			  <div class="input-group">
 			      <input type="text" class="form-control" placeholder="Search for...">
@@ -55,8 +54,7 @@
 	<div class="table-responsive">
 	  <table class="table table-bordered">
 	  	<thead>
-	  		<tr>
-	  				
+	  		<tr>	  				
 	  			<td>#</td>
 	  			<td>아이디</td>
 	  			<td>이메일</td>
@@ -72,11 +70,13 @@
 					<td>${tmp.id }</td>
 					<td>${tmp.email }</td>
 					<td>${tmp.regdate }</td>
-					<td>${tmp.rollName }</td>
-					<td></td>
+					<td>${tmp.roll }</td>
+					<td>
+						
+					
+					
+					</td>
 				</tr>
-			
-			
 			
 			</c:forEach>
 	  		
