@@ -35,6 +35,7 @@ public class CategoryServiceImpl implements CategoryService {
 		}
 	}
 	
+	//son
 	@Override
 	public void SonGetList(HttpServletRequest request, ModelAndView mView) {
 		String SonCategoryType=(String)request.getParameter("soncategorytype");
@@ -53,8 +54,14 @@ public class CategoryServiceImpl implements CategoryService {
 			mView.addObject("SonCategorytype","P");
 		}
 	}
+	
+	@Override
+	public void SonGetData(HttpServletRequest request, ModelAndView mView) {
+		int seq=Integer.parseInt(request.getParameter("seq"));
 
+	}
 
+	
 	@Override
 	public void getSearchList(HttpServletRequest request, ModelAndView mView) {
 		CategoryDto dto=new CategoryDto();
@@ -65,6 +72,8 @@ public class CategoryServiceImpl implements CategoryService {
 		//request에 담아야 controller에서 읽어서 json 처리 할 수 있음
 		request.setAttribute("list",  dao.getSearchList(dto));	
 	}
+
+	
 	
 }
 
