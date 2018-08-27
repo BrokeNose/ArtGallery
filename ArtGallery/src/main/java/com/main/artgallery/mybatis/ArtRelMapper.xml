@@ -6,7 +6,7 @@
 
 	<select id="getList" parameterType="artRelDto" resultType="artRelDto">
 		SELECT a.aseq, a.cseq, b.code, b.name, a.sortseq,
-			   DECODE(code, 'A','아티스트', 'P','화파', 'M','재료') codeName 
+			   DECODE(code, 'A','아티스트', 'P','화파', 'M','재료') codeName , b.bdate, b.ddate
 		FROM   t_artrel a, t_category b
 		WHERE a.cseq=b.seq	
 		<if test="aseq !=null and aseq != 0">
