@@ -71,6 +71,19 @@
 		  FROM T_Category
 		 WHERE code='P'
 	</select>
+	
+	<select id="getAList" resultType="category">
+		SELECT * FROM V_CATEGORY
+		WHERE code='A'
+	</select>
+	<select id="getPList" resultType="category">
+		SELECT * FROM V_CATEGORY
+		WHERE code='P'
+	</select>
+	<select id="getMList" resultType="category">
+		SELECT * FROM V_CATEGORY
+		WHERE code='M'
+	</select>
 	<select id="getSearchList" parameterType="category" resultType="category">
 		SELECT <include refid="categoryColumn" />
 		FROM   T_Category
@@ -80,4 +93,5 @@
 		</if>
 		ORDER BY name ASC		    
 	</select>
+	
 </mapper>

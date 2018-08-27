@@ -5,6 +5,15 @@ select imagepath from t_art;
 update t_art set imagepath='/'||imagepath
 where seq <= 109
 ;
+
+
+update t_art set imagepath= substr(imagepath, 2)
+where seq <= 109
+;
+select imagepath, substr(imagepath, 2) from t_art where seq <= 109;
+
+select imagepath from t_art;
+
 --비밀번호 1234
 insert into t_user(id, pwd, email, roll, regdate)
 values('hyung', '$2a$10$ieO.RCUjTR0T.I6jBgMEzOM.Jo4XVH9WERybs9.hx2OCqW4LXoG72', '1@1.com', 'A', sysdate);

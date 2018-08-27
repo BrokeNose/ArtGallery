@@ -28,6 +28,16 @@ public class CategoryController {
 		return mView;
 	}
 	
+
+	//Son
+	@RequestMapping("/user/list")
+	public ModelAndView UserCategory(HttpServletRequest request, ModelAndView mView) {
+		categoryService.SonGetList(request, mView);
+		mView.setViewName("user/list");
+		return mView;
+		
+	}
+
 	//hyung
 	@RequestMapping("/admin/category/categorySearchJson.do")
 	@ResponseBody
