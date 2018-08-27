@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>main</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/artgallery.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
 </head>
 <body>
 <jsp:include page="header.jsp"/>
@@ -17,7 +18,6 @@
 <a href="user/list.do?soncategorytype=M">메인에서 재료</a>
 <a href="user/list.do?soncategorytype=P">메인에서 화파</a>
 <a href="${pageContext.request.contextPath }/admin">Admin</a>
-
 <div class="container">
 	<div class="row">
    		<div class="jumbotron">   			
@@ -69,7 +69,7 @@
 </div><!-- //container -->
 
 
-<jsp:include page="footer.jsp"/>
 
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

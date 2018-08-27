@@ -41,10 +41,6 @@
 		</form>
 	  </div><!-- panel-body -->
 	</div><!-- panel -->
-	
-	
-
-
 </div><!-- //container -->
 <jsp:include page="../footer.jsp"/>
 <script>
