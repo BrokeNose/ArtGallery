@@ -14,5 +14,6 @@
 <a href="user/list.do?soncategorytype=A">메인에서 아티스트</a>
 <a href="user/list.do?soncategorytype=M">메인에서 재료</a>
 <a href="user/list.do?soncategorytype=P">메인에서 화파</a>
+<a href="${pageContext.request.contextPath }/admin">Admin</a>
 </body>
 </html>

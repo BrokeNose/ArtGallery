@@ -17,21 +17,12 @@
   		<c:forEach var="dto" items="${list }">
 	  		<div class="col-md-3 col-sm-6 col-xs-6">
 		  		<a href="detail.do?seq=${dto.seq }">
-		  			<c:url value="C:\ncs2018\Spring_work\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ArtGallery\\${dto.imagepath }" var="imageURL"/>
-		  			<img src="<c:out value="${imageURL }"/>" class="img-responsive" alt="Responsive image"/>
+		  			<img src="http://192.168.0.200:8888/artgallery/${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
+		  			<%-- <img src="<c:out value="${pageContext.request.contextPath }/${dto.imagepath }"/>" class="img-responsive" alt="Responsive image"/> --%>
 		  			<p>${dto.name }</p>
 		  			<strong>${dto.artcount }</strong>
 		  		</a>
 		  	</div>
-		  	<%-- <div class="col-md-3 col-sm-6 col-xs-6">
-		  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
-		  	</div>
-		  	<div class="col-md-3 col-sm-6 col-xs-6">
-		  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
-		  	</div>
-		  	<div class="col-md-3 col-sm-6 col-xs-6">
-		  		<img src="C:\ncs2018\Spring_work\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ArtGallery\${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
-		  	</div> --%>
   		</c:forEach>
 	  	
 	  	

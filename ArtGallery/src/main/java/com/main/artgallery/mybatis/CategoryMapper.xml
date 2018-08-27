@@ -84,4 +84,14 @@
 		SELECT * FROM V_CATEGORY
 		WHERE code='M'
 	</select>
+	<select id="getSearchList" parameterType="category" resultType="category">
+		SELECT <include refid="categoryColumn" />
+		FROM   T_Category
+		WHERE  code=#{code}
+		<if test="name != null">
+		AND    UPPER(name) LIKE '%'||UPPER(#{name})||'%'
+		</if>
+		ORDER BY name ASC		    
+	</select>
+	
 </mapper>

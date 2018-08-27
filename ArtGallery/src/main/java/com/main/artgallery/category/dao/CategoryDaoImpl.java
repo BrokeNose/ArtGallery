@@ -110,4 +110,14 @@ public class CategoryDaoImpl implements CategoryDao{
 
 	
 	
+	public List<CategoryDto> getSearchList(CategoryDto dto) {
+		return session.selectList("category.getSearchList", dto);
+	}
+
+	@Override
+	public void getCount(int count) {
+		// TODO Auto-generated method stub
+		
+	}
+		
 }
