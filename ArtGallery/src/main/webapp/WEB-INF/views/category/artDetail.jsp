@@ -29,7 +29,7 @@
 
 </head>
 <body>
-<jsp:include page="user/header.jsp"/>
+<jsp:include page="../header.jsp"/>
 <div class="container">
 	<div class="row">		
 		<div class="col-xs-1 arrow_left"><span style="font-size:30px;"><i class="fas fa-arrow-circle-left"></i></span></div>
@@ -66,6 +66,6 @@
 
 <br />
 </div><!-- //container -->
-<jsp:include page="user/footer.jsp"/>
+<jsp:include page="../footer.jsp"/>
 </body>
 </html>
