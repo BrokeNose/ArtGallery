@@ -97,7 +97,7 @@ CREATE TABLE T_ArtComment(
 CREATE SEQUENCE TArtComment_seq;
 
 CREATE TABLE T_Config(
-        code char(1) PRIMARY KEY DEFAULT '1',
+        code char(1) DEFAULT '1' PRIMARY KEY,
         pagerow NUMBER DEFAULT 5,
         CONSTRAINT TConfig_pagerow_ck CHECK (pagerow > 0),
         displayrow NUMBER DEFAULT 5,
@@ -131,6 +131,12 @@ order by a.seq;
 
 CREATE VIEW V_CATEGORY AS
 SELECT seq, code, name
-     , DECODE(code, 'A','아티스트', 'P','화파', 'M','재료') codeName
+     , DECODE(code, 'A','아티스트', 'P','화파', 'M','재료') codeName,imagepath
 	   , NVL((SELECT MAX(ROWNUM) FROM t_artrel a WHERE a.cseq=c.seq), 0) artCount
   FROM t_category c;
+  
+DROP VIEW V_CATEGORY;
+
+  
+SELECT * FROM V_CATEGORY
+WHERE code='M';
