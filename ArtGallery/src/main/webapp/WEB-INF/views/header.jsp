@@ -69,7 +69,7 @@
 	<!-- modal-lg  | default | modal-sm -->	
 	<div class="modal-dialog modal-sm"> <!--크기옵션 xs md lg-->
 		<div class="modal-content">
-	    	<div class="modal-header">
+	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal"><span>&times;</span><span class="sr-only">모달 닫기</span></button>
 	        <h4 class="modal-title">의견보내기</h4>
 	      </div>
@@ -83,7 +83,6 @@
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"  ></script>
 <script>
