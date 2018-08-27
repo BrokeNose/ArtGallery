@@ -83,11 +83,30 @@ public class CategoryDaoImpl implements CategoryDao{
 		
 	}
 
+	//Son 작업중...
 	@Override
-	public void getCount(int count) {
-		session.selectList("category.getCount", count);
+	public List<CategoryDto> getAList() {
 		
+		return session.selectList("category.getAList");
 	}
+
+	@Override
+	public List<CategoryDto> getPList() {
+		return session.selectList("category.getPList");
+	}
+
+	@Override
+	public List<CategoryDto> getMList() {
+		return session.selectList("category.getMList");
+	}
+
+	@Override
+	public List<CategoryDto> getFavorList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 	
 	

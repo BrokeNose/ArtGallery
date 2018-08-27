@@ -31,6 +31,27 @@ public class CategoryServiceImpl implements CategoryService {
 			mView.addObject("categoryType", "P");
 		}
 	}
+	
+	@Override
+	public void SonGetList(HttpServletRequest request, ModelAndView mView) {
+		String SonCategoryType=(String)request.getParameter("soncategorytype");
+		
+		if (SonCategoryType==null) {
+			mView.addObject("list",dao.getAList());
+			mView.addObject("SonCategoryType", "A");
+		}else if(SonCategoryType.equals("A")) {
+			mView.addObject("list",dao.getAList());
+			mView.addObject("SonCategoryType", "A");
+		}else if(SonCategoryType.equals("M")) {
+			mView.addObject("list",dao.getMList());
+			mView.addObject("SonCategoryType", "M");
+		}else if(SonCategoryType.equals("P")) {
+			mView.addObject("list",dao.getPList());
+			mView.addObject("SonCategorytype","P");
+		}
+	}
 
 
 }
+
+	

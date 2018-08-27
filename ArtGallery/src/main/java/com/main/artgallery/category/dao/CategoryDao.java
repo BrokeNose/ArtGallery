@@ -17,5 +17,9 @@ public interface CategoryDao {
 	public void insertArtistPart(CategoryDto dto);
 	public void update(int seq);
 	public void delete(int seq);
-	public void getCount(int count);
+	//Son
+	public List<CategoryDto> getAList();
+	public List<CategoryDto> getPList();
+	public List<CategoryDto> getMList();
+	public List<CategoryDto> getFavorList();
 }

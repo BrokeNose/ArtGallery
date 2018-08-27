@@ -117,6 +117,12 @@ order by a.seq;
 
 CREATE VIEW V_CATEGORY AS
 SELECT seq, code, name
-     , DECODE(code, 'A','아티스트', 'P','화파', 'M','재료') codeName
+     , DECODE(code, 'A','아티스트', 'P','화파', 'M','재료') codeName,imagepath
 	   , NVL((SELECT MAX(ROWNUM) FROM t_artrel a WHERE a.cseq=c.seq), 0) artCount
   FROM t_category c;
+  
+DROP VIEW V_CATEGORY;
+
+  
+SELECT * FROM V_CATEGORY
+WHERE code='M';
