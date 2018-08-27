@@ -22,10 +22,8 @@
 	<div class="row">
    		<div class="jumbotron">   			
   			<h1>Today's Artist</h1>
-  			<div style=""></div>
- 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis ea necessitatibus rem soluta 
- 			doloremque porro alias dolorum temporibus perferendis ab deleniti sequi velit aliquam minima harum ducimus quasi veniam asperiores.</p>
-  			<p><a class="btn btn-primary btn-lg" href="user/list.do?soncategorytype=A" role="button">view more</a></p>
+  			<div style="backgrount-image=''"></div>
+ 			<p><a class="btn btn-primary btn-lg" href="user/list.do?soncategorytype=A" role="button">view more</a></p>
 		</div>
   	</div>
   	<!-- 아티스트 -->
