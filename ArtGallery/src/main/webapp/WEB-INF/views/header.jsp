@@ -21,9 +21,9 @@
         	<li class="dropdown">
 	          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">카테고리 <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
-		            <li><a href="list.jsp">아티스트</a></li>
-		            <li><a href="#">재료</a></li>
-		            <li><a href="#">화파</a></li>		           
+		            <li><a href="${pageContext.request.contextPath }/category/list.do?soncategorytype=A">아티스트</a></li>
+		            <li><a href="${pageContext.request.contextPath }/category/list.do?soncategorytype=M">재료</a></li>
+		            <li><a href="${pageContext.request.contextPath }/category/list.do?soncategorytype=P">화파</a></li>		           
 		          </ul>
 	        </li>
 	       	<li><a id="showBtn" href="#">의견보내기 </a></li>

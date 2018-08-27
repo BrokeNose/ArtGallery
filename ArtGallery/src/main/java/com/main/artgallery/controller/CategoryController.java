@@ -32,18 +32,18 @@ public class CategoryController {
 	
 
 	//Son
-	@RequestMapping("/user/list")
+	@RequestMapping("/category/list")
 	public ModelAndView CategoryList(HttpServletRequest request, ModelAndView mView) {
 		categoryService.SonGetList(request, mView);
-		mView.setViewName("user/list");
+		mView.setViewName("category/list");
 		return mView;
 		
 	}
 	
-	@RequestMapping("/user/detail")
+	@RequestMapping("/category/detail")
 	public ModelAndView CategoryDetail(HttpServletRequest request, ModelAndView mView) {
 		categoryService.SonGetData(request, mView);
-		mView.setViewName("user/detail");
+		mView.setViewName("category/detail");
 		
 		return mView;
 		
