@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="footer">
       <div class="container">
         <span class="text-muted">Acorn Academy</span> &nbsp;&nbsp;&nbsp;

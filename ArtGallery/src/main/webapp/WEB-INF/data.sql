@@ -1,5 +1,6 @@
-insert into t_artrel(cseq, aseq) values(374,109);  -- 공동 db 추가 해야함. 
+insert into t_artrel(cseq, aseq, sortseq) values(374,109, 1);  -- 공동 db 추가 해야함. 
 
+select imagepath from t_art; 
 
 update t_art set imagepath='/'||imagepath
 where seq <= 109

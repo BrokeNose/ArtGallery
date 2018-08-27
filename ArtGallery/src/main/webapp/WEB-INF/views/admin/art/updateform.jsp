@@ -55,7 +55,7 @@
 		  	<label class="col-sm-2 control-label">서비스 이미지</label>
 			<div class="col-sm-10">
 				<input type="hidden" name="imagepath" value="${dto.imagepath }" />
-				<a href="${pageContext.request.contextPath }${dto.imagepath }" target="_image">${dto.imagepath } 이미지보기</a>		     
+				<a href="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }" target="_image">${dto.imagepath } 이미지보기</a>		     
 		    	<input type="file" class="form-control" id="file" name="file">
 	 		</div>
 		  </div>	
@@ -143,6 +143,10 @@
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"  ></script>
 <script>
+
+	var section1="${configDto.section1}";
+	var section2="${configDto.section2}";
+
 	$("#btnCancel").click(function(){
 		var isOk=confirm("작성을 취소하시겠습니까?\r\n목록으로 되돌아갑니다.");
 		if(isOk){
@@ -207,9 +211,9 @@
 		//선택된 연계정보 세팅
 		//console.log(category);
 		if ( category != undefined && category != '') {
-			var items=category.split("@@@");
+			var items=category.split(section1);
 			for(var i=0; i<items.length; i++){
-				var item=items[i].split('|||');	
+				var item=items[i].split(section2);	
 				$("#selCategoryList").append(new Option(item[1], item[0]));
 			}
 		}
@@ -229,7 +233,7 @@
 				  "code": code},
 			success:function(data) {
 				$.each( data, function( idx, value ) {
-					$('#categoryList').append(new Option(value.name ,value.seq+"|||"+value.name));
+					$('#categoryList').append(new Option(value.name ,value.seq+section2+value.name));
 				});
 			}
 		});
@@ -239,7 +243,7 @@
 	$("#btnCategorySelect").click(function(){
 		var items=$("#categoryList").val();		//선택한 options array
 		$.each(items, function(idx, value){
-			var item=value.split('|||');
+			var item=value.split(section2);
 			if ( funcDupcheck(item[0]) == false ) {
 				$("#selCategoryList").append(new Option(item[1], item[0]));
 			}
@@ -283,7 +287,7 @@
 		var categoryTxt='';
 	
 		for(i=0; i<size; i++) {
-			category += "@@@" +objs[i].value +'|||'+objs[i].text;
+			category += section1 +objs[i].value +section2+objs[i].text;
 			categoryTxt += ','+objs[i].text;
 		}
 		console.log(category + " = " + categoryTxt);
