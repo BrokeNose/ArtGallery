@@ -9,5 +9,4 @@
 		FROM   t_config
 		WHERE  code=#{code}
 	</select>
-
 </mapper>
