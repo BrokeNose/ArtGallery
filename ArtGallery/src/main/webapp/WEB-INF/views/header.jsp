@@ -32,12 +32,12 @@
       	<ul class="nav navbar-nav navbar-right">
       		<c:choose>
       			<c:when test="${not empty id }">
-      				<li><a href="user/sighnout.do" alt="logout"><span style="font-size:1.3em;color: #333;"><i class="fas fa-sign-out-alt"></i></span></a></li>
+      				<li><a href="javascript:signOut()" alt="logout"><span style="font-size:1.3em;color: #333;"><i class="fas fa-sign-out-alt"></i></span></a></li>
       				<li><a href="${pageContext.request.contextPath }/user/info.do" alt="userinfo"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-tie"></i></span></a></li>
 					<li><a href="#" alt="favorite"><span style="font-size:1.3em;color: #333;"><i class="fas fa-heart"></i></span></a></li>
       			</c:when>
       			<c:otherwise>
-      				<li><a href="user/signin_form.do" alt="login"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user"></i></span></a></li>
+      				<li><a href="user/signin_form.do?url=${url }" alt="login"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user"></i></span></a></li>
 	        		<li><a href="user/signup_form.do" alt="register"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-plus"></i></span></a></li>
       			</c:otherwise>
       		</c:choose>
@@ -108,5 +108,10 @@
 	$("#search_close").click(function() {
 		$("#search_box").animate({top:"-60px"})
 	});
+	
+	function signOut() {
+		confirm("로그아웃 됐습니다.");
+		location.href="user/signout.do";
+	};
 
 </script>

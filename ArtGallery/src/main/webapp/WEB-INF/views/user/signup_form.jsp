@@ -24,7 +24,6 @@
 			    <label for="id" class="col-sm-2 control-label">아이디</label>
 			    <div class="col-sm-9">
 			      <input type="text" class="form-control" name="id" id="id" placeholder="Id"/>
-			      <span id=""></span>
 				  <span class="glyphicon glyphicon-remove form-control-feedback"></span>
 				  <span class="glyphicon glyphicon-ok form-control-feedback"></span>
 				  <p id="idCheckResult" class="help-block"></p>
@@ -45,7 +44,7 @@
 		      <input type="password" class="form-control" name="pwd" id="inputPassword1" placeholder="Password"/>
 		      <span class="glyphicon glyphicon-remove form-control-feedback"></span>
 			  <span class="glyphicon glyphicon-ok form-control-feedback"></span>
-			  <p id="pwdError1" class="help-block"></p>
+			  <p id="pwdError" class="help-block">아래의 비밀번호와 일치하지 않습니다.</p>
 		    </div>
 		  </div>
 		  <div class="form-group">
@@ -54,7 +53,6 @@
 		      <input type="password" class="form-control" id="inputPassword2" placeholder="Password"/>
 		      <span class="glyphicon glyphicon-remove form-control-feedback"></span>
 			  <span class="glyphicon glyphicon-ok form-control-feedback"></span>
-			  <p id="pwdError2" class="help-block">위의 비밀번호와 일치하지 않습니다.</p>
 		    </div>
 		  </div>
 		  <div class="form-group">
@@ -144,7 +142,6 @@
 		}
 		setValid($(this), emailValid);
 	});
-	var pwdReg=/^[a-zA-Z]{1}[a-zA-Z0-9]{3,10}$/;
 	//비밀번호 동일 체크
 	$("#inputPassword1, #inputPassword2").on("input", function(){
 		//입력한 비밀번호를 양쪽 모두 읽어온다.
@@ -152,17 +149,14 @@
 		var inputPwd2=$("#inputPassword2").val();
 		//비밀번호를 같게 입력했는지 여부
 		var isEqual=inputPwd1==inputPwd2;
-		var result=pwdReg.test(inputPwd1);
-		$("#pwdError1, #pwdError2").hide();
-		if(!isEqual){
-			$("#pwdError1").show();
-		}
+		$("#pwdError").hide();
 		//일단 true 로 해놓고
 		isPwdValid=true;
-		//3개의 정규 표현식을 모두 통과하지 못했을 때
-		if(!result){
-			$("#pwdError2").show();
-			isPwdValid=false;
+		if(isEqual){
+			pwdValid=true;
+		} else {
+			$("#pwdError").show();
+			pwdValid=false;
 		}
 		setValid($("#inputPassword1"), pwdValid);
 	});
@@ -208,9 +202,9 @@
 				if(responseData.signupSuccess) {
 					var result=confirm(responseData.msg);
 					if(result) {
-						location.href="${pageContext.request.contextPath }/";
+						location.href="signin_form.do?url=${url }";
 					} else {
-						location.href="${pageContext.request.contextPath }/";
+						location.href="signup_form.do";
 					}
 				} else {
 					alert("회원가입 실패!");
