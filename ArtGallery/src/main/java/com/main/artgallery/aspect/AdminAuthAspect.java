@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.main.artgallery.exception.ForbiddenException;
-import com.main.artgallery.user.dto.UserDto;
 
 @Aspect
 @Component

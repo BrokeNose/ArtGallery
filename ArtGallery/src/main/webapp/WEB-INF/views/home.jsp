@@ -21,15 +21,16 @@
 <div class="container">
 	<div class="row">
    		<div class="jumbotron">   			
-  			<h1>Today, Artists.</h1>
+  			<h1>Today's Artist</h1>
+  			<div style=""></div>
  			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis ea necessitatibus rem soluta 
  			doloremque porro alias dolorum temporibus perferendis ab deleniti sequi velit aliquam minima harum ducimus quasi veniam asperiores.</p>
-  			<p><a class="btn btn-primary btn-lg" href="#" role="button">view more</a></p>
+  			<p><a class="btn btn-primary btn-lg" href="user/list.do?soncategorytype=A" role="button">view more</a></p>
 		</div>
   	</div>
   	<!-- 아티스트 -->
   	<h4><i class="fas fa-kiss-wink-heart"></i> 아티스트</h4>
-  	<div class="row">	  	
+  	<div class="row">  	
 	  	<div class="col-md-3 col-sm-6 col-xs-6">
 	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
 	  	</div>
