@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.main.artgallery.exception.ForbiddenException;
 import com.main.artgallery.user.dto.UserDto;
 
 @Aspect
@@ -43,7 +44,7 @@ public class AdminAuthAspect {
 					// Spring Framework 에 ModelAndView 객체를 바로 리턴
 					return mView;
 				} else if(id!=null&&!roll.equals("A")) {
-					//throws new ForbiddenException();
+					throw new ForbiddenException();
 				}
 			}
 		}
