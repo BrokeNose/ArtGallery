@@ -34,8 +34,7 @@
 		<div class="arrow_right"><span style="font-size:30px;"><i class="fas fa-arrow-circle-right"></i></span></div>
 		<div class="text-center">
 			<img src="${pageContext.request.contextPath }/resources/images/rem.jpg"  alt="Responsive image"/>
-		</div>		
-		
+		</div>			
 	</div>
 	<div class="text-center">
 		<h2>대제목아티스트이름, 재료종류, 화파종류, 작품이름 </h2>
