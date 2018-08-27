@@ -8,7 +8,15 @@
 <title>result</title>
 </head>
 <body>
-<p><strong>${id }</strong>님 환영합니다!</p>
-<a href="${pageContext/request/contextPath }/">확인</a>
+<c:choose>
+	<c:when test="${isSigninSuccess }">
+		<p><strong>${id }</strong>님 로그인 됐습니다.</p>
+		<a href="${url }">확인</a>
+	</c:when>
+	<c:otherwise>
+		<p>아이디 혹은 비밀번호를 확인하세요.</p>
+		<a href="signin_form.do?url=${url }">확인</a>
+	</c:otherwise>
+</c:choose>
 </body>
 </html>

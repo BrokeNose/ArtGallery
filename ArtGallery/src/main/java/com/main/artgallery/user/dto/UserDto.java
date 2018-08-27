@@ -4,7 +4,7 @@ public class UserDto {
 	private String id;
 	private String pwd;
 	private String email;
-	private char roll;
+	private String roll;
 	private String regdate;
 	private String deldate;
 	private String rollName;
@@ -13,7 +13,7 @@ public class UserDto {
 	
 	public UserDto() {}
 
-	public UserDto(String id, String pwd, String email, char roll, String regdate, String deldate, String rollName,
+	public UserDto(String id, String pwd, String email, String roll, String regdate, String deldate, String rollName,
 			int startRowNum, int endRowNum) {
 		super();
 		this.id = id;
@@ -26,80 +26,58 @@ public class UserDto {
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
 	}
-
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
 	public String getPwd() {
 		return pwd;
 	}
-
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
-
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public char getRoll() {
+	public String getRoll() {
 		return roll;
 	}
-
-	public void setRoll(char roll) {
+	public void setRoll(String roll) {
 		this.roll = roll;
 	}
-
 	public String getRegdate() {
 		return regdate;
 	}
-
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
-
 	public String getDeldate() {
 		return deldate;
 	}
-
 	public void setDeldate(String deldate) {
 		this.deldate = deldate;
 	}
-
 	public String getRollName() {
 		return rollName;
 	}
-
 	public void setRollName(String rollName) {
 		this.rollName = rollName;
 	}
-
 	public int getStartRowNum() {
 		return startRowNum;
 	}
-
 	public void setStartRowNum(int startRowNum) {
 		this.startRowNum = startRowNum;
 	}
-
 	public int getEndRowNum() {
 		return endRowNum;
 	}
-
 	public void setEndRowNum(int endRowNum) {
 		this.endRowNum = endRowNum;
-	}
-
-	
-
-		
+	}		
 }

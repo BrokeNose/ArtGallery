@@ -21,73 +21,75 @@
 	<jsp:include page="../inc/header.jsp">
 		<jsp:param name="navMenu" value="art"/>
 	</jsp:include>
-	
 	<h4><span class="glyphicon glyphicon-th" aria-hidden="true"></span>&nbsp; 작품정보 </h4>
 	<form class="form-horizontal" action="update.do" method="post" enctype="multipart/form-data" id="updateForm">
-	<input type="hidden" name="seq" value="${dto.seq }"/>
-	<div class="panel panel-default">	  
-	  <div class="panel-body">	    
-		  <div class="form-group">
-		    <label class="col-sm-2 control-label">작품명</label>
-		    <div class="col-sm-10">
-		      	<input type="text" class="form-control" id="title" name="title" value="${dto.title }">
-		    </div>
-		  </div>		  
-		  <div class="form-group">
-		    <label class="col-sm-2 control-label">제작년도</label>
-		    <div class="col-sm-10">
-		      	<input type="text" class="form-control" id="createyear" name="createyear" maxlength="4"  value="${dto.createyear }">
-		    </div>
+		<input type="hidden" name="pageNum" value="${param.pageNum }"/>
+		<input type="hidden" name="searchKeyword" value="${param.searchKeyword }"/>
+		<input type="hidden" name="searchCondition" value="${param.searchCondition }"/>
+		
+		<input type="hidden" name="seq" value="${dto.seq }"/>
+		<div class="panel panel-default">	  
+		  <div class="panel-body">	    
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">작품명</label>
+			    <div class="col-sm-10">
+			      	<input type="text" class="form-control" id="title" name="title" value="${dto.title }">
+			    </div>
+			  </div>		  
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">제작년도</label>
+			    <div class="col-sm-10">
+			      	<input type="text" class="form-control" id="createyear" name="createyear" maxlength="4"  value="${dto.createyear }">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			  	<label class="col-sm-2 control-label">사이즈</label>
+				<div class="col-sm-10">			     
+			    	<input type="text" class="form-control" id="artsize" name="artsize"  maxlength="80"  value="${dto.artsize }">
+		 		</div>
+			  </div>
+			  <div class="form-group">
+			  	<label class="col-sm-2 control-label">비고</label>
+				<div class="col-sm-10">
+				    <textarea name="remark" id="remark" class="form-control" rows="8">${dto.remark }</textarea>
+				</div>
+			  </div>
+			  <div class="form-group">
+			  	<label class="col-sm-2 control-label">서비스 이미지</label>
+				<div class="col-sm-10">
+					<input type="hidden" name="imagepath" value="${dto.imagepath }" />
+					<a href="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }" target="_image">${dto.imagepath } 이미지보기</a>		     
+			    	<input type="file" class="form-control" id="file" name="file">
+		 		</div>
+			  </div>	
 		  </div>
-		  <div class="form-group">
-		  	<label class="col-sm-2 control-label">사이즈</label>
-			<div class="col-sm-10">			     
-		    	<input type="text" class="form-control" id="artsize" name="artsize"  maxlength="80"  value="${dto.artsize }">
-	 		</div>
-		  </div>
-		  <div class="form-group">
-		  	<label class="col-sm-2 control-label">비고</label>
-			<div class="col-sm-10">
-			    <textarea name="remark" id="remark" class="form-control" rows="8">${dto.remark }</textarea>
+		  	<div class="panel-footer">
+		  		<div class="form-group">
+				    <label for="" class="col-sm-2 control-label">작가명</label>
+				    <div class="col-sm-8">
+				    	<input type="hidden" id="artist" name="artist" value="${dto.artist }">
+				    	<input type="text" class="form-control" id="artistTxt" name="artistTxt" value="${requestScope.artistTxt }" readonly>
+				    </div>
+				   	<button class="btn btn-default" type="button" id="btnModalA">선택</button>		    
+				</div>
+			  	<div class="form-group">	  		
+				    <label class="col-sm-2 control-label">재료</label>
+				    <div class="col-sm-8">
+				    	<input type="hidden" id="material" name="material" value="${dto.material }">
+				    	<input type="text" class="form-control" id="materialTxt" name="materialTxt"  value="${requestScope.materialTxt }"readonly>
+				    </div>
+				   <button class="btn btn-default" type="button" id="btnModalM">선택</button>		    
+				</div>
+				<div class="form-group">	  		
+				    <label class="col-sm-2 control-label">화파</label>
+				    <div class="col-sm-8">	      
+				      <input type="hidden" id="painter" name="painter" value="${dto.painter }">
+				      <input type="text" class="form-control" id="painterTxt" name="painterTxt"  value="${requestScope.painterTxt }"readonly>
+				    </div>
+				   <button class="btn btn-default" type="button" id="btnModalP">선택</button>		    
+				</div>  		  
 			</div>
-		  </div>
-		  <div class="form-group">
-		  	<label class="col-sm-2 control-label">서비스 이미지</label>
-			<div class="col-sm-10">
-				<input type="hidden" name="imagepath" value="${dto.imagepath }" />
-				<a href="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }" target="_image">${dto.imagepath } 이미지보기</a>		     
-		    	<input type="file" class="form-control" id="file" name="file">
-	 		</div>
-		  </div>	
-	  </div>
-	  <div class="panel-footer">
-	  	<div class="form-group">
-		    <label for="" class="col-sm-2 control-label">작가명</label>
-		    <div class="col-sm-8">
-		    	<input type="hidden" id="artist" name="artist" value="${dto.artist }">
-		    	<input type="text" class="form-control" id="artistTxt" name="artistTxt" value="${requestScope.artistTxt }" readonly>
-		    </div>
-		   <button class="btn btn-default" type="button" id="btnModalA">선택</button>		    
-		</div>
-	  	<div class="form-group">	  		
-		    <label class="col-sm-2 control-label">재료</label>
-		    <div class="col-sm-8">
-		    	<input type="hidden" id="material" name="material" value="${dto.material }">
-		    	<input type="text" class="form-control" id="materialTxt" name="materialTxt"  value="${requestScope.materialTxt }"readonly>
-		    </div>
-		   <button class="btn btn-default" type="button" id="btnModalM">선택</button>		    
-		</div>
-		<div class="form-group">	  		
-		    <label class="col-sm-2 control-label">화파</label>
-		    <div class="col-sm-8">	      
-		      <input type="hidden" id="painter" name="painter" value="${dto.painter }">
-		      <input type="text" class="form-control" id="painterTxt" name="painterTxt"  value="${requestScope.painterTxt }"readonly>
-		    </div>
-		   <button class="btn btn-default" type="button" id="btnModalP">선택</button>		    
-		</div>	  
-	  
-	</div>
-	</div><!-- //panel  -->	
+		</div><!-- //panel  -->	
 		<!-- button // -->
 		<div class="text-center">
 			<button type="button" class="btn btn-primary" id="btnSave">수정</button>
@@ -97,7 +99,6 @@
 		<!-- //button  -->
 	</form>	
 </div><!-- //container-fluid  -->
-
 <!--  modal  -->
 <div class="modal fade" id="modalRelForm">
 	<!-- modal-lg  | default | modal-sm -->	
@@ -177,7 +178,7 @@
 	$("#btnDelete").click(function(){
 		isDelete=confirm("작품을 삭제하시겠습니까?\r\n연계정보 및 comment 자료가 함께 삭제됩니다.");
 		if (isDelete){
-			location.href="delete.do?seq="+$("input[name=seq]").val();
+			location.href="delete.do?searchKeyword=${param.searchKeyword}&searchCondition=${param.searchCondition}&pageNum=${param.pageNum}&seq="+$("input[name=seq]").val();
 		}
 	});
 	

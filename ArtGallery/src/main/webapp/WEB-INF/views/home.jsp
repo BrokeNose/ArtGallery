@@ -5,17 +5,71 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Home</title>
+<title>main</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/artgallery.css" />
 </head>
 <body>
-<jsp:include page="user/header.jsp"/>
+<jsp:include page="header.jsp"/>
 <h3>인덱스 페이지 입니다.</h3>
 <a href="admin/adminCategory.do?categorytype=A">아티스트</a>
 <br />
-<a href="/user/list.do?soncategorytype=A">메인에서 아티스트</a>
-<a href="/user/list.do?soncategorytype=M">메인에서 재료</a>
-<a href="/user/list.do?soncategorytype=P">메인에서 화파</a>
+<a href="user/list.do?soncategorytype=A">메인에서 아티스트</a>
+<a href="user/list.do?soncategorytype=M">메인에서 재료</a>
+<a href="user/list.do?soncategorytype=P">메인에서 화파</a>
 <a href="${pageContext.request.contextPath }/admin">Admin</a>
+
+<div class="container">
+	<div class="row">
+   		<div class="jumbotron">   			
+  			<h1>Today, Artists.</h1>
+ 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis ea necessitatibus rem soluta 
+ 			doloremque porro alias dolorum temporibus perferendis ab deleniti sequi velit aliquam minima harum ducimus quasi veniam asperiores.</p>
+  			<p><a class="btn btn-primary btn-lg" href="#" role="button">view more</a></p>
+		</div>
+  	</div>
+  	<!-- 아티스트 -->
+  	<h4><i class="fas fa-kiss-wink-heart"></i> 아티스트</h4>
+  	<div class="row">	  	
+	  	<div class="col-md-3 col-sm-6 col-xs-6">
+	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
+	  	</div>
+	  	<div class="col-md-3 col-sm-6 col-xs-6">
+	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
+	  	</div>
+	  	<div class="col-md-3 col-sm-6 col-xs-6">
+	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
+	  	</div>
+	  	<div class="col-md-3 col-sm-6 col-xs-6">
+	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
+	  	</div>
+	  	<div class="col-md-3 col-sm-6 col-xs-6">
+	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
+	  	</div>
+	  	
+	</div><!-- //아티스트 -->
+	<!-- 재료 -->
+  	<h4><i class="fas fa-paint-brush"></i> 재료</h4>
+  	<div class="row">	  	
+	  	<div class="col-md-3 col-sm-6 col-xs-6">
+	  	
+	  	
+	  	</div>	 
+	</div><!-- //재료 -->
+	<!-- 화파 -->
+  	<h4><i class="fas fa-palette"></i> 화파</h4>
+  	<div class="row">	  	
+	  	<div class="col-md-3 col-sm-6 col-xs-6">
+	  	
+	  	
+	  	
+	  	</div>
+	  	
+	</div><!-- //화파 -->
+ 
+</div><!-- //container -->
+
+
+<jsp:include page="footer.jsp"/>
+
 </body>
 </html>

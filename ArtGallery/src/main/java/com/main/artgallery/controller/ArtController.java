@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.main.artgallery.art.dto.ArtDto;
 import com.main.artgallery.service.ArtService;
+import com.main.artgallery.service.ConfigService;
 
 
 @Controller
@@ -19,6 +20,8 @@ public class ArtController {
 	@Autowired
 	private ArtService aService;		// ArtService에서 T_ArtRel도 함께 관리합니다.
 	
+	@Autowired
+	private ConfigService cService;
 	
 	//-------- Son ----------------------
 
@@ -42,7 +45,6 @@ public class ArtController {
 	//관리자 작품 목록
 	@RequestMapping("/admin/art/list")
 	public ModelAndView adminArtList(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
-		aService.getConfig(request);
 		aService.getList(mView, dto);
 		mView.setViewName("admin/art/list");
 		return mView;
@@ -50,19 +52,23 @@ public class ArtController {
 	//관리자 작품 등록화면
 	@RequestMapping("/admin/art/insertform")
 	public ModelAndView adminArtInsertform(HttpServletRequest request) {
-		aService.getConfig(request);
+		cService.getData(request, "1");
 		return new ModelAndView("admin/art/insertform");
 	}
 	//관리자 작품 등록처리
 	@RequestMapping("/admin/art/insert")
 	public ModelAndView adminArtInsert(HttpServletRequest request, @ModelAttribute ArtDto dto) {
 		aService.insert(request, dto);
-		return new ModelAndView("redirect:/admin/art/list.do");
+		
+		String param="pageNum=1"
+		+"&searchKeyword="+request.getParameter("searchKeyword")
+		+"&searchCondition="+request.getParameter("searchCondition");
+		
+		return new ModelAndView("redirect:/admin/art/list.do?"+param);
 	}
 	//관리자 작품 수정화면
 	@RequestMapping("/admin/art/updateform")
 	public ModelAndView adminArtUpdateform(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
-		aService.getConfig(request);
 		aService.getData(mView, dto);
 		mView.setViewName("admin/art/updateform");
 		return mView;
@@ -71,12 +77,20 @@ public class ArtController {
 	@RequestMapping("/admin/art/update")
 	public ModelAndView adminArtUpdate(HttpServletRequest request, @ModelAttribute ArtDto dto) {
 		aService.update(request, dto);
-		return new ModelAndView("redirect:/admin/art/list.do");
+		
+		String param="pageNum="+request.getParameter("pageNum")
+					+"&searchKeyword="+request.getParameter("searchKeyword")
+					+"&searchCondition="+request.getParameter("searchCondition");
+		return new ModelAndView("redirect:/admin/art/list.do?"+param);
 	}
 	//관리자 작품 삭제처리
 	@RequestMapping("/admin/art/delete")
 	public ModelAndView adminArtDelete(HttpServletRequest request, @RequestParam int seq) {
 		aService.delete(request, seq);
-		return new ModelAndView("redirect:/admin/art/list.do");
+		
+		String param="pageNum="+request.getParameter("pageNum")
+					+"&searchKeyword="+request.getParameter("searchKeyword")
+					+"&searchCondition="+request.getParameter("searchCondition");
+		return new ModelAndView("redirect:/admin/art/list.do?"+param);
 	}
 }

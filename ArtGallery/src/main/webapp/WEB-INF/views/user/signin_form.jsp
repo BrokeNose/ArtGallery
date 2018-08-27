@@ -5,22 +5,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>sign in</title>
+<title>Sign In</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/artgallery.css" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
 </head>
 <body>
-<jsp:include page="header.jsp"/>
+<jsp:include page="../header.jsp"/>
 <div class="container">
 	<br><br><br>
 	<div class="text-center center-block" style="width:30%;">
-	    <form action="signin.do" class="form-signin">
+	    <form action="signin.do?url=${url }" method="post" class="form-signin">
 	      <font size="30"><i class="fas fa-university"></i></font>
 	      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-	      <label for="inputEmail" class="sr-only">Id</label>
-	      <input type="text" id="id" class="form-control" placeholder="id" required autofocus>
+	      <label for="inputId" class="sr-only">Id</label>
+	      <input type="text" name="id" id="id" class="form-control" placeholder="Id" required autofocus>
 	      <label for="inputPassword" class="sr-only">Password</label>
-	      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+	      <input type="password" name="pwd" id="inputPassword" class="form-control" placeholder="Password" required>
 	      <!-- 
 	      <div class="checkbox mb-3">
 	        <label>
@@ -32,6 +32,6 @@
 	    </form>
 	</div><!-- //text-center center-block -->
 </div><!-- //container -->
-<jsp:include page="footer.jsp"/>
+<jsp:include page="../footer.jsp"/>
 </body>
 </html>
