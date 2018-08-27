@@ -33,7 +33,7 @@
 		<div class="arrow_left"><span style="font-size:30px;"><i class="fas fa-arrow-circle-left"></i></span></div>
 		<div class="arrow_right"><span style="font-size:30px;"><i class="fas fa-arrow-circle-right"></i></span></div>
 		<div class="text-center">
-			<img src="${pageContext.request.contextPath }/resources/images/rem.jpg"  alt="Responsive image"/>
+					<img src="${pageContext.request.contextPath }/resources/images/rem.jpg"  alt="Responsive image"/>
 		</div>			
 	</div>
 	<div class="text-center">

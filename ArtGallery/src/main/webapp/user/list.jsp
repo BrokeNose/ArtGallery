@@ -23,6 +23,7 @@
 		bottom:0px;
 		left:10px;
 		color:#fff;
+		
 	}
 </style>
 </head>
