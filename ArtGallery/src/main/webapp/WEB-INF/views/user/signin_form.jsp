@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>sign in</title>
+<title>Sign In</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/artgallery.css" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
 </head>
@@ -18,7 +18,7 @@
 	      <font size="30"><i class="fas fa-university"></i></font>
 	      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 	      <label for="inputId" class="sr-only">Id</label>
-	      <input type="text" name="id" id="id" class="form-control" placeholder="id" required autofocus>
+	      <input type="text" name="id" id="id" class="form-control" placeholder="Id" required autofocus>
 	      <label for="inputPassword" class="sr-only">Password</label>
 	      <input type="password" name="pwd" id="inputPassword" class="form-control" placeholder="Password" required>
 	      <!-- 
