@@ -14,10 +14,13 @@ public class ArtRelDto {
   	private String code;		//구분 A, P, M
   	private String codeName;	//구분명 (아티스트, 화파, 재료)
   	private String name;
+  	private String bdate;
+  	private String ddate;
   	
   	public ArtRelDto() {}
 
-	public ArtRelDto(int cseq, int aseq, int sortseq, String code, String codeName, String name) {
+	public ArtRelDto(int cseq, int aseq, int sortseq, String code, String codeName, String name, String bdate,
+			String ddate) {
 		super();
 		this.cseq = cseq;
 		this.aseq = aseq;
@@ -25,6 +28,8 @@ public class ArtRelDto {
 		this.code = code;
 		this.codeName = codeName;
 		this.name = name;
+		this.bdate = bdate;
+		this.ddate = ddate;
 	}
 
 	public int getCseq() {
@@ -74,5 +79,21 @@ public class ArtRelDto {
 	public void setName(String name) {
 		this.name = name;
 	}
-  	
+
+	public String getBdate() {
+		return bdate;
+	}
+
+	public void setBdate(String bdate) {
+		this.bdate = bdate;
+	}
+
+	public String getDdate() {
+		return ddate;
+	}
+
+	public void setDdate(String ddate) {
+		this.ddate = ddate;
+	}
+
 }

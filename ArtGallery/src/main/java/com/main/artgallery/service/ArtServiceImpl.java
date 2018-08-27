@@ -15,6 +15,8 @@ import com.main.artgallery.art.dao.ArtDao;
 import com.main.artgallery.art.dto.ArtDto;
 import com.main.artgallery.art.dao.ArtRelDao;
 import com.main.artgallery.art.dto.ArtRelDto;
+import com.main.artgallery.config.dao.ConfigDao;
+import com.main.artgallery.config.dto.ConfigDto;
 
 /*
  * 작성자 : hyung
@@ -29,17 +31,11 @@ public class ArtServiceImpl implements ArtService {
 	@Autowired
 	private ArtRelDao artRelDao;
 
-	/** T_config에서 갖고 오는 로직으로 변경해야함 **/
-	//한 페이지에 나타낼 로우의 갯수
-	private static final int PAGE_ROW_COUNT=10;
-	//하단 디스플레이 페이지 갯수
-	private static final int PAGE_DISPLAY_COUNT=5;	
-	private static final String uploadDir="/upload";
-	private static final String div1="@@@";
-	private static final String div2="\\|\\|\\|";
-	private static final String div3="|||";
-	
+	@Autowired
+	private ConfigDao configDao;
 
+	private ConfigDto configDto=null;
+	
 	@Override
 	public void getList(ModelAndView mView, ArtDto dto) {
 		/*
@@ -74,6 +70,10 @@ public class ArtServiceImpl implements ArtService {
 			mView.addObject("searchKeyword", keyword);
 		}
 		
+		//T_config 환경변수 가져오기
+		getConfig();
+		mView.addObject("configDto", configDto);
+		
 		//보여줄 페이지의 번호
 		int pageNum=dto.getPageNum();	// null인 경우 0 이 됨.
 		if(pageNum == 0){
@@ -81,20 +81,20 @@ public class ArtServiceImpl implements ArtService {
 		}
 		
 		//보여줄 페이지 데이터의 시작 ResultSet row 번호
-		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
+		int startRowNum=1+(pageNum-1)*configDto.getPagerow();
 		//보여줄 페이지 데이터의 끝 ResultSet row 번호
-		int endRowNum=pageNum*PAGE_ROW_COUNT;
+		int endRowNum=pageNum*configDto.getPagerow();
 		
 		//전체 row 의 갯수를 읽어온다.
 		int totalRow=artDao.getCount(dto);
 		//전체 페이지의 갯수 구하기
 		int totalPageCount=
-				(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+				(int)Math.ceil(totalRow/(double)configDto.getPagerow());
 		//시작 페이지 번호
 		int startPageNum=
-			1+((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
+			1+((pageNum-1)/configDto.getDisplayrow())*configDto.getDisplayrow();
 		//끝 페이지 번호
-		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
+		int endPageNum=startPageNum+configDto.getDisplayrow()-1;
 		//끝 페이지 번호가 잘못된 값이라면 
 		if(totalPageCount < endPageNum){
 			endPageNum=totalPageCount; //보정해준다. 
@@ -121,6 +121,34 @@ public class ArtServiceImpl implements ArtService {
 
 	@Override
 	public void getData(ModelAndView mView, ArtDto dto) {
+		//검색과 관련된 파라미터들도 dto에 선언되어 있음
+		String keyword=dto.getSearchKeyword();
+		String condition=dto.getSearchCondition();		
+		
+		if(keyword != null) {//검색어가 전달된 경우 
+			if(condition.equals("titleRemark")) {//제목+비고
+				dto.setTitle(keyword);
+				dto.setRemark(keyword);
+			}else if(condition.equals("title")) {//제목
+				dto.setTitle(keyword);
+			}else if(condition.equals("remark")) {//비고
+				dto.setRemark(keyword);
+			}else if(condition.equals("artist")) {//아티스트
+				dto.setArtist(keyword);
+			}else if(condition.equals("painter")) {//화파
+				dto.setPainter(keyword);
+			}else if(condition.equals("material")) {//작성자 검색
+				dto.setMaterial(keyword);
+			}
+			//list.jsp 에서 필요한 내용 담기
+			mView.addObject("searchCondition", condition);
+			mView.addObject("searchKeyword", keyword);
+		}
+		
+		//T_config 환경변수 가져오기
+		getConfig();
+		mView.addObject("configDto", configDto);
+
 		//작품정보 가져오기
 		ArtDto resultDto=artDao.getData(dto);
 		
@@ -141,11 +169,11 @@ public class ArtServiceImpl implements ArtService {
 		String code="";
 		String text="";
 		for(ArtRelDto rDto : aList) {
-			code += div1+rDto.getCseq()+div3+rDto.getName();
+			code += configDto.getSection1()+rDto.getCseq()+configDto.getSection2()+rDto.getName();
 			text += ","+rDto.getName();
 		}
 		if (!code.equals("")) {
-			code=code.substring(div1.length(), code.length());
+			code=code.substring(configDto.getSection1().length(), code.length());
 			text=text.substring(1, text.length());
 		}
 		resultDto.setArtist(code);
@@ -154,11 +182,11 @@ public class ArtServiceImpl implements ArtService {
 		code="";
 		text="";
 		for(ArtRelDto rDto : mList) {
-			code += div1+rDto.getCseq()+div3+rDto.getName();
+			code += configDto.getSection1()+rDto.getCseq()+configDto.getSection2()+rDto.getName();
 			text += ","+rDto.getName();
 		}
 		if (!code.equals("")) {
-			code=code.substring(div1.length(), code.length());
+			code=code.substring(configDto.getSection1().length(), code.length());
 			text=text.substring(1, text.length());
 		}
 		resultDto.setMaterial(code);
@@ -167,11 +195,11 @@ public class ArtServiceImpl implements ArtService {
 		code="";
 		text="";
 		for(ArtRelDto rDto : pList) {
-			code += div1+rDto.getCseq()+div3+rDto.getName();
+			code += configDto.getSection1()+rDto.getCseq()+configDto.getSection2()+rDto.getName();
 			text += ","+rDto.getName();
 		}
 		if (!code.equals("")) {
-			code=code.substring(div1.length(), code.length());
+			code=code.substring(configDto.getSection1().length(), code.length());
 			text=text.substring(1, text.length());
 		}
 		resultDto.setPainter(code);
@@ -192,9 +220,16 @@ public class ArtServiceImpl implements ArtService {
 		int seq=getSequence();
 		dto.setSeq(seq);
 		
+		//T_config 환경변수 가져오기
+		getConfig();
+		
 		//파일 등록 처리
 		//파일을 저장할 폴더의 절대 경로를 얻어온다.
-		String realPath=request.getSession().getServletContext().getRealPath(uploadDir);
+		// local 경로
+		//String realPath=request.getSession().getServletContext().getRealPath(dto.getUploadRoot());
+		// server 경로
+		String realPath="\\\\"+configDto.getIp()+"\\" + configDto.getUploadRoot();
+		
 		//System.out.println(realPath);
 		//MultipartFile 객체의 참조값 얻어오기
 		
@@ -229,7 +264,7 @@ public class ArtServiceImpl implements ArtService {
 			e.printStackTrace();
 		}
 		//FileDto 객체에 추가 정보를 담는다.
-		dto.setImagepath(uploadDir+File.separator+dir+File.separator+saveFileName);
+		dto.setImagepath(configDto.getUploadRoot()+File.separator+dir+File.separator+saveFileName);
 				
 		// DB 에 저장하기
 		artDao.insert(dto);
@@ -252,9 +287,15 @@ public class ArtServiceImpl implements ArtService {
 	@Override
 	public void update(HttpServletRequest request, ArtDto dto) {
 		
+		//T_config 환경변수 가져오기
+		getConfig();
+		
 		//파일 등록 처리
 		//파일을 저장할 폴더의 절대 경로를 얻어온다.
-		String realPath=request.getSession().getServletContext().getRealPath(uploadDir);
+		// local 경로
+		//String realPath=request.getSession().getServletContext().getRealPath(dto.getUploadRoot());
+		// server 경로
+		String realPath="\\\\"+configDto.getIp()+"\\" + configDto.getUploadRoot();
 
 		//MultipartFile 객체의 참조값 얻어오기
 		//Dto 에 담긴 MultipartFile 객체의 참조값을 얻어온다. - servlet-context.xml에 beans 기술해야함.
@@ -269,7 +310,7 @@ public class ArtServiceImpl implements ArtService {
 		if ( orgFileName != null && !orgFileName.equals("")) {	//첨부파일 등록시
 			//기존 등록파일 삭제
 			if( dto.getImagepath() != null && !dto.getImagepath().equals("")) {
-				fileDelete(request.getServletContext().getRealPath(uploadDir), dto.getImagepath());
+				fileDelete(realPath, dto.getImagepath());
 			}
 			
 			//저장할 파일의 상세 경로 - upload/seq 조합 번호
@@ -298,7 +339,7 @@ public class ArtServiceImpl implements ArtService {
 				e.printStackTrace();
 			}
 			//FileDto 객체에 추가 정보를 담는다.
-			dto.setImagepath(uploadDir+File.separator+dir+File.separator+saveFileName);
+			dto.setImagepath(configDto.getUploadRoot()+File.separator+dir+File.separator+saveFileName);
 		}
 		
 		//작품 정보 수정
@@ -325,15 +366,21 @@ public class ArtServiceImpl implements ArtService {
 	@Transactional
 	@Override
 	public void delete(HttpServletRequest request, int seq) {
-		// 파일삭제
+		//T_config 환경변수 가져오기
+		getConfig();
 
+		// local 경로
+		//String realPath=request.getSession().getServletContext().getRealPath(dto.getUploadRoot());
+		// server 경로
+		String realPath="\\\\"+configDto.getIp()+"\\" + configDto.getUploadRoot();
+		
 		ArtDto dto=new ArtDto();
 		dto.setSeq(seq);
 		dto=artDao.getData(dto);
 		
 		//기존 등록파일 삭제
 		if( dto.getImagepath() != null && !dto.getImagepath().equals("")) {
-			fileDelete(request.getServletContext().getRealPath(uploadDir), dto.getImagepath());
+			fileDelete(realPath, dto.getImagepath());
 		}
 		
 //		//2. DB 에서 파일정보 삭제
@@ -351,14 +398,19 @@ public class ArtServiceImpl implements ArtService {
 	// 연계자료  문자열 분리해서 연계정보에 insert하기
 	@Override
 	public void insertRel(int seq, String relData) {
+		
+		String section3="\\" + configDto.getSection2().substring(0, 1)
+				+ "\\" + configDto.getSection2().substring(1, 2)
+				+ "\\" + configDto.getSection2().substring(2, 3);
+		
 		ArtRelDto dto=new ArtRelDto();
 		dto.setAseq(seq);
-		String[] arr=relData.split(div1);
+		String[] arr=relData.split(configDto.getSection1());
 		//System.out.println(relData);
 		for(int i=0; i<arr.length; i++) {
 			String cSeqTmp=arr[i].trim();
 			//System.out.println(cSeqTmp);
-			String[] cSeqs=cSeqTmp.split(div2);
+			String[] cSeqs=cSeqTmp.split(section3);
 			int cSeq=Integer.parseInt(cSeqs[0]);
 			dto.setCseq(cSeq);
 			dto.setSortseq(i+1);
@@ -373,14 +425,19 @@ public class ArtServiceImpl implements ArtService {
 		//System.out.println("fileDelete ");
 		
 		//1. 파일 시스템에서 파일 삭제
-		String path=realPath + imagePath.substring(uploadDir.length());
+		String path=realPath + imagePath.substring(configDto.getUploadRoot().length());
 
-		//System.out.println(imagePath.substring(uploadDir.length()));
+		//System.out.println(imagePath.substring(dto.getUploadRoot().length()));
 		//System.out.println(path);
 		
 		try{
-			System.out.println(path+" file 삭제");
+			//System.out.println(path+" file 삭제");
 			new File(path).delete();
 		}catch(Exception e){}
+	}
+
+	@Override
+	public void getConfig() {
+		configDto=configDao.getData("1");
 	}	
 }

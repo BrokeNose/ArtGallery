@@ -67,35 +67,25 @@ public class UserController {
 		return mView;
 	}
 	@RequestMapping("/user/signout")
-	public String signout(HttpSession session) {
+	public String userSignout(HttpSession session) {
 		session.invalidate();
-		return "user/signout";
+		return "redirect:../";
 	}
 	@RequestMapping("/user/info")
-	public ModelAndView userAuthInfo(HttpServletRequest request, HttpSession session) {
+	public ModelAndView userInfo(HttpServletRequest request, HttpSession session) {
 		ModelAndView mView=new ModelAndView();
 		uService.info(mView, session);
 		mView.setViewName("user/info");
 		return mView;
 	}
-	@RequestMapping("/user/update_form")
-	public ModelAndView userAuthUpdateForm(HttpServletRequest request, HttpSession session) {
-		ModelAndView mView=new ModelAndView();
-		uService.updateForm(mView, session);
-		mView.setViewName("user/update_form");
-		return mView;
-	}
 	@RequestMapping("/user/update")
-	public ModelAndView userAuthUpdate(HttpServletRequest request, @ModelAttribute UserDto dto) {
+	public ModelAndView userUpdate(HttpServletRequest request, @ModelAttribute UserDto dto) {
 		uService.update(dto);
-		//ModelAndView mView=new ModelAndView();
-		//mView.setViewName("redirect:/users/info.do");
 		return new ModelAndView("redirect:/user/info.do");
-		//return mView;
 	}
 	@RequestMapping("/user/pw_change_form")
-	public ModelAndView userAuthPwdUpdateForm(HttpServletRequest request) {
-		return new ModelAndView("users/pw_change_form");
+	public ModelAndView userPwdUpdateForm(HttpServletRequest request) {
+		return new ModelAndView("user/pw_change_form");
 	}
 	@RequestMapping("/user/pw_check")
 	@ResponseBody
@@ -106,12 +96,12 @@ public class UserController {
 		return map;
 	}
 	@RequestMapping("/user/pw_change")
-	public ModelAndView userAuthPwdChange(HttpServletRequest request, @RequestParam String pwd, HttpSession session) {
+	public ModelAndView userPwdChange(HttpServletRequest request, @RequestParam String pwd, HttpSession session) {
 		uService.changePwd(pwd, session);
 		return new ModelAndView("redirect:/user/info.do");
 	}
 	@RequestMapping("/user/leave")
-	public ModelAndView userAuthLeave(HttpServletRequest request, ModelAndView mView) {
+	public ModelAndView userLeave(HttpServletRequest request, ModelAndView mView) {
 		uService.leave(mView, request.getSession());
 		mView.setViewName("user/leave");
 		return mView;

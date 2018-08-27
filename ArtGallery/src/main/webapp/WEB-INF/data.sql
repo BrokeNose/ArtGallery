@@ -1,5 +1,22 @@
-insert into t_artrel(cseq, aseq) values(374,109);  -- 공동 db 추가 해야함. 
+SELECT result2.* 
+FROM (
+		SELECT result1.*, ROWNUM rnum 
+		FROM (
+				SELECT DISTINCT seq, title, createyear, artsize, imagepath, viewcount, 
+					TO_CHAR(regdate,'YYYY.MM.DD HH24:MI') AS regdate, regdate as regdate2, artist, painter, material 
+					FROM v_art 
+					ORDER BY regdate DESC, seq DESC 
+			 ) result1 
+		ORDER BY regdate DESC, seq DESC 
+	  ) result2 
+ORDER BY rnum
+;
 
+select * from t_art   ORDER BY regdate DESC, seq DESC;
+
+insert into t_artrel(cseq, aseq, sortseq) values(374,109, 1);  -- 공동 db 추가 해야함. 
+
+select imagepath from t_art ; 
 
 update t_art set imagepath='/'||imagepath
 where seq <= 109

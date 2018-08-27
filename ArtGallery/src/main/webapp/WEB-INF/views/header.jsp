@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -9,7 +10,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="main.jsp">
+      <a class="navbar-brand" href="${pageContext.request.contextPath }/">
       	<span style="color: #333;"><i class="fas fa-university"></i> ArtGallery</span>
       </a>
     </div>
@@ -20,28 +21,34 @@
         	<li class="dropdown">
 	          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">카테고리 <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
-		            <li><a href="list.jsp">아티스트</a></li>
-		            <li><a href="#">재료</a></li>
-		            <li><a href="#">화파</a></li>		           
+		            <li><a href="${pageContext.request.contextPath }/category/list.do?soncategorytype=A">아티스트</a></li>
+		            <li><a href="${pageContext.request.contextPath }/category/list.do?soncategorytype=M">재료</a></li>
+		            <li><a href="${pageContext.request.contextPath }/category/list.do?soncategorytype=P">화파</a></li>		           
 		          </ul>
 	        </li>
 	       	<li><a id="showBtn" href="#">의견보내기 </a></li>
 	        <li class="disabled"><a href="#">shop</a></li>
-        </ul> 	
+        </ul>
       	<ul class="nav navbar-nav navbar-right">
-	        <li><a href="#" alt="logout"><span style="font-size:1.3em;color: #333;"><i class="fas fa-sign-out-alt"></i></span></a></li>
-	        <li><a href="login.jsp" alt="login"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user"></i></span></a></li>
-	        <li><a href="info.jsp" alt="userinfo"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-tie"></i></span></a></li>
-	        <li><a href="register.jsp" alt="register"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-plus"></i></span></a></li>
-
-	        <li><a href="#" alt="favorite"><span style="font-size:1.3em;color: #333;"><i class="fas fa-heart"></i></span></a></li>
+      		<c:choose>
+      			<c:when test="${not empty id }">
+      				<li><a href="javascript:signOut()" alt="logout"><span style="font-size:1.3em;color: #333;"><i class="fas fa-sign-out-alt"></i></span></a></li>
+      				<li><a href="${pageContext.request.contextPath }/user/info.do" alt="userinfo"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-tie"></i></span></a></li>
+					<li><a href="#" alt="favorite"><span style="font-size:1.3em;color: #333;"><i class="fas fa-heart"></i></span></a></li>
+      			</c:when>
+      			<c:otherwise>
+      				<li><a href="user/signin_form.do?url=${url }" alt="login"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user"></i></span></a></li>
+	        		<li><a href="user/signup_form.do" alt="register"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-plus"></i></span></a></li>
+      			</c:otherwise>
+      		</c:choose>
 	        <li><a href="#" alt="search" id="search_icon"><span style="font-size:1.3em;color: #333;"><i class="fas fa-search"></i></span></a></li>
-	        
-	        <li><a href="#" alt="admin"><span style="font-size:1.3em;color: #333;"><i class="fas fa-users-cog"></i></span></a></li>
-       
+	        <%-- 
+	        <c:if test="${roll eq 'A' }">
+	        	<li><a href="admin/home.do" alt="admin"><span style="font-size:1.3em;color: #333;"><i class="fas fa-users-cog"></i></span></a></li>
+	        </c:if>
+	         --%>
       	</ul>
     </div>
-    
   </div>
 </nav>
 <!-- search// -->
@@ -56,7 +63,6 @@
 		  </div>
 		  <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
 		</form>
-	
  	</div>
  	<hr class="line"/> 	
 </div>
@@ -102,5 +108,10 @@
 	$("#search_close").click(function() {
 		$("#search_box").animate({top:"-60px"})
 	});
+	
+	function signOut() {
+		confirm("로그아웃 됐습니다.");
+		location.href="user/signout.do";
+	};
 
 </script>

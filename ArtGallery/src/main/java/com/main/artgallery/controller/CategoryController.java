@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.main.artgallery.category.dao.CategoryDao;
+import com.main.artgallery.category.dao.CategoryDaoImpl;
 import com.main.artgallery.category.dto.CategoryDto;
 import com.main.artgallery.service.CategoryService;
 
@@ -44,10 +46,19 @@ public class CategoryController {
 	}
 
 	//Son
-	@RequestMapping("/user/list")
-	public ModelAndView UserCategory(HttpServletRequest request, ModelAndView mView) {
+	@RequestMapping("/category/list")
+	public ModelAndView CategoryList(HttpServletRequest request, ModelAndView mView) {
 		categoryService.SonGetList(request, mView);
-		mView.setViewName("user/list");
+		mView.setViewName("category/list");
+		return mView;
+		
+	}
+	
+	@RequestMapping("/category/detail")
+	public ModelAndView CategoryDetail(HttpServletRequest request, ModelAndView mView) {
+		categoryService.SonGetData(request, mView);
+		mView.setViewName("category/detail");
+		
 		return mView;
 		
 	}

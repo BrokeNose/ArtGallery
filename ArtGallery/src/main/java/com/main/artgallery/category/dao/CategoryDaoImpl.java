@@ -85,10 +85,15 @@ public class CategoryDaoImpl implements CategoryDao{
 
 	@Override
 	public List<CategoryDto> getFavorList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public CategoryDto getAData(int seq) {
+		return session.selectOne("category.getDataAll",seq);
+	}
 
+	
 	
 
 	

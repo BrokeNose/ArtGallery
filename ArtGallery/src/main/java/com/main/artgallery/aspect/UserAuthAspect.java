@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Aspect
 @Component
 public class UserAuthAspect {
-	@Around("execution(org.springframework.web.servlet.ModelAndView userAuth*(..))")
+	@Around("execution(org.springframework.web.servlet.ModelAndView user*(..))")
 	public Object signinCheck(ProceedingJoinPoint joinPoint) throws Throwable {
 		//AOP 가 적용된 메소드에 전달된 인자 얻어오기
 		Object[] args=joinPoint.getArgs();

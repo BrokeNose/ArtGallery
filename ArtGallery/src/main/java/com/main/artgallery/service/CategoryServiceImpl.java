@@ -54,6 +54,7 @@ public class CategoryServiceImpl implements CategoryService {
 		mView.addObject("categoryType", categoryType);
 	}
 	
+	//son
 	@Override
 	public void SonGetList(HttpServletRequest request, ModelAndView mView) {
 		String SonCategoryType=(String)request.getParameter("soncategorytype");
@@ -72,8 +73,18 @@ public class CategoryServiceImpl implements CategoryService {
 			mView.addObject("SonCategorytype","P");
 		}
 	}
+	
+	@Override
+	public void SonGetData(HttpServletRequest request, ModelAndView mView) {
+		//파라미터로 전달되는 글번호 읽어오기
+		int seq=Integer.parseInt(request.getParameter("seq"));
+		
+		CategoryDto dto= new CategoryDto();
+		dto=dao.getAData(seq);
+		mView.addObject("dto", dto);
+	}
 
-
+	
 	@Override
 	public void getSearchList(HttpServletRequest request, ModelAndView mView) {
 		CategoryDto dto=new CategoryDto();
