@@ -78,13 +78,6 @@ public class UserController {
 		mView.setViewName("user/info");
 		return mView;
 	}
-	@RequestMapping("/user/update_form")
-	public ModelAndView userUpdateForm(HttpServletRequest request, HttpSession session) {
-		ModelAndView mView=new ModelAndView();
-		uService.updateForm(mView, session);
-		mView.setViewName("user/update_form");
-		return mView;
-	}
 	@RequestMapping("/user/update")
 	public ModelAndView userUpdate(HttpServletRequest request, @ModelAttribute UserDto dto) {
 		uService.update(dto);

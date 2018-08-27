@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
 </head>
 <body>
+<jsp:include page="header.jsp"/>
 <h3>인덱스 페이지 입니다.</h3>
 <a href="admin/adminCategory.do?categorytype=A">아티스트</a>
 <br />
@@ -17,7 +18,6 @@
 <a href="user/list.do?soncategorytype=M">메인에서 재료</a>
 <a href="user/list.do?soncategorytype=P">메인에서 화파</a>
 <a href="${pageContext.request.contextPath }/admin">Admin</a>
-<jsp:include page="user/header.jsp"/>
 <div class="container">
 	<div class="row">
    		<div class="jumbotron">   			
@@ -69,8 +69,7 @@
 </div><!-- //container -->
 
 
-<jsp:include page="user/footer.jsp"/>
 
-
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

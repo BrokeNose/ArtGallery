@@ -107,18 +107,10 @@ public class CategoryDaoImpl implements CategoryDao{
 	
 	@Override
 	public CategoryDto getAData(int seq) {
-		return session.selectOne("category.getDataArtist",seq);
+		return session.selectOne("category.getDataAll",seq);
 	}
 
-	@Override
-	public CategoryDto getMData(int seq) {
-		return session.selectOne("category.getDataMaterial",seq);
-	}
-
-	@Override
-	public CategoryDto getPData(int seq) {
-		return session.selectOne("category.getDataArtistPart",seq);
-	}
+	
 	
 
 	
