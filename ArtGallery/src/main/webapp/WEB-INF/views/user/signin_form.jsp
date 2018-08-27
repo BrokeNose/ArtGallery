@@ -17,7 +17,7 @@
 	    <form action="signin.do" class="form-signin">
 	      <font size="30"><i class="fas fa-university"></i></font>
 	      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-	      <label for="inputEmail" class="sr-only">Email address</label>
+	      <label for="inputEmail" class="sr-only">Id</label>
 	      <input type="text" id="id" class="form-control" placeholder="id" required autofocus>
 	      <label for="inputPassword" class="sr-only">Password</label>
 	      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
