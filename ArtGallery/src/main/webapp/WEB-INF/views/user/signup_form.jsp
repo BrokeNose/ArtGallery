@@ -203,9 +203,7 @@
 					var result=confirm(responseData.msg);
 					if(result) {
 						location.href="signin_form.do?url=${url }";
-					} else {
-						location.href="signup_form.do";
-					}
+					} 
 				} else {
 					alert("회원가입 실패!");
 				}

@@ -14,7 +14,7 @@
 <div class="container">
 	<br><br><br>
 	<div class="text-center center-block" style="width:30%;">
-	    <form action="signin.do?url=${url }" method="post" class="form-signin">
+	    <form action="signin.do?url=${url }" method="post" class="form-signin" id="signinForm">
 	      <font size="30"><i class="fas fa-university"></i></font>
 	      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 	      <label for="inputId" class="sr-only">Id</label>
@@ -33,5 +33,6 @@
 	</div><!-- //text-center center-block -->
 </div><!-- //container -->
 <jsp:include page="../footer.jsp"/>
+<script>
 </body>
 </html>

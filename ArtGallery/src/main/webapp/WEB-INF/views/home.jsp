@@ -13,38 +13,32 @@
 <jsp:include page="header.jsp"/>
 <h3>인덱스 페이지 입니다.</h3>
 <a href="admin/adminCategory.do?categorytype=A">아티스트</a>
-<br />
-<a href="user/list.do?soncategorytype=A">메인에서 아티스트</a>
-<a href="user/list.do?soncategorytype=M">메인에서 재료</a>
-<a href="user/list.do?soncategorytype=P">메인에서 화파</a>
 <a href="${pageContext.request.contextPath }/admin">Admin</a>
 <div class="container">
 	<div class="row">
    		<div class="jumbotron">   			
   			<h1>Today's Artist</h1>
-  			<div style="backgrount-image=''"></div>
- 			<p><a class="btn btn-primary btn-lg" href="user/list.do?soncategorytype=A" role="button">view more</a></p>
+  			<div style="background-image='url:'"></div>
+ 			<p><a class="btn btn-primary btn-lg" href="#" role="button">view more</a></p>
 		</div>
   	</div>
   	<!-- 아티스트 -->
   	<h4><i class="fas fa-kiss-wink-heart"></i> 아티스트</h4>
-  	<div class="row">  	
-	  	<div class="col-md-3 col-sm-6 col-xs-6">
-	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
-	  	</div>
-	  	<div class="col-md-3 col-sm-6 col-xs-6">
-	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
-	  	</div>
-	  	<div class="col-md-3 col-sm-6 col-xs-6">
-	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
-	  	</div>
-	  	<div class="col-md-3 col-sm-6 col-xs-6">
-	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
-	  	</div>
-	  	<div class="col-md-3 col-sm-6 col-xs-6">
-	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
-	  	</div>
-	  	
+  	<div class="row">
+  		<%-- 
+  		<c:forEach var="tmp" items="${list }">
+  			<div class="col-md-3 col-sm-6 col-xs-6">
+  				<a href="detail.do?seq=${tmp.seq }">
+		  			
+		  			<img src="http://192.168.0.200:8888/artgallery/${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
+		  			
+		  			<img src="<c:out value="${pageContext.request.contextPath }/${tmp.imagepath }"/>" class="img-responsive" alt="Responsive image"/>
+		  			<p>${tmp.name }</p>
+		  			<strong>${tmp.artcount }</strong>
+		  		</a>
+  			</div>
+  		</c:forEach>
+  		 --%>
 	</div><!-- //아티스트 -->
 	<!-- 재료 -->
   	<h4><i class="fas fa-paint-brush"></i> 재료</h4>
