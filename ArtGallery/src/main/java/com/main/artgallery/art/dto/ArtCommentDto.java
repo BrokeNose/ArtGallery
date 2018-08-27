@@ -1,4 +1,4 @@
-package com.main.artgallery.artcomment.dto;
+package com.main.artgallery.art.dto;
 
 public class ArtCommentDto {
 	private int num;

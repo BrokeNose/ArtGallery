@@ -17,5 +17,15 @@ public interface CategoryDao {
 	public void insertArtistPart(CategoryDto dto);
 	public void update(int seq);
 	public void delete(int seq);
+
+	//Son
+	public List<CategoryDto> getAList();
+	public List<CategoryDto> getPList();
+	public List<CategoryDto> getMList();
+	public List<CategoryDto> getFavorList();
+	
 	public void getCount(int count);
+	
+	//hyung
+	public List<CategoryDto> getSearchList(CategoryDto dto);	// 카테고리 검색어 검색
 }

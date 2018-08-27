@@ -17,8 +17,23 @@ public class UserDaoImpl implements UserDao {
 		return session.selectList("user.getList", dto);
 	}
 	@Override
-	public void insert(UserDto dto) {
-		session.insert("user.insert");
+	public boolean canUseId(String id) {
+		String result=session.selectOne("user.isExist", id);
+		if(result==null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	@Override
+	public boolean insert(UserDto dto) {
+		int flag=0;
+		flag=session.insert("user.insert", dto);
+		if(flag>0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	@Override
 	public UserDto getData(String id) {
@@ -29,17 +44,12 @@ public class UserDaoImpl implements UserDao {
 		session.update("user.update", dto);
 	}
 	@Override
-	public void delete(String id) {
-		session.update("user.delete", id);
+	public void leave(String id) {
+		session.update("user.leave", id);
 	}
 	@Override
-	public boolean canUseId(String id) {
-		String result=session.selectOne("user.isExist", id);
-		if(result==null) {
-			return true;
-		} else {
-			return false;
-		}
+	public void delete(String id) {
+		session.delete("user.delete", id);
 	}
 	@Override
 	public void changePwd(UserDto dto) {

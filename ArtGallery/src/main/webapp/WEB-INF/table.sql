@@ -1,3 +1,14 @@
+ALTER SEQUENCE TCategory_seq INCREMENT BY 377;
+select TCategory_seq.nextval from dual;
+ALTER SEQUENCE TCategory_seq INCREMENT BY 1;
+select TCategory_seq.nextval from dual;
+
+ALTER SEQUENCE tart_seq INCREMENT BY 110;
+select tart_seq.nextval from dual;
+ALTER SEQUENCE tart_seq INCREMENT BY 1;
+select tart_seq.nextval from dual;
+
+
 CREATE TABLE T_Category(
 	seq NUMBER PRIMARY KEY,
 	code CHAR(1) DEFAULT 'A',
@@ -9,6 +20,7 @@ CREATE TABLE T_Category(
 	ddate VARCHAR2(10),
 	viewcount NUMBER
 );
+
 CREATE SEQUENCE TCategory_seq;
 
 CREATE UNIQUE INDEX IDX_TCategory_01 ON T_Category(code, name, seq);
@@ -85,7 +97,7 @@ CREATE TABLE T_ArtComment(
 CREATE SEQUENCE TArtComment_seq;
 
 CREATE TABLE T_Config(
-        code char(1) PRIMARY KEY DEFAULT '1',
+        code char(1) DEFAULT '1' PRIMARY KEY,
         pagerow NUMBER DEFAULT 5,
         CONSTRAINT TConfig_pagerow_ck CHECK (pagerow > 0),
         displayrow NUMBER DEFAULT 5,
@@ -93,6 +105,8 @@ CREATE TABLE T_Config(
 );
 
 -------------------------------------------------------------------------
+drop view v_art;
+
 CREATE VIEW V_ART AS
 select a.seq, a.title, a.createyear, a.artsize, a.remark, a.imagepath, nvl(a.viewcount, 0) viewcount, a.regdate,
 	   b.artist, b.painter, b.material,
@@ -102,7 +116,7 @@ from t_art a,
 		select aseq, max(decode(code, 'A', val)) artist, max(decode(code, 'P', val)) painter, max(decode(code, 'M', val)) material
 		from (
 			select  b.code, a.aseq, 
-			        substr(xmlagg(xmlelement(a,',' || b.name) order by b.name).extract('//text()'), 2) val
+			        substr(xmlagg(xmlelement(a,',' || b.name) order by nvl(a.sortseq, 999), b.name).extract('//text()'), 2) val
 			  from  t_artrel a, t_category b
 			where a.cseq=b.seq
 			group by b.code, a.aseq
@@ -117,6 +131,12 @@ order by a.seq;
 
 CREATE VIEW V_CATEGORY AS
 SELECT seq, code, name
-     , DECODE(code, 'A','아티스트', 'P','화파', 'M','재료') codeName
+     , DECODE(code, 'A','아티스트', 'P','화파', 'M','재료') codeName,imagepath
 	   , NVL((SELECT MAX(ROWNUM) FROM t_artrel a WHERE a.cseq=c.seq), 0) artCount
   FROM t_category c;
+  
+DROP VIEW V_CATEGORY;
+
+  
+SELECT * FROM V_CATEGORY
+WHERE code='M';

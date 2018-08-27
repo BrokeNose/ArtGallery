@@ -1,3 +1,18 @@
+insert into t_artrel(cseq, aseq) values(374,109);  -- 공동 db 추가 해야함. 
+
+
+update t_art set imagepath='/'||imagepath
+where seq <= 109
+;
+
+
+update t_art set imagepath= substr(imagepath, 2)
+where seq <= 109
+;
+select imagepath, substr(imagepath, 2) from t_art where seq <= 109;
+
+select imagepath from t_art;
+
 --비밀번호 1234
 insert into t_user(id, pwd, email, roll, regdate)
 values('hyung', '$2a$10$ieO.RCUjTR0T.I6jBgMEzOM.Jo4XVH9WERybs9.hx2OCqW4LXoG72', '1@1.com', 'A', sysdate);
@@ -5,8 +20,6 @@ insert into t_user(id, pwd, email, roll, regdate)
 values('nalara', '$2a$10$ieO.RCUjTR0T.I6jBgMEzOM.Jo4XVH9WERybs9.hx2OCqW4LXoG72', '1@1.com', 'A', sysdate);
 insert into t_user(id, pwd, email, roll, regdate)
 values('ths8976', '$2a$10$ieO.RCUjTR0T.I6jBgMEzOM.Jo4XVH9WERybs9.hx2OCqW4LXoG72', '1@1.com', 'A', sysdate);
-insert into t_user(id, pwd, email, roll, regdate)
-
 
 -- t_category
 
@@ -372,7 +385,7 @@ update t_category set imagepath='upload/354/A.jpg' where seq=354;
 insert into t_category(seq, code, name, bdate, ddate, remark) values(355, 'A', '신윤복', '1758', '1858', '신윤복은 조선 후기의 관료이자 화가로서, 산수화와 풍속화를 잘 그렸다. 또한 양반 관료들의 이중성과 위선을 풍자한 그림, 여성들의 생활상을 그린 그림을 남기기도 했다.
 화공 가문 출신으로 화원 신한평의 아들이며, 그 역시 도화서 화원으로 종삼품 서반 무관인 첨절제사를 지냈다. 본관은 고령, 자는 입부, 덕여이고, 본명은 가권, 호는 혜원이다. 대표작은 미인도·단오도 등이 있다. 조선전기의 문신, 학자 신말주의 후손이고, 일제 강점기의 역사학자 단재 신채호의 8대 방조가 된다.');
 update t_category set imagepath='upload/355/A.jpg' where seq=355;
-insert into t_category(seq, code, name, bdate, ddate, remark) values(356, 'A', '  석도', '1642', '1707', '석도는 명말 청초의 화가이다. 본래 성은 주, 이름은 약극이며, 석도는 자이다. 호는 대척자·청상진인·고과화상·할존자 등이 있고 법호는 원제 등이 있다. 저서로 《화어록》을 남겼다.');
+insert into t_category(seq, code, name, bdate, ddate, remark) values(356, 'A', ' 석도', '1642', '1707', '석도는 명말 청초의 화가이다. 본래 성은 주, 이름은 약극이며, 석도는 자이다. 호는 대척자·청상진인·고과화상·할존자 등이 있고 법호는 원제 등이 있다. 저서로 《화어록》을 남겼다.');
 update t_category set imagepath='upload/356/A.jpg' where seq=356;
 insert into t_category(seq, code, name, bdate, ddate, remark) values(357, 'A', '이중섭', '1916.4.10', '1956.9.6', '이중섭은 일제 강점기, 대한민국의 서양화가로 호는 대향, 본관은 장수이다.
 이중섭의 작품에는 소.닭.어린이.가족 등이 가장 많이 등장하는데, 향토적 요소와 동화적이고 자전적인 요소가 주로 담겼다는 것이 소재상의 특징이라 할 수 있다. 《싸우는 소》, 《흰소》, 《움직이는 흰소》, 《소와 어린이》, 《황소》, 《투계》등은 향토성이 진하게 밴 대표적 작품이다. 《닭과 가족》, 《사내와 아이들》, 《길 떠나는 가족》과 그 밖에 수많은 은지화들은 동화적이고 자전적 요소가 강한 작품들이다.
@@ -1038,7 +1051,7 @@ insert into t_artrel(cseq, aseq) values(123,107);
 insert into t_artrel(cseq, aseq) values(25,107);		
 insert into t_artrel(cseq, aseq) values(374,108);
 insert into t_artrel(cseq, aseq) values(127,108);
-
+insert into t_artrel(cseq, aseq) values(374,109);
 
 update t_artrel set sortseq=1 WHERE cseq=353 and aseq=1;
 update t_artrel set sortseq=1 WHERE cseq=164 and aseq=1;

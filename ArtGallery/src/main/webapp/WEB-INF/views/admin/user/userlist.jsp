@@ -17,7 +17,9 @@
 </head>
 <body>
 <div class="container-fluid">
-<jsp:include page="header.jsp"/>	
+<jsp:include page="../inc/header.jsp">
+	<jsp:param name="navMenu" value="user"/>
+</jsp:include>
 	<h4><span class="glyphicon glyphicon-th" aria-hidden="true"></span>&nbsp; 회원리스트 </h4>
 	<div class="panel panel-default">
 	  <div class="panel-body">
