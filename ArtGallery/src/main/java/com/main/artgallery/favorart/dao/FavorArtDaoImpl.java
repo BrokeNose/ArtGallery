@@ -5,7 +5,6 @@ import java.util.List;
 import com.main.artgallery.favorart.dto.FavorArtDto;
 
 public class FavorArtDaoImpl implements FavorArtDao{
-
 	@Override
 	public List<FavorArtDto> getList(FavorArtDto dto) {
 		// TODO Auto-generated method stub
