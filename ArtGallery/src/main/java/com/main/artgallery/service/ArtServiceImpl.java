@@ -264,7 +264,10 @@ public class ArtServiceImpl implements ArtService {
 		
 		//파일 등록 처리
 		//파일을 저장할 폴더의 절대 경로를 얻어온다.
-		String realPath=request.getSession().getServletContext().getRealPath(c_uploadRoot);
+		// local 경로
+		//String realPath=request.getSession().getServletContext().getRealPath(c_uploadRoot);
+		// server 경로
+		String realPath="\\\\"+c_ip+"\\" + c_uploadRoot;
 
 		//MultipartFile 객체의 참조값 얻어오기
 		//Dto 에 담긴 MultipartFile 객체의 참조값을 얻어온다. - servlet-context.xml에 beans 기술해야함.
@@ -279,7 +282,7 @@ public class ArtServiceImpl implements ArtService {
 		if ( orgFileName != null && !orgFileName.equals("")) {	//첨부파일 등록시
 			//기존 등록파일 삭제
 			if( dto.getImagepath() != null && !dto.getImagepath().equals("")) {
-				fileDelete(request.getServletContext().getRealPath(c_uploadRoot), dto.getImagepath());
+				fileDelete(realPath, dto.getImagepath());
 			}
 			
 			//저장할 파일의 상세 경로 - upload/seq 조합 번호
@@ -337,13 +340,18 @@ public class ArtServiceImpl implements ArtService {
 	public void delete(HttpServletRequest request, int seq) {
 		// 파일삭제
 
+		// local 경로
+		//String realPath=request.getSession().getServletContext().getRealPath(c_uploadRoot);
+		// server 경로
+		String realPath="\\\\"+c_ip+"\\" + c_uploadRoot;
+		
 		ArtDto dto=new ArtDto();
 		dto.setSeq(seq);
 		dto=artDao.getData(dto);
 		
 		//기존 등록파일 삭제
 		if( dto.getImagepath() != null && !dto.getImagepath().equals("")) {
-			fileDelete(request.getServletContext().getRealPath(c_uploadRoot), dto.getImagepath());
+			fileDelete(realPath, dto.getImagepath());
 		}
 		
 //		//2. DB 에서 파일정보 삭제

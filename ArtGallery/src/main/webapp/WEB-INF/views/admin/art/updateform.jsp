@@ -55,7 +55,7 @@
 		  	<label class="col-sm-2 control-label">서비스 이미지</label>
 			<div class="col-sm-10">
 				<input type="hidden" name="imagepath" value="${dto.imagepath }" />
-				<a href="${pageContext.request.contextPath }${dto.imagepath }" target="_image">${dto.imagepath } 이미지보기</a>		     
+				<a href="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }" target="_image">${dto.imagepath } 이미지보기</a>		     
 		    	<input type="file" class="form-control" id="file" name="file">
 	 		</div>
 		  </div>	
