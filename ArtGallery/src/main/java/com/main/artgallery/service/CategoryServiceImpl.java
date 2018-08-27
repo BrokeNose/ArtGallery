@@ -57,7 +57,7 @@ public class CategoryServiceImpl implements CategoryService {
 	
 	@Override
 	public void SonGetData(HttpServletRequest request, ModelAndView mView) {
-		int seq=(int)request.getParameter("seq");
+		int seq=Integer.parseInt(request.getParameter("seq"));
 
 	}
 
