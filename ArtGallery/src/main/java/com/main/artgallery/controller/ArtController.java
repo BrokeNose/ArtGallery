@@ -45,7 +45,6 @@ public class ArtController {
 	//관리자 작품 목록
 	@RequestMapping("/admin/art/list")
 	public ModelAndView adminArtList(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
-		cService.getData(request, "1");
 		aService.getList(mView, dto);
 		mView.setViewName("admin/art/list");
 		return mView;
@@ -60,12 +59,16 @@ public class ArtController {
 	@RequestMapping("/admin/art/insert")
 	public ModelAndView adminArtInsert(HttpServletRequest request, @ModelAttribute ArtDto dto) {
 		aService.insert(request, dto);
-		return new ModelAndView("redirect:/admin/art/list.do");
+		
+		String param="pageNum=1"
+		+"&searchKeyword="+request.getParameter("searchKeyword")
+		+"&searchCondition="+request.getParameter("searchCondition");
+		
+		return new ModelAndView("redirect:/admin/art/list.do?"+param);
 	}
 	//관리자 작품 수정화면
 	@RequestMapping("/admin/art/updateform")
 	public ModelAndView adminArtUpdateform(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
-		cService.getData(request, "1");
 		aService.getData(mView, dto);
 		mView.setViewName("admin/art/updateform");
 		return mView;
@@ -74,12 +77,20 @@ public class ArtController {
 	@RequestMapping("/admin/art/update")
 	public ModelAndView adminArtUpdate(HttpServletRequest request, @ModelAttribute ArtDto dto) {
 		aService.update(request, dto);
-		return new ModelAndView("redirect:/admin/art/list.do");
+		
+		String param="pageNum="+request.getParameter("pageNum")
+					+"&searchKeyword="+request.getParameter("searchKeyword")
+					+"&searchCondition="+request.getParameter("searchCondition");
+		return new ModelAndView("redirect:/admin/art/list.do?"+param);
 	}
 	//관리자 작품 삭제처리
 	@RequestMapping("/admin/art/delete")
 	public ModelAndView adminArtDelete(HttpServletRequest request, @RequestParam int seq) {
 		aService.delete(request, seq);
-		return new ModelAndView("redirect:/admin/art/list.do");
+		
+		String param="pageNum="+request.getParameter("pageNum")
+					+"&searchKeyword="+request.getParameter("searchKeyword")
+					+"&searchCondition="+request.getParameter("searchCondition");
+		return new ModelAndView("redirect:/admin/art/list.do?"+param);
 	}
 }

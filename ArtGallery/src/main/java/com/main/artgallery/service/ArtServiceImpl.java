@@ -34,9 +34,7 @@ public class ArtServiceImpl implements ArtService {
 	@Autowired
 	private ConfigDao configDao;
 
-	private ConfigDto configDto;
-	
-	private String c_section3;	// configDto.section2의 특수문자 처리한 문자열
+	private ConfigDto configDto=null;
 	
 	@Override
 	public void getList(ModelAndView mView, ArtDto dto) {
@@ -73,6 +71,9 @@ public class ArtServiceImpl implements ArtService {
 		}
 		
 		//T_config 환경변수 가져오기
+		getConfig();
+		mView.addObject("configDto", configDto);
+		
 		//보여줄 페이지의 번호
 		int pageNum=dto.getPageNum();	// null인 경우 0 이 됨.
 		if(pageNum == 0){
@@ -120,6 +121,34 @@ public class ArtServiceImpl implements ArtService {
 
 	@Override
 	public void getData(ModelAndView mView, ArtDto dto) {
+		//검색과 관련된 파라미터들도 dto에 선언되어 있음
+		String keyword=dto.getSearchKeyword();
+		String condition=dto.getSearchCondition();		
+		
+		if(keyword != null) {//검색어가 전달된 경우 
+			if(condition.equals("titleRemark")) {//제목+비고
+				dto.setTitle(keyword);
+				dto.setRemark(keyword);
+			}else if(condition.equals("title")) {//제목
+				dto.setTitle(keyword);
+			}else if(condition.equals("remark")) {//비고
+				dto.setRemark(keyword);
+			}else if(condition.equals("artist")) {//아티스트
+				dto.setArtist(keyword);
+			}else if(condition.equals("painter")) {//화파
+				dto.setPainter(keyword);
+			}else if(condition.equals("material")) {//작성자 검색
+				dto.setMaterial(keyword);
+			}
+			//list.jsp 에서 필요한 내용 담기
+			mView.addObject("searchCondition", condition);
+			mView.addObject("searchKeyword", keyword);
+		}
+		
+		//T_config 환경변수 가져오기
+		getConfig();
+		mView.addObject("configDto", configDto);
+
 		//작품정보 가져오기
 		ArtDto resultDto=artDao.getData(dto);
 		
@@ -191,6 +220,9 @@ public class ArtServiceImpl implements ArtService {
 		int seq=getSequence();
 		dto.setSeq(seq);
 		
+		//T_config 환경변수 가져오기
+		getConfig();
+		
 		//파일 등록 처리
 		//파일을 저장할 폴더의 절대 경로를 얻어온다.
 		// local 경로
@@ -254,6 +286,9 @@ public class ArtServiceImpl implements ArtService {
 	@Transactional
 	@Override
 	public void update(HttpServletRequest request, ArtDto dto) {
+		
+		//T_config 환경변수 가져오기
+		getConfig();
 		
 		//파일 등록 처리
 		//파일을 저장할 폴더의 절대 경로를 얻어온다.
@@ -331,7 +366,8 @@ public class ArtServiceImpl implements ArtService {
 	@Transactional
 	@Override
 	public void delete(HttpServletRequest request, int seq) {
-		// 파일삭제
+		//T_config 환경변수 가져오기
+		getConfig();
 
 		// local 경로
 		//String realPath=request.getSession().getServletContext().getRealPath(dto.getUploadRoot());
@@ -362,6 +398,11 @@ public class ArtServiceImpl implements ArtService {
 	// 연계자료  문자열 분리해서 연계정보에 insert하기
 	@Override
 	public void insertRel(int seq, String relData) {
+		
+		String section3="\\" + configDto.getSection2().substring(0, 1)
+				+ "\\" + configDto.getSection2().substring(1, 2)
+				+ "\\" + configDto.getSection2().substring(2, 3);
+		
 		ArtRelDto dto=new ArtRelDto();
 		dto.setAseq(seq);
 		String[] arr=relData.split(configDto.getSection1());
@@ -369,7 +410,7 @@ public class ArtServiceImpl implements ArtService {
 		for(int i=0; i<arr.length; i++) {
 			String cSeqTmp=arr[i].trim();
 			//System.out.println(cSeqTmp);
-			String[] cSeqs=cSeqTmp.split(c_section3);
+			String[] cSeqs=cSeqTmp.split(section3);
 			int cSeq=Integer.parseInt(cSeqs[0]);
 			dto.setCseq(cSeq);
 			dto.setSortseq(i+1);
@@ -390,23 +431,13 @@ public class ArtServiceImpl implements ArtService {
 		//System.out.println(path);
 		
 		try{
-			System.out.println(path+" file 삭제");
+			//System.out.println(path+" file 삭제");
 			new File(path).delete();
 		}catch(Exception e){}
 	}
 
 	@Override
-	public void getConfig(HttpServletRequest request) {
-		if(configDto==null) {
-			configDto=(ConfigDto)request.getAttribute("configDto");
-			if(configDto==null) {
-				configDto=configDao.getData("1");
-				request.setAttribute("configDto", configDto);
-			}
-		}
-		c_section3= "\\" + configDto.getSection2().substring(0, 1)
-				+ "\\" + configDto.getSection2().substring(1, 2)
-				+ "\\" + configDto.getSection2().substring(2, 3);
-		
+	public void getConfig() {
+		configDto=configDao.getData("1");
 	}	
 }
