@@ -24,7 +24,7 @@
             <li><a href="${pageContext.request.contextPath }/admin/adminCategory.do?categorytype=P">화파</a></li>
           </ul>
         </li>       
-        <li class='<c:if test="${param.navMenu eq 'user' }">active</c:if>'><a href="${pageContext.request.contextPath }/admin/user/list.do">회원</a></li> 
+        <li class='<c:if test="${param.navMenu eq 'user' }">active</c:if>'><a href="${pageContext.request.contextPath }/admin/user/userlist.do">회원</a></li> 
       </ul>
 
       <!-- right menu //  -->
