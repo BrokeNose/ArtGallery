@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,22 +19,21 @@
 		  	 <div class="form-group">
 			    <label for="id" class="col-sm-2 control-label">아이디</label>
 			    <div class="col-sm-9">
-			      <input type="text" class="form-control" name="id" id="id" placeholder="id" readonly value="${dto.id }"/>
+			      <input type="hidden" name="id" value="${id }"/>
+			      <input type="text" class="form-control" id="id" disabled value="${id }"/>
 			    </div>
 			  </div>
 		  <div class="form-group">
 		    <label for="email" class="col-sm-2 control-label">이메일</label>
 		    <div class="col-sm-9">
-		      <input type="email" class="form-control" name="email" id="email" placeholder="Email" readonly value="${dto.email }"/>
+		      <input type="email" class="form-control" name="email" id="email" value="${dto.email }"/>
 		    </div>
-		  </div>	 
+		  </div>
+		  <div class="form-group">
+		  	<button type="submit" class="btn btn-default">수정 확인</button>
+		  </div> 
 		</form>
 	  </div><!-- panel-body -->
-	  <div class="panel-footer text-center">	  
-		      <a href="update_form.do" class="btn btn-default">회원정보 수정</a>
-		      <a href="pw_change_form.do" class="btn btn-default">비밀번호 수정</a>
-		      <a href="javascript:deleteConfirm()" class="btn btn-default">회원탈퇴</a>
-	  </div><!-- panel-footer -->
 	</div><!-- panel -->
 	
 	
@@ -41,13 +41,5 @@
 
 </div><!-- //container -->
 <jsp:include page="footer.jsp"/>
-<script>
-	function deleteConfirm(){
-		var isDelete=confirm("탈퇴 하시겠습니까?");
-		if(isDelete){
-			location.href="leave.do";
-		}
-	}
-</script>
 </body>
 </html>
