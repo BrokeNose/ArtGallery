@@ -36,6 +36,7 @@
 					</select>
 					<input value="${searchKeyword }" type="text" name="searchKeyword" class="form-control" placeholder="검색어..." />
 					<button class="btn btn-default" type="submit">검색</button>
+					&nbsp;&nbsp;&nbsp;&nbsp;항목수 : ${totalRow }건
 				</div>
 				<div class="pull-right">
 					<button id="btnInsert" type="button" class="btn btn-primary">작품등록</button>
@@ -126,7 +127,7 @@
 	//$(function(){});
 	
 	$("#btnInsert").click(function(){
-		location.href='insertform.do'			
+		location.href='insertform.do?searchKeyword=${searchKeyword}&searchCondition=${searchCondition}&pageNum=${pageNum}';			
 	});
 	//페이징처리
 	function goPage(pageNum){

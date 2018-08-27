@@ -7,7 +7,7 @@
 	<!-- artColumn - remark(CLOB)는 빠져있음. -->
 	<sql id="artColumn">
 		seq, title, createyear, artsize, imagepath, viewcount,
-		TO_CHAR(regdate,'YYYY.MM.DD AM HH:MI') AS regdate,
+		TO_CHAR(regdate,'YYYY.MM.DD HH24:MI') AS regdate,
 		artist, painter, material
 	</sql>
 	<!--  dynamic query  -->
@@ -61,13 +61,15 @@
 	<select id="getList" parameterType="artDto" resultType="artDto">
 		SELECT result2.*
 		FROM   (SELECT result1.*, ROWNUM rnum
-				FROM   (SELECT DISTINCT <include refid="artColumn"/>		
+				FROM   (SELECT DISTINCT <include refid="artColumn"/> 	
 						FROM   v_art 
 						<include refid="artWhere"/>
 						<include refid="artSort"/>
 						) result1
+				<include refid="artSort"/>
 				) result2
-		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}		
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}	
+		ORDER BY rnum	
 	</select>
 	<select id="getCount" parameterType="artDto" resultType="int">
 		SELECT NVL(COUNT(DISTINCT seq), 0)
@@ -85,6 +87,7 @@
 						<include refid="artWhere"/>
 						<include refid="artSort"/>
 					 ) result1
+				<include refid="artSort"/>
 				) result2
 		WHERE  seq=#{seq}
 	</select>
