@@ -20,11 +20,7 @@
 		display: inline-block;
 		float:right;
 		width:30px;
-	}
-	pre{
-		border: 0px;
-		background-color: #fff;
-	}
+	}	
 	.img_center{	
       max-width:70%;
       max-height:500px;
@@ -34,12 +30,16 @@
 	{   display: block;
 	    padding: 9.5px;
 	    margin: 0 0 10px;
-	    font-size: 13px;
+	    font-size: 15px;
 	    line-height: 1.42857143;
 	    color: #333;
 	    word-break: break-all;
 	    word-wrap: break-word;
 	    border-radius: 4px;
+	}
+	pre{
+		border: 0px;
+		background-color: #fff;
 	}
 </style>
 </head>
@@ -61,8 +61,18 @@
 	<div class="text-left">
 		<h2>${dto.title }</h2>
 		<h4><c:forEach var="tmp" items="${aList }">
-			<b>${tmp.name }</b> ${tmp.bdate }/${tmp.ddate }
-		</c:forEach></h4>
+			<b>${tmp.name }</b>
+			<c:set var="cyear" value="${tmp.bdate }/${tmp.ddate }"/> 
+		</c:forEach>
+		<c:choose>
+			<c:when test="${!empty dto.createyear }">
+				${dto.createyear }
+			</c:when>
+			<c:otherwise>
+				${cyear}
+			</c:otherwise>
+		</c:choose></h4>
+		
 		<a href="javascript:goFavorArt(${dto.seq });">
 			<span style="font-size:1.3em;color: #333;">
 		<c:choose>
@@ -78,6 +88,11 @@
 <c:if test="${not empty mList }">재료 : </c:if>		
 <c:forEach var="tmp" items="${mList }">
 	<a href="${pageContext.request.contextPath }/category/detail.do?code=M&seq=${tmp.cseq}">${tmp.name }</a>
+</c:forEach>
+		
+<c:if test="${not empty pList }"><br />화파 : </c:if>		
+<c:forEach var="tmp" items="${pList }">
+	<a href="${pageContext.request.contextPath }/category/detail.do?code=P&seq=${tmp.cseq}">${tmp.name }</a>
 </c:forEach>
 		</p>
 		<pre>${dto.remark }</pre>	
@@ -112,7 +127,7 @@
 		}
 	}	
 	
-	function goFavorArt(seq){
+	function goFavorArt(seq){		
 	<c:choose>
 		<c:when test="${!empty id}">
 		$.ajax({
