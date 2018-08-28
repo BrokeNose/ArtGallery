@@ -47,11 +47,7 @@ public class ArtController {
 	@RequestMapping("/art/favoriteArt")
 	@ResponseBody
 	public Map<String, Object> authFavoriteArt(HttpServletRequest request,  @RequestParam int seq) {
-		String id=(String)request.getSession().getAttribute("id");
-		FavorArtDto dto=new FavorArtDto();
-		dto.setAseq(seq);
-		dto.setId(id);
-		fService.update(request, dto);		
+		fService.update(request);		
 		String isFavor=(String)request.getAttribute("isFavor");		
 		Map<String, Object> map=new HashMap<>();
 		map.put("isFavor", isFavor);
