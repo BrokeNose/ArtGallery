@@ -122,6 +122,9 @@
 	var count = 10;
 	function Picture(){
 	count = Counting(count);
+	if(count==10){
+		$(".bigImage").hide();	
+	}
 	Resize(count);
 	return false;
 	}
@@ -137,6 +140,8 @@
 	}
 	
 	$("#imgZoom").click(function(){
+		zoomImage.style.zoom ='100%';
+		count=10;
 		$(".bigImage").show();	
 	});
 	$(".bigImage").click(function(){
