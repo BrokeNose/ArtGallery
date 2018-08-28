@@ -1,5 +1,8 @@
 package com.main.artgallery.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -8,11 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.main.artgallery.art.dto.ArtDto;
 import com.main.artgallery.service.ArtService;
 import com.main.artgallery.service.ConfigService;
+import com.main.artgallery.service.FavorArtService;
 
 
 @Controller
@@ -23,23 +28,29 @@ public class ArtController {
 	@Autowired
 	private ConfigService cService;
 	
-	//-------- Son ----------------------
-
-	
-	
+	@Autowired
+	private FavorArtService fService;
 	
 	
 	//-------- Hyung ----------------------
 	
 	//작품 상세 정보 조회
-	@RequestMapping("/artDetail")
+	@RequestMapping("/art/detail")
 	public ModelAndView artDetail(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
-		request.setAttribute("adminMode", "N");
+		request.setAttribute("adminMode", "N");		//관리자모드 아님
 		aService.getData(request, mView, dto);
 		mView.setViewName("category/artDetail");
 		return mView;
 	}
-	
+	//관심 작품 등록,삭제 처리
+	@RequestMapping("/art/favoriteArt")
+	@ResponseBody
+	public Map<String, Object> authFavoriteArt(HttpServletRequest request,  @RequestParam int seq) {
+		String isFavor=null;
+		Map<String, Object> map=new HashMap<>();
+		map.put("isFavor", isFavor);
+		return map;
+	}
 	// 임시 로그인 처리
 	@RequestMapping("/loginAuto")
 	public String loginAuto(HttpSession session, @RequestParam String id) {
@@ -62,7 +73,6 @@ public class ArtController {
 	//관리자 작품 등록화면
 	@RequestMapping("/admin/art/insertform")
 	public ModelAndView adminArtInsertform(HttpServletRequest request) {
-		request.setAttribute("adminMode", "Y");
 		cService.getData(request, "1");
 		return new ModelAndView("admin/art/insertform");
 	}
@@ -80,6 +90,7 @@ public class ArtController {
 	//관리자 작품 수정화면
 	@RequestMapping("/admin/art/updateform")
 	public ModelAndView adminArtUpdateform(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
+		request.setAttribute("adminMode", "Y");		// 관리자 모드
 		aService.getData(request, mView, dto);
 		mView.setViewName("admin/art/updateform");
 		return mView;
