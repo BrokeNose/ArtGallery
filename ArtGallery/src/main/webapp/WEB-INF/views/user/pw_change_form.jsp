@@ -5,26 +5,35 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/artgallery.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
 <title>Password Change</title>
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
 </head>
 <body>
+<jsp:include page="../header.jsp"/>
 <h3>비밀번호 변경 페이지입니다.</h3>
-<form action="pw_change.do" method="post" id="pwdForm">
-	<label for="currentPwd">기존 비밀번호</label>
-	<input type="password" name="currentPwd" id="currentPwd"/>
-	<span id="currentCheck"></span>
-	<br />
-	<label for="pwd">새 비밀번호</label>
-	<input type="password" name="pwd" id="pwd" />
-	<br />
-	<label for="pwd2">새 비밀번호 확인</label>
-	<input type="password" name="pwd2" id="pwd2"/>
-	<span id="pwdCheck"></span>
-	<br />
-	<button type="submit">확인</button>
-	<button type="reset">취소</button>
-</form>
+<div class="container">
+	<div class="text-center center-block" style="width:30%;">
+		<form action="pw_change.do" method="post" class="form-signin" id="pwdForm">
+			<h1 class="h3 mb-3 font-weight-normal">Change password</h1>
+			<label for="currentPwd">기존 비밀번호</label>
+			<input type="password" name="currentPwd" id="currentPwd" class="form-control" placeholder="Password" required/>
+			<span id="currentCheck"></span>
+			<br />
+			<label for="pwd">새 비밀번호</label>
+			<input type="password" name="pwd" id="pwd" class="form-control" placeholder="Password" required/>
+			<br />
+			<label for="pwd2">새 비밀번호 확인</label>
+			<input type="password" name="pwd2" id="pwd2" class="form-control" placeholder="Password" required/>
+			<span id="pwdCheck"></span>
+			<br />
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Confirm</button>
+			<button class="btn btn-lg btn-primary btn-block" type="reset">Cancel</button>
+		</form>
+	</div>
+</div>
+<jsp:include page="../footer.jsp"/>
 <script>
 	var isCurrentPwdValid=false;
 	var isNewPwdValid=false;
