@@ -7,11 +7,50 @@
 <title>detail</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/artgallery.css" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
+<style>
+	.custom_div {
+		overflow:hidden;
+		}
+		.custom_div div {
+		min-height: 100%;
+		padding: 10px;
+		text-align: center;
+		}
+		#one {
+		background-color: gray;
+		float:left;
+		margin-right:0px;
+		width:50%;
+		}
+		#two {
+		background-color: white;
+		overflow:hidden;
+		margin-right: 20px;
+		margin: 1px;
+		width:auto;
+		min-height: 50%;
+		}
+		#three {
+		background-color: yellow;
+		margin-right:auto;
+		margin-left:auto;
+		width: 100%;
+		}
+		@media screen and (max-width: 600px) {
+		#one {
+		    float: none;
+		    margin-right:0;
+		    width:auto;
+		}
+	}
+</style>
 </head>
 <body>
 <jsp:include page="../header.jsp"/>
 <div class="row">
-	<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive img-detail" alt="Responsive image"/>
+<%-- 	<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive img-detail" alt="Responsive image"/>
+ --%>	<img src="http://192.168.0.200:8888/artgallery/${dto.imagepath }" class="img-responsive img-detail" alt="Responsive image"/>
+	
 </div>
 <div class="container">
 	<div class="text-center">
@@ -25,13 +64,23 @@
 			</c:otherwise>
 		</c:choose>
 		
-		
-		<h4>세부데이터</h4>
 		<p>${dto.remark }</p>	
 	</div>
 	<br />
 	<h4><i class="fas fa-kiss-wink-heart"></i> 작가의 다른 작품</h4>
   	<div class="row">	  	
+  		<div class="row">
+  		<c:forEach var="dto" items="${list }">
+		  		<div class="col-md-3 col-sm-6 col-xs-6">
+			  		<a href="detail.do?seq=${dto.seq }">
+			  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
+			  			<%-- <img src="<c:out value="${pageContext.request.contextPath }/${dto.imagepath }"/>" class="img-responsive" alt="Responsive image"/> --%>
+			  			<p>${dto.name }</p>
+			  			<strong>${dto.artcount }</strong>
+			  		</a>
+			  	</div>
+	  		</c:forEach>
+		</div><!-- //아티스트 -->
 	  	<div class="col-md-3 col-sm-6 col-xs-6">
 	  		<a href="detail.jsp"><img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/></a>
 	  	</div>
@@ -45,11 +94,18 @@
 	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
 	  	</div>
 	  	
+	  	
 	</div><!-- //아티스트 -->
 
 
 <br />
 </div><!-- //container -->
+<div class="custom_div">
+	<div id="one"><img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image" style="width: 100%; height: 100%;"/></div>
+	<div id="two"><img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/></div>
+	<div id="three"><img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/></div>
+</div>
+
 <jsp:include page="../footer.jsp"/>
 </body>
 </html>

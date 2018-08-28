@@ -48,27 +48,8 @@
 		DELETE FROM T_Category WHERE seq=#{seq}
 	</delete>
 	
-	<select id="getDataArtist" parameterType="int" resultType="category">
-		SELECT <include refid="categoryColumn" />
-		  FROM T_Category
-		 WHERE code='A' AND num=#{num}
-	</select>
-	<select id="getDataMaterial" parameterType="int" resultType="category">
-		SELECT <include refid="categoryColumn" />
-		  FROM T_Category
-		 WHERE code='M' AND num=#{num}
-	</select>
-	<select id="getDataArtistPart" parameterType="int" resultType="category">
-		SELECT <include refid="categoryColumn" />
-		  FROM T_Category
-		 WHERE code='P' AND num=#{num}
-	</select>
-	<select id="getDataAll" parameterType="int" resultType="category">
-		SELECT <include refid="categoryColumn" />
-		  FROM T_Category
-		  WHERE seq=#{seq}
-	</select>
 	
+
 	<select id="getListArtist" resultType="category">
 		SELECT <include refid="categoryColumn" />
 		  FROM T_Category
@@ -96,17 +77,10 @@
 		</if>
 	</select>
 	
-	<select id="getAList" resultType="category">
+	<!-- son -->
+	<select id="getList" resultType="category" parameterType="String">
 		SELECT * FROM V_CATEGORY
-		WHERE code='A'
-	</select>
-	<select id="getPList" resultType="category">
-		SELECT * FROM V_CATEGORY
-		WHERE code='P'
-	</select>
-	<select id="getMList" resultType="category">
-		SELECT * FROM V_CATEGORY
-		WHERE code='M'
+		WHERE code=#{code}
 	</select>
 	<select id="getSearchList" parameterType="category" resultType="category">
 		SELECT <include refid="categoryColumn" />
@@ -117,5 +91,6 @@
 		</if>
 		ORDER BY name ASC		    
 	</select>
+	
 	
 </mapper>

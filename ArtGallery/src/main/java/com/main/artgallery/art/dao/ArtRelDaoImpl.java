@@ -33,5 +33,11 @@ public class ArtRelDaoImpl implements ArtRelDao {
 	public void delete(int seq) {
 		session.delete("artRel.delete", seq);
 	}
+//	Son---------------------------------------------------
+	@Override
+	public List<ArtRelDto> getArtList(int seq) {
+		
+		return session.selectList("artRel.artGetList", seq);
+	}
 
 }

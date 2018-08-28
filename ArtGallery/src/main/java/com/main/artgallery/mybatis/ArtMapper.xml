@@ -58,6 +58,7 @@
 			</otherwise>
 		</choose>
 	</sql>
+	
 	<select id="getList" parameterType="artDto" resultType="artDto">
 		SELECT result2.*
 		FROM   (SELECT result1.*, ROWNUM rnum
@@ -71,6 +72,14 @@
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}	
 		ORDER BY rnum	
 	</select>
+	
+	 <select id="getListAll" parameterType="artDto" resultType="artDto">
+      SELECT DISTINCT <include refid="artColumn"/>    
+      FROM   v_art 
+      <include refid="artWhere"/>
+      <include refid="artSort"/>                  
+  	 </select>	
+	
 	<select id="getCount" parameterType="artDto" resultType="int">
 		SELECT NVL(COUNT(DISTINCT seq), 0)
 		FROM   v_art 
@@ -113,4 +122,6 @@
 		FROM   t_art
 		WHERE seq=#{seq}
 	</delete>
+	
+	
 </mapper>

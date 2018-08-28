@@ -26,15 +26,13 @@
   		<c:forEach var="dto" items="${list }">
 	  		<div class="col-md-3 col-sm-6 col-xs-6">
 		  		<a href="detail.do?seq=${dto.seq }">
-		  			<img src="http://192.168.0.200:8888/artgallery/${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
+		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
 		  			<%-- <img src="<c:out value="${pageContext.request.contextPath }/${dto.imagepath }"/>" class="img-responsive" alt="Responsive image"/> --%>
 		  			<p>${dto.name }</p>
 		  			<strong>${dto.artcount }</strong>
 		  		</a>
 		  	</div>
   		</c:forEach>
-	  	
-	  	
 	</div><!-- //아티스트 -->
 
 </div>
