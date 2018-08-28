@@ -86,7 +86,8 @@
 			  			<td width="14%">출생일</td>
 			  			<td width="14%">사망일</td>
 			  			<td width="60%">비고</td>
-		  			</c:when>
+			  			
+			  		</c:when>
 		  			<c:when test="${categoryType eq 'P' }">
 			  			<td>#</td>
 			  			<td>화파</td>
