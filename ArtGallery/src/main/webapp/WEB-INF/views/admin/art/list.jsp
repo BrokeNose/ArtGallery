@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>관리자 작품</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
 <style>
 	.con_left {
 		display: inline-block;
@@ -139,9 +140,6 @@
 	<!-- //Page navigation -->
 </div>
 <jsp:include page="../inc/footer.jsp" />
-
-<script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
-<script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"  ></script>
 <script>
 	//$(function(){});
 	

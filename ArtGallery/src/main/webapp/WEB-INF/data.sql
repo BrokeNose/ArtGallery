@@ -1,30 +1,26 @@
-select * from t_favorart;
+update t_category set imagepath='/upload/P/1.jpg' where seq=1;
+update t_category set imagepath='/upload/P/12.jpg' where seq=12;
+update t_category set imagepath='/upload/P/22.jpg' where seq=22;
+update t_category set imagepath='/upload/P/24.jpg' where seq=24;
+update t_category set imagepath='/upload/P/25.jpg' where seq=25;
+update t_category set imagepath='/upload/M/122.jpg' where seq=122;
+update t_category set imagepath='/upload/M/123.jpg' where seq=123;
+update t_category set imagepath='/upload/M/124.jpg' where seq=124;
+update t_category set imagepath='/upload/M/127.jpg' where seq=127;
+update t_category set imagepath='/upload/M/129.jpg' where seq=129;
+update t_category set imagepath='/upload/M/130.jpg' where seq=130;
+update t_category set imagepath='/upload/M/133.jpg' where seq=133;
+update t_category set imagepath='/upload/M/134.jpg' where seq=134;
+update t_category set imagepath='/upload/M/144.jpg' where seq=144;
+update t_category set imagepath='/upload/M/164.jpg' where seq=164;
+update t_category set imagepath='/upload/M/165.jpg' where seq=165;
+update t_category set imagepath='/upload/M/181.jpg' where seq=181;
+update t_category set imagepath='/upload/M/195.jpg' where seq=195;
+update t_category set imagepath='/upload/M/198.jpg' where seq=198;
+update t_category set imagepath='/upload/M/266.jpg' where seq=266;
 
-select *
-from t_category
-where code='A'
-and seq != 353
-and seq in ( select distinct cseq
-from t_artrel
-where aseq in ( select aseq from t_artrel where cseq= 353 ) );
-
-SELECT  * 
-		FROM    v_category
-		WHERE   code='M'
-		AND     seq != 353
-	    AND     seq IN ( SELECT DISTINCT cseq 
-	    				 FROM   t_artrel 
-	    				 WHERE  aseq IN ( SELECT aseq FROM t_artrel WHERE cseq=353 )
-	    			    )  
-;	    			    
-	    			    
-select distinct cseq
-from t_artrel
-where aseq in ( select aseq from t_artrel where cseq= 353 )
-;
-
-SELECT ROUND(DBMS_RANDOM.VALUE(1, (select max(seq) from t_category where code='A' )),0) FROM DUAL;
-
+update t_category set imagepath=null where seq=262;
+update t_category set imagepath='/upload/A/362.jpg' where seq=362;
 
 SELECT result2.* 
 FROM (
