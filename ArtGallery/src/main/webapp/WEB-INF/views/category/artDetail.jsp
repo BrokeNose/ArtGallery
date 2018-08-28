@@ -37,10 +37,6 @@
 	    word-wrap: break-word;
 	    border-radius: 4px;
 	}
-	pre{
-		border: 0px;
-		background-color: #fff;
-	}
 </style>
 </head>
 <body>
@@ -95,8 +91,8 @@
 	<a href="${pageContext.request.contextPath }/category/detail.do?code=P&seq=${tmp.cseq}">${tmp.name }</a>
 </c:forEach>
 		</p>		
-		<pre>${dto.remark }</pre>	
-	</div>
+		<p class="info" style="white-space:pre-wrap;">${dto.remark }</p>	
+	</div>	
 	<br />
 	<h4><i class="fas fa-kiss-wink-heart"></i> 작가의 다른 작품</h4>
   	<div class="row">	  	
