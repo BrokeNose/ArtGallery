@@ -9,20 +9,20 @@
 		WHERE  id=#{id} AND aseq=#{aseq}
 	</select>
 
-	<select id="getList" parameterType="favorArtDto" resultType="favorArtDto">
-		SELECT id, aseq, regdate
-		FROM   t_favorArt
-		<where>
-			<if test="id != null and id != '' ">
-				AND id=#{id}	
-			</if>
-			<if test="aseq != null and aseq > 0 ">
-				AND aseq=#{aseq}	
-			</if>
-		</where>
+<!-- ********************* 사용자 : son*********************** -->
+	<select id="getList" parameterType="favorArtDto" resultType="artDto">
+		SELECT b.*
+		FROM   t_favorArt a, t_art b
+		WHERE  a.aseq = b.seq
+		<if test="id != null and id != '' ">
+			AND id=#{id}	
+		</if>
+		<if test="aseq != null and aseq > 0 ">
+			AND aseq=#{aseq}	
+		</if>
 		ORDER BY id, regdate DESC
 	</select>
-
+<!-- *********************************************************** -->
 	<select id="getCount" parameterType="favorArtDto" resultType="int">
 		SELECT MAX(ROWNUM)
 		FROM   t_favorArt

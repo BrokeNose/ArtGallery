@@ -48,9 +48,8 @@
 	
 	
 		
-		.wrapper{
+		/* .wrapper{
 			width: 100%;
-			/* max-height: 599px; */
 			height: 599px;
 			border: 1px solid red;
 			position: relative;
@@ -77,7 +76,7 @@
 		}
 		.wrapper img:nth-child(5){
 			margin-left: 1600px;
-		}
+		} */
 /* ----------------여기까지 son 시험용------------------ */
 
 	
@@ -108,7 +107,7 @@
 	<h4><i class="fas fa-kiss-wink-heart"></i> 작가의 다른 작품</h4>
   	<div class="row">	  	
   		<div class="row">
-  		<c:forEach var="dto" items="${artlist }">
+  		<c:forEach var="dto" items="${artlist  }">
 	  		<div class="col-md-3 col-sm-6 col-xs-6">
 		  		<a href="../art/detail.do?cseq=${dto.cseq }&seq=${dto.seq }">
 		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
@@ -122,18 +121,32 @@
 	
 	<hr />
 	
+	<!-- 아티스트 -->
+  	<h4><i class="fas fa-kiss-wink-heart"></i> 아티스트</h4>
+  	<div class="row">
+  		<div class="wrapper">
+  			<c:forEach var="Adto" items="${ARellist }">
+	  			<div class="col-md-3 col-sm-6 col-xs-6">
+	  				<a href="category/detail.do?seq=${Adto.seq }">
+			  			<div style="background:url('http://${configDto.ip}:8888${pageContext.request.contextPath }/${Adto.imagepath }')">
+			  				<h3>${Adto.name }</h3><br />
+			  				<h4>항목 ${Adto.artcount }개</h4>
+			  			</div>
+			  		</a>
+	  			</div>
+	  		</c:forEach>
+  		</div>	
+	</div><!-- //아티스트 -->
 	<h4><i class="fas fa-paint-brush"></i> 재료</h4>
   	<div class="row">	  	
-	  	<c:forEach var="tmpM" items="${listM }">
+	  	<c:forEach var="Mdto" items="${MRellist }">
   			<div class="col-md-3 col-sm-6 col-xs-6">
-  				<a href="detail.do?seq=${tmpM.seq }">
+  				<a href="detail.do?seq=${Mdto.seq }">
 		  			
-		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpM.imagepath }" class="img-responsive" alt="Responsive image"/>
-		  			<%-- 
-		  			<img src="<c:out value="${pageContext.request.contextPath }/${tmp.imagepath }"/>" class="img-responsive" alt="Responsive image"/>
-		  			 --%>
-		  			<p>${tmpM.name }</p>
-			  		<p>${tmpM.artcount }</p>
+		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${Mdto.imagepath }" class="img-responsive" alt="Responsive image"/>
+		  			
+		  			<p>${Mdto.name }</p>
+			  		<p>항목 ${Mdto.artcount }개</p>
 		  		</a>
   			</div>
   		</c:forEach>	 
@@ -141,16 +154,12 @@
 	<!-- 화파 -->
   	<h4><i class="fas fa-palette"></i> 화파</h4>
   	<div class="row">	  	
-	  	<c:forEach var="tmpP" items="${listP }">
+	  	<c:forEach var="Pdto" items="${PRellist }">
   			<div class="col-md-3 col-sm-6 col-xs-6">
-  				<a href="detail.do?seq=${tmpP.seq }">
-		  			
-		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpP.imagepath }" class="img-responsive" alt="Responsive image"/>
-		  			<%-- 
-		  			<img src="<c:out value="${pageContext.request.contextPath }/${tmp.imagepath }"/>" class="img-responsive" alt="Responsive image"/>
-		  			 --%>
-		  			<p>${tmpP.name }</p>
-			  		<p>${tmpP.artcount }</p>
+  				<a href="detail.do?seq=${Pdto.seq }">
+		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${Pdto.imagepath }" class="img-responsive" alt="Responsive image"/>
+		  			<p>${Pdto.name }</p>
+			  		<p>항목 ${Pdto.artcount }개</p>
 		  		</a>
   			</div>
   		</c:forEach>
@@ -161,7 +170,7 @@
 
 
 <!-- ----------------여기서부터 Son 시험용 ----------------------------------- -->
-	<button id="moveBtn">&laquo;</button>
+	<%-- <button id="moveBtn">&laquo;</button>
 	<button id="nextBtn">&raquo;</button>
 	<div class="wrapper">
 		<c:forEach var="dto" items="${artlist }">
@@ -203,7 +212,7 @@
 				left:"-=400px"
 			});
 		});
-	</script>
+	</script> --%>
 
 <jsp:include page="../footer.jsp"/>
 </body>

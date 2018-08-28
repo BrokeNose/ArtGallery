@@ -110,4 +110,17 @@ public class ArtController {
 					+"&searchCondition="+request.getParameter("searchCondition");
 		return new ModelAndView("redirect:/admin/art/list.do?"+param);
 	}
+	
+	
+	//---------------	son ---------------
+	//관심 작품 등록,삭제 처리
+	@RequestMapping("/art/favoriteArt")
+	@ResponseBody
+	public ModelAndView authFavorArtList(ModelAndView mView, HttpServletRequest request) {
+		String id=(String)request.getSession().getAttribute("id");
+		FavorArtDto dto=new FavorArtDto();
+		dto.setId(id);
+		
+		return null;
+	}
 }

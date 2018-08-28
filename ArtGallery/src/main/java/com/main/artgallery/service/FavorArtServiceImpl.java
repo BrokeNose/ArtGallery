@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.main.artgallery.art.dto.ArtDto;
 import com.main.artgallery.favorart.dao.FavorArtDao;
 import com.main.artgallery.favorart.dto.FavorArtDto;
 
@@ -13,10 +14,12 @@ import com.main.artgallery.favorart.dto.FavorArtDto;
 public class FavorArtServiceImpl implements FavorArtService {
 	@Autowired
 	private FavorArtDao dao; 
+	@Autowired
+	
 		
 	@Override
-	public void getList(ModelAndView mView, FavorArtDto dto) {
-		mView.addObject("totalRow", dao.getCount(dto));		
+	public void getList(ModelAndView mView, ArtDto dto, FavorArtDto FAdto) {
+		/*mView.addObject("totalRow", dao.getCount(dto));	//관심 작품 몇개인지 나타내기	*/
 		mView.addObject("list", dao.getList(dto));		
 	}
 
