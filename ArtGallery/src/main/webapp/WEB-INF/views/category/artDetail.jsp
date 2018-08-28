@@ -95,6 +95,7 @@
 	<a href="${pageContext.request.contextPath }/category/detail.do?code=P&seq=${tmp.cseq}">${tmp.name }</a>
 </c:forEach>
 		</p>
+		
 		<pre>${dto.remark }</pre>	
 	</div>
 	<br />
