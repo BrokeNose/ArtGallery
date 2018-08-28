@@ -108,7 +108,7 @@
 	
 	function signOut() {
 		confirm("로그아웃 됐습니다.");
-		location.href="user/signout.do";
+		location.href="${pageContext.request.contextPath }/user/signout.do";
 	};
 
 </script>
