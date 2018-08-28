@@ -14,5 +14,5 @@ public interface CategoryService {
 	
 	
 	public void getSearchList(HttpServletRequest request, ModelAndView mView);
-	
+	public void getConfig();
 }

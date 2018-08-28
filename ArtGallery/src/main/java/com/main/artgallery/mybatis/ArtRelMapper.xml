@@ -31,4 +31,12 @@
 		FROM   t_artrel
 		WHERE aseq=#{seq}
 	</delete>
+	
+	<select id="artGetList" parameterType="int" resultType="artRelDto">
+		SELECT  DISTINCT seq, title, createyear, artsize, imagepath, viewcount,
+				TO_CHAR(regdate,'YYYY.MM.DD HH24:MI') AS regdate,
+				artist, painter, material
+		 FROM V_ART
+		WHERE cseq=#{seq}
+	</select>
 </mapper>

@@ -8,7 +8,7 @@ import com.main.artgallery.art.dto.ArtRelDto;
 public interface ArtRelDao {
 
 	//-------- Son ----------------------
-
+	public List<ArtRelDto> getArtList(int seq); 
 	
 	
 	

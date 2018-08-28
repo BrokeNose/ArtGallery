@@ -85,19 +85,9 @@ public class CategoryDaoImpl implements CategoryDao{
 
 	//Son 작업중...
 	@Override
-	public List<CategoryDto> getAList() {
+	public List<CategoryDto> getList(String code) {
 		
-		return session.selectList("category.getAList");
-	}
-
-	@Override
-	public List<CategoryDto> getPList() {
-		return session.selectList("category.getPList");
-	}
-
-	@Override
-	public List<CategoryDto> getMList() {
-		return session.selectList("category.getMList");
+		return session.selectList("category.getList", code);
 	}
 
 	@Override

@@ -27,9 +27,12 @@
 	<br />
 	<h4><i class="fas fa-kiss-wink-heart"></i> 작가의 다른 작품</h4>
   	<div class="row">	  	
-	  	<div class="col-md-3 col-sm-6 col-xs-6">
-	  		<a href="detail.jsp"><img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/></a>
-	  	</div>
+  		<c:forEach var="tmp" items="${list }">
+	  		<div class="col-md-3 col-sm-6 col-xs-6">
+		  		<a href="detail.jsp?seq=${tmp.aseq }"><img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmp.imagepath }" class="img-responsive" alt="Responsive image"/></a>
+		  	</div>
+  		</c:forEach>
+	  	
 	  	<div class="col-md-3 col-sm-6 col-xs-6">
 	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
 	  	</div>

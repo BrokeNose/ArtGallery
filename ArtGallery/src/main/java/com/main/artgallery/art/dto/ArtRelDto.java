@@ -15,7 +15,11 @@ public class ArtRelDto {
   	private String codeName;	//구분명 (아티스트, 화파, 재료)
   	private String name;
   	
+  
+  	
   	public ArtRelDto() {}
+
+
 
 	public ArtRelDto(int cseq, int aseq, int sortseq, String code, String codeName, String name) {
 		super();
@@ -27,52 +31,77 @@ public class ArtRelDto {
 		this.name = name;
 	}
 
+
+
 	public int getCseq() {
 		return cseq;
 	}
+
+
 
 	public void setCseq(int cseq) {
 		this.cseq = cseq;
 	}
 
+
+
 	public int getAseq() {
 		return aseq;
 	}
+
+
 
 	public void setAseq(int aseq) {
 		this.aseq = aseq;
 	}
 
+
+
 	public int getSortseq() {
 		return sortseq;
 	}
+
+
 
 	public void setSortseq(int sortseq) {
 		this.sortseq = sortseq;
 	}
 
+
+
 	public String getCode() {
 		return code;
 	}
+
+
 
 	public void setCode(String code) {
 		this.code = code;
 	}
 
+
+
 	public String getCodeName() {
 		return codeName;
 	}
+
+
 
 	public void setCodeName(String codeName) {
 		this.codeName = codeName;
 	}
 
+
+
 	public String getName() {
 		return name;
 	}
 
+
+
 	public void setName(String name) {
 		this.name = name;
 	}
-  	
+
 }
+	

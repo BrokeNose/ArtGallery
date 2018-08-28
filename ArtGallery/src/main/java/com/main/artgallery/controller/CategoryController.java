@@ -43,6 +43,7 @@ public class CategoryController {
 	@RequestMapping("/category/detail")
 	public ModelAndView CategoryDetail(HttpServletRequest request, ModelAndView mView) {
 		categoryService.SonGetData(request, mView);
+		
 		mView.setViewName("category/detail");
 		
 		return mView;
