@@ -12,8 +12,6 @@
 <body>
 <jsp:include page="header.jsp"/>
 <h3>인덱스 페이지 입니다.</h3>
-<a href="admin/adminCategory.do?categorytype=A">아티스트</a>
-<a href="${pageContext.request.contextPath }/admin">Admin</a>
 <div class="container">
 	<div class="row">
    		<div class="jumbotron">   			
@@ -28,7 +26,7 @@
   		<div class="wrapper">
   			<c:forEach var="tmpA" items="${listA }">
 	  			<div class="col-md-3 col-sm-6 col-xs-6">
-	  				<a href="category/detail.do?seq=${tmpA.seq }">
+	  				<a href="category/detail.do?seq=${tmpA.seq }&code=A">
 			  			<div style="background:url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpA.imagepath })">
 			  				<h3>${tmpA.name }</h3><br />
 			  				<h4>항목 ${tmpA.artcount }개</h4>
@@ -43,7 +41,7 @@
   	<div class="row">	  	
 	  	<c:forEach var="tmpM" items="${listM }">
   			<div class="col-md-3 col-sm-6 col-xs-6">
-  				<a href="detail.do?seq=${tmpM.seq }">
+  				<a href="category/detail.do?seq=${tmpM.seq }&code=M">
 		  			
 		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpM.imagepath }" class="img-responsive" alt="Responsive image"/>
 		  			<%-- 
@@ -60,7 +58,7 @@
   	<div class="row">	  	
 	  	<c:forEach var="tmpP" items="${listP }">
   			<div class="col-md-3 col-sm-6 col-xs-6">
-  				<a href="detail.do?seq=${tmpP.seq }">
+  				<a href="category/detail.do?seq=${tmpP.seq }&code=P">
 		  			
 		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpP.imagepath }" class="img-responsive" alt="Responsive image"/>
 		  			<%-- 

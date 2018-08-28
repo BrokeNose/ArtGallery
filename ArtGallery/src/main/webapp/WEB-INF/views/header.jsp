@@ -85,7 +85,7 @@
 	  </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
-<script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"  ></script>
+<script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
 <script>
 	
 	//모달이 완전히 보여졌을때 실행할 함수 등록
@@ -100,11 +100,11 @@
 	
 	//search box open
 	$("#search_icon").click(function() {
-		$("#search_box").animate({top:"0px"})
+		$("#search_box").animate({top:"0px"});
 	});
 	//search box close
 	$("#search_close").click(function() {
-		$("#search_box").animate({top:"-60px"})
+		$("#search_box").animate({top:"-60px"});
 	});
 	
 	function signOut() {
