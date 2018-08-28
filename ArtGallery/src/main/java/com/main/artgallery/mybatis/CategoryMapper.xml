@@ -80,7 +80,7 @@
 	<!-- son -->
 	<select id="getList" resultType="category" parameterType="String">
 		SELECT * FROM V_CATEGORY
-		WHERE code=#{code}
+		WHERE code=#{code} AND <![CDATA[  artCount > 0  ]]>
 	</select>
 	<!-- 카테고리 상세정보 나타내기 -->
 	<select id="getDataAll" parameterType="int" resultType="category">

@@ -72,7 +72,7 @@
   		<div class="row">
   		<c:forEach var="dto" items="${artlist }">
 	  		<div class="col-md-3 col-sm-6 col-xs-6">
-		  		<a href="art/detail.do?cseq=${dto.cseq }&seq=${dto.seq }">
+		  		<a href="../art/detail.do?cseq=${dto.cseq }&seq=${dto.seq }">
 		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
 		  			<%-- <img src="<c:out value="${pageContext.request.contextPath }/${dto.imagepath }"/>" class="img-responsive" alt="Responsive image"/> --%>
 		  			<p>${dto.name }</p>
@@ -81,6 +81,9 @@
 		  	</div>
   		</c:forEach>
 	</div><!-- //아티스트 -->
+	
+	<hr />
+	
 <br />
 </div><!-- //container -->
 
