@@ -142,6 +142,7 @@
 	$(".bigImage").click(function(){
 		$(".bigImage").hide();		
 	});
+	
 	// 이미지 확대  끝 -------------------
 	
 	function goDetail(seq){
