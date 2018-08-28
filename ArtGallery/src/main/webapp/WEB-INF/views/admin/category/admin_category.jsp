@@ -13,6 +13,24 @@
 	.left {
 		float: left;
 	}
+	.footer {
+	  position: relative;
+	  bottom: 0;
+	  width: 100%;
+	  /* Set the fixed height of the footer here */
+	  height: 60px;
+	  line-height: 60px; /* Vertically center the text there */
+	  background-color: #f5f5f5;
+	}
+	
+	.footer > .container_f {	
+	  padding-right: 15px;
+	  padding-left: 15px;
+	}
+	
+	code {
+	  font-size: 80%;
+	}
 </style>
 </head>
 <body>
@@ -63,11 +81,11 @@
 	  		<tr>
 	  			<c:choose>
 	  				<c:when test="${categoryType eq 'A' }">
-			  			<td>#</td>
-			  			<td>작가명</td>
-			  			<td>출생일</td>
-			  			<td>사망일</td>
-			  			<td>비고</td>
+			  			<td width="2%">#</td>
+			  			<td width="10%">작가명</td>
+			  			<td width="14%">출생일</td>
+			  			<td width="14%">사망일</td>
+			  			<td width="60%">비고</td>
 		  			</c:when>
 		  			<c:when test="${categoryType eq 'P' }">
 			  			<td>#</td>
@@ -130,6 +148,9 @@
 	</div>
 	<!-- //Page navigation -->
 </div>
+
+<jsp:include page="../inc/footer.jsp" />
+
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"  ></script>
 
