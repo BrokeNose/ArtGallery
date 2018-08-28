@@ -34,7 +34,8 @@ public class ArtController {
 	//작품 상세 정보 조회
 	@RequestMapping("/artDetail")
 	public ModelAndView artDetail(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
-		aService.getData(mView, dto);
+		request.setAttribute("adminMode", "N");
+		aService.getData(request, mView, dto);
 		mView.setViewName("category/artDetail");
 		return mView;
 	}
@@ -61,6 +62,7 @@ public class ArtController {
 	//관리자 작품 등록화면
 	@RequestMapping("/admin/art/insertform")
 	public ModelAndView adminArtInsertform(HttpServletRequest request) {
+		request.setAttribute("adminMode", "Y");
 		cService.getData(request, "1");
 		return new ModelAndView("admin/art/insertform");
 	}
@@ -78,7 +80,7 @@ public class ArtController {
 	//관리자 작품 수정화면
 	@RequestMapping("/admin/art/updateform")
 	public ModelAndView adminArtUpdateform(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
-		aService.getData(mView, dto);
+		aService.getData(request, mView, dto);
 		mView.setViewName("admin/art/updateform");
 		return mView;
 	}

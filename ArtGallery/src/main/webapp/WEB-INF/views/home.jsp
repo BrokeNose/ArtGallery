@@ -35,7 +35,6 @@
 		  			<img src="<c:out value="${pageContext.request.contextPath }/${tmp.imagepath }"/>" class="img-responsive" alt="Responsive image"/>
 		  			 --%>
 		  			<p>${tmpA.name }</p>
-		  			<strong>${tmpA.artcount }</strong>
 		  		</a>
   			</div>
   		</c:forEach>
@@ -53,7 +52,6 @@
 		  			<img src="<c:out value="${pageContext.request.contextPath }/${tmp.imagepath }"/>" class="img-responsive" alt="Responsive image"/>
 		  			 --%>
 		  			<p>${tmpM.name }</p>
-		  			<strong>${tmpM.artcount }</strong>
 		  		</a>
   			</div>
   		</c:forEach>	 
@@ -70,7 +68,6 @@
 		  			<img src="<c:out value="${pageContext.request.contextPath }/${tmp.imagepath }"/>" class="img-responsive" alt="Responsive image"/>
 		  			 --%>
 		  			<p>${tmpP.name }</p>
-		  			<strong>${tmpP.artcount }</strong>
 		  		</a>
   			</div>
   		</c:forEach>
