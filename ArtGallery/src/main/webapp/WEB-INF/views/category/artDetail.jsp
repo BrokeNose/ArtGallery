@@ -92,7 +92,7 @@
 </c:forEach>
 		</p>		
 		<p class="info" style="white-space:pre-wrap;">${dto.remark }</p>	
-	</div>
+	</div>	
 	<br />
 	<h4><i class="fas fa-kiss-wink-heart"></i> 작가의 다른 작품</h4>
   	<div class="row">	  	
