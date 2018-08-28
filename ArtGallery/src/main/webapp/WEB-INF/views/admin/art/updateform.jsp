@@ -14,6 +14,24 @@
 	.left {
 		float: left;
 	}
+	.footer {
+	  position: relative;
+	  bottom: 0;
+	  width: 100%;
+	  /* Set the fixed height of the footer here */
+	  height: 60px;
+	  line-height: 60px; /* Vertically center the text there */
+	  background-color: #f5f5f5;
+	}
+	
+	.footer > .container_f {	
+	  padding-right: 15px;
+	  padding-left: 15px;
+	}
+	
+	code {
+	  font-size: 80%;
+	}
 </style>
 </head>
 <body>
@@ -139,7 +157,7 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
+<jsp:include page="../inc/footer.jsp" />
 
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"  ></script>
