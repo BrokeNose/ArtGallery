@@ -2,7 +2,6 @@ package com.main.artgallery.category.dao;
 
 import java.util.List;
 
-import com.main.artgallery.art.dto.ArtRelDto;
 import com.main.artgallery.category.dto.CategoryDto;
 
 public interface CategoryDao {

@@ -100,11 +100,7 @@
 
 <br />
 </div><!-- //container -->
-<div class="custom_div">
-	<div id="one"><img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image" style="width: 100%; height: 100%;"/></div>
-	<div id="two"><img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/></div>
-	<div id="three"><img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/></div>
-</div>
+
 
 <jsp:include page="../footer.jsp"/>
 </body>

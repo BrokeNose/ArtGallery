@@ -15,6 +15,7 @@ public class ArtDto {
 	private String imagepath;
 	private int viewcount;
 	private String regdate;
+	private int artcount;
 	
 	//view 추가 항목 (v_art)
 	private String artist;
@@ -50,9 +51,9 @@ public class ArtDto {
 	public ArtDto() {}
 
 	public ArtDto(int seq, String title, String createyear, String artsize, String remark, String imagepath,
-			int viewcount, String regdate, String artist, String painter, String material, int cseq, String code,
-			String name, int startRowNum, int endRowNum, int prevNum, int nextNum, String sortField, int rnum,
-			String searchKeyword, String searchCondition, int pageNum, MultipartFile file) {
+			int viewcount, String regdate, int artcount, String artist, String painter, String material, int cseq,
+			String code, String name, int startRowNum, int endRowNum, int prevNum, int nextNum, String sortField,
+			int rnum, String searchKeyword, String searchCondition, int pageNum, MultipartFile file) {
 		super();
 		this.seq = seq;
 		this.title = title;
@@ -62,6 +63,7 @@ public class ArtDto {
 		this.imagepath = imagepath;
 		this.viewcount = viewcount;
 		this.regdate = regdate;
+		this.artcount = artcount;
 		this.artist = artist;
 		this.painter = painter;
 		this.material = material;
@@ -142,6 +144,14 @@ public class ArtDto {
 
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
+	}
+
+	public int getArtcount() {
+		return artcount;
+	}
+
+	public void setArtcount(int artcount) {
+		this.artcount = artcount;
 	}
 
 	public String getArtist() {
@@ -271,5 +281,7 @@ public class ArtDto {
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
+
+	
 
 }

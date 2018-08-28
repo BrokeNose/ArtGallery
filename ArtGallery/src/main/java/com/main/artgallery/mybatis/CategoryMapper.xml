@@ -82,6 +82,17 @@
 		SELECT * FROM V_CATEGORY
 		WHERE code=#{code}
 	</select>
+	<!-- 카테고리 상세정보 나타내기 -->
+	<select id="getDataAll" parameterType="int" resultType="category">
+		SELECT <include refid="categoryColumn" />
+		  FROM T_Category
+		  WHERE seq=#{seq}
+	</select>
+	
+	
+	
+	
+	
 	<select id="getSearchList" parameterType="category" resultType="category">
 		SELECT <include refid="categoryColumn" />
 		FROM   T_Category
