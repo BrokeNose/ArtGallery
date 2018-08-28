@@ -25,10 +25,12 @@
 		border: 0px;
 		background-color: #fff;
 	}
-	.img_center{
-		max-height:500px;
-		text-align:center;
-	}
+	.img_center{	
+      max-width:70%;
+      max-height:500px;
+      text-align:center;
+   	}
+
 </style>
 
 </head>
@@ -36,7 +38,12 @@
 <jsp:include page="../header.jsp"/>
 <div class="container">
 	<input type="hidden" id="seq" value="${dto.seq }"/>
+<<<<<<< HEAD
 	<div class="row">
+=======
+
+	<div class="row">		
+>>>>>>> branch 'master' of https://github.com/SonDaewon/ArtGallery.git
 		<div class="arrow_left">
 			<a href="javascript: goDetail(${dto.prevNum });">
 				<span style="font-size:30px;"><i class="fas fa-arrow-circle-left"></i></span></a></div>
@@ -56,13 +63,12 @@
 			<span style="font-size:1.3em;color: #333;">
 		<c:choose>
 			<c:when test="${isFavorArt eq 'Y' }">
-				<i id="iFavor" class="fas fa-heart"></i>
+				<i id="iFavor" class="fas fa-heart"></i></span></a>	
 			</c:when>
 			<c:otherwise>
-				<i id="iFavor" class="far fa-heart"></i>		
+				<i id="iFavor" class="far fa-heart"></i></span></a>		
 			</c:otherwise>	
 		</c:choose>
-			</span></a>	
 		<br />
 		<pre>${dto.remark }</pre>	
 	</div>
@@ -93,11 +99,34 @@
 <script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"  ></script>
 <script>
 	function goDetail(seq){
-		location.href="artDetail.do?cseq=${cseq}&searchKeyword=${searchKeyword}&searchCondition=${searchCondition}&seq="+seq		
+		if (seq>0){
+			location.href="detail.do?cseq=${param.cseq}&searchKeyword=${param.searchKeyword}&searchCondition=${param.searchCondition}&seq="+seq
+		}
 	}	
 	
 	function goFavorArt(seq){
-				
+	<c:choose>
+		<c:when test="${!empty id}">
+		$.ajax({
+			url:"favoriteArt.do",
+			method:"post",
+			data:{"seq":seq},
+			success:function(data) {
+				if(data=='Y'){
+					$("#iFavor").removeClass("far");
+					$("#iFavor").addClass("fas");
+				} else {
+					$("#iFavor").removeClass("fas");
+					$("#iFavor").addClass("far");					
+				}
+			}
+		});
+		</c:when>
+		<c:otherwise>
+			alert("즐겨찾기에 추가하려면, 로그인해야 합니다.");
+			return;
+		</c:otherwise>
+	</c:choose>
 	}
 </script>
 </body>

@@ -1,3 +1,5 @@
+select * from t_config;
+
 select *
 from t_category
 where code='A'

@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.main.artgallery.art.dto.ArtRelDto;
 import com.main.artgallery.category.dto.CategoryDto;
 /*
  * Son
@@ -102,6 +103,12 @@ public class CategoryDaoImpl implements CategoryDao{
 	public List<CategoryDto> getListCategory(CategoryDto dto) {
 		// TODO Auto-generated method stub
 		return session.selectList("category.getListCategory", dto);
+	}
+
+	@Override
+	public List<CategoryDto> getListRelation(ArtRelDto dto) {
+		
+		return session.selectList("category.getListRelation", dto);
 	}
 		
 }

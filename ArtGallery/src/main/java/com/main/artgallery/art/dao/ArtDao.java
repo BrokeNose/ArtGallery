@@ -8,7 +8,7 @@ import com.main.artgallery.art.dto.ArtDto;
 public interface ArtDao {
 
 	//-------- Son ----------------------
-
+	public List<ArtDto> getArtList(ArtDto dto);
 
 	
 	//-------- hyung ----------------------

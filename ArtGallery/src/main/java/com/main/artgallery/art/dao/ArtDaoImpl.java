@@ -53,4 +53,9 @@ public class ArtDaoImpl implements ArtDao {
 		return session.selectOne("art.getSequence");
 	}
 
+//	-------------------son--------------------------
+	@Override
+	public List<ArtDto> getArtList(ArtDto dto) {
+		return session.selectList("art.getListAll", dto);
+	}
 }

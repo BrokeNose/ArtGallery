@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.main.artgallery.category.dao.CategoryDao;
-import com.main.artgallery.category.dao.CategoryDaoImpl;
 import com.main.artgallery.category.dto.CategoryDto;
 import com.main.artgallery.service.CategoryService;
 
