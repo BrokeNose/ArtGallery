@@ -26,16 +26,16 @@
   	<h4><i class="fas fa-kiss-wink-heart"></i> 아티스트</h4>
   	<div class="row">
   		
-  		<c:forEach var="tmp" items="${list }">
+  		<c:forEach var="tmpA" items="${listA }">
   			<div class="col-md-3 col-sm-6 col-xs-6">
-  				<a href="detail.do?seq=${tmp.seq }">
+  				<a href="detail.do?seq=${tmpA.seq }">
 		  			
-		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
+		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpA.imagepath }" class="img-responsive" alt="Responsive image"/>
 		  			<%-- 
 		  			<img src="<c:out value="${pageContext.request.contextPath }/${tmp.imagepath }"/>" class="img-responsive" alt="Responsive image"/>
 		  			 --%>
-		  			<p>${tmp.name }</p>
-		  			<strong>${tmp.artcount }</strong>
+		  			<p>${tmpA.name }</p>
+		  			<strong>${tmpA.artcount }</strong>
 		  		</a>
   			</div>
   		</c:forEach>
@@ -44,20 +44,36 @@
 	<!-- 재료 -->
   	<h4><i class="fas fa-paint-brush"></i> 재료</h4>
   	<div class="row">	  	
-	  	<div class="col-md-3 col-sm-6 col-xs-6">
-	  	
-	  	
-	  	</div>	 
+	  	<c:forEach var="tmpM" items="${listM }">
+  			<div class="col-md-3 col-sm-6 col-xs-6">
+  				<a href="detail.do?seq=${tmpM.seq }">
+		  			
+		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpM.imagepath }" class="img-responsive" alt="Responsive image"/>
+		  			<%-- 
+		  			<img src="<c:out value="${pageContext.request.contextPath }/${tmp.imagepath }"/>" class="img-responsive" alt="Responsive image"/>
+		  			 --%>
+		  			<p>${tmpM.name }</p>
+		  			<strong>${tmpM.artcount }</strong>
+		  		</a>
+  			</div>
+  		</c:forEach>	 
 	</div><!-- //재료 -->
 	<!-- 화파 -->
   	<h4><i class="fas fa-palette"></i> 화파</h4>
   	<div class="row">	  	
-	  	<div class="col-md-3 col-sm-6 col-xs-6">
-	  	
-	  	
-	  	
-	  	</div>
-	  	
+	  	<c:forEach var="tmpP" items="${listP }">
+  			<div class="col-md-3 col-sm-6 col-xs-6">
+  				<a href="detail.do?seq=${tmpP.seq }">
+		  			
+		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpP.imagepath }" class="img-responsive" alt="Responsive image"/>
+		  			<%-- 
+		  			<img src="<c:out value="${pageContext.request.contextPath }/${tmp.imagepath }"/>" class="img-responsive" alt="Responsive image"/>
+		  			 --%>
+		  			<p>${tmpP.name }</p>
+		  			<strong>${tmpP.artcount }</strong>
+		  		</a>
+  			</div>
+  		</c:forEach>
 	</div><!-- //화파 -->
  
 </div><!-- //container -->
