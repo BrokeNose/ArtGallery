@@ -13,6 +13,7 @@ public interface CategoryService {
 	public void SonGetData(HttpServletRequest request, ModelAndView mView);
 
 	public void getSearchList(HttpServletRequest request, ModelAndView mView);
+	public void getConfig();
 	
 	//Shin
 	public void insertForm(HttpServletRequest request, ModelAndView mView);

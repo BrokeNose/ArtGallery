@@ -17,6 +17,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="com/main/artgallery/mybatis/ArtMapper.xml"/>
 		<mapper resource="com/main/artgallery/mybatis/ArtRelMapper.xml"/>
 		<mapper resource="com/main/artgallery/mybatis/ConfigMapper.xml"/>
-		<mapper resource="com/main/artgallery/mybatis/FavorArtgMapper.xml"/>
+		<mapper resource="com/main/artgallery/mybatis/FavorArtMapper.xml"/>
 	</mappers>
 </configuration>

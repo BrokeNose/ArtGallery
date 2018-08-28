@@ -3,7 +3,7 @@
 <mapper namespace="favorArt">
 
 <!-- 작성자 : hyung -->
-	<select id="getData" parameterType="favorArtDto" resultType="String">
+	<select id="getData" parameterType="favorArtDto" resultType="favorArtDto">
 		SELECT id
 		FROM   t_favorArt
 		WHERE  id=#{id} AND aseq=#{aseq}

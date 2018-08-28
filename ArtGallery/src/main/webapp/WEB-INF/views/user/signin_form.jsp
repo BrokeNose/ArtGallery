@@ -18,9 +18,9 @@
 	      <font size="30"><i class="fas fa-university"></i></font>
 	      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 	      <label for="inputId" class="sr-only">Id</label>
-	      <input type="text" name="id" id="id" class="form-control" placeholder="Id" required autofocus>
+	      <input type="text" name="id" id="id" class="form-control" placeholder="Id" required autofocus/>
 	      <label for="inputPassword" class="sr-only">Password</label>
-	      <input type="password" name="pwd" id="inputPassword" class="form-control" placeholder="Password" required>
+	      <input type="password" name="pwd" id="inputPassword" class="form-control" placeholder="Password" required/>
 	      <!-- 
 	      <div class="checkbox mb-3">
 	        <label>
@@ -33,6 +33,5 @@
 	</div><!-- //text-center center-block -->
 </div><!-- //container -->
 <jsp:include page="../footer.jsp"/>
-<script>
 </body>
 </html>

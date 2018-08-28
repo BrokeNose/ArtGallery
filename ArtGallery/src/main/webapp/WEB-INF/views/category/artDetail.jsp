@@ -31,9 +31,16 @@
 <body>
 <jsp:include page="../header.jsp"/>
 <div class="container">
+
+	<input type="hidden" id="seq" value="${dto.seq }"/>
+
 	<div class="row">		
-		<div class="col-xs-1 arrow_left"><span style="font-size:30px;"><i class="fas fa-arrow-circle-left"></i></span></div>
-		<div class="col-xs-1 arrow_right"><span style="font-size:30px;"><i class="fas fa-arrow-circle-right"></i></span></div>
+		<div class="col-xs-1 arrow_left">
+			<a href="javascript: goDetail(${dto.prevNum });">
+				<span style="font-size:30px;"><i class="fas fa-arrow-circle-left"></i></span></a></div>
+		<div class="col-xs-1 arrow_right">
+			<a href="javascript: goDetail(${dto.nextNum });">
+			<span style="font-size:30px;"><i class="fas fa-arrow-circle-right"></i></span></a></div>
 		<div class="col-xs-10 text-center">
 			<img class="img-responsive" src="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }"/>
 		</div>			
@@ -43,8 +50,17 @@
 		<h4><c:forEach var="tmp" items="${aList }">
 			<b>${tmp.name }</b> ${tmp.bdate }/${tmp.ddate }
 		</c:forEach></h4>
-		<a href="javascript:goFavorArt(${dto.seq });"><span style="font-size:1.3em;color: #333;"><i class="fas fa-heart"></i></span></a>
-		<span style="font-size:1.3em;color: #333;"><i class="far fa-heart"></i></span>
+		<a href="javascript:goFavorArt(${dto.seq });">
+			<span style="font-size:1.3em;color: #333;">
+		<c:choose>
+			<c:when test="${isFavorArt eq 'Y' }">
+				<i id="iFavor" class="fas fa-heart"></i>
+			</c:when>
+			<c:otherwise>
+				<i id="iFavor" class="far fa-heart"></i>		
+			</c:otherwise>	
+		</c:choose>
+			</span></a>	
 		<br />
 		<pre>${dto.remark }</pre>	
 	</div>
@@ -70,5 +86,17 @@
 <br />
 </div><!-- //container -->
 <jsp:include page="../footer.jsp"/>
+
+<script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"  ></script>
+<script>
+	function goDetail(seq){
+		location.href="artDetail.do?cseq=${cseq}&searchKeyword=${searchKeyword}&searchCondition=${searchCondition}&seq="+seq		
+	}	
+	
+	function goFavorArt(seq){
+				
+	}
+</script>
 </body>
 </html>

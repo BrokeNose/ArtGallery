@@ -58,6 +58,7 @@
 			</otherwise>
 		</choose>
 	</sql>
+	
 	<select id="getList" parameterType="artDto" resultType="artDto">
 		SELECT result2.*
 		FROM   (SELECT result1.*, ROWNUM rnum
@@ -119,4 +120,5 @@
 		FROM   t_art
 		WHERE seq=#{seq}
 	</delete>
+		
 </mapper>

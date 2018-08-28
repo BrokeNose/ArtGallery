@@ -17,6 +17,8 @@ import com.main.artgallery.art.dao.ArtRelDao;
 import com.main.artgallery.art.dto.ArtRelDto;
 import com.main.artgallery.config.dao.ConfigDao;
 import com.main.artgallery.config.dto.ConfigDto;
+import com.main.artgallery.favorart.dao.FavorArtDao;
+import com.main.artgallery.favorart.dto.FavorArtDto;
 
 /*
  * 작성자 : hyung
@@ -33,6 +35,9 @@ public class ArtServiceImpl implements ArtService {
 
 	@Autowired
 	private ConfigDao configDao;
+	
+	@Autowired
+	private FavorArtDao favorArtDao;
 
 	private ConfigDto configDto=null;
 	
@@ -124,6 +129,7 @@ public class ArtServiceImpl implements ArtService {
 		//검색과 관련된 파라미터들도 dto에 선언되어 있음
 		String keyword=dto.getSearchKeyword();
 		String condition=dto.getSearchCondition();		
+		String adminMode=(String)request.getAttribute("adminMode");	// controller에서 setting
 		
 		if(keyword != null) {//검색어가 전달된 경우 
 			if(condition.equals("titleRemark")) {//제목+비고
@@ -165,20 +171,33 @@ public class ArtServiceImpl implements ArtService {
 		relDto.setCode("P");;
 		List<ArtRelDto> pList=artRelDao.getList(relDto);
 		
-		// 연계정보 text 만들기		
-		String[] rtn=artRelTextMerge(aList);
-		resultDto.setArtist(rtn[0]);
-		mView.addObject("artistTxt", rtn[1]);
+		// 관리자 모드 - 연계정보 text 만들기
+		if(adminMode.equals("Y")) {
+			String[] rtn=artRelTextMerge(aList);
+			resultDto.setArtist(rtn[0]);
+			mView.addObject("artistTxt", rtn[1]);
+			
+			rtn=artRelTextMerge(mList);
+			resultDto.setMaterial(rtn[0]);
+			mView.addObject("materialTxt", rtn[1]);
+	
+			rtn=artRelTextMerge(pList);
+			resultDto.setPainter(rtn[0]);
+			mView.addObject("painterTxt", rtn[1]);		
+		}
 		
-		rtn=artRelTextMerge(mList);
-		resultDto.setMaterial(rtn[0]);
-		mView.addObject("materialTxt", rtn[1]);
-
-		rtn=artRelTextMerge(pList);
-		resultDto.setPainter(rtn[0]);
-		mView.addObject("painterTxt", rtn[1]);		
-		
-		
+		// 관심작품 등록 여부
+		String id=(String)request.getSession().getAttribute("id");
+		String isFavorArt="N";
+		if ( id != null && !(id.equals(""))) {
+			FavorArtDto fDto=new FavorArtDto();
+			fDto.setAseq(dto.getSeq());
+			fDto.setId(id);
+			if ( favorArtDao.getData(fDto) != null ) {
+				isFavorArt="Y";
+			}
+		}
+		mView.addObject("isFavorArt", isFavorArt);
 		// request에 담기
 		mView.addObject("dto", resultDto);	// 작품 정보
 		mView.addObject("aList", aList);	// 아티스트 연계

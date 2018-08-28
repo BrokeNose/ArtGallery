@@ -2,6 +2,7 @@ package com.main.artgallery.category.dao;
 
 import java.util.List;
 
+import com.main.artgallery.art.dto.ArtRelDto;
 import com.main.artgallery.category.dto.CategoryDto;
 
 public interface CategoryDao {
@@ -19,9 +20,7 @@ public interface CategoryDao {
 	public List<CategoryDto> getListCategory(CategoryDto dto);
 
 	//Son
-	public List<CategoryDto> getAList();
-	public List<CategoryDto> getPList();
-	public List<CategoryDto> getMList();
+	public List<CategoryDto> getList(String code);
 	public List<CategoryDto> getFavorList();
 	public CategoryDto getAData(int seq);
 	public void getCount(int count);

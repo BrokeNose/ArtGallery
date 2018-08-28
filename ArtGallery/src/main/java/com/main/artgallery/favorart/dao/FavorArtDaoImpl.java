@@ -2,44 +2,40 @@ package com.main.artgallery.favorart.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.main.artgallery.favorart.dto.FavorArtDto;
 
+@Repository
 public class FavorArtDaoImpl implements FavorArtDao{
+	@Autowired
+	private SqlSession session;
 	
 	@Override
 	public List<FavorArtDto> getList(FavorArtDto dto) {
-		// TODO Auto-generated method stub
-		return null;
+		return session.selectList("favorArt.getList", dto);
 	}
 
 	@Override
 	public int getCount(FavorArtDto dto) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void insert(FavorArtDto dto) {
-		// TODO Auto-generated method stub
-		
+		return session.selectOne("favorArt.getCount", dto);
 	}
 
 	@Override
 	public FavorArtDto getData(FavorArtDto dto) {
-		// TODO Auto-generated method stub
-		return null;
+		return  session.selectOne("favorArt.getData", dto);
 	}
 
 	@Override
-	public void update(FavorArtDto dto) {
-		// TODO Auto-generated method stub
-		
+	public void insert(FavorArtDto dto) {
+		session.insert("favorArt.insert", dto);		
 	}
 
 	@Override
-	public void delete(int seq) {
-		// TODO Auto-generated method stub
-		
+	public void delete(FavorArtDto dto) {
+		session.delete("favorArt.delete", dto);			
 	}
 
 }

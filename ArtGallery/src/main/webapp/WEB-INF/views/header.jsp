@@ -32,18 +32,20 @@
       	<ul class="nav navbar-nav navbar-right">
       		<c:choose>
       			<c:when test="${not empty id }">
-      				<li><a href="javascript:signOut()" alt="logout"><span style="font-size:1.3em;color: #333;"><i class="fas fa-sign-out-alt"></i></span></a></li>
-      				<li><a href="${pageContext.request.contextPath }/user/info.do" alt="userinfo"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-tie"></i></span></a></li>
-					<li><a href="#" alt="favorite"><span style="font-size:1.3em;color: #333;"><i class="fas fa-heart"></i></span></a></li>
+      				<li><a href="javascript:signOut()" title="로그아웃"><span style="font-size:1.3em;color: #333;"><i class="fas fa-sign-out-alt"></i></span></a></li>
+      				<li><a href="${pageContext.request.contextPath }/user/info.do" title="회원정보"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-tie"></i></span></a></li>
+					<li><a href="#" title="관심작품"><span style="font-size:1.3em;color: #333;"><i class="fas fa-heart"></i></span></a></li>
       			</c:when>
-      			<c:otherwise>
-      				<li><a href="user/signin_form.do?url=${url }" alt="login"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user"></i></span></a></li>
-	        		<li><a href="user/signup_form.do" alt="register"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-plus"></i></span></a></li>
+      			<c:otherwise>      				
+
+      				<li><a href="${pageContext.request.contextPath }/user/signin_form.do?url=${url }" title="로그인"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user"></i></span></a></li>
+	        		<li><a href="${pageContext.request.contextPath }/user/signup_form.do" title="회원가입"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-plus"></i></span></a></li>
+
       			</c:otherwise>
       		</c:choose>
-	        <li><a href="#" alt="search" id="search_icon"><span style="font-size:1.3em;color: #333;"><i class="fas fa-search"></i></span></a></li>
+	        <li><a href="#" title="검색" id="search_icon"><span style="font-size:1.3em;color: #333;"><i class="fas fa-search"></i></span></a></li>
 	       	<c:if test="${roll eq 'A' }">
-	        	<li><a href="admin/home.do" alt="admin"><span style="font-size:1.3em;color: #333;"><i class="fas fa-users-cog"></i></span></a></li>
+	        	<li><a href="${pageContext.request.contextPath }/admin/home.do" title="관리자"><span style="font-size:1.3em;color: #333;"><i class="fas fa-users-cog"></i></span></a></li>
 	        </c:if>
       	</ul>
     </div>
@@ -108,7 +110,7 @@
 	
 	function signOut() {
 		confirm("로그아웃 됐습니다.");
-		location.href="user/signout.do";
+		location.href="${pageContext.request.contextPath }/user/signout.do";
 	};
 
 </script>

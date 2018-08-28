@@ -1,3 +1,26 @@
+select *
+from t_category
+where code='A'
+and seq != 353
+and seq in ( select distinct cseq
+from t_artrel
+where aseq in ( select aseq from t_artrel where cseq= 353 ) );
+
+SELECT  * 
+		FROM    v_category
+		WHERE   code='M'
+		AND     seq != 353
+	    AND     seq IN ( SELECT DISTINCT cseq 
+	    				 FROM   t_artrel 
+	    				 WHERE  aseq IN ( SELECT aseq FROM t_artrel WHERE cseq=353 )
+	    			    )  
+;	    			    
+	    			    
+select distinct cseq
+from t_artrel
+where aseq in ( select aseq from t_artrel where cseq= 353 )
+;
+
 SELECT ROUND(DBMS_RANDOM.VALUE(1, (select max(seq) from t_category where code='A' )),0) FROM DUAL;
 
 
