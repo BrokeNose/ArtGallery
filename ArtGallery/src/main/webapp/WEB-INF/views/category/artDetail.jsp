@@ -25,6 +25,10 @@
 		border: 0px;
 		background-color: #fff;
 	}
+	.img_center{
+		max-height:500px;
+		text-align:center;
+	}
 </style>
 
 </head>
@@ -32,10 +36,10 @@
 <jsp:include page="../header.jsp"/>
 <div class="container">
 	<div class="row">		
-		<div class="col-xs-1 arrow_left"><span style="font-size:30px;"><i class="fas fa-arrow-circle-left"></i></span></div>
-		<div class="col-xs-1 arrow_right"><span style="font-size:30px;"><i class="fas fa-arrow-circle-right"></i></span></div>
-		<div class="col-xs-10 text-center">
-			<img class="img-responsive" src="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }"/>
+		<div class="arrow_left"><span style="font-size:30px;"><i class="fas fa-arrow-circle-left"></i></span></div>
+		<div class="arrow_right"><span style="font-size:30px;"><i class="fas fa-arrow-circle-right"></i></span></div>
+		<div class="text-center ">
+			<img class="img_center" src="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }"/>
 		</div>			
 	</div>
 	<div class="text-left">
