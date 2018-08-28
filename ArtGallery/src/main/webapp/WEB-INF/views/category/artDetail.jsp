@@ -25,7 +25,7 @@
 		border: 0px;
 		background-color: #fff;
 	}
-	.img_center{
+	.img_center{	
       max-width:800px;
       max-height:500px;
       text-align:center;
