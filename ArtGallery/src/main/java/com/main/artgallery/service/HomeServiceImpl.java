@@ -1,5 +1,8 @@
 package com.main.artgallery.service;
 
+import java.util.List;
+import java.util.Random;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.main.artgallery.category.dao.CategoryDao;
+import com.main.artgallery.category.dto.CategoryDto;
 import com.main.artgallery.config.dao.ConfigDao;
 import com.main.artgallery.config.dto.ConfigDto;
 
@@ -21,6 +25,9 @@ public class HomeServiceImpl implements HomeService {
 	public void getToday(HttpServletRequest request, ModelAndView mView) {
 		getConfig();
 		mView.addObject("configDto", configDto);
+		List<CategoryDto> listT=categoryDao.getList("A");
+		CategoryDto random=listT.get(new Random().nextInt(listT.size()));
+		mView.addObject("today", random);
 	}
 	@Override
 	public void getListA(HttpServletRequest request, ModelAndView mView) {
