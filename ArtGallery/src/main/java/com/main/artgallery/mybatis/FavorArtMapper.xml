@@ -38,10 +38,10 @@
 
 	<insert id="insert" parameterType="favorArtDto">
 		INSERT INTO  t_favorArt (id, aseq, regdate)
-		VALUES (#{id}, #{aseq}, SYSDATE);			
+		VALUES (#{id}, #{aseq}, SYSDATE)			
 	</insert>
 	
-	<delete id="delte" parameterType="favorArtDto">
+	<delete id="delete" parameterType="favorArtDto">
 		DELETE
 		FROM   t_favorArt
 		WHERE  id=#{id} AND aseq=#{aseq}

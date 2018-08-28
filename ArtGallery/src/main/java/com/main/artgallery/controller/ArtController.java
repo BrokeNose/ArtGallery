@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.main.artgallery.art.dto.ArtDto;
+import com.main.artgallery.favorart.dto.FavorArtDto;
 import com.main.artgallery.service.ArtService;
 import com.main.artgallery.service.ConfigService;
 import com.main.artgallery.service.FavorArtService;
@@ -46,23 +47,17 @@ public class ArtController {
 	@RequestMapping("/art/favoriteArt")
 	@ResponseBody
 	public Map<String, Object> authFavoriteArt(HttpServletRequest request,  @RequestParam int seq) {
-		String isFavor=null;
+		String id=(String)request.getSession().getAttribute("id");
+		FavorArtDto dto=new FavorArtDto();
+		dto.setAseq(seq);
+		dto.setId(id);
+		fService.update(request, dto);		
+		String isFavor=(String)request.getAttribute("isFavor");		
 		Map<String, Object> map=new HashMap<>();
 		map.put("isFavor", isFavor);
 		return map;
 	}
-	// 임시 로그인 처리
-	@RequestMapping("/loginAuto")
-	public String loginAuto(HttpSession session, @RequestParam String id) {
-		session.setAttribute("id", id);
-		if(id.equals("hyung")) {
-			session.setAttribute("roll", "A");
-		}else {
-			session.setAttribute("roll", "U");
-		}
-		return "redirect:/home.do";
-	}
-	
+
 	//관리자 작품 목록
 	@RequestMapping("/admin/art/list")
 	public ModelAndView adminArtList(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {

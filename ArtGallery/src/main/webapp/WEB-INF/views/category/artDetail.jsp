@@ -30,20 +30,24 @@
       max-height:500px;
       text-align:center;
    	}
-
+	.info
+	{   display: block;
+	    padding: 9.5px;
+	    margin: 0 0 10px;
+	    font-size: 13px;
+	    line-height: 1.42857143;
+	    color: #333;
+	    word-break: break-all;
+	    word-wrap: break-word;
+	    border-radius: 4px;
+	}
 </style>
-
 </head>
 <body>
 <jsp:include page="../header.jsp"/>
 <div class="container">
 	<input type="hidden" id="seq" value="${dto.seq }"/>
-<<<<<<< HEAD
 	<div class="row">
-=======
-
-	<div class="row">		
->>>>>>> branch 'master' of https://github.com/SonDaewon/ArtGallery.git
 		<div class="arrow_left">
 			<a href="javascript: goDetail(${dto.prevNum });">
 				<span style="font-size:30px;"><i class="fas fa-arrow-circle-left"></i></span></a></div>
@@ -70,6 +74,12 @@
 			</c:otherwise>	
 		</c:choose>
 		<br />
+		<p class="info">
+<c:if test="${not empty mList }">재료 : </c:if>		
+<c:forEach var="tmp" items="${mList }">
+	<a href="${pageContext.request.contextPath }/category/detail.do?code=M&seq=${tmp.cseq}">${tmp.name }</a>
+</c:forEach>
+		</p>
 		<pre>${dto.remark }</pre>	
 	</div>
 	<br />
@@ -95,8 +105,6 @@
 </div><!-- //container -->
 <jsp:include page="../footer.jsp"/>
 
-<script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
-<script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"  ></script>
 <script>
 	function goDetail(seq){
 		if (seq>0){
@@ -112,14 +120,16 @@
 			method:"post",
 			data:{"seq":seq},
 			success:function(data) {
-				if(data=='Y'){
+				if(data.isFavor=='Y'){
+					alert("즐겨찾기에 등록했습니다.");
 					$("#iFavor").removeClass("far");
 					$("#iFavor").addClass("fas");
 				} else {
+					alert("즐겨찾기 해지했습니다.");
 					$("#iFavor").removeClass("fas");
 					$("#iFavor").addClass("far");					
 				}
-			}
+			}			
 		});
 		</c:when>
 		<c:otherwise>

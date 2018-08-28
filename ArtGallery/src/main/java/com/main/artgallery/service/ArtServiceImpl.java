@@ -193,12 +193,12 @@ public class ArtServiceImpl implements ArtService {
 			FavorArtDto fDto=new FavorArtDto();
 			fDto.setAseq(dto.getSeq());
 			fDto.setId(id);
-			if ( favorArtDao.getData(fDto) != null ) {
+			if ( favorArtDao.getData(fDto).getId() != null ) {
 				isFavorArt="Y";
 			}
 		}
-		mView.addObject("isFavorArt", isFavorArt);
 		// request에 담기
+		mView.addObject("isFavorArt", isFavorArt);
 		mView.addObject("dto", resultDto);	// 작품 정보
 		mView.addObject("aList", aList);	// 아티스트 연계
 		mView.addObject("mList", mList);	// 재료 연계
