@@ -13,6 +13,24 @@
 	.left {
 		float: left;
 	}
+	.footer {
+	  position: absolute;
+	  bottom: 0;
+	  width: 100%;
+	  /* Set the fixed height of the footer here */
+	  height: 60px;
+	  line-height: 60px; /* Vertically center the text there */
+	  background-color: #f5f5f5;
+	}
+	
+	.footer > .container_f {	
+	  padding-right: 15px;
+	  padding-left: 15px;
+	}
+	
+	code {
+	  font-size: 80%;
+	}
 </style>
 </head>
 <body>
@@ -109,6 +127,8 @@
 	<!-- //Page navigation -->
 </div>
 
+<jsp:include page="../inc/footer.jsp" />
+	
 
 
 

@@ -29,6 +29,7 @@
 
       <!-- right menu //  -->
       <ul class="nav navbar-nav navbar-right">
+      	<li><a ><strong>${id }</strong>님 반갑습니다.</a></li>
         <li><a href="${pageContext.request.contextPath }/ "><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></a></li>       
       </ul>
       <!-- // right menu -->
