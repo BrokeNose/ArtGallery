@@ -85,7 +85,7 @@
 	<select id="getSearchList" parameterType="category" resultType="category">
 		SELECT <include refid="categoryColumn" />
 		FROM   T_Category
-		WHERE  code=#{code}
+		WHERE  code=#{code}		
 		<if test="name != null">
 		  AND  UPPER(name) LIKE '%'||UPPER(#{name})||'%'
 		</if>
