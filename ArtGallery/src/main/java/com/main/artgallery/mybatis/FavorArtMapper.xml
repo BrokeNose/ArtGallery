@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="favorArt">
+
+<!-- 작성자 : hyung -->
+	<select id="getData" parameterType="favorArtDto" resultType="String">
+		SELECT id
+		FROM   t_favorArt
+		WHERE  id=#{id} AND aseq=#{aseq}
+	</select>
+
+	<select id="getList" parameterType="favorArtDto" resultType="favorArtDto">
+		SELECT id, aseq, regdate
+		FROM   t_favorArt
+		<where>
+			<if test="id != null and id != '' ">
+				AND id=#{id}	
+			</if>
+			<if test="aseq != null and aseq > 0 ">
+				AND aseq=#{aseq}	
+			</if>
+		</where>
+		ORDER BY id, regdate DESC
+	</select>
+
+	<insert id="insert" parameterType="favorArtDto">
+		INSERT INTO  t_favorArt (id, aseq, regdate)
+		VALUES (#{id}, #{aseq}, SYSDATE);			
+	</insert>
+	
+	<delete id="delte" parameterType="favorArtDto">
+		DELETE
+		FROM   t_favorArt
+		WHERE  id=#{id} AND aseq=#{aseq}
+	</delete>
+</mapper>

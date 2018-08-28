@@ -1,3 +1,6 @@
+SELECT ROUND(DBMS_RANDOM.VALUE(1, (select max(seq) from t_category where code='A' )),0) FROM DUAL;
+
+
 SELECT result2.* 
 FROM (
 		SELECT result1.*, ROWNUM rnum 
