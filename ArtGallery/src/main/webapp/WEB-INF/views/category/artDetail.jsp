@@ -26,7 +26,7 @@
 		background-color: #fff;
 	}
 	.img_center{	
-      max-width:800px;
+      max-width:70%;
       max-height:500px;
       text-align:center;
    	}
