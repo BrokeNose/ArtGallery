@@ -2,6 +2,7 @@ package com.main.artgallery.category.dao;
 
 import java.util.List;
 
+import com.main.artgallery.art.dto.ArtRelDto;
 import com.main.artgallery.category.dto.CategoryDto;
 
 public interface CategoryDao {
@@ -23,6 +24,7 @@ public interface CategoryDao {
 	public List<CategoryDto> getFavorList();
 	public CategoryDto getAData(int seq);
 	public void getCount(int count);
+	public List<CategoryDto> getListRelation(ArtRelDto dto);
 	
 	//hyung
 	public List<CategoryDto> getSearchList(CategoryDto dto);	// 카테고리 검색어 검색

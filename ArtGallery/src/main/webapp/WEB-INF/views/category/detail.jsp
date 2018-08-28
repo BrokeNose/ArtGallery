@@ -70,34 +70,17 @@
 	<h4><i class="fas fa-kiss-wink-heart"></i> 작가의 다른 작품</h4>
   	<div class="row">	  	
   		<div class="row">
-  		<c:forEach var="dto" items="${list }">
-		  		<div class="col-md-3 col-sm-6 col-xs-6">
-			  		<a href="detail.do?seq=${dto.seq }">
-			  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
-			  			<%-- <img src="<c:out value="${pageContext.request.contextPath }/${dto.imagepath }"/>" class="img-responsive" alt="Responsive image"/> --%>
-			  			<p>${dto.name }</p>
-			  			<strong>${dto.artcount }</strong>
-			  		</a>
-			  	</div>
-	  		</c:forEach>
-		</div><!-- //아티스트 -->
-	  	<div class="col-md-3 col-sm-6 col-xs-6">
-	  		<a href="detail.jsp"><img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/></a>
-	  	</div>
-	  	<div class="col-md-3 col-sm-6 col-xs-6">
-	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
-	  	</div>
-	  	<div class="col-md-3 col-sm-6 col-xs-6">
-	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
-	  	</div>
-	  	<div class="col-md-3 col-sm-6 col-xs-6">
-	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
-	  	</div>
-	  	
-	  	
+  		<c:forEach var="dto" items="${artlist }">
+	  		<div class="col-md-3 col-sm-6 col-xs-6">
+		  		<a href="art/detail.do?cseq=${dto.cseq }&seq=${dto.seq }">
+		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
+		  			<%-- <img src="<c:out value="${pageContext.request.contextPath }/${dto.imagepath }"/>" class="img-responsive" alt="Responsive image"/> --%>
+		  			<p>${dto.name }</p>
+		  			<%-- <strong>${dto.artcount }</strong> --%>
+		  		</a>
+		  	</div>
+  		</c:forEach>
 	</div><!-- //아티스트 -->
-
-
 <br />
 </div><!-- //container -->
 

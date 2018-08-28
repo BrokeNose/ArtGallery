@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.main.artgallery.art.dao.ArtDao;
 import com.main.artgallery.art.dto.ArtDto;
+import com.main.artgallery.art.dto.ArtRelDto;
 import com.main.artgallery.category.dao.CategoryDao;
 import com.main.artgallery.category.dto.CategoryDto;
 import com.main.artgallery.config.dao.ConfigDao;
@@ -91,22 +92,26 @@ public class CategoryServiceImpl implements CategoryService {
 		
 		//파라미터로 전달되는 글번호 읽어오기
 		int seq=Integer.parseInt(request.getParameter("seq"));
+		int cseq=Integer.parseInt(request.getParameter("seq"));
+		String code=(String)request.getParameter("code");
 		
 		CategoryDto dto= new CategoryDto();
 		ArtDto aDto= new ArtDto();
+		ArtRelDto arDto= new ArtRelDto();
+		
 		aDto.setSeq(seq);
-		mView.addObject("list",aDao.getArtList(aDto));
+		aDto.setCseq(cseq);
+		arDto.setCseq(cseq);
+		arDto.setCode(code);
+		
+		
+		//작품 리스트 출력
+		mView.addObject("artlist",aDao.getArtList(aDto));
+		//카테고리 리스트 출력  아티스트,재료,화파
+		mView.addObject("Rellist",dao.getListRelation(arDto));
 		
 		dto=dao.getAData(seq);
-		/*if (dto.getCode().equals("A")) {
-			mView.addObject("list",dao.getAList());
-			mView.addObject("SonCategoryType", "A");
-		}else if(dto.getCode().equals("M")) {
-			mView.addObject("list",dao.getAList());
-			mView.addObject("SonCategoryType", "A");
-		}else if() {
-			
-		}*/
+		
 		mView.addObject("configDto", configDto);
 		mView.addObject("dto", dto);
 	}
