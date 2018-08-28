@@ -1,4 +1,4 @@
-select * from t_config;
+select * from t_favorart;
 
 select *
 from t_category
