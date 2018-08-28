@@ -27,12 +27,13 @@ public class FavorArtServiceImpl implements FavorArtService {
 
 	@Override
 	public void update(HttpServletRequest request, FavorArtDto dto) {
-		if ( dao.getData(dto) != null && dao.getData(dto).getId() != null) {
-			System.out.println("favorite delete");
+		FavorArtDto dto2 = dao.getData(dto);
+		if (  dto2 != null && dto2.getId() != null) {
+			//System.out.println("favorite delete");
 			request.setAttribute("isFavor", "N");
 			dao.delete(dto);
 		} else {
-			System.out.println("favorite insert");
+			//System.out.println("favorite insert");
 			dao.insert(dto);
 			request.setAttribute("isFavor", "Y");
 		}

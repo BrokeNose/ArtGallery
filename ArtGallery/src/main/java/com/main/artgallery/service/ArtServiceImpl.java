@@ -193,7 +193,8 @@ public class ArtServiceImpl implements ArtService {
 			FavorArtDto fDto=new FavorArtDto();
 			fDto.setAseq(dto.getSeq());
 			fDto.setId(id);
-			if ( favorArtDao.getData(fDto).getId() != null ) {
+			FavorArtDto fDto2=favorArtDao.getData(fDto);
+			if ( fDto2 != null && fDto2.getId() != null ) {
 				isFavorArt="Y";
 			}
 		}
