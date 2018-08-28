@@ -94,8 +94,7 @@
 <c:forEach var="tmp" items="${pList }">
 	<a href="${pageContext.request.contextPath }/category/detail.do?code=P&seq=${tmp.cseq}">${tmp.name }</a>
 </c:forEach>
-		</p>
-		
+		</p>		
 		<pre>${dto.remark }</pre>	
 	</div>
 	<br />
