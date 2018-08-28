@@ -24,10 +24,9 @@
 	</c:choose>
   	<div class="row">
   		<c:forEach var="dto" items="${list }">
-	  		<div class="col-md-3 col-sm-6 col-xs-6">
-		  		<a href="detail.do?seq=${dto.seq }&code=${dto.code }">
-		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
-		  			<%-- <img src="<c:out value="${pageContext.request.contextPath }/${dto.imagepath }"/>" class="img-responsive" alt="Responsive image"/> --%>
+	  		<div class="col-md-3 col-sm-6 col-xs-6" style="background-image: url('http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }');">
+		  		<a class="col-md-3 col-sm-6 col-xs-6" href="detail.do?seq=${dto.seq }&code=${dto.code }" style="background-image: url('http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }');">
+		  			<%-- <img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }" class="img-responsive" alt="Responsive image"/> --%>
 		  			<p>${dto.name }</p>
 		  			<strong>${dto.artcount }</strong>
 		  		</a>

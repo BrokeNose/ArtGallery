@@ -73,7 +73,7 @@
 		ORDER BY rnum	
 	</select>
 	<select id="getListAll" parameterType="artDto" resultType="artDto">
-		SELECT DISTINCT <include refid="artColumn"/> 	
+		SELECT DISTINCT <include refid="artColumn"/> ,cseq	
 		FROM   v_art 
 		<include refid="artWhere"/>
 		<include refid="artSort"/>						
