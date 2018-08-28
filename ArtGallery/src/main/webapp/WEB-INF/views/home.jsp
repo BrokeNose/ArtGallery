@@ -25,20 +25,21 @@
   	<!-- 아티스트 -->
   	<h4><i class="fas fa-kiss-wink-heart"></i> 아티스트</h4>
   	<div class="row">
-  		<%-- 
+  		
   		<c:forEach var="tmp" items="${list }">
   			<div class="col-md-3 col-sm-6 col-xs-6">
   				<a href="detail.do?seq=${tmp.seq }">
 		  			
-		  			<img src="http://192.168.0.200:8888/artgallery/${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
-		  			
+		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
+		  			<%-- 
 		  			<img src="<c:out value="${pageContext.request.contextPath }/${tmp.imagepath }"/>" class="img-responsive" alt="Responsive image"/>
+		  			 --%>
 		  			<p>${tmp.name }</p>
 		  			<strong>${tmp.artcount }</strong>
 		  		</a>
   			</div>
   		</c:forEach>
-  		 --%>
+  		
 	</div><!-- //아티스트 -->
 	<!-- 재료 -->
   	<h4><i class="fas fa-paint-brush"></i> 재료</h4>
