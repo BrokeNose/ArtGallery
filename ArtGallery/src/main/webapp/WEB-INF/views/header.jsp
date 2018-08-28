@@ -51,7 +51,7 @@
   </div>
 </nav>
 <!-- search// -->
-<div id="search_box" class="h_s" style="display: none"> 	
+<div id="search_box" class="h_s"> 	
  	<div class="navbar-header">
  		<a class="navbar-brand" href="#" id="search_close">
 	      	<span style="color: #333;"><i class="fas fa-arrow-left"></i> </span>
@@ -100,15 +100,11 @@
 	
 	//search box open
 	$("#search_icon").click(function() {
-		$("#search_box")
-		/* .animate({top:"0px"}) */
-		.slideDown();
+		$("#search_box").animate({top:"0px"});
 	});
 	//search box close
 	$("#search_close").click(function() {
-		$("#search_box")
-		/* .animate({top:"-60px"}) */
-		.slideUp();
+		$("#search_box").animate({top:"-60px"});
 	});
 	
 	function signOut() {
