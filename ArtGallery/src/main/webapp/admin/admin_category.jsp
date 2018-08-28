@@ -30,14 +30,14 @@
 						    <span class="caret"></span>
 						  </button>
 						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						    <li><a href="#">아티스트</a></li>
-						    <li><a href="#">재료</a></li>
-						    <li><a href="#">화파</a></li>
+						    <li><a href="#">아티스트-1</a></li>
+						    <li><a href="#">재료1</a></li>
+						    <li><a href="#">화파1</a></li>
 						  </ul>
 						  <div class="input-group">
-						      <input type="text" class="form-control" placeholder="Search for...">
+						      <input id="inputSearch" type="text" class="form-control" placeholder="Search for...">
 						      <span class="input-group-btn">
-						        <button class="btn btn-default" type="button">Go!</button>
+						        <button class="btn btn-default" type="button" id="btnSearch">Go</button>
 						      </span>
 						  </div><!-- /input-group -->			  
 						</div>		     
@@ -50,8 +50,6 @@
 	  </div><!-- /panel-body -->
 	</div><!-- /panel -->
 	
-	categoryType : ${PcategoryType }
-	
 	<div class="table-responsive">
 	  <table class="table table-bordered">
 	  	<thead>
@@ -61,12 +59,15 @@
 			  			<td>작가명</td>
 			  			<td>출생일</td>
 			  			<td>사망일</td>
+			  			<td>내용</td>
 		  			</c:when>
 		  			<c:when test="${categoryType eq 'P' }">
 			  			<td>화파</td>
+			  			<td>내용</td>
 		  			</c:when>
 		  			<c:when test="${categoryType eq 'M' }">
 			  			<td>재료</td>
+			  			<td>내용</td>
 		  			</c:when>
 	  			</c:choose>
 	  		</tr>
@@ -121,6 +122,14 @@
 	$(".dropdown-menu li a").click(function(){
 	  var selText = $(this).text();
 	  $(this).parents('.con_left').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
+	});
+	$("#btnSearch").click(function(){
+		var qeuryStr = $("#inputSearch").val();
+		if(queryStr == null) {
+			alert("no data");
+		} else {
+			alert("Data: " + queryStr);
+		}
 	});
 </script>
 </body>

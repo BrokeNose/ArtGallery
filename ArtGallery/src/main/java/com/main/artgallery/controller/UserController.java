@@ -69,7 +69,7 @@ public class UserController {
 	@RequestMapping("/user/signout")
 	public String userSignout(HttpSession session) {
 		session.invalidate();
-		return "user/signout";
+		return "redirect:../";
 	}
 	@RequestMapping("/user/info")
 	public ModelAndView userInfo(HttpServletRequest request, HttpSession session) {

@@ -32,21 +32,19 @@
       	<ul class="nav navbar-nav navbar-right">
       		<c:choose>
       			<c:when test="${not empty id }">
-      				<li><a href="user/sighnout.do" alt="logout"><span style="font-size:1.3em;color: #333;"><i class="fas fa-sign-out-alt"></i></span></a></li>
+      				<li><a href="javascript:signOut()" alt="logout"><span style="font-size:1.3em;color: #333;"><i class="fas fa-sign-out-alt"></i></span></a></li>
       				<li><a href="${pageContext.request.contextPath }/user/info.do" alt="userinfo"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-tie"></i></span></a></li>
 					<li><a href="#" alt="favorite"><span style="font-size:1.3em;color: #333;"><i class="fas fa-heart"></i></span></a></li>
       			</c:when>
       			<c:otherwise>
-      				<li><a href="user/signin_form.do" alt="login"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user"></i></span></a></li>
-	        		<li><a href="user/signup_form.do" alt="register"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-plus"></i></span></a></li>
+      				<li><a href="${pageContext.request.contextPath }/user/signin_form.do?url=${url }" alt="login"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user"></i></span></a></li>
+	        		<li><a href="${pageContext.request.contextPath }/user/signup_form.do" alt="register"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-plus"></i></span></a></li>
       			</c:otherwise>
       		</c:choose>
 	        <li><a href="#" alt="search" id="search_icon"><span style="font-size:1.3em;color: #333;"><i class="fas fa-search"></i></span></a></li>
-	        <%-- 
-	        <c:if test="${roll eq 'A' }">
+	       	<c:if test="${roll eq 'A' }">
 	        	<li><a href="admin/home.do" alt="admin"><span style="font-size:1.3em;color: #333;"><i class="fas fa-users-cog"></i></span></a></li>
 	        </c:if>
-	         --%>
       	</ul>
     </div>
   </div>
@@ -71,7 +69,7 @@
 	<!-- modal-lg  | default | modal-sm -->	
 	<div class="modal-dialog modal-sm"> <!--크기옵션 xs md lg-->
 		<div class="modal-content">
-	    	<div class="modal-header">
+	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal"><span>&times;</span><span class="sr-only">모달 닫기</span></button>
 	        <h4 class="modal-title">의견보내기</h4>
 	      </div>
@@ -85,7 +83,6 @@
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"  ></script>
 <script>
@@ -108,5 +105,10 @@
 	$("#search_close").click(function() {
 		$("#search_box").animate({top:"-60px"})
 	});
+	
+	function signOut() {
+		confirm("로그아웃 됐습니다.");
+		location.href="${pageContext.request.contextPath }/user/signout.do";
+	};
 
 </script>

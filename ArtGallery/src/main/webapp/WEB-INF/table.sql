@@ -1,4 +1,3 @@
-
 ALTER SEQUENCE TCategory_seq INCREMENT BY 377;
 select TCategory_seq.nextval from dual;
 ALTER SEQUENCE TCategory_seq INCREMENT BY 1;
@@ -19,7 +18,7 @@ CREATE TABLE T_Category(
 	imagepath VARCHAR2(200),
 	bdate VARCHAR2(10),
 	ddate VARCHAR2(10),
-	viewcount NUMBER
+	viewcount NUMBER DEFAULT 0
 );
 
 CREATE SEQUENCE TCategory_seq;

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>result</title>
+<title>signin result</title>
 </head>
 <body>
 <c:choose>

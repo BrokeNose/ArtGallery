@@ -30,6 +30,15 @@ public class ArtController {
 	
 	
 	//-------- Hyung ----------------------
+	
+	//작품 상세 정보 조회
+	@RequestMapping("/artDetail")
+	public ModelAndView artDetail(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
+		aService.getData(mView, dto);
+		mView.setViewName("category/artDetail");
+		return mView;
+	}
+	
 	// 임시 로그인 처리
 	@RequestMapping("/loginAuto")
 	public String loginAuto(HttpSession session, @RequestParam String id) {

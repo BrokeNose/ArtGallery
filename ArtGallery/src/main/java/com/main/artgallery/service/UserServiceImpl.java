@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
 		}
 		if(isSigninSuccess) {
 			session.setAttribute("id", dto.getId());
-			session.setAttribute("roll", dto.getRoll());
+			session.setAttribute("roll", resultDto.getRoll());
 		}
 		mView.addObject("isSigninSuccess", isSigninSuccess);
 	}

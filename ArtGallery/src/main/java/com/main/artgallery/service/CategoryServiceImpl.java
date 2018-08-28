@@ -1,11 +1,15 @@
 package com.main.artgallery.service;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.main.artgallery.art.dao.ArtRelDao;
@@ -29,22 +33,37 @@ public class CategoryServiceImpl implements CategoryService {
 	private ConfigDto configDto=null;
 	
 	@Override
-	public void getList(HttpServletRequest request,ModelAndView mView) {
-		String categoryType=(String)request.getParameter("categorytype");
+	public void getList(HttpServletRequest request, ModelAndView mView) {
+		String categoryType = (String)request.getParameter("categorytype");
+		String queryType = (String)request.getParameter("searchCondition");
+		String queryValue = (String)request.getParameter("searchKeyword");
 		
-		if (categoryType==null) {
-			mView.addObject("list",dao.AGetList());
-			mView.addObject("categoryType", "A");
-		}else if(categoryType.equals("A")) {
-			mView.addObject("list",dao.AGetList());
-			mView.addObject("categoryType", "A");
-		}else if(categoryType.equals("M")) {
-			mView.addObject("list",dao.MGetList());
-			mView.addObject("categoryType", "M");
-		}else if(categoryType.equals("P")) {
-			mView.addObject("list",dao.PGetList());
-			mView.addObject("categoryType", "P");
+		CategoryDto dto = new CategoryDto();
+		if(categoryType == null) {
+			String dtoCode = dto.getCode();
+			if(dtoCode == null) {
+				categoryType = "A";
+				dto.setCode(categoryType);
+			} else {
+				categoryType = dtoCode;
+			}
+		} else {
+			dto.setCode(categoryType);
 		}
+		
+		if(queryType != null) {
+			if(queryValue != null) {
+				if(queryType.equals("name")) {
+					dto.setName(queryValue);
+				} else {
+					dto.setRemark(queryValue);
+				}
+			}
+		}
+		
+		
+		mView.addObject("list", dao.getListCategory(dto));
+		mView.addObject("categoryType", categoryType);
 	}
 	
 	//son
@@ -106,12 +125,91 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
+	public void insertForm(HttpServletRequest request, ModelAndView mView) {
+		String categoryType = (String)request.getParameter("categoryType");
+		mView.addObject("categoryType", categoryType);
+	}
+
+	@Override
 	public void getConfig() {
 		configDto=configDao.getData("1");
 	}
 
 	
 	
+
+	public void insert(HttpServletRequest request, CategoryDto dto) {
+		String uploadDir = "/upload";
+		//파일 등록 처리
+		//파일을 저장할 폴더의 절대 경로를 얻어온다.
+		String realPath=request.getSession().getServletContext().getRealPath(uploadDir);
+		//System.out.println(realPath);
+		//MultipartFile 객체의 참조값 얻어오기
+		
+		//FileDto 에 담긴 MultipartFile 객체의 참조값을 얻어온다. - servlet-context.xml에 beans 기술해야함.
+		MultipartFile mFile=dto.getFile();
+		
+		//원본 파일명
+		String orgFileName=mFile.getOriginalFilename();
+		//저장할 파일의 상세 경로 - upload/seq 조합 번호
+		String dir = dto.getCode();
+		
+		System.out.println("code: " + dir);
+		
+		String filePath=realPath+File.separator+dir+File.separator;
+		System.out.println(filePath);
+		
+		//디렉토리를 만들 파일 객체 생성
+		File file=new File(filePath);
+		if(!file.exists()){//디렉토리가 존재하지 않는다면
+			file.mkdir();//디렉토리를 만든다.
+		}
+		String exps[]=orgFileName.split("\\.");
+		String exp=exps[exps.length-1];
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
+		String saveFileName = dateFormat.format(cal.getTime())+"."+exp;		
+		
+		try{
+			//upload 폴더에 파일을 저장한다.
+			mFile.transferTo(new File(filePath+saveFileName));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		String ss = uploadDir+File.separator+dir+File.separator+saveFileName;
+		
+		System.out.println("imagePath: " + ss);
+		
+		//FileDto 객체에 추가 정보를 담는다.
+		dto.setImagepath(uploadDir+File.separator+dir+File.separator+saveFileName);
+		
+		String bd = dto.getDdate();
+		String dd = dto.getDdate();
+		
+		System.out.println("bd: " + bd);
+		System.out.println("dd: " + dd);
+		
+		
+		dao.insert(dto);
+		
+//		// DB 에 저장하기
+//		artDao.insert(dto);
+//
+//		//아티스트 연계 자료 처리
+//		if ( dto.getArtist() != null && !dto.getArtist().equals("")) {
+//			insertRel(dto.getSeq(), dto.getArtist());
+//		}
+//		//재료 연계 자료 처리
+//		if ( dto.getMaterial() != null && !dto.getMaterial().equals("")) {
+//			insertRel(dto.getSeq(), dto.getMaterial());
+//		}
+//		//화파 연계 자료 처리
+//		if ( dto.getPainter() != null && !dto.getPainter().equals("")) {
+//			insertRel(dto.getSeq(), dto.getPainter());
+//		}		
+	}
 }
 
 	
