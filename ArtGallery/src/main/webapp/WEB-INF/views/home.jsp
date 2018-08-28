@@ -25,20 +25,18 @@
   	<!-- 아티스트 -->
   	<h4><i class="fas fa-kiss-wink-heart"></i> 아티스트</h4>
   	<div class="row">
-  		
-  		<c:forEach var="tmpA" items="${listA }">
-  			<div class="col-md-3 col-sm-6 col-xs-6">
-  				<a href="detail.do?seq=${tmpA.seq }">
-		  			
-		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpA.imagepath }" class="img-responsive" alt="Responsive image"/>
-		  			<%-- 
-		  			<img src="<c:out value="${pageContext.request.contextPath }/${tmp.imagepath }"/>" class="img-responsive" alt="Responsive image"/>
-		  			 --%>
-		  			<p>${tmpA.name }</p>
-		  		</a>
-  			</div>
-  		</c:forEach>
-  		
+  		<div class="wrapper">
+  			<c:forEach var="tmpA" items="${listA }">
+	  			<div class="col-md-3 col-sm-6 col-xs-6">
+	  				<a href="category/detail.do?seq=${tmpA.seq }">
+			  			<div style="background:url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpA.imagepath })">
+			  				<h3>${tmpA.name }</h3><br />
+			  				<h4>항목 ${tmpA.artcount }개</h4>
+			  			</div>
+			  		</a>
+	  			</div>
+	  		</c:forEach>
+  		</div>	
 	</div><!-- //아티스트 -->
 	<!-- 재료 -->
   	<h4><i class="fas fa-paint-brush"></i> 재료</h4>
@@ -52,6 +50,7 @@
 		  			<img src="<c:out value="${pageContext.request.contextPath }/${tmp.imagepath }"/>" class="img-responsive" alt="Responsive image"/>
 		  			 --%>
 		  			<p>${tmpM.name }</p>
+			  		<p>${tmpM.artcount }</p>
 		  		</a>
   			</div>
   		</c:forEach>	 
@@ -68,6 +67,7 @@
 		  			<img src="<c:out value="${pageContext.request.contextPath }/${tmp.imagepath }"/>" class="img-responsive" alt="Responsive image"/>
 		  			 --%>
 		  			<p>${tmpP.name }</p>
+			  		<p>${tmpP.artcount }</p>
 		  		</a>
   			</div>
   		</c:forEach>
