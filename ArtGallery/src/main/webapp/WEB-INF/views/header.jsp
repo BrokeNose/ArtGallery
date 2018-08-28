@@ -51,7 +51,7 @@
   </div>
 </nav>
 <!-- search// -->
-<div id="search_box" class="h_s"> 	
+<div id="search_box" class="h_s" style="display: none"> 	
  	<div class="navbar-header">
  		<a class="navbar-brand" href="#" id="search_close">
 	      	<span style="color: #333;"><i class="fas fa-arrow-left"></i> </span>
@@ -85,7 +85,7 @@
 	  </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
-<script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"  ></script>
+<script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
 <script>
 	
 	//모달이 완전히 보여졌을때 실행할 함수 등록
@@ -100,11 +100,15 @@
 	
 	//search box open
 	$("#search_icon").click(function() {
-		$("#search_box").animate({top:"0px"})
+		$("#search_box")
+		/* .animate({top:"0px"}) */
+		.slideDown();
 	});
 	//search box close
 	$("#search_close").click(function() {
-		$("#search_box").animate({top:"-60px"})
+		$("#search_box")
+		/* .animate({top:"-60px"}) */
+		.slideUp();
 	});
 	
 	function signOut() {
