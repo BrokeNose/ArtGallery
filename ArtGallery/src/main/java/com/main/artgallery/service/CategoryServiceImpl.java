@@ -3,7 +3,6 @@ package com.main.artgallery.service;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,7 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.main.artgallery.art.dao.ArtRelDao;
+import com.main.artgallery.art.dao.ArtDao;
+import com.main.artgallery.art.dto.ArtDto;
 import com.main.artgallery.art.dto.ArtRelDto;
 import com.main.artgallery.category.dao.CategoryDao;
 import com.main.artgallery.category.dto.CategoryDto;
@@ -28,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
 	private ConfigDao configDao;
 	
 	@Autowired
-	private ArtRelDao arDao;
+	private ArtDao aDao;
 
 	private ConfigDto configDto=null;
 	
@@ -67,6 +67,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 	
 	//son
+	//카테고리별 리스트 불러오기 메소드
 	@Override
 	public void SonGetList(HttpServletRequest request, ModelAndView mView) {
 		//T_config 환경변수 가져오기
@@ -82,6 +83,7 @@ public class CategoryServiceImpl implements CategoryService {
 		
 	}
 	
+	//카테고리에서 타고 detail 보여주는 메소드
 	@Override
 	public void SonGetData(HttpServletRequest request, ModelAndView mView) {
 		//T_config 환경변수 가져오기
@@ -90,26 +92,31 @@ public class CategoryServiceImpl implements CategoryService {
 		
 		//파라미터로 전달되는 글번호 읽어오기
 		int seq=Integer.parseInt(request.getParameter("seq"));
+		int cseq=Integer.parseInt(request.getParameter("seq"));
+		String code=(String)request.getParameter("code");
 		
 		CategoryDto dto= new CategoryDto();
+		ArtDto aDto= new ArtDto();
+		ArtRelDto arDto= new ArtRelDto();
 		
-		mView.addObject("list",arDao.getArtList(seq));
+		aDto.setSeq(seq);
+		aDto.setCseq(cseq);
+		arDto.setCseq(cseq);
+		arDto.setCode(code);
+		
+		
+		//작품 리스트 출력
+		mView.addObject("artlist",aDao.getArtList(aDto));
+		//카테고리 리스트 출력  아티스트,재료,화파
+		mView.addObject("Rellist",dao.getListRelation(arDto));
+		
 		dto=dao.getAData(seq);
-		/*if (dto.getCode().equals("A")) {
-			mView.addObject("list",dao.getAList());
-			mView.addObject("SonCategoryType", "A");
-		}else if(dto.getCode().equals("M")) {
-			mView.addObject("list",dao.getAList());
-			mView.addObject("SonCategoryType", "A");
-		}else if() {
-			
-		}*/
+		
 		mView.addObject("configDto", configDto);
 		mView.addObject("dto", dto);
-		mView.addObject("list",arDao.getArtList(seq));
 	}
 
-	
+	//--------------------------------------------------
 	@Override
 	public void getSearchList(HttpServletRequest request, ModelAndView mView) {
 		//T_config 환경변수 가져오기
