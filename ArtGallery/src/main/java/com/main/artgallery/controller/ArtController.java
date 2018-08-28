@@ -46,7 +46,7 @@ public class ArtController {
 	//관심 작품 등록,삭제 처리
 	@RequestMapping("/art/favoriteArt")
 	@ResponseBody
-	public Map<String, Object> authFavoriteArt(HttpServletRequest request,  @RequestParam int seq) {
+	public Map<String, Object> authFavoriteArt(HttpServletRequest request) {
 		fService.update(request);		
 		String isFavor=(String)request.getAttribute("isFavor");		
 		Map<String, Object> map=new HashMap<>();
