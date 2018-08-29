@@ -44,7 +44,7 @@
 	</sql>
 	<sql id="artSort">		
 		<choose>
-			<when test="sortField == null or sortfield == '' or sortField == '1'">
+			<when test="sortField == null or sortField == '' or sortField == '1'">
 				ORDER BY regdate DESC, seq DESC
 			</when>
 			<when test="sortField == '2'">
@@ -118,7 +118,12 @@
 	<delete id="delete" parameterType="int">
 		DELETE 
 		FROM   t_art
-		WHERE seq=#{seq}
+		WHERE  seq=#{seq}
 	</delete>
-		
+	<!-- 조회수 증가 -->
+	<update id="addViewCount" parameterType="int">
+		UPDATE t_art
+		SET    viewcount=nvl(viewcount,0)+1
+		WHERE  seq=#{seq}
+	</update>
 </mapper>

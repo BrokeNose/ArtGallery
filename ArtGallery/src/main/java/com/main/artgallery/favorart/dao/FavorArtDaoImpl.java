@@ -16,7 +16,7 @@ public class FavorArtDaoImpl implements FavorArtDao{
 	
 	@Override
 	public List<ArtDto> getList(FavorArtDto dto) {
-		return session.selectList("favorArt.getList", dto);
+		return session.selectList("favorArt.getList", dto);		
 	}
 
 	@Override

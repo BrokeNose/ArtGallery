@@ -51,9 +51,11 @@
 	} 
 	.thumbnail { 
 		position: relative;
-		 padding-top: 100%;
+		padding-top: 100%;
 		  /* 1:1 ratio */ 
 		  overflow: hidden; 
+		border:0;
+		border-radius: 0;
 	} 
 	.thumbnail .centered {
 	 	position: absolute; 
@@ -61,21 +63,50 @@
 	 	left: 0; 
 	 	right: 0; 
 	 	bottom: 0; 
-	 	-webkit-transform: translate(50%,50%); 
-	 	-ms-transform: translate(50%,50%); 
-	 	transform: translate(50%,50%); 
+	 	
 	 } 
 	.thumbnail .centered img { 
 		position: absolute; 
 		top: 0; 
 		left: 0; 
 		max-width: 100%; 
-		height: auto; 
-		-webkit-transform: translate(-50%,-50%); 
-		-ms-transform: translate(-50%,-50%); 
-		transform: translate(-50%,-50%); 
+		max-height:100%;
+		height:100%;
+		width:100%;
+		 
 	}
-		
+	.img-thumb {
+		width:100%;
+		max-height: 250px; 
+	}
+	.thumb_title1 {
+		position: absolute; 
+		bottom:5px;
+		z-index:10000;
+		color:#fff;
+		font-weight:bold;
+		left:5px;
+	}
+	.thumb_title2 {
+		position: absolute; 
+		bottom:25px;
+		z-index:10000;
+		color:#fff;
+		font-weight:bold;
+		left:5px;
+	}
+	.thumb_items {
+		position: absolute; 
+		bottom:5px;
+		z-index:2000;
+		color:#fff;
+		left:5px;
+	}
+	.div_center {
+		margin: auto;
+	    width: 70%;
+	    padding: 10px;
+	}		
 		/* .wrapper{
 			width: 100%;
 			height: 599px;
@@ -113,9 +144,7 @@
 <body>
 <jsp:include page="../header.jsp"/>
 <div class="row">
-<%-- 	<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive img-detail" alt="Responsive image"/>
- --%>	<img src="http://192.168.0.200:8888/artgallery/${dto.imagepath }" class="img-responsive img-detail" alt="Responsive image"/>
-	
+	<img src="http://192.168.0.200:8888/artgallery/${dto.imagepath }" class="img-detail" alt="Responsive image"/>
 </div>
 <div class="container">
 	<div class="text-center">
@@ -129,12 +158,12 @@
 			</c:otherwise>
 		</c:choose>
 		
-		<p>${dto.remark }</p>	
+		<div class="div_center">${dto.remark }</div>
+		
 	</div>
 	<br />
 	<h4><i class="fas fa-kiss-wink-heart"></i> 작가의 다른 작품</h4>
-  	<div class="row">	  	
-  		<div class="row">
+  	<div class="row">  		
   		<%-- <c:forEach var="dto" items="${artlist  }">
 	  		<div class="col-md-3 col-sm-6 col-xs-6 row-eq-height">
 		  		<a href="../art/detail.do?cseq=${dto.cseq }&seq=${dto.seq }">
@@ -146,106 +175,80 @@
 		  	</div>
   		</c:forEach> --%>
   		<c:forEach var="dto" items="${artlist }">
-			<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
+			<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">				
 				<div class="thumbnail">
 					<div class="centered">
 						<a href="../art/detail.do?cseq=${dto.cseq }&seq=${dto.seq }" title="${dto.title }">
-							<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }" />
-							<p>${dto.title }</p><br />
+							<div class="thumb_title1">${dto.title }</div>
+							<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }" class="img-responsive img-thumb"/>
 						</a>
 					</div>
 				</div>
 			</div>
 		</c:forEach>	
-	</div><!-- //아티스트 -->
-	
-	<hr />
-	<c:if test="${not empty ARellist }">
-		<!-- 아티스트 -->
-	  	<h4><i class="fas fa-kiss-wink-heart"></i> 아티스트</h4>
+	</div><!-- //작가의 다른작품 -->
+	  	
+	<c:forEach var="Adto" items="${ARellist }">
+		<h4><i class="fas fa-kiss-wink-heart"></i> 아티스트</h4>
 	  	<div class="row">
 	  		<div class="wrapper">
-	  			<%-- <c:forEach var="Adto" items="${ARellist }">
-		  			<div class="col-md-3 col-sm-6 col-xs-6">
-		  				<a href="category/detail.do?seq=${Adto.seq }">
-				  			<div style="background:url('http://${configDto.ip}:8888${pageContext.request.contextPath }/${Adto.imagepath }')">
-				  				<h3>${Adto.name }</h3><br />
-				  				<h4>항목 ${Adto.artcount }개</h4>
-				  			</div>
-				  		</a>
-		  			</div>
-		  		</c:forEach> --%>
-		  		<c:forEach var="Adto" items="${ARellist }">
-					<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
-						<div class="thumbnail">
-							<div class="centered">
-								<a href="detail.do?seq=${Adto.seq }" title="${Adto.name }">
-									<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${Adto.imagepath }">
-									<p>${Adto.name }</p><br />
-				  					<p>항목 ${Adto.artcount }개</p>
-								</a>
-							</div>
+				<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
+					<div class="thumbnail">
+						<div class="centered">
+							<a href="category/detail.do?seq=${Adto.seq }" title="${Adto.name }">
+								<div class="thumb_title2">${Adto.name }</div>
+			  					<div class="thumb_items">항목 ${Adto.artcount }개</div>
+								<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${Adto.imagepath }" class="img-responsive img-thumb">	
+							</a>
 						</div>
 					</div>
-				</c:forEach>
-	  		</div>	
+				</div>
+			</div>	
 		</div><!-- //아티스트 -->
-	</c:if>
-	<c:if test="${not empty MRellist }">
-		<h4><i class="fas fa-paint-brush"></i> 재료</h4>
-	  	<div class="row">	  	
-		  	<%-- <c:forEach var="Mdto" items="${MRellist }">
-	  			<div class="col-md-3 col-sm-6 col-xs-6">
-	  				<a href="detail.do?seq=${Mdto.seq }">
-			  			
-			  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${Mdto.imagepath }" class="img-responsive" alt="Responsive image"/>
-			  			
-			  			<p>${Mdto.name }</p>
-				  		<p>항목 ${Mdto.artcount }개</p>
-			  		</a>
-	  			</div>
-	  		</c:forEach> --%>
-	  		<c:forEach var="Mdto" items="${MRellist }">
-				<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
-					<div class="thumbnail">
-						<div class="centered">
-							<a href="detail.do?seq=${Mdto.seq }" title="${Mdto.name }">
-								<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${Mdto.imagepath }" />
-								<p>${Mdto.name }</p><br />
-			  					<p>항목 ${Mdto.artcount }개</p>
-							</a>
-						</div>
+	</c:forEach>
+  		
+	<h4><i class="fas fa-paint-brush"></i> 재료</h4>
+  	<div class="row">
+  		<c:forEach var="Mdto" items="${MRellist }">
+			<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
+				<div class="thumbnail">
+					<div class="centered">
+						<a href="category/detail.do?seq=${Mdto.seq }" title="${Mdto.name }">
+							<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${Mdto.imagepath }" class="img-responsive img-thumb"/>
+							<div class="thumb_title2">${Mdto.name }</div>
+							<div class="thumb_items">항목 ${Mdto.artcount }개</div>		  					
+						</a>
 					</div>
 				</div>
-			</c:forEach>	 
-		</div><!-- //재료 -->
-	</c:if>
-	<c:if test="${not empty PRellist }">
-		<!-- 화파 -->
-	  	<h4><i class="fas fa-palette"></i> 화파</h4>
-	  	<div class="row">	  	
-		  	
-	  		<c:forEach var="Pdto" items="${PRellist }">
-				<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
-					<div class="thumbnail">
-						<div class="centered">
-							<a href="detail.do?seq=${Pdto.seq }" title="${Pdto.name }">
-								<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${Pdto.imagepath }">
-								<p>${Pdto.name }</p><br />
-			  					<p>항목 ${Pdto.artcount }개</p>
-							</a>
-						</div>
+				
+			</div>
+		</c:forEach>	 
+	</div><!-- //재료 -->
+	<!-- 화파 -->
+  	<c:forEach var="Pdto" items="${PRellist }">
+  		<h4><i class="fas fa-palette"></i> 화파</h4>
+  		<div class="row">	
+			<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
+				<div class="thumbnail">
+					<div class="centered">					
+						<a href="category/detail.do?seq=${Pdto.seq }" title="${Pdto.name }">
+							<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${Pdto.imagepath }" class="img-responsive img-thumb">
+							<div class="thumb_title2">${Pdto.name }</div>
+		  					<div class="thumb_items">항목 ${Pdto.artcount }개</div>
+						</a>
 					</div>
 				</div>
-			</c:forEach>
-	</div><!-- //화파 -->
-		
-	</c:if>
+				
+			</div>
+		</div><!-- //화파 -->
+	</c:forEach>
 	
-<br />
+	
+
 </div><!-- //container -->
+<br />
 
-
+<jsp:include page="../footer.jsp"/>
 <!-- ----------------여기서부터 Son 시험용 ----------------------------------- -->
 	<%-- <button id="moveBtn">&laquo;</button>
 	<button id="nextBtn">&raquo;</button>
@@ -291,6 +294,6 @@
 		});
 	</script> --%>
 
-<jsp:include page="../footer.jsp"/>
+
 </body>
 </html>
