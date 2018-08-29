@@ -38,7 +38,7 @@
 <body>
 <div class="container-fluid">
 	<jsp:include page="../inc/header.jsp">
-		<jsp:param name="navMenu" value="art"/>
+		<jsp:param name="navMenu" value="category"/>
 	</jsp:include>
 	
 	<c:choose>
