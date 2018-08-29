@@ -110,5 +110,11 @@ public class CategoryDaoImpl implements CategoryDao{
 		
 		return session.selectList("category.getListRelation", dto);
 	}
+
+	@Override
+	public void addViewCount(int seq) {
+		session.update("category.addViewCount", seq);
+		
+	}
 		
 }

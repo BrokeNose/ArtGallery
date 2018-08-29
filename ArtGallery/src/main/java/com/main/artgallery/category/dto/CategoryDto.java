@@ -13,6 +13,7 @@ public class CategoryDto {
 	//Son 추가
 	private String codename;
 	private int artcount;
+	private int viewcount;
 	
 	private MultipartFile file;	
 	
@@ -21,7 +22,7 @@ public class CategoryDto {
 
 	//Son 추가한것 업데이트
 	public CategoryDto(int seq, String code, String name, String remark, String imagepath, String bdate, String ddate,
-			String codename, int artcount, MultipartFile file) {
+			String codename, int artcount, int viewcount, MultipartFile file) {
 		super();
 		this.seq = seq;
 		this.code = code;
@@ -32,6 +33,7 @@ public class CategoryDto {
 		this.ddate = ddate;
 		this.codename = codename;
 		this.artcount = artcount;
+		this.viewcount = viewcount;
 		this.file = file;
 	}
 
@@ -126,12 +128,25 @@ public class CategoryDto {
 	}
 
 
+	public int getViewcount() {
+		return viewcount;
+	}
+
+
+	public void setViewcount(int viewcount) {
+		this.viewcount = viewcount;
+	}
+
+
 	public MultipartFile getFile() {
 		return file;
 	}
 
+
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
+
+	
 	
 }

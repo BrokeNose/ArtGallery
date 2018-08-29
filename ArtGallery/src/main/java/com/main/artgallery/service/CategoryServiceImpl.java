@@ -93,19 +93,17 @@ public class CategoryServiceImpl implements CategoryService {
 		//파라미터로 전달되는 글번호 읽어오기
 		int seq=Integer.parseInt(request.getParameter("seq"));
 		int cseq=Integer.parseInt(request.getParameter("seq"));
-		String code=(String)request.getParameter("code");
 		
 		CategoryDto dto= new CategoryDto();
 		ArtDto aDto= new ArtDto();
 		ArtRelDto arDto= new ArtRelDto();
 		
-		int getCseq=aDto.getCseq();
+		/*int getCseq=aDto.getCseq();*/
 		
-		System.out.println(cseq + "=" + code);
 		aDto.setSeq(seq);
 		aDto.setCseq(cseq);
 		arDto.setCseq(cseq);
-		
+		dao.addViewCount(seq);
 		
 		
 		//작품 리스트 출력
@@ -152,16 +150,18 @@ public class CategoryServiceImpl implements CategoryService {
 		configDto=configDao.getData("1");
 	}
 
-	
-	
 
 	public void insert(HttpServletRequest request, CategoryDto dto) {
-		String uploadDir = "/upload";
-		//파일 등록 처리
-		//파일을 저장할 폴더의 절대 경로를 얻어온다.
-		String realPath=request.getSession().getServletContext().getRealPath(uploadDir);
+//		String uploadDir = "/upload";
+//		//파일 등록 처리
+//		//파일을 저장할 폴더의 절대 경로를 얻어온다.
+//		String realPath=request.getSession().getServletContext().getRealPath(uploadDir);
 		//System.out.println(realPath);
 		//MultipartFile 객체의 참조값 얻어오기
+		String FileSep = "/";
+		
+		getConfig();
+		String realPath="\\\\"+configDto.getIp()+"\\" + configDto.getUploadRoot();
 		
 		//FileDto 에 담긴 MultipartFile 객체의 참조값을 얻어온다. - servlet-context.xml에 beans 기술해야함.
 		MultipartFile mFile=dto.getFile();
@@ -171,7 +171,7 @@ public class CategoryServiceImpl implements CategoryService {
 		//저장할 파일의 상세 경로 - upload/seq 조합 번호
 		String dir = dto.getCode();
 		
-		String filePath=realPath+File.separator+dir+File.separator;
+		String filePath=realPath+FileSep+dir+FileSep;
 		System.out.println(filePath);
 		
 		//디렉토리를 만들 파일 객체 생성
@@ -193,39 +193,17 @@ public class CategoryServiceImpl implements CategoryService {
 			e.printStackTrace();
 		}
 		
-		String ss = uploadDir+File.separator+dir+File.separator+saveFileName;
-		
-		System.out.println("imagePath: " + ss);
-		
 		//FileDto 객체에 추가 정보를 담는다.
-		dto.setImagepath(uploadDir+File.separator+dir+File.separator+saveFileName);
+		//dto.setImagepath(uploadDir+File.separator+dir+File.separator+saveFileName);
 		
-		String bd = dto.getDdate();
-		String dd = dto.getDdate();
+		String imgPath = configDto.getUploadRoot()+FileSep+dir+FileSep+saveFileName;
 		
-		System.out.println("bd: " + bd);
-		System.out.println("dd: " + dd);
+		System.out.println("Save ImagePath: " + imgPath);
 		
+		dto.setImagepath(imgPath);
 		
 		dao.insert(dto);
-		
-//		// DB 에 저장하기
-//		artDao.insert(dto);
-//
-//		//아티스트 연계 자료 처리
-//		if ( dto.getArtist() != null && !dto.getArtist().equals("")) {
-//			insertRel(dto.getSeq(), dto.getArtist());
-//		}
-//		//재료 연계 자료 처리
-//		if ( dto.getMaterial() != null && !dto.getMaterial().equals("")) {
-//			insertRel(dto.getSeq(), dto.getMaterial());
-//		}
-//		//화파 연계 자료 처리
-//		if ( dto.getPainter() != null && !dto.getPainter().equals("")) {
-//			insertRel(dto.getSeq(), dto.getPainter());
-//		}		
 	}
-
 }
 
 	
