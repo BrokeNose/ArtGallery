@@ -135,8 +135,8 @@
 	<!-- 화파 -->
 	<br />
   	<h4><i class="fas fa-palette"></i> 화파</h4>
-  	<div class="row">	  	
-	  	<c:forEach var="tmpP" items="${listP }">
+  	<div class="row">
+  	  	<c:forEach var="tmpP" items="${listP }">
   			<div class="col-md-2 col-sm-3 col-xs-6">
   				<a href="category/detail.do?seq=${tmpP.seq }&code=P">
 		  			<div class="img_preview" style="background:url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpP.imagepath });background-size: 100% 100%;">
