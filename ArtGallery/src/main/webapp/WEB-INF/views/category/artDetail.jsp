@@ -46,6 +46,12 @@
 		background-color: #fff;
 		display: none;			
 		z-index: 10;
+	}
+	.zoom{		
+		position: relative;
+		left:200px;
+		top:-20px;
+		
 	}	
 </style>
 </head>
@@ -62,7 +68,8 @@
 			<span style="font-size:30px;"><i class="fas fa-arrow-circle-right"></i></span></a></div>
 		<div class="text-center">
 			<img class="img_center" src="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }"/>
-			<img src="${pageContext.request.contextPath }/resources/images/zoom.png" id="imgZoom" width="30"/>
+			<div class="zoom"><span style="font-size:30px;"><i class="fas fa-search-plus"></i></span></div>	
+			
 		</div>			
 	</div>
 	<div class="text-left">
