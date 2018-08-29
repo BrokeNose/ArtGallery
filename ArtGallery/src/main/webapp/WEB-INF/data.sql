@@ -1,5 +1,8 @@
 update t_art set imagepath= replace(imagepath, '\', '/') where instr(imagepath, '\') > 0 ;
 
+delete t_category wh
+ere seq >= 381 and seq <> 401;
+
 update t_category set imagepath = '/'||imagepath where imagepath is not null and substr(imagepath, 0,1) != '/';
 select * from t_art where viewcount > 0;
 

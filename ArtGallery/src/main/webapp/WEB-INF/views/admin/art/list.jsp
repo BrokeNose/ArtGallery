@@ -68,7 +68,7 @@
 			<thead>
 				<tr>
 					<td>#</td>
-					<td>작품명</td>
+					<td width="40%">작품명</td>
 					<td>아티스트</td>
 					<td>제작년도</td>
 					<td>사이즈</td>
