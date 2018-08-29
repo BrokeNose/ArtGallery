@@ -114,11 +114,7 @@
   			</div>
   		</c:forEach>
 	</div><!-- //화파 -->
- 
 </div><!-- //container -->
-
-
-
 <jsp:include page="footer.jsp"/>
 </body>
 </html>
