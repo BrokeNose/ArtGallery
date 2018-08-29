@@ -71,13 +71,15 @@
 		position: absolute;
 		bottom:23px;
 		left:10px;
-		font-weight:bold;
+		
+		 
 	}
 	.img_items {
 		color: #fff;
 		position: absolute;
 		bottom:5px;
 		left:10px;
+		
 	}
 </style>
 </head>

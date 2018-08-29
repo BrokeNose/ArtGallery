@@ -11,7 +11,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="${pageContext.request.contextPath }/">
-      	<span style="color: #333;"><i class="fas fa-university"></i> ArtGallery</span>
+      	<span style="color: #333;"><i class="fas fa-university"></i> <strong>ArtGallery</strong></span>
       </a>
     </div>
     
