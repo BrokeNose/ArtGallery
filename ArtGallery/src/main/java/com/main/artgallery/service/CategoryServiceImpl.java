@@ -93,19 +93,17 @@ public class CategoryServiceImpl implements CategoryService {
 		//파라미터로 전달되는 글번호 읽어오기
 		int seq=Integer.parseInt(request.getParameter("seq"));
 		int cseq=Integer.parseInt(request.getParameter("seq"));
-		String code=(String)request.getParameter("code");
 		
 		CategoryDto dto= new CategoryDto();
 		ArtDto aDto= new ArtDto();
 		ArtRelDto arDto= new ArtRelDto();
 		
-		int getCseq=aDto.getCseq();
+		/*int getCseq=aDto.getCseq();*/
 		
-		System.out.println(cseq + "=" + code);
 		aDto.setSeq(seq);
 		aDto.setCseq(cseq);
 		arDto.setCseq(cseq);
-		
+		dao.addViewCount(seq);
 		
 		
 		//작품 리스트 출력

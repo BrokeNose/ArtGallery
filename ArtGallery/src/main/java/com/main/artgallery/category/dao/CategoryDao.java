@@ -15,6 +15,7 @@ public interface CategoryDao {
 	public void insert(CategoryDto dto);
 	public void update(int seq);
 	public void delete(int seq);
+	public void addViewCount(int seq);
 	
 	// Shin
 	public List<CategoryDto> getListCategory(CategoryDto dto);

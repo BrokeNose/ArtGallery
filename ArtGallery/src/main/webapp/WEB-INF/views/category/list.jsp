@@ -68,7 +68,7 @@
 			<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
 				<div class="thumbnail">
 					<div class="centered">
-						<a href="detail.do?seq=${dto.seq }&code=${dto.code }" title="${dto.name }" style="background-image: url('http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }');">
+						<a href="detail.do?seq=${dto.seq }" title="${dto.name }" style="background-image: url('http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }');">
 							<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }" />
 							<p>${dto.name }</p>
 							<strong>${dto.artcount }</strong>
