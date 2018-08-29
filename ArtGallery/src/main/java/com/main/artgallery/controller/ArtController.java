@@ -112,7 +112,7 @@ public class ArtController {
 	//관심 작품 등록,삭제 처리
 	@RequestMapping("/art/favorArtList")
 	@ResponseBody
-	public ModelAndView authFavorArtList(ModelAndView mView, HttpServletRequest request) {
+	public ModelAndView userFavorArtList(ModelAndView mView, HttpServletRequest request) {
 		fService.getList(mView, request);
 		mView.setViewName("category/favorList");
 		return mView;

@@ -163,7 +163,7 @@
 	</div>
 	<br />
 	
-	<h4><i class="fas fa-kiss-wink-heart"></i> 작가의 다른 작품</h4>
+	<h4><i class="fas fa-kiss-wink-heart"></i> ${dto.name }의 다른 작품</h4>
   	<div class="row">  		
   		<%-- <c:forEach var="dto" items="${artlist  }">
 	  		<div class="col-md-3 col-sm-6 col-xs-6 row-eq-height">
@@ -175,6 +175,7 @@
 		  		</a>
 		  	</div>
   		</c:forEach> --%>
+  		
   		<c:forEach var="dto" items="${artlist }">
 			<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">				
 				<div class="thumbnail">
@@ -229,9 +230,9 @@
 	</c:if>
 	<c:if test="${not empty PRellist }">
 		<!-- 화파 -->
-	  	<c:forEach var="Pdto" items="${PRellist }">
-	  		<h4><i class="fas fa-palette"></i> 화파</h4>
-	  		<div class="row">	
+		<h4><i class="fas fa-palette"></i> 화파</h4>
+		<div class="row">	
+	  		<c:forEach var="Pdto" items="${PRellist }">
 				<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
 					<div class="thumbnail">
 						<div class="centered">					
@@ -242,10 +243,9 @@
 							</a>
 						</div>
 					</div>
-					
 				</div>
-			</div><!-- //화파 -->
-		</c:forEach>
+			</c:forEach>
+		</div><!-- //화파 -->
 	</c:if>
 	
 
