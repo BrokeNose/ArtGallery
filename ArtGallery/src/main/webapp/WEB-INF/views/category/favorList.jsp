@@ -77,8 +77,8 @@
 		<div class="thumbnail">
 			<div class="centered">
 				<a href="detail.do?seq=${dto.seq }&code=${dto.code }" title="${dto.title }">
-					<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }">
 					<div class="thumb_title1">${dto.title }</div>
+					<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }">					
 				</a>
 			</div>
 		</div>
