@@ -37,16 +37,18 @@
 	}
 	.today {
 		display: block;
-	    margin-bottom: 4px;
+	    margin: 10px;
 	    color: #fff;
 	    font-size: 20px;
 	    font-weight: bold;
 	    text-transform: uppercase;
 	}
 	.todayA {
-		margin: 0 0 4px;
+		margin: 10px;
 	    color: #fff;
-	    font-size: 16px;	    
+	    font-size: 30px;
+	    font-weight: bold;
+	    text-shadow: 2px 2px #000;	    
 	}
 	.img_preview {
 		width: 100%;
@@ -89,7 +91,7 @@
 						<div class="bkImg" style="background-image: url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${today.imagepath })"></div>
 						<div class="title">
 							<span class="today">Today's Artist</span>
-							<h3 class="todayA">${today.name }</h3>
+							<h1 class="todayA">${today.name }</h1>
 						</div>
 					</div>
 				</a>			
