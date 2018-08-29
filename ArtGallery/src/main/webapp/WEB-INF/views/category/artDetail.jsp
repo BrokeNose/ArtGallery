@@ -53,6 +53,16 @@
 		top:-20px;
 		
 	}	
+	
+	.multi-stage
+	{
+		max-width:none;
+		-webkit-column-count:2;
+		column-count:2;
+		-webkit-column-gap:24px;
+		column-gap:24px
+	}
+		
 </style>
 </head>
 <body>
@@ -109,9 +119,8 @@
 	<a href="${pageContext.request.contextPath }/category/detail.do?code=P&seq=${tmp.cseq}">${tmp.name }</a>
 </c:forEach>
 		</p>		
-		<p class="info" style="white-space:pre-wrap;">${dto.remark }</p>	
+		<p class="info <c:if test="${multiStage eq true }">multi-stage</c:if>" style="white-space:pre-wrap;">${dto.remark }</p>	
 	</div>	
-	
 <br />
 </div><!-- //container -->
 <!-- image zoom -->
@@ -159,7 +168,7 @@
 	
 	function goDetail(seq){
 		if (seq>0){
-			location.href="detail.do?cseq=${param.cseq}&searchKeyword=${param.searchKeyword}&searchCondition=${param.searchCondition}&seq="+seq
+			location.href="detail.do?cseq=${param.cseq}&sortField=${param.sortField}&searchKeyword=${param.searchKeyword}&searchCondition=${param.searchCondition}&seq="+seq
 		}
 	}	
 	

@@ -44,7 +44,7 @@
 	</sql>
 	<sql id="artSort">		
 		<choose>
-			<when test="sortField == null or sortfield == '' or sortField == '1'">
+			<when test="sortField == null or sortField == '' or sortField == '1'">
 				ORDER BY regdate DESC, seq DESC
 			</when>
 			<when test="sortField == '2'">
