@@ -35,7 +35,7 @@
       				<li><a ><strong>${id }</strong>님 반갑습니다.</a></li>
       				<li><a href="javascript:signOut()" title="로그아웃"><span style="font-size:1.3em;color: #333;"><i class="fas fa-sign-out-alt"></i></span></a></li>
       				<li><a href="${pageContext.request.contextPath }/user/info.do" title="회원정보"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-tie"></i></span></a></li>
-					<li><a href="#" title="관심작품"><span style="font-size:1.3em;color: #333;"><i class="fas fa-heart"></i></span></a></li>
+					<li><a href="${pageContext.request.contextPath }/art/favorArtList.do" title="관심작품"><span style="font-size:1.3em;color: #333;"><i class="fas fa-heart"></i></span></a></li>
       			</c:when>
       			<c:otherwise>
       				<li><a href="${pageContext.request.contextPath }/user/signin_form.do?url=${url }" title="로그인"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user"></i></span></a></li>

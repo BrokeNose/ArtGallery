@@ -152,3 +152,16 @@ SELECT * FROM V_CATEGORY
 WHERE code='M';
 
 
+
+
+<!-- 테스트 -->
+
+SELECT  * 
+		FROM    V_CATEGORY
+		WHERE   code='A' 
+		AND     seq != 354
+	    AND     seq IN ( SELECT DISTINCT cseq 
+	    				 FROM   t_artrel 
+	    				 WHERE  aseq IN ( SELECT aseq FROM t_artrel WHERE cseq=354 )
+	    			    )  
+
