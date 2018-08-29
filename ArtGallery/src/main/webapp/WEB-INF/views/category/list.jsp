@@ -7,15 +7,14 @@
 <title>list</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/artgallery.css" />
 <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
-<style>
-	.thumbnail-wrappper { 
-		width: 25%; 
-	} 
+<style>	
 	.thumbnail { 
 		position: relative;
-		 padding-top: 100%;
+		padding-top: 100%;
 		  /* 1:1 ratio */ 
-		  overflow: hidden; 
+		overflow: hidden; 
+		border:0;
+		border-radius: 0;
 	} 
 	.thumbnail .centered {
 	 	position: absolute; 
@@ -23,19 +22,33 @@
 	 	left: 0; 
 	 	right: 0; 
 	 	bottom: 0; 
-	 	-webkit-transform: translate(50%,50%); 
-	 	-ms-transform: translate(50%,50%); 
-	 	transform: translate(50%,50%); 
+	 	
 	 } 
 	.thumbnail .centered img { 
 		position: absolute; 
 		top: 0; 
 		left: 0; 
 		max-width: 100%; 
-		height: auto; 
-		-webkit-transform: translate(-50%,-50%); 
-		-ms-transform: translate(-50%,-50%); 
-		transform: translate(-50%,-50%); 
+		max-height:100%;
+		height:100%;
+		width:100%;
+				
+	}
+	
+	.thumb_title {
+		position: absolute; 
+		bottom:25px;
+		z-index:1000;
+		color:#fff;
+		font-weight:bold;
+		left:5px;
+	}
+	.thumb_items {
+		position: absolute; 
+		bottom:5px;
+		z-index:2000;
+		color:#fff;
+		left:5px;
 	}
 
 </style>
@@ -68,10 +81,13 @@
 			<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
 				<div class="thumbnail">
 					<div class="centered">
-						<a href="detail.do?seq=${dto.seq }&code=${dto.code }" title="${dto.name }" style="background-image: url('http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }');">
+						<a href="detail.do?seq=${dto.seq }&code=${dto.code }" title="${dto.name }">
+							<div class="thumb_bg">
+								<div class="thumb_title">${dto.name }</div>
+								<div class="thumb_items">항목 ${dto.artcount }개</div>
+							</div>
 							<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }" />
-							<p>${dto.name }</p>
-							<strong>${dto.artcount }</strong>
+							
 						</a>
 					</div>
 				</div>
