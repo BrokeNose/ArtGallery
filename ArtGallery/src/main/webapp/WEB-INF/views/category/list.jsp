@@ -81,13 +81,12 @@
 			<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
 				<div class="thumbnail">
 					<div class="centered">
-						<a href="detail.do?seq=${dto.seq }&code=${dto.code }" title="${dto.name }">
+						<a href="detail.do?seq=${dto.seq }" title="${dto.name }">
 							<div class="thumb_bg">
 								<div class="thumb_title">${dto.name }</div>
 								<div class="thumb_items">항목 ${dto.artcount }개</div>
 							</div>
 							<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }" />
-							
 						</a>
 					</div>
 				</div>
