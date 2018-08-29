@@ -32,32 +32,46 @@
 	.title {
 		position: relative;
 	    width: 100%;
-	    padding: 16px 4px 10px;
+	    padding: 16px 4px 10px 10px;
 	    text-align: left;
 	}
 	.today {
 		display: block;
 	    margin-bottom: 4px;
-	    color: #2196f3;
-	    font-size: 13px;
-	    font-weight: 700;
+	    color: #fff;
+	    font-size: 20px;
+	    font-weight: bold;
 	    text-transform: uppercase;
 	}
 	.todayA {
 		margin: 0 0 4px;
-	    color: #212121;
-	    font-size: 16px;
-	    font-weight: 500;
+	    color: #fff;
+	    font-size: 16px;	    
+	}
+	.img_preview {
+		height:200px;
+		background-size: auto;
+	}
+	.img_title {
+		color: #fff;
+		position: absolute;
+		bottom:30px;
+		left:10px;
+		font-weight:bold;
+	}
+	.img_items {
+		color: #fff;
+		position: absolute;
+		bottom:10px;
+		left:10px;
 	}
 </style>
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-<h3>인덱스 페이지 입니다.</h3>
 <div class="container">
 	<section>
-		<div class="row">
-			<div class="jumbotron">
+		<div class="row">			
 				<a href="category/detail.do?seq=${today.seq }&code=A" class="">
 					<div class="content">
 						<div class="bkImg" style="background-image: url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${today.imagepath })"></div>
@@ -66,20 +80,20 @@
 							<h3 class="todayA">${today.name }</h3>
 						</div>
 					</div>
-				</a>
-			</div>
+				</a>			
 		</div>
 	</section>
+	<br />
   	<!-- 아티스트 -->
   	<h4><i class="fas fa-kiss-wink-heart"></i> 아티스트</h4>
   	<div class="row">
   		<div class="wrapper">
   			<c:forEach var="tmpA" items="${listA }">
-	  			<div class="col-md-3 col-sm-6 col-xs-6">
+	  			<div class="col-md-2 col-sm-3 col-xs-6">
 	  				<a href="category/detail.do?seq=${tmpA.seq }&code=A">
-			  			<div style="background:url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpA.imagepath })">
-			  				<h3>${tmpA.name }</h3><br />
-			  				<h4>항목 ${tmpA.artcount }개</h4>
+			  			<div class="img_preview" style="background:url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpA.imagepath });background-size: auto;">
+			  				<div class="img_title">${tmpA.name }</div>
+			  				<div class="img_items">항목 ${tmpA.artcount }개</div>
 			  			</div>
 			  		</a>
 	  			</div>
@@ -87,34 +101,39 @@
   		</div>	
 	</div><!-- //아티스트 -->
 	<!-- 재료 -->
+	<br />
   	<h4><i class="fas fa-paint-brush"></i> 재료</h4>
   	<div class="row">	  	
 	  	<c:forEach var="tmpM" items="${listM }">
-  			<div class="col-md-3 col-sm-6 col-xs-6">
+  			<div class="col-md-2 col-sm-3 col-xs-6">
   				<a href="category/detail.do?seq=${tmpM.seq }&code=M">
-		  			<div style="background:url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpM.imagepath })">
-		  				<h3>${tmpM.name }</h3><br />
-		  				<h4>항목 ${tmpM.artcount }개</h4>
+		  			<div class="img_preview" style="background:url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpM.imagepath })">
+		  				<div class="img_title">${tmpM.name }</div>
+		  				<div class="img_items">항목 ${tmpM.artcount }개</div>
 		  			</div>
 		  		</a>
   			</div>
   		</c:forEach>	 
 	</div><!-- //재료 -->
 	<!-- 화파 -->
+	<br />
   	<h4><i class="fas fa-palette"></i> 화파</h4>
   	<div class="row">	  	
 	  	<c:forEach var="tmpP" items="${listP }">
-  			<div class="col-md-3 col-sm-6 col-xs-6">
+  			<div class="col-md-2 col-sm-3 col-xs-6">
   				<a href="category/detail.do?seq=${tmpP.seq }&code=P">
-		  			<div style="background:url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpP.imagepath })">
-		  				<h3>${tmpP.name }</h3><br />
-		  				<h4>항목 ${tmpP.artcount }개</h4>
+		  			<div class="img_preview" style="background:url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpP.imagepath })">
+		  				<div class="img_title">${tmpP.name }</div>
+		  				<div class="img_items">항목 ${tmpP.artcount }개</div>
 		  			</div>
 		  		</a>
   			</div>
   		</c:forEach>
 	</div><!-- //화파 -->
 </div><!-- //container -->
+
+<br />
+
 <jsp:include page="footer.jsp"/>
 </body>
 </html>
