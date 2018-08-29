@@ -171,8 +171,6 @@ public class CategoryServiceImpl implements CategoryService {
 		//저장할 파일의 상세 경로 - upload/seq 조합 번호
 		String dir = dto.getCode();
 		
-		System.out.println("code: " + dir);
-		
 		String filePath=realPath+File.separator+dir+File.separator;
 		System.out.println(filePath);
 		

@@ -11,7 +11,7 @@
 
 <!-- ********************* 사용자 : son*********************** -->
 	<select id="getList" parameterType="favorArtDto" resultType="artDto">
-		SELECT b.*
+		SELECT b.*, a.*
 		FROM   t_favorArt a, t_art b
 		WHERE  a.aseq = b.seq
 		<if test="id != null and id != '' ">
@@ -20,7 +20,7 @@
 		<if test="aseq != null and aseq > 0 ">
 			AND aseq=#{aseq}	
 		</if>
-		ORDER BY id, regdate DESC
+		ORDER BY id, a.regdate DESC
 	</select>
 <!-- *********************************************************** -->
 	<select id="getCount" parameterType="favorArtDto" resultType="int">

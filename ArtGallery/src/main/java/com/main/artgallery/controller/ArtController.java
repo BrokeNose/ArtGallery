@@ -114,13 +114,11 @@ public class ArtController {
 	
 	//---------------	son ---------------
 	//관심 작품 등록,삭제 처리
-	@RequestMapping("/art/favoriteArt")
+	@RequestMapping("/art/favorArtList")
 	@ResponseBody
 	public ModelAndView authFavorArtList(ModelAndView mView, HttpServletRequest request) {
-		String id=(String)request.getSession().getAttribute("id");
-		FavorArtDto dto=new FavorArtDto();
-		dto.setId(id);
-		
-		return null;
+		fService.getList(mView, request);
+		mView.setViewName("category/favorList");
+		return mView;
 	}
 }

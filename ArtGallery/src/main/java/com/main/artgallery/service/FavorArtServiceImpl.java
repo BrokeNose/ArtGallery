@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.main.artgallery.art.dto.ArtDto;
+import com.main.artgallery.config.dao.ConfigDao;
+import com.main.artgallery.config.dto.ConfigDto;
 import com.main.artgallery.favorart.dao.FavorArtDao;
 import com.main.artgallery.favorart.dto.FavorArtDto;
 
@@ -15,12 +16,21 @@ public class FavorArtServiceImpl implements FavorArtService {
 	@Autowired
 	private FavorArtDao dao; 
 	@Autowired
+	private ConfigDao configDao;
+	
+	private ConfigDto configDto=null;
 	
 		
 	@Override
-	public void getList(ModelAndView mView, ArtDto dto, FavorArtDto FAdto) {
+	public void getList(ModelAndView mView, HttpServletRequest request) {
+		getConfig();
+		mView.addObject("configDto", configDto);
 		/*mView.addObject("totalRow", dao.getCount(dto));	//관심 작품 몇개인지 나타내기	*/
-		mView.addObject("list", dao.getList(dto));		
+		/*ArtDto dto= new ArtDto();*/
+		String id=(String)request.getSession().getAttribute("id");
+		FavorArtDto FAdto=new FavorArtDto();
+		FAdto.setId(id);
+		mView.addObject("list", dao.getList(FAdto));		
 	}
 
 	@Override
@@ -40,5 +50,10 @@ public class FavorArtServiceImpl implements FavorArtService {
 			dao.insert(dto);
 			request.setAttribute("isFavor", "Y");
 		}
+	}
+	
+	@Override
+	public void getConfig() {
+		configDto=configDao.getData("1");
 	}
 }
