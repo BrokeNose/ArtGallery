@@ -49,10 +49,20 @@
 	}
 	.zoom{		
 		position: relative;
-		left:200px;
+		left:100px;
 		top:-20px;
 		
 	}	
+	
+	.multi-stage
+	{
+		max-width:none;
+		-webkit-column-count:2;
+		column-count:2;
+		-webkit-column-gap:24px;
+		column-gap:24px
+	}
+		
 </style>
 </head>
 <body>
@@ -68,7 +78,7 @@
 			<span style="font-size:30px;"><i class="fas fa-arrow-circle-right"></i></span></a></div>
 		<div class="text-center">
 			<img class="img_center" src="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }"/>
-			<div class="zoom"><span style="font-size:30px;"><i class="fas fa-search-plus"></i></span></div>	
+			<div class="zoom"><span style="font-size:30px;"><i id="iZoom" class="fas fa-search-plus"></i></span></div>	
 			
 		</div>			
 	</div>
@@ -109,9 +119,8 @@
 	<a href="${pageContext.request.contextPath }/category/detail.do?code=P&seq=${tmp.cseq}">${tmp.name }</a>
 </c:forEach>
 		</p>		
-		<p class="info" style="white-space:pre-wrap;">${dto.remark }</p>	
+		<p class="info <c:if test="${multiStage eq true }">multi-stage</c:if>" style="white-space:pre-wrap;">${dto.remark }</p>	
 	</div>	
-	
 <br />
 </div><!-- //container -->
 <!-- image zoom -->
@@ -146,7 +155,7 @@
 		zoomImage.style.zoom = count + '0%';    
 	}
 	
-	$("#imgZoom").click(function(){
+	$("#iZoom").click(function(){
 		zoomImage.style.zoom ='100%';
 		count=10;
 		$(".bigImage").show();	
@@ -159,7 +168,7 @@
 	
 	function goDetail(seq){
 		if (seq>0){
-			location.href="detail.do?cseq=${param.cseq}&searchKeyword=${param.searchKeyword}&searchCondition=${param.searchCondition}&seq="+seq
+			location.href="detail.do?cseq=${param.cseq}&sortField=${param.sortField}&searchKeyword=${param.searchKeyword}&searchCondition=${param.searchCondition}&seq="+seq
 		}
 	}	
 	
