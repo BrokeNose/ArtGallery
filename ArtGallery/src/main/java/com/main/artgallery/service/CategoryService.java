@@ -11,6 +11,8 @@ public interface CategoryService {
 	//son
 	public void SonGetList(HttpServletRequest request, ModelAndView mView);
 	public void SonGetData(HttpServletRequest request, ModelAndView mView);
+	
+	//////////////////////////////////////////////////////////////////
 
 	public void getSearchList(HttpServletRequest request, ModelAndView mView);
 	public void getConfig();

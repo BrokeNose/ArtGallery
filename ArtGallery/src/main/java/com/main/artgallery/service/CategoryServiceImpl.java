@@ -99,16 +99,26 @@ public class CategoryServiceImpl implements CategoryService {
 		ArtDto aDto= new ArtDto();
 		ArtRelDto arDto= new ArtRelDto();
 		
+		int getCseq=aDto.getCseq();
+		
+		System.out.println(cseq + "=" + code);
 		aDto.setSeq(seq);
 		aDto.setCseq(cseq);
 		arDto.setCseq(cseq);
-		arDto.setCode(code);
+		
 		
 		
 		//작품 리스트 출력
 		mView.addObject("artlist",aDao.getArtList(aDto));
+		
 		//카테고리 리스트 출력  아티스트,재료,화파
-		mView.addObject("Rellist",dao.getListRelation(arDto));
+		arDto.setCode("A");
+		mView.addObject("ARellist",dao.getListRelation(arDto));
+		arDto.setCode("M");
+		mView.addObject("MRellist",dao.getListRelation(arDto));
+		arDto.setCode("P");
+		mView.addObject("PRellist",dao.getListRelation(arDto));
+		
 		
 		dto=dao.getAData(seq);
 		
@@ -160,8 +170,6 @@ public class CategoryServiceImpl implements CategoryService {
 		String orgFileName=mFile.getOriginalFilename();
 		//저장할 파일의 상세 경로 - upload/seq 조합 번호
 		String dir = dto.getCode();
-		
-		System.out.println("code: " + dir);
 		
 		String filePath=realPath+File.separator+dir+File.separator;
 		System.out.println(filePath);
@@ -217,6 +225,7 @@ public class CategoryServiceImpl implements CategoryService {
 //			insertRel(dto.getSeq(), dto.getPainter());
 //		}		
 	}
+
 }
 
 	
