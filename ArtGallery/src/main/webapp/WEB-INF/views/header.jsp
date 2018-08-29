@@ -50,9 +50,15 @@
     </div>
   </div>
 </nav>
+<style>
+	.h_s {
+		display: none;
+		
+	}
+</style>
 <!-- search// -->
 <div id="search_box" class="h_s"> 	
- 	<div class="navbar-header">
+ 	<div class="navbar-header" style="; width:100%;">
  		<a class="navbar-brand" href="#" id="search_close">
 	      	<span style="color: #333;"><i class="fas fa-arrow-left"></i> </span>
 	    </a>
@@ -60,10 +66,9 @@
 		  <div class="form-group">
 		    <input type="text" class="form-control" placeholder="Search">
 		  </div>
-		  <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-		</form>
- 	</div>
- 	<hr class="line"/> 	
+		  <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>		
+		</form>		
+ 	</div> 	
 </div>
 <!-- modal// -->
 <div class="modal fade" id="myModal">
@@ -100,11 +105,11 @@
 	
 	//search box open
 	$("#search_icon").click(function() {
-		$("#search_box").animate({top:"0px"});
+		$("#search_box").css("display","block").animate({top:"0px"});
 	});
 	//search box close
 	$("#search_close").click(function() {
-		$("#search_box").animate({top:"-60px"});
+		$("#search_box").css("display","none").animate({top:"-60px"});
 	});
 	
 	function signOut() {

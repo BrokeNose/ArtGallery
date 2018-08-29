@@ -1175,21 +1175,14 @@ img {
 }
 .h_s {
 	width: 100%;
-	background-color: #fff;
-	height: 50px;
+	background-color: #fff;	
 	top: -60px;
 	position: absolute;
 	z-index: 1000;
-	
+	display: none;
+	border-bottom: 1px solid #eee;
 }
-hr.line {
-  margin-top: 55px;
-  margin-bottom: 20px;
-  border: 0;
-  border-top: 1px solid #eee;
-  width: 100%;
- 
-}
+
 hr {
   margin-top: 20px;
   margin-bottom: 20px;
