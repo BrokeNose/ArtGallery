@@ -158,6 +158,14 @@ public class ArtServiceImpl implements ArtService {
 		//작품정보 가져오기
 		ArtDto resultDto=artDao.getData(dto);
 		
+		int idx=resultDto.getRemark().indexOf(":");
+		//System.out.println("idx : " + idx + "=" + resultDto.getRemark().length());
+		if ( idx < 0) {	// -1 return 포함 안함.
+			request.setAttribute("multiStage", true);
+		} else {
+			request.setAttribute("multiStage", false);			
+		}
+		
 		//연계정보 가져오기
 		ArtRelDto relDto=new ArtRelDto();
 		relDto.setAseq(dto.getSeq());
@@ -184,6 +192,9 @@ public class ArtServiceImpl implements ArtService {
 			rtn=artRelTextMerge(pList);
 			resultDto.setPainter(rtn[0]);
 			mView.addObject("painterTxt", rtn[1]);		
+		} else {
+			//조회수 증가
+			artDao.addViewCount(dto.getSeq());
 		}
 		
 		// 관심작품 등록 여부

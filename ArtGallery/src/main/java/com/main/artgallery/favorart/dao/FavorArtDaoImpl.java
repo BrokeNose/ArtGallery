@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.main.artgallery.art.dto.ArtDto;
 import com.main.artgallery.favorart.dto.FavorArtDto;
 
 @Repository
@@ -14,8 +15,8 @@ public class FavorArtDaoImpl implements FavorArtDao{
 	private SqlSession session;
 	
 	@Override
-	public List<FavorArtDto> getList(FavorArtDto dto) {
-		return session.selectList("favorArt.getList", dto);
+	public List<ArtDto> getList(FavorArtDto dto) {
+		return session.selectList("favorArt.getList", dto);		
 	}
 
 	@Override

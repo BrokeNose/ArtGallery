@@ -46,12 +46,8 @@ public class ArtController {
 	//관심 작품 등록,삭제 처리
 	@RequestMapping("/art/favoriteArt")
 	@ResponseBody
-	public Map<String, Object> authFavoriteArt(HttpServletRequest request,  @RequestParam int seq) {
-		String id=(String)request.getSession().getAttribute("id");
-		FavorArtDto dto=new FavorArtDto();
-		dto.setAseq(seq);
-		dto.setId(id);
-		fService.update(request, dto);		
+	public Map<String, Object> authFavoriteArt(HttpServletRequest request) {
+		fService.update(request);		
 		String isFavor=(String)request.getAttribute("isFavor");		
 		Map<String, Object> map=new HashMap<>();
 		map.put("isFavor", isFavor);
@@ -109,5 +105,16 @@ public class ArtController {
 					+"&searchKeyword="+request.getParameter("searchKeyword")
 					+"&searchCondition="+request.getParameter("searchCondition");
 		return new ModelAndView("redirect:/admin/art/list.do?"+param);
+	}
+	
+	
+	//---------------	son ---------------
+	//관심 작품 등록,삭제 처리
+	@RequestMapping("/art/favorArtList")
+	@ResponseBody
+	public ModelAndView authFavorArtList(ModelAndView mView, HttpServletRequest request) {
+		fService.getList(mView, request);
+		mView.setViewName("category/favorList");
+		return mView;
 	}
 }

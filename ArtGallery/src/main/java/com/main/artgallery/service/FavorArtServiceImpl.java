@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.main.artgallery.config.dao.ConfigDao;
+import com.main.artgallery.config.dto.ConfigDto;
 import com.main.artgallery.favorart.dao.FavorArtDao;
 import com.main.artgallery.favorart.dto.FavorArtDto;
 
@@ -13,11 +15,22 @@ import com.main.artgallery.favorart.dto.FavorArtDto;
 public class FavorArtServiceImpl implements FavorArtService {
 	@Autowired
 	private FavorArtDao dao; 
+	@Autowired
+	private ConfigDao configDao;
+	
+	private ConfigDto configDto=null;
+	
 		
 	@Override
-	public void getList(ModelAndView mView, FavorArtDto dto) {
-		mView.addObject("totalRow", dao.getCount(dto));		
-		mView.addObject("list", dao.getList(dto));		
+	public void getList(ModelAndView mView, HttpServletRequest request) {
+		getConfig();
+		mView.addObject("configDto", configDto);
+		/*mView.addObject("totalRow", dao.getCount(dto));	//관심 작품 몇개인지 나타내기	*/
+		/*ArtDto dto= new ArtDto();*/
+		String id=(String)request.getSession().getAttribute("id");
+		FavorArtDto FAdto=new FavorArtDto();
+		FAdto.setId(id);
+		mView.addObject("list", dao.getList(FAdto));		
 	}
 
 	@Override
@@ -26,7 +39,14 @@ public class FavorArtServiceImpl implements FavorArtService {
 	}
 
 	@Override
-	public void update(HttpServletRequest request, FavorArtDto dto) {
+	public void update(HttpServletRequest request) {
+		
+		String id=(String)request.getSession().getAttribute("id");		
+		int seq=Integer.parseInt(request.getParameter("seq"));
+		FavorArtDto dto=new FavorArtDto();
+		dto.setAseq(seq);
+		dto.setId(id);
+		
 		FavorArtDto dto2 = dao.getData(dto);
 		if (  dto2 != null && dto2.getId() != null) {
 			//System.out.println("favorite delete");
@@ -37,5 +57,10 @@ public class FavorArtServiceImpl implements FavorArtService {
 			dao.insert(dto);
 			request.setAttribute("isFavor", "Y");
 		}
+	}
+	
+	@Override
+	public void getConfig() {
+		configDto=configDao.getData("1");
 	}
 }

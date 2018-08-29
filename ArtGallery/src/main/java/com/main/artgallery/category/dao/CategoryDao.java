@@ -26,6 +26,7 @@ public interface CategoryDao {
 	public void getCount(int count);
 	public List<CategoryDto> getListRelation(ArtRelDto dto);
 	
+	
 	//hyung
 	public List<CategoryDto> getSearchList(CategoryDto dto);	// 카테고리 검색어 검색
 }

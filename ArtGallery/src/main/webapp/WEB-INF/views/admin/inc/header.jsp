@@ -30,9 +30,20 @@
       <!-- right menu //  -->
       <ul class="nav navbar-nav navbar-right">
       	<li><a ><strong>${id }</strong>님 반갑습니다.</a></li>
+      	<li><a href="javascript:signOut()" title="로그아웃"><span style="font-size:1.3em;color: #333;"><i class="fas fa-sign-out-alt"></i></span></a></li>
+   		<li><a href="${pageContext.request.contextPath }/user/info.do" title="회원정보"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-tie"></i></span></a></li>
         <li><a href="${pageContext.request.contextPath }/ "><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></a></li>       
       </ul>
       <!-- // right menu -->
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+<script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"  ></script>
+<script>
+	function signOut() {
+		confirm("로그아웃 됐습니다.");
+		location.href="${pageContext.request.contextPath }/user/signout.do";
+	};
+
+</script>

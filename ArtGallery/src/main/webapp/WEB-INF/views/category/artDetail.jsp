@@ -37,6 +37,32 @@
 	    word-wrap: break-word;
 	    border-radius: 4px;
 	}
+	.bigImage{
+		position: absolute;
+		top:60px;
+		left:0;
+		right:0;
+		bottom:0;
+		background-color: #fff;
+		display: none;			
+		z-index: 10;
+	}
+	.zoom{		
+		position: relative;
+		left:100px;
+		top:-20px;
+		
+	}	
+	
+	.multi-stage
+	{
+		max-width:none;
+		-webkit-column-count:2;
+		column-count:2;
+		-webkit-column-gap:24px;
+		column-gap:24px
+	}
+		
 </style>
 </head>
 <body>
@@ -52,6 +78,8 @@
 			<span style="font-size:30px;"><i class="fas fa-arrow-circle-right"></i></span></a></div>
 		<div class="text-center">
 			<img class="img_center" src="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }"/>
+			<div class="zoom"><span style="font-size:30px;"><i id="iZoom" class="fas fa-search-plus"></i></span></div>	
+			
 		</div>			
 	</div>
 	<div class="text-left">
@@ -91,35 +119,56 @@
 	<a href="${pageContext.request.contextPath }/category/detail.do?code=P&seq=${tmp.cseq}">${tmp.name }</a>
 </c:forEach>
 		</p>		
-		<p class="info" style="white-space:pre-wrap;">${dto.remark }</p>	
+		<p class="info <c:if test="${multiStage eq true }">multi-stage</c:if>" style="white-space:pre-wrap;">${dto.remark }</p>	
 	</div>	
-	<br />
-	<h4><i class="fas fa-kiss-wink-heart"></i> 작가의 다른 작품</h4>
-  	<div class="row">	  	
-	  	<div class="col-md-3 col-sm-6 col-xs-6">
-	  		<a href="detail.jsp"><img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/></a>
-	  	</div>
-	  	<div class="col-md-3 col-sm-6 col-xs-6">
-	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
-	  	</div>
-	  	<div class="col-md-3 col-sm-6 col-xs-6">
-	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
-	  	</div>
-	  	<div class="col-md-3 col-sm-6 col-xs-6">
-	  		<img src="${pageContext.request.contextPath }/resources/images/rem.jpg" class="img-responsive" alt="Responsive image"/>
-	  	</div>
-	  	
-	</div><!-- //아티스트 -->
-
-
 <br />
 </div><!-- //container -->
+<!-- image zoom -->
+<div class="bigImage">
+	<div class="row">
+		<div class="text-center">
+			<img id="zoomImage" class="img_center" src="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }" onmousewheel="Picture()" />
+		</div>
+	</div>
+</div>
 <jsp:include page="../footer.jsp"/>
 
 <script>
+	// 이미지 확대 시작 -------------------
+	var count = 10;
+	function Picture(){
+	count = Counting(count);
+	if(count==10){
+		$(".bigImage").hide();	
+	}
+	Resize(count);
+	return false;
+	}
+	function Counting(count){   
+	    if (event.wheelDelta >= 120)
+	        count++;
+	    else if (event.wheelDelta <= -120)
+	        count--;   
+	    return count; 
+	}
+	function Resize(count){    
+		zoomImage.style.zoom = count + '0%';    
+	}
+	
+	$("#iZoom").click(function(){
+		zoomImage.style.zoom ='100%';
+		count=10;
+		$(".bigImage").show();	
+	});
+	$(".bigImage").click(function(){
+		$(".bigImage").hide();		
+	});
+	
+	// 이미지 확대  끝 -------------------
+	
 	function goDetail(seq){
 		if (seq>0){
-			location.href="detail.do?cseq=${param.cseq}&searchKeyword=${param.searchKeyword}&searchCondition=${param.searchCondition}&seq="+seq
+			location.href="detail.do?cseq=${param.cseq}&sortField=${param.sortField}&searchKeyword=${param.searchKeyword}&searchCondition=${param.searchCondition}&seq="+seq
 		}
 	}	
 	
@@ -132,11 +181,11 @@
 			data:{"seq":seq},
 			success:function(data) {
 				if(data.isFavor=='Y'){
-					alert("즐겨찾기에 등록했습니다.");
+					alert("관심작품에 등록했습니다.");
 					$("#iFavor").removeClass("far");
 					$("#iFavor").addClass("fas");
 				} else {
-					alert("즐겨찾기 해지했습니다.");
+					alert("관심작품에서 해지했습니다.");
 					$("#iFavor").removeClass("fas");
 					$("#iFavor").addClass("far");					
 				}
@@ -144,7 +193,7 @@
 		});
 		</c:when>
 		<c:otherwise>
-			alert("즐겨찾기에 추가하려면, 로그인해야 합니다.");
+			alert("관심작품에 추가하려면, 로그인해야 합니다.");
 			return;
 		</c:otherwise>
 	</c:choose>

@@ -19,6 +19,7 @@ public class HomeController {
 		String rPath = request.getSession().getServletContext().getRealPath("/upload");
 		System.out.println(rPath);
 		*/
+		hService.getToday(request, mView);
 		hService.getListA(request, mView);
 		hService.getListM(request, mView);
 		hService.getListP(request, mView);
