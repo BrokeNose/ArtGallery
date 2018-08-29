@@ -267,8 +267,7 @@
   		<div class="row">	
 			<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
 				<div class="thumbnail">
-					<div class="centered">
-					
+					<div class="centered">					
 						<a href="category/detail.do?seq=${Pdto.seq }" title="${Pdto.name }">
 							<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${Pdto.imagepath }" class="img-responsive img-thumb">
 							<div class="thumb_title2">${Pdto.name }</div>
