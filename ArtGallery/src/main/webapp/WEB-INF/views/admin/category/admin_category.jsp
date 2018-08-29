@@ -69,7 +69,7 @@
 					<button id="search" class="btn btn-default">검색</button>
 				</div>
 				<div class="pull-right">
-					<button id="btnInsert" type="button" class="btn btn-primary" onclick="location.href='insertform.do?categoryType=${categoryType}'">작품등록</button>
+					<button id="btnInsert" type="button" class="btn btn-primary" onclick="location.href='insertform.do?categoryType=${categoryType}'">등록</button>
 				</div>	  
 			</form>
 

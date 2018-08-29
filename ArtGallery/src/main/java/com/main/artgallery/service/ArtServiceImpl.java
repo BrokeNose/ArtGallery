@@ -40,6 +40,7 @@ public class ArtServiceImpl implements ArtService {
 	private FavorArtDao favorArtDao;
 
 	private ConfigDto configDto=null;
+	private String fileSeparator="/";
 	
 	@Override
 	public void getList(ModelAndView mView, ArtDto dto) {
@@ -242,13 +243,14 @@ public class ArtServiceImpl implements ArtService {
 		MultipartFile mFile=dto.getFile();
 		
 		//원본 파일명
+		System.out.println("File.pathSeparator : " + File.pathSeparator);
 		String orgFileName=mFile.getOriginalFilename();
 		//저장할 파일의 상세 경로 - upload/seq 조합 번호
 		String dir=String.format("%08d", seq);
 		dir=dir.substring(0,6);
-		String filePath=realPath+File.separator+dir+File.separator;
+		String filePath=realPath+fileSeparator+dir+fileSeparator;
 		System.out.println(filePath);
-		
+	
 		//디렉토리를 만들 파일 객체 생성
 		File file=new File(filePath);
 		if(!file.exists()){//디렉토리가 존재하지 않는다면
@@ -269,7 +271,7 @@ public class ArtServiceImpl implements ArtService {
 			e.printStackTrace();
 		}
 		//FileDto 객체에 추가 정보를 담는다.
-		dto.setImagepath(configDto.getUploadRoot()+File.separator+dir+File.separator+saveFileName);
+		dto.setImagepath(configDto.getUploadRoot()+fileSeparator+dir+fileSeparator+saveFileName);
 				
 		// DB 에 저장하기
 		artDao.insert(dto);
@@ -321,7 +323,7 @@ public class ArtServiceImpl implements ArtService {
 			//저장할 파일의 상세 경로 - upload/seq 조합 번호
 			String dir=String.format("%08d", seq);
 			dir=dir.substring(0,6);
-			String filePath=realPath+File.separator+dir+File.separator;
+			String filePath=realPath+fileSeparator+dir+fileSeparator;
 			
 			//디렉토리를 만들 파일 객체 생성
 			File file=new File(filePath);
@@ -344,7 +346,7 @@ public class ArtServiceImpl implements ArtService {
 				e.printStackTrace();
 			}
 			//FileDto 객체에 추가 정보를 담는다.
-			dto.setImagepath(configDto.getUploadRoot()+File.separator+dir+File.separator+saveFileName);
+			dto.setImagepath(configDto.getUploadRoot()+fileSeparator+dir+fileSeparator+saveFileName);
 		}
 		
 		//작품 정보 수정
