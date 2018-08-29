@@ -58,7 +58,7 @@
 	<section>
 		<div class="row">
 			<div class="jumbotron">
-				<a href="#" class="">
+				<a href="category/detail.do?seq=${today.seq }&code=A" class="">
 					<div class="content">
 						<div class="bkImg" style="background-image: url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${today.imagepath })"></div>
 						<div class="title">
