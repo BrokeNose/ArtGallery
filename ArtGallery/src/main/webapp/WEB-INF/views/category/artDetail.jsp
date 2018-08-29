@@ -49,7 +49,7 @@
 	}
 	.zoom{		
 		position: relative;
-		left:200px;
+		left:100px;
 		top:-20px;
 		
 	}	
@@ -68,7 +68,7 @@
 			<span style="font-size:30px;"><i class="fas fa-arrow-circle-right"></i></span></a></div>
 		<div class="text-center">
 			<img class="img_center" src="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }"/>
-			<div class="zoom"><span style="font-size:30px;"><i class="fas fa-search-plus"></i></span></div>	
+			<div class="zoom"><span style="font-size:30px;"><i id="iZoom" class="fas fa-search-plus"></i></span></div>	
 			
 		</div>			
 	</div>
@@ -146,7 +146,7 @@
 		zoomImage.style.zoom = count + '0%';    
 	}
 	
-	$("#imgZoom").click(function(){
+	$("#iZoom").click(function(){
 		zoomImage.style.zoom ='100%';
 		count=10;
 		$(".bigImage").show();	

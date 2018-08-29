@@ -184,6 +184,9 @@ public class ArtServiceImpl implements ArtService {
 			rtn=artRelTextMerge(pList);
 			resultDto.setPainter(rtn[0]);
 			mView.addObject("painterTxt", rtn[1]);		
+		} else {
+			//조회수 증가
+			artDao.addViewCount(dto.getSeq());
 		}
 		
 		// 관심작품 등록 여부

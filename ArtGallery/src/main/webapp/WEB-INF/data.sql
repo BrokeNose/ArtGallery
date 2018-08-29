@@ -1,3 +1,5 @@
+select * from t_art where viewcount > 0;
+
 update t_category set imagepath='/upload/P/1.jpg' where seq=1;
 update t_category set imagepath='/upload/P/12.jpg' where seq=12;
 update t_category set imagepath='/upload/P/22.jpg' where seq=22;

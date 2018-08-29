@@ -58,4 +58,9 @@ public class ArtDaoImpl implements ArtDao {
 	public List<ArtDto> getArtList(ArtDto dto) {
 		return session.selectList("art.getListAll", dto);
 	}
+
+	@Override
+	public void addViewCount(int seq) {
+		session.update("art.addViewCount", seq);
+	}
 }

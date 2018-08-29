@@ -20,4 +20,5 @@ public interface ArtDao {
 	public void update(ArtDto dto);
 	public void delete(int seq);
 	public int getSequence();	// sequence값 가져오기
+	public void addViewCount(int seq);
 }
