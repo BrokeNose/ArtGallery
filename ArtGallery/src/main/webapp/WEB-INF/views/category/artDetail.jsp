@@ -70,12 +70,12 @@
 	<input type="hidden" id="seq" value="${dto.seq }"/>
 	<div class="row">
 		<div class="arrow_left">
-		<c:if test="${!empty param.cSeq  }">
+		<c:if test="${!empty param.cseq  }">
 			<a href="javascript: goDetail(${dto.prevNum });">
 				<span style="font-size:30px;"><i class="fas fa-arrow-circle-left"></i></span></a>
 		</c:if></div>
 		<div class="arrow_right">
-		<c:if test="${!empty param.cSeq  }">
+		<c:if test="${!empty param.cseq  }">
 			<a href="javascript: goDetail(${dto.nextNum });">
 				<span style="font-size:30px;"><i class="fas fa-arrow-circle-right"></i></span></a>
 		</c:if></div>
@@ -171,9 +171,8 @@
 	// 이미지 확대  끝 -------------------
 	
 	function goDetail(seq){
-		if (seq>0){
-			
-			location.href="detail.do?<c:if test="${!empty param.cSeq  }">cseq=${param.cseq}</c:if>&sortField=${param.sortField}&searchKeyword=${param.searchKeyword}&searchCondition=${param.searchCondition}&seq="+seq
+		if (seq>0){			
+			location.href="detail.do?<c:if test="${!empty param.cseq  }">cseq=${param.cseq}</c:if>&sortField=${param.sortField}&searchKeyword=${param.searchKeyword}&searchCondition=${param.searchCondition}&seq="+seq
 		}
 	}	
 	
