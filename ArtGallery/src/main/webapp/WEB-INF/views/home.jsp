@@ -49,20 +49,32 @@
 	    font-size: 16px;	    
 	}
 	.img_preview {
+		width: 100%;
 		height:200px;
-		background-size: auto;
+		
+		background-origin: content-box;
+		
+	}
+	.img_textbg {
+		position: absolute;
+		bottom:0;
+		margin:5px;
+		width: 96%;
+		height:45px;
+		background-color: rgba(0, 0, 0, 0.5);
+		
 	}
 	.img_title {
 		color: #fff;
 		position: absolute;
-		bottom:30px;
+		bottom:23px;
 		left:10px;
 		font-weight:bold;
 	}
 	.img_items {
 		color: #fff;
 		position: absolute;
-		bottom:10px;
+		bottom:5px;
 		left:10px;
 	}
 </style>
@@ -91,9 +103,12 @@
   			<c:forEach var="tmpA" items="${listA }">
 	  			<div class="col-md-2 col-sm-3 col-xs-6">
 	  				<a href="category/detail.do?seq=${tmpA.seq }&code=A">
-			  			<div class="img_preview" style="background:url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpA.imagepath });background-size: auto;">
+			  			<div class="img_preview" style="background:url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpA.imagepath });background-size: 100% 100%;">
+			  				<div class="img_textbg ">			  				
 			  				<div class="img_title">${tmpA.name }</div>
 			  				<div class="img_items">항목 ${tmpA.artcount }개</div>
+			  				</div>
+			  				
 			  			</div>
 			  		</a>
 	  			</div>
@@ -107,9 +122,11 @@
 	  	<c:forEach var="tmpM" items="${listM }">
   			<div class="col-md-2 col-sm-3 col-xs-6">
   				<a href="category/detail.do?seq=${tmpM.seq }&code=M">
-		  			<div class="img_preview" style="background:url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpM.imagepath })">
+		  			<div class="img_preview" style="background:url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpM.imagepath });background-size: 100% 100%;">
+		  				<div class="img_textbg ">	
 		  				<div class="img_title">${tmpM.name }</div>
 		  				<div class="img_items">항목 ${tmpM.artcount }개</div>
+		  				</div>
 		  			</div>
 		  		</a>
   			</div>
@@ -122,9 +139,11 @@
 	  	<c:forEach var="tmpP" items="${listP }">
   			<div class="col-md-2 col-sm-3 col-xs-6">
   				<a href="category/detail.do?seq=${tmpP.seq }&code=P">
-		  			<div class="img_preview" style="background:url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpP.imagepath })">
+		  			<div class="img_preview" style="background:url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpP.imagepath });background-size: 100% 100%;">
+		  				<div class="img_textbg ">	
 		  				<div class="img_title">${tmpP.name }</div>
 		  				<div class="img_items">항목 ${tmpP.artcount }개</div>
+		  				</div>
 		  			</div>
 		  		</a>
   			</div>
