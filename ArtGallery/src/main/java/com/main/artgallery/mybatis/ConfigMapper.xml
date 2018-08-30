@@ -5,7 +5,7 @@
 <!-- 작성자 : hyung -->
 
 	<select id="getData" parameterType="String" resultType="configDto">
-		SELECT code, pagerow, displayrow, section1, section2, ip, uploadRoot
+		SELECT code, pagerow, displayrow, ip, uploadRoot
 		FROM   t_config
 		WHERE  code=#{code}
 	</select>

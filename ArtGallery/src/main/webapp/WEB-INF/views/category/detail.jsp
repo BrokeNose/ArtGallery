@@ -144,7 +144,7 @@
 <body>
 <jsp:include page="../header.jsp"/>
 <div class="row">
-	<img src="http://192.168.0.200:8888/artgallery/${dto.imagepath }" class="img-detail" alt="Responsive image"/>
+	<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" class="img-detail" alt="Responsive image"/>
 </div>
 <div class="container">
 	<div class="text-center">
@@ -168,7 +168,7 @@
   		<%-- <c:forEach var="dto" items="${artlist  }">
 	  		<div class="col-md-3 col-sm-6 col-xs-6 row-eq-height">
 		  		<a href="../art/detail.do?cseq=${dto.cseq }&seq=${dto.seq }">
-		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
+		  			<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
 		  			<img src="<c:out value="${pageContext.request.contextPath }/${dto.imagepath }"/>" class="img-responsive" alt="Responsive image"/>
 		  			<p>${dto.name }</p>
 		  			<strong>${dto.artcount }</strong>
@@ -182,7 +182,7 @@
 					<div class="centered">
 						<a href="../art/detail.do?cseq=${dto.cseq }&seq=${dto.seq }" title="${dto.title }">
 							<div class="thumb_title1">${dto.title }</div>
-							<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }" class="img-responsive img-thumb"/>
+							<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" class="img-responsive img-thumb"/>
 						</a>
 					</div>
 				</div>
@@ -200,7 +200,7 @@
 								<a href="category/detail.do?seq=${Adto.seq }" title="${Adto.name }">
 									<div class="thumb_title2">${Adto.name }</div>
 				  					<div class="thumb_items">항목 ${Adto.artcount }개</div>
-									<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${Adto.imagepath }" class="img-responsive img-thumb">	
+									<img src="${configDto.httpPath}${pageContext.request.contextPath }${Adto.imagepath }" class="img-responsive img-thumb">	
 								</a>
 							</div>
 						</div>
@@ -217,7 +217,7 @@
 					<div class="thumbnail">
 						<div class="centered">
 							<a href="category/detail.do?seq=${Mdto.seq }" title="${Mdto.name }">
-								<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${Mdto.imagepath }" class="img-responsive img-thumb"/>
+								<img src="${configDto.httpPath}${pageContext.request.contextPath }${Mdto.imagepath }" class="img-responsive img-thumb"/>
 								<div class="thumb_title2">${Mdto.name }</div>
 								<div class="thumb_items">항목 ${Mdto.artcount }개</div>		  					
 							</a>
@@ -237,7 +237,7 @@
 					<div class="thumbnail">
 						<div class="centered">					
 							<a href="category/detail.do?seq=${Pdto.seq }" title="${Pdto.name }">
-								<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${Pdto.imagepath }" class="img-responsive img-thumb">
+								<img src="${configDto.httpPath}${pageContext.request.contextPath }${Pdto.imagepath }" class="img-responsive img-thumb">
 								<div class="thumb_title2">${Pdto.name }</div>
 			  					<div class="thumb_items">항목 ${Pdto.artcount }개</div>
 							</a>
@@ -258,7 +258,7 @@
 	<button id="nextBtn">&raquo;</button>
 	<div class="wrapper">
 		<c:forEach var="dto" items="${artlist }">
-			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
+			<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
 		</c:forEach>
 		
 	</div>

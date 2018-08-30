@@ -19,11 +19,11 @@ public class HomeServiceImpl implements HomeService {
 	@Autowired
 	private CategoryDao categoryDao;
 	@Autowired
-	private ConfigDao configDao;
+	private ConfigService cfService;	
 	private ConfigDto configDto=null;
 	@Override
 	public void getToday(HttpServletRequest request, ModelAndView mView) {
-		getConfig();
+		getConfig(request);
 		mView.addObject("configDto", configDto);
 		List<CategoryDto> listT=categoryDao.getList("A");
 		CategoryDto random=listT.get(new Random().nextInt(listT.size()));
@@ -31,24 +31,26 @@ public class HomeServiceImpl implements HomeService {
 	}
 	@Override
 	public void getListA(HttpServletRequest request, ModelAndView mView) {
-		getConfig();
+		getConfig(request);
 		mView.addObject("configDto", configDto);
 		mView.addObject("listA", categoryDao.getList("A"));
 	}
 	@Override
 	public void getListM(HttpServletRequest request, ModelAndView mView) {
-		getConfig();
+		getConfig(request);
 		mView.addObject("configDto", configDto);
 		mView.addObject("listM", categoryDao.getList("M"));
 	}
 	@Override
 	public void getListP(HttpServletRequest request, ModelAndView mView) {
-		getConfig();
+		getConfig(request);
 		mView.addObject("configDto", configDto);
 		mView.addObject("listP", categoryDao.getList("P"));
 	}
 	@Override
-	public void getConfig() {
-		configDto=configDao.getData("1");
+	public void getConfig(HttpServletRequest request) {
+		// ConfigService 에서 가져오면 request에 담겨져 있으므로 다시 가져온다.
+		cfService.getData(request, "1");
+		configDto=(ConfigDto)request.getAttribute("configDto");		
 	}
 }

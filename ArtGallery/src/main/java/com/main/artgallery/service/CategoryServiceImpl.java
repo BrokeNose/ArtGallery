@@ -25,11 +25,11 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryDao dao;
 	
 	@Autowired
-	private ConfigDao configDao;
-	
-	@Autowired
 	private ArtDao aDao;
 
+	@Autowired
+	private ConfigService cfService;	
+	
 	private ConfigDto configDto=null;
 	
 	@Override
@@ -71,7 +71,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public void SonGetList(HttpServletRequest request, ModelAndView mView) {
 		//T_config 환경변수 가져오기
-		getConfig();
+		getConfig(request);
 		mView.addObject("configDto", configDto);
 		String SonCategoryType=(String)request.getParameter("soncategorytype");
 		
@@ -87,7 +87,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public void SonGetData(HttpServletRequest request, ModelAndView mView) {
 		//T_config 환경변수 가져오기
-		getConfig();
+		getConfig(request);
 		
 		
 		//파라미터로 전달되는 글번호 읽어오기
@@ -128,7 +128,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public void getSearchList(HttpServletRequest request, ModelAndView mView) {
 		//T_config 환경변수 가져오기
-		getConfig();
+		getConfig(request);
 				
 		CategoryDto dto=new CategoryDto();
 		dto.setCode(request.getParameter("code"));
@@ -146,22 +146,20 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public void getConfig() {
-		configDto=configDao.getData("1");
+	public void getConfig(HttpServletRequest request) {
+		// ConfigService 에서 가져오면 request에 담겨져 있으므로 다시 가져온다.
+		cfService.getData(request, "1");
+		configDto=(ConfigDto)request.getAttribute("configDto");		
 	}
 
 
 	public void insert(HttpServletRequest request, CategoryDto dto) {
-//		String uploadDir = "/upload";
-//		//파일 등록 처리
-//		//파일을 저장할 폴더의 절대 경로를 얻어온다.
-//		String realPath=request.getSession().getServletContext().getRealPath(uploadDir);
-		//System.out.println(realPath);
-		//MultipartFile 객체의 참조값 얻어오기
-		String FileSep = "/";
+		//T_config 환경변수 가져오기
+		getConfig(request);
 		
-		getConfig();
-		String realPath="\\\\"+configDto.getIp()+"\\" + configDto.getUploadRoot();
+		//파일 등록 처리
+		//파일을 저장할 폴더의 절대 경로를 얻어온다.
+		String realPath=configDto.getRealPath();		
 		
 		//FileDto 에 담긴 MultipartFile 객체의 참조값을 얻어온다. - servlet-context.xml에 beans 기술해야함.
 		MultipartFile mFile=dto.getFile();
@@ -171,7 +169,7 @@ public class CategoryServiceImpl implements CategoryService {
 		//저장할 파일의 상세 경로 - upload/seq 조합 번호
 		String dir = dto.getCode();
 		
-		String filePath=realPath+FileSep+dir+FileSep;
+		String filePath=realPath+configDto.FileSeparator+dir+configDto.FileSeparator;
 		System.out.println(filePath);
 		
 		//디렉토리를 만들 파일 객체 생성
@@ -196,7 +194,7 @@ public class CategoryServiceImpl implements CategoryService {
 		//FileDto 객체에 추가 정보를 담는다.
 		//dto.setImagepath(uploadDir+File.separator+dir+File.separator+saveFileName);
 		
-		String imgPath = configDto.getUploadRoot()+FileSep+dir+FileSep+saveFileName;
+		String imgPath = configDto.getUploadRoot()+configDto.FileSeparator+dir+configDto.FileSeparator+saveFileName;
 		
 		System.out.println("Save ImagePath: " + imgPath);
 		

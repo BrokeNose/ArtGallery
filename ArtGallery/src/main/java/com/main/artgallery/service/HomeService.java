@@ -9,5 +9,5 @@ public interface HomeService {
 	public void getListA(HttpServletRequest request, ModelAndView mView);
 	public void getListM(HttpServletRequest request, ModelAndView mView);
 	public void getListP(HttpServletRequest request, ModelAndView mView);
-	public void getConfig();
+	public void getConfig(HttpServletRequest request);
 }
