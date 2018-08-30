@@ -206,6 +206,20 @@ public class CategoryServiceImpl implements CategoryService {
 		
 		dao.insert(dto);
 	}
+
+	@Override
+	public void updateForm(HttpServletRequest request, ModelAndView mView) {
+		// TODO Auto-generated method stub
+		String categoryType = (String)request.getParameter("categoryType");
+		int seq = Integer.parseInt((String)request.getParameter("seq"));
+		CategoryDto dto = dao.getDataSeq(seq);
+		
+		System.out.println("seq: " + dto.getSeq());
+		System.out.println("name: " + dto.getName());
+		
+		mView.addObject("categoryType", categoryType);
+		mView.addObject("dto", dto);
+	}
 }
 
 	

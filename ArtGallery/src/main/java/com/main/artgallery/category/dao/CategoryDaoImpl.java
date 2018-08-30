@@ -104,6 +104,12 @@ public class CategoryDaoImpl implements CategoryDao{
 		// TODO Auto-generated method stub
 		return session.selectList("category.getListCategory", dto);
 	}
+	
+	@Override
+	public CategoryDto getDataSeq(int seq) {
+		// TODO Auto-generated method stub
+		return session.selectOne("category.getDataSeq", seq);
+	}
 
 	@Override
 	public List<CategoryDto> getListRelation(ArtRelDto dto) {

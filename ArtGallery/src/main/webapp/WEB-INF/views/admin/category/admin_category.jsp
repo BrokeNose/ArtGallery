@@ -87,7 +87,7 @@
 	</div><!-- /panel -->
 	
 	<div class="table-responsive">
-	  <table class="table table-bordered">
+	  <table id="myTable" class="table table-bordered">
 	  	<thead>
 	  		<tr>
 	  			<c:choose>
@@ -132,7 +132,6 @@
 			  		</c:choose>
 		  		</tr>
 	  		</c:forEach>
-	  	
 	  	</tbody>
 	  </table>
 	</div>
@@ -163,5 +162,32 @@
 
 <jsp:include page="../inc/footer.jsp" />
 
+<script>
+	/*
+	$(document).ready(function() { 
+	    $('td').click(function(){ 
+	        var tdindex = this.cellIndex+1; 
+	        var trindex = $('tr').index($(this).parent())+1; 
+	        
+	        alert("Row: "+trindex+" Column: "+tdindex); 
+	    }); 
+	}); 
+	*/
+
+	$("tbody tr").click(function(){
+		/*
+		$(".selected").removeClass("selected")
+		$(this).find("td").addClass("selected");
+		*/
+		var str = ""
+    var tdArr = new Array();    // 배열 선언
+    
+    // 현재 클릭된 Row(<tr>)
+    var tr = $(this);
+    var td = tr.children();
+		var seq = td.eq(0).text();
+		location.href = "updateform.do?categoryType=${categoryType}&seq="+seq;
+	});
+</script>
 </body>
 </html>

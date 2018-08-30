@@ -20,4 +20,5 @@ public interface CategoryService {
 	//Shin
 	public void insertForm(HttpServletRequest request, ModelAndView mView);
 	public void insert(HttpServletRequest request, CategoryDto dto);
+	public void updateForm(HttpServletRequest request, ModelAndView mView);
 }

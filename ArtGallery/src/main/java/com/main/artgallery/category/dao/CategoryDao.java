@@ -18,6 +18,7 @@ public interface CategoryDao {
 	
 	// Shin
 	public List<CategoryDto> getListCategory(CategoryDto dto);
+	public CategoryDto getDataSeq(int seq);
 
 	//Son
 	public List<CategoryDto> getList(String code);

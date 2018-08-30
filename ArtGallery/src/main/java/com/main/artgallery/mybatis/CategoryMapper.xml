@@ -76,6 +76,11 @@
 		   AND UPPER(remark) LIKE '%'||UPPER(#{remark})||'%'
 		</if>
 	</select>
+	<select id="getDataSeq" parameterType="int" resultType="category">
+		SELECT <include refid="categoryColumn" />
+		  FROM T_Category
+		 WHERE seq=#{seq}
+	</select>
 	
 	<!-- son -->
 	<select id="getList" resultType="category" parameterType="String">
