@@ -67,13 +67,13 @@
 						<div class="form-group">
 					    <label class="col-sm-2 control-label">출생일</label>
 					    <div class="col-sm-10">
-					      	<input type="date" class="form-control" id="bdate" name="bdate">
+					      	<input type="text" class="form-control" id="bdate" name="bdate">
 					    </div>
 					  </div>		  
 						<div class="form-group">
 					    <label class="col-sm-2 control-label">사망일</label>
 					    <div class="col-sm-10">
-					      	<input type="date" class="form-control" id="ddate" name="ddate">
+					      	<input type="text" class="form-control" id="ddate" name="ddate">
 					    </div>
 					  </div>		  
 					  <div class="form-group">

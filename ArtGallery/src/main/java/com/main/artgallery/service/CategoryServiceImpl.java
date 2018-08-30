@@ -16,7 +16,6 @@ import com.main.artgallery.art.dto.ArtDto;
 import com.main.artgallery.art.dto.ArtRelDto;
 import com.main.artgallery.category.dao.CategoryDao;
 import com.main.artgallery.category.dto.CategoryDto;
-import com.main.artgallery.config.dao.ConfigDao;
 import com.main.artgallery.config.dto.ConfigDto;
 
 @Service
@@ -37,6 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
 		String categoryType = (String)request.getParameter("categorytype");
 		String queryType = (String)request.getParameter("searchCondition");
 		String queryValue = (String)request.getParameter("searchKeyword");
+		String pgNum = (String)request.getParameter("pageNum");
 		
 		CategoryDto dto = new CategoryDto();
 		if(categoryType == null) {
@@ -60,10 +60,58 @@ public class CategoryServiceImpl implements CategoryService {
 				}
 			}
 		}
+
+		int pageNum = 1;
+		if(pgNum != null) {
+			pageNum = Integer.parseInt(pgNum);
+		}
 		
+		//T_config 환경변수 가져오기
+		getConfig(request);
+		//mView.addObject("configDto", configDto); - ConfigService에서 set 함.
+		
+		//보여줄 페이지의 번호
+//		int pageNum=dto.getPageNum();	// null인 경우 0 이 됨.
+//		if(pageNum == 0){
+//			pageNum=1;
+//		}
+		
+		//보여줄 페이지 데이터의 시작 ResultSet row 번호
+		int startRowNum=1+(pageNum-1)*configDto.getPagerow();
+		//보여줄 페이지 데이터의 끝 ResultSet row 번호
+		int endRowNum=pageNum*configDto.getPagerow();
+		
+		//전체 row 의 갯수를 읽어온다.
+		int totalRow=dao.getCount(dto);
+		
+		System.out.println("totalRow: " + totalRow);
+		
+		//전체 페이지의 갯수 구하기
+		int totalPageCount=
+				(int)Math.ceil(totalRow/(double)configDto.getPagerow());
+		//시작 페이지 번호
+		int startPageNum=
+			1+((pageNum-1)/configDto.getDisplayrow())*configDto.getDisplayrow();
+		//끝 페이지 번호
+		int endPageNum=startPageNum+configDto.getDisplayrow()-1;
+		//끝 페이지 번호가 잘못된 값이라면 
+		if(totalPageCount < endPageNum){
+			endPageNum=totalPageCount; //보정해준다. 
+		}
+		
+		// 위에서 만든 CafeDto 에 추가 정보를 담는다. 
+		dto.setStartRowNum(startRowNum);
+		dto.setEndRowNum(endRowNum);		
 		
 		mView.addObject("list", dao.getListCategory(dto));
 		mView.addObject("categoryType", categoryType);
+		// 페이징 처리에 관련된 값도 request 에 담기 
+		mView.addObject("pageNum", pageNum);
+		mView.addObject("startPageNum", startPageNum);
+		mView.addObject("endPageNum", endPageNum);
+		mView.addObject("totalPageCount", totalPageCount);
+		// 전체 row 의 갯수도 전달하기
+		mView.addObject("totalRow", totalRow);
 	}
 	
 	//son
@@ -152,6 +200,15 @@ public class CategoryServiceImpl implements CategoryService {
 		configDto=(ConfigDto)request.getAttribute("configDto");		
 	}
 
+	@Override
+	public void delete(HttpServletRequest request, ModelAndView mView) {
+		// TODO Auto-generated method stub
+		int seq = Integer.parseInt((String)request.getParameter("seq"));
+		dao.delete(seq);
+		String categoryType = (String)request.getParameter("categoryType");
+		mView.addObject("categoryType", categoryType);
+		mView.addObject("seq", seq);
+	}
 
 	public void insert(HttpServletRequest request, CategoryDto dto) {
 		//T_config 환경변수 가져오기
@@ -210,12 +267,81 @@ public class CategoryServiceImpl implements CategoryService {
 		int seq = Integer.parseInt((String)request.getParameter("seq"));
 		CategoryDto dto = dao.getDataSeq(seq);
 		
-		System.out.println("seq: " + dto.getSeq());
-		System.out.println("name: " + dto.getName());
-		
 		mView.addObject("categoryType", categoryType);
 		mView.addObject("dto", dto);
 	}
-}
 
+	@Override
+	public void update(HttpServletRequest request, CategoryDto dto) {
+		// TODO Auto-generated method stub
+		getConfig(request);
+		
+		//파일 등록 처리
+		String realPath=configDto.getRealPath();		
+		//System.out.println(realPath);
+		
+		//MultipartFile 객체의 참조값 얻어오기		
+		//FileDto 에 담긴 MultipartFile 객체의 참조값을 얻어온다. - servlet-context.xml에 beans 기술해야함.
+		MultipartFile mFile=dto.getFile();	
+		
+		//원본 파일명
+		String orgFileName=mFile.getOriginalFilename();
+		//System.out.println(orgFileName + "==== 파일명");
+		if ( orgFileName != null && !orgFileName.equals("")) {	//첨부파일 등록시
+			//기존 등록파일 삭제
+			if( dto.getImagepath() != null && !dto.getImagepath().equals("")) {
+				fileDelete(realPath, dto.getImagepath());
+			}
+			
+			String dir = dto.getCode();
+			
+			String filePath=realPath+configDto.FileSeparator+dir+configDto.FileSeparator;
+			System.out.println(filePath);
+			
+			//디렉토리를 만들 파일 객체 생성
+			File file=new File(filePath);
+			if(!file.exists()){//디렉토리가 존재하지 않는다면
+				file.mkdir();//디렉토리를 만든다.
+			}
+			String exps[]=orgFileName.split("\\.");
+			String exp=exps[exps.length-1];
+			
+			Calendar cal = Calendar.getInstance();
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
+			String saveFileName = dateFormat.format(cal.getTime())+"."+exp;		
+			
+			try{
+				//upload 폴더에 파일을 저장한다.
+				mFile.transferTo(new File(filePath+saveFileName));
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
+			//FileDto 객체에 추가 정보를 담는다.
+			//dto.setImagepath(uploadDir+File.separator+dir+File.separator+saveFileName);
+			
+			String imgPath = configDto.getUploadRoot()+configDto.FileSeparator+dir+configDto.FileSeparator+saveFileName;
+			
+			System.out.println("Save ImagePath: " + imgPath);
+			
+			dto.setImagepath(imgPath);
+		}		
+		
+		dao.update(dto);
+	}
 	
+	@Override
+	public void fileDelete(String realPath, String imagePath) {
+		// TODO Auto-generated method stub
+		String path=realPath + imagePath.substring(configDto.getUploadRoot().length());
+
+		//System.out.println(imagePath.substring(dto.getUploadRoot().length()));
+		//System.out.println(path);
+		
+		try{
+			//System.out.println(path+" file 삭제");
+			new File(path).delete();
+		}catch(Exception e){}
+		
+	}
+}
