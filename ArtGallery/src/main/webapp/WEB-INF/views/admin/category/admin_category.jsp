@@ -69,9 +69,6 @@
 					<button id="search" class="btn btn-default">검색</button>
 				</div>
 				<div class="pull-right">
-<<<<<<< HEAD
-					<button id="btnInsert" type="button" class="btn btn-primary" onclick="location.href='insertform.do?categoryType=${categoryType}'">등록</button>
-=======
 					<c:choose>
 						<c:when test="${categoryType eq 'A' }">
 							<button id="btnInsert" type="button" class="btn btn-primary" onclick="location.href='insertform.do?categoryType=${categoryType}'">아티스트 등록</button>
@@ -83,7 +80,6 @@
 							<button id="btnInsert" type="button" class="btn btn-primary" onclick="location.href='insertform.do?categoryType=${categoryType}'">화파 등록</button>
 						</c:when>
 					</c:choose>
->>>>>>> branch 'master' of https://github.com/SonDaewon/ArtGallery.git
 				</div>	  
 			</form>
 

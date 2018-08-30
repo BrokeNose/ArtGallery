@@ -95,13 +95,11 @@ public class CategoryDaoImpl implements CategoryDao{
 
 	@Override
 	public void getCount(int count) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public List<CategoryDto> getListCategory(CategoryDto dto) {
-		// TODO Auto-generated method stub
 		return session.selectList("category.getListCategory", dto);
 	}
 
