@@ -51,8 +51,7 @@
 	}
 	.img_preview {
 		width: 100%;
-		height:200px;
-		
+		height:200px;		
 		background-origin: content-box;
 		
 	}
@@ -69,16 +68,14 @@
 		color: #fff;
 		position: absolute;
 		bottom:23px;
-		left:10px;
-		
+		left:10px;	
 		 
 	}
 	.img_items {
 		color: #fff;
 		position: absolute;
 		bottom:5px;
-		left:10px;
-		
+		left:10px;		
 	}
 </style>
 </head>
