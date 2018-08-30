@@ -87,7 +87,7 @@
 								<div class="thumb_items">항목 ${dto.artcount }개</div>
 							</div>
 							<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" />
-						</a>
+						</a>						
 					</div>
 				</div>
 			</div>
