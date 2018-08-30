@@ -1,4 +1,61 @@
+-- 8/30 다시 실행할 script
+
+DROP TABLE T_CONFIG;
+CREATE TABLE T_Config(
+        code char(1) DEFAULT '1' PRIMARY KEY,
+        pagerow NUMBER DEFAULT 5,
+        CONSTRAINT TConfig_pagerow_ck CHECK (pagerow > 0),
+        displayrow NUMBER DEFAULT 5,
+        CONSTRAINT TConfig_displayrow_ck CHECK (displayrow > 0),
+        ip       VARCHAR2(15),
+        uploadRoot VARCHAR2(50)
+);
+
+INSERT INTO t_config(code, pagerow, displayrow, ip, uploadRoot)
+VALUES('1', 10, 5, 'localhost', '/upload');
+
+
+-- 형님 pc
+INSERT INTO t_config(code, pagerow, displayrow, ip, uploadRoot)
+VALUES('1', 10, 5, '192.168.0.200', '/upload');
+
+select max(seq) from t_art;
+select TArt_seq.nextval from dual;
+ALTER SEQUENCE TArt_seq INCREMENT BY 109;
+select TArt_seq.nextval from dual;
+ALTER SEQUENCE TArt_seq INCREMENT BY 1;
+
+
+select max(seq) from t_category;
+select Tcategory_seq.nextval from dual;
+ALTER SEQUENCE Tcategory_seq INCREMENT BY 374;
+select Tcategory_seq.nextval from dual;
+ALTER SEQUENCE Tcategory_seq INCREMENT BY 1;
+
+--------------------------------------------------------------
+
+update t_config set uploadroot='localhost';
+
+update t_art set imagepath= replace(imagepath, '\', '/') where instr(imagepath, '\') > 0 ;
+update t_category set imagepath= replace(imagepath, '\', '/') where instr(imagepath, '\') > 0 ;
+update t_category set imagepath = '/'||imagepath where imagepath is not null and substr(imagepath, 0,1) != '/';
+update t_art set imagepath = '/'||imagepath where imagepath is not null and substr(imagepath, 0,1) != '/';
+
+
+
+delete t_category wh
+ere seq >= 381 and seq <> 401;
+
 select * from t_art where viewcount > 0;
+
+
+select * from t_ART  where imagepath is not null and instr(imagepath, '\') > 0 ;
+
+
+update t_category set imagepath='/upload/M/154.jpg' where seq=154;
+update t_category set imagepath='/upload/P/7.jpg' where seq=7;
+update t_category set imagepath='/upload/P/52.jpg' where seq=52;
+
 
 update t_category set imagepath='/upload/P/1.jpg' where seq=1;
 update t_category set imagepath='/upload/P/12.jpg' where seq=12;

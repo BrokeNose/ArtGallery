@@ -119,4 +119,8 @@
 	    				 WHERE  aseq IN ( SELECT aseq FROM t_artrel WHERE cseq=#{cseq} )
 	    			    )  
 	</select>
+	<update id="addViewCount" parameterType="int" >
+		UPDATE T_Category set VIEWCOUNT=nvl(VIEWCOUNT,0)+1
+		WHERE seq=#{seq}
+	</update>
 </mapper>

@@ -9,6 +9,6 @@ import com.main.artgallery.favorart.dto.FavorArtDto;
 public interface FavorArtService {
 	public void getList(ModelAndView mView, HttpServletRequest request);
 	public void getData(HttpServletRequest request, ModelAndView mView, FavorArtDto dto);
-	public void getConfig();
+	public void getConfig(HttpServletRequest request);
 	public void update(HttpServletRequest request);
 }

@@ -15,7 +15,6 @@ import com.main.artgallery.art.dao.ArtDao;
 import com.main.artgallery.art.dto.ArtDto;
 import com.main.artgallery.art.dao.ArtRelDao;
 import com.main.artgallery.art.dto.ArtRelDto;
-import com.main.artgallery.config.dao.ConfigDao;
 import com.main.artgallery.config.dto.ConfigDto;
 import com.main.artgallery.favorart.dao.FavorArtDao;
 import com.main.artgallery.favorart.dto.FavorArtDto;
@@ -34,15 +33,14 @@ public class ArtServiceImpl implements ArtService {
 	private ArtRelDao artRelDao;
 
 	@Autowired
-	private ConfigDao configDao;
-	
-	@Autowired
 	private FavorArtDao favorArtDao;
 
+	@Autowired
+	private ConfigService cfService;	
 	private ConfigDto configDto=null;
 	
 	@Override
-	public void getList(ModelAndView mView, ArtDto dto) {
+	public void getList(HttpServletRequest request, ModelAndView mView, ArtDto dto) {
 		/*
 		 *  request 에 검색 keyword 가 전달 될수도 있고 안될수도 있다.
 		 *  1. 전달 안되는 경우 : home 에서 목록보기를 누른경우
@@ -76,8 +74,8 @@ public class ArtServiceImpl implements ArtService {
 		}
 		
 		//T_config 환경변수 가져오기
-		getConfig();
-		mView.addObject("configDto", configDto);
+		getConfig(request);
+		//mView.addObject("configDto", configDto); - ConfigService에서 set 함.
 		
 		//보여줄 페이지의 번호
 		int pageNum=dto.getPageNum();	// null인 경우 0 이 됨.
@@ -152,20 +150,23 @@ public class ArtServiceImpl implements ArtService {
 		}
 		
 		//T_config 환경변수 가져오기
-		getConfig();
-		mView.addObject("configDto", configDto);
+		getConfig(request);
+		//mView.addObject("configDto", configDto); - ConfigService에서 set 함.
 
 		//작품정보 가져오기
 		ArtDto resultDto=artDao.getData(dto);
 		
-		int idx=resultDto.getRemark().indexOf(":");
-		//System.out.println("idx : " + idx + "=" + resultDto.getRemark().length());
-		if ( idx < 0) {	// -1 return 포함 안함.
-			request.setAttribute("multiStage", true);
+		if (resultDto.getRemark() != null) {
+			int idx=resultDto.getRemark().indexOf(":");
+			//System.out.println("idx : " + idx + "=" + resultDto.getRemark().length());
+			if ( idx < 0) {	// -1 return 포함 안함.
+				request.setAttribute("multiStage", true);
+			} else {
+				request.setAttribute("multiStage", false);			
+			}
 		} else {
-			request.setAttribute("multiStage", false);			
+			request.setAttribute("multiStage", false);
 		}
-		
 		//연계정보 가져오기
 		ArtRelDto relDto=new ArtRelDto();
 		relDto.setAseq(dto.getSeq());
@@ -226,18 +227,13 @@ public class ArtServiceImpl implements ArtService {
 		dto.setSeq(seq);
 		
 		//T_config 환경변수 가져오기
-		getConfig();
+		getConfig(request);
 		
 		//파일 등록 처리
-		//파일을 저장할 폴더의 절대 경로를 얻어온다.
-		// local 경로
-		//String realPath=request.getSession().getServletContext().getRealPath(dto.getUploadRoot());
-		// server 경로
-		String realPath="\\\\"+configDto.getIp()+"\\" + configDto.getUploadRoot();
-		
+		String realPath=configDto.getRealPath();		
 		//System.out.println(realPath);
-		//MultipartFile 객체의 참조값 얻어오기
 		
+		//MultipartFile 객체의 참조값 얻어오기		
 		//FileDto 에 담긴 MultipartFile 객체의 참조값을 얻어온다. - servlet-context.xml에 beans 기술해야함.
 		MultipartFile mFile=dto.getFile();
 		
@@ -246,9 +242,9 @@ public class ArtServiceImpl implements ArtService {
 		//저장할 파일의 상세 경로 - upload/seq 조합 번호
 		String dir=String.format("%08d", seq);
 		dir=dir.substring(0,6);
-		String filePath=realPath+File.separator+dir+File.separator;
+		String filePath=realPath+configDto.FileSeparator+dir+configDto.FileSeparator;
 		System.out.println(filePath);
-		
+	
 		//디렉토리를 만들 파일 객체 생성
 		File file=new File(filePath);
 		if(!file.exists()){//디렉토리가 존재하지 않는다면
@@ -269,7 +265,7 @@ public class ArtServiceImpl implements ArtService {
 			e.printStackTrace();
 		}
 		//FileDto 객체에 추가 정보를 담는다.
-		dto.setImagepath(configDto.getUploadRoot()+File.separator+dir+File.separator+saveFileName);
+		dto.setImagepath(configDto.getUploadRoot()+configDto.FileSeparator+dir+configDto.FileSeparator+saveFileName);
 				
 		// DB 에 저장하기
 		artDao.insert(dto);
@@ -293,17 +289,14 @@ public class ArtServiceImpl implements ArtService {
 	public void update(HttpServletRequest request, ArtDto dto) {
 		
 		//T_config 환경변수 가져오기
-		getConfig();
+		getConfig(request);
 		
 		//파일 등록 처리
-		//파일을 저장할 폴더의 절대 경로를 얻어온다.
-		// local 경로
-		//String realPath=request.getSession().getServletContext().getRealPath(dto.getUploadRoot());
-		// server 경로
-		String realPath="\\\\"+configDto.getIp()+"\\" + configDto.getUploadRoot();
-
-		//MultipartFile 객체의 참조값 얻어오기
-		//Dto 에 담긴 MultipartFile 객체의 참조값을 얻어온다. - servlet-context.xml에 beans 기술해야함.
+		String realPath=configDto.getRealPath();		
+		//System.out.println(realPath);
+		
+		//MultipartFile 객체의 참조값 얻어오기		
+		//FileDto 에 담긴 MultipartFile 객체의 참조값을 얻어온다. - servlet-context.xml에 beans 기술해야함.
 		MultipartFile mFile=dto.getFile();
 		
 		// 등록번호
@@ -321,7 +314,7 @@ public class ArtServiceImpl implements ArtService {
 			//저장할 파일의 상세 경로 - upload/seq 조합 번호
 			String dir=String.format("%08d", seq);
 			dir=dir.substring(0,6);
-			String filePath=realPath+File.separator+dir+File.separator;
+			String filePath=realPath+configDto.FileSeparator+dir+configDto.FileSeparator;
 			
 			//디렉토리를 만들 파일 객체 생성
 			File file=new File(filePath);
@@ -344,7 +337,7 @@ public class ArtServiceImpl implements ArtService {
 				e.printStackTrace();
 			}
 			//FileDto 객체에 추가 정보를 담는다.
-			dto.setImagepath(configDto.getUploadRoot()+File.separator+dir+File.separator+saveFileName);
+			dto.setImagepath(configDto.getUploadRoot()+configDto.FileSeparator+dir+configDto.FileSeparator+saveFileName);
 		}
 		
 		//작품 정보 수정
@@ -372,13 +365,12 @@ public class ArtServiceImpl implements ArtService {
 	@Override
 	public void delete(HttpServletRequest request, int seq) {
 		//T_config 환경변수 가져오기
-		getConfig();
-
-		// local 경로
-		//String realPath=request.getSession().getServletContext().getRealPath(dto.getUploadRoot());
-		// server 경로
-		String realPath="\\\\"+configDto.getIp()+"\\" + configDto.getUploadRoot();
+		getConfig(request);
 		
+		//파일 등록 처리
+		String realPath=configDto.getRealPath();		
+		//System.out.println(realPath);
+				
 		ArtDto dto=new ArtDto();
 		dto.setSeq(seq);
 		dto=artDao.getData(dto);
@@ -404,25 +396,19 @@ public class ArtServiceImpl implements ArtService {
 	@Override
 	public void insertRel(int seq, String relData) {
 		
-		String section3="\\" + configDto.getSection2().substring(0, 1)
-				+ "\\" + configDto.getSection2().substring(1, 2)
-				+ "\\" + configDto.getSection2().substring(2, 3);
-		
 		ArtRelDto dto=new ArtRelDto();
 		dto.setAseq(seq);
-		String[] arr=relData.split(configDto.getSection1());
-		//System.out.println(relData);
+		String[] arr=relData.split(configDto.Separator1);
 		for(int i=0; i<arr.length; i++) {
 			String cSeqTmp=arr[i].trim();
-			//System.out.println(cSeqTmp);
-			String[] cSeqs=cSeqTmp.split(section3);
+			String[] cSeqs=cSeqTmp.split(configDto.Separator3);
 			int cSeq=Integer.parseInt(cSeqs[0]);
 			dto.setCseq(cSeq);
 			dto.setSortseq(i+1);
-			//System.out.println(seq + "=" + cSeq + "=" + i);
 			artRelDao.insert(dto);
 		}
 	}
+	
 
 	@Override
 	public void fileDelete(String realPath, String imagePath) {
@@ -442,8 +428,11 @@ public class ArtServiceImpl implements ArtService {
 	}
 
 	@Override
-	public void getConfig() {
-		configDto=configDao.getData("1");
+	public void getConfig(HttpServletRequest request) {
+		// ConfigService 에서 가져오면 request에 담겨져 있으므로 다시 가져온다.
+		cfService.getData(request, "1");
+		configDto=(ConfigDto)request.getAttribute("configDto");		
+		//System.out.println(configDto.getRealPath() + "-" + configDto.getHttpPath());
 	}
 
 	@Override
@@ -452,11 +441,11 @@ public class ArtServiceImpl implements ArtService {
 		String text="";
 		String[] result= {"",""};
 		for(ArtRelDto rDto : list) {
-			code += configDto.getSection1()+rDto.getCseq()+configDto.getSection2()+rDto.getName();
+			code += configDto.Separator1+rDto.getCseq()+configDto.Separator2+rDto.getName();
 			text += ","+rDto.getName();
 		}
 		if (!code.equals("")) {
-			code=code.substring(configDto.getSection1().length(), code.length());
+			code=code.substring(configDto.Separator1.length(), code.length());
 			text=text.substring(1, text.length());
 		}
 		result[0]=code;

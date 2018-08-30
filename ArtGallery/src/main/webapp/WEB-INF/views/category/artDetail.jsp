@@ -41,7 +41,7 @@
 		position: absolute;
 		top:60px;
 		left:0;
-		right:0;
+		right:0px;
 		bottom:0;
 		background-color: #fff;
 		display: none;			
@@ -53,7 +53,6 @@
 		top:-20px;
 		
 	}	
-	
 	.multi-stage
 	{
 		max-width:none;
@@ -71,13 +70,17 @@
 	<input type="hidden" id="seq" value="${dto.seq }"/>
 	<div class="row">
 		<div class="arrow_left">
+		<c:if test="${!empty param.cseq  }">
 			<a href="javascript: goDetail(${dto.prevNum });">
-				<span style="font-size:30px;"><i class="fas fa-arrow-circle-left"></i></span></a></div>
+				<span style="font-size:30px;"><i class="fas fa-arrow-circle-left"></i></span></a>
+		</c:if></div>
 		<div class="arrow_right">
+		<c:if test="${!empty param.cseq  }">
 			<a href="javascript: goDetail(${dto.nextNum });">
-			<span style="font-size:30px;"><i class="fas fa-arrow-circle-right"></i></span></a></div>
+				<span style="font-size:30px;"><i class="fas fa-arrow-circle-right"></i></span></a>
+		</c:if></div>
 		<div class="text-center">
-			<img class="img_center" src="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }"/>
+			<img class="img_center" src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }"/>
 			<div class="zoom"><span style="font-size:30px;"><i id="iZoom" class="fas fa-search-plus"></i></span></div>	
 			
 		</div>			
@@ -127,11 +130,12 @@
 <div class="bigImage">
 	<div class="row">
 		<div class="text-center">
-			<img id="zoomImage" class="img_center" src="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }" onmousewheel="Picture()" />
+			<img id="zoomImage" class="img_center" src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" onmousewheel="Picture()" />
 		</div>
 	</div>
 </div>
 <jsp:include page="../footer.jsp"/>
+
 
 <script>
 	// 이미지 확대 시작 -------------------
@@ -167,8 +171,8 @@
 	// 이미지 확대  끝 -------------------
 	
 	function goDetail(seq){
-		if (seq>0){
-			location.href="detail.do?cseq=${param.cseq}&sortField=${param.sortField}&searchKeyword=${param.searchKeyword}&searchCondition=${param.searchCondition}&seq="+seq
+		if (seq>0){			
+			location.href="detail.do?<c:if test="${!empty param.cseq  }">cseq=${param.cseq}</c:if>&sortField=${param.sortField}&searchKeyword=${param.searchKeyword}&searchCondition=${param.searchCondition}&seq="+seq
 		}
 	}	
 	

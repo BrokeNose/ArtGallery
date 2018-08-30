@@ -57,7 +57,7 @@ public class ArtController {
 	//관리자 작품 목록
 	@RequestMapping("/admin/art/list")
 	public ModelAndView adminArtList(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
-		aService.getList(mView, dto);
+		aService.getList(request, mView, dto);
 		mView.setViewName("admin/art/list");
 		return mView;
 	}
@@ -112,7 +112,7 @@ public class ArtController {
 	//관심 작품 등록,삭제 처리
 	@RequestMapping("/art/favorArtList")
 	@ResponseBody
-	public ModelAndView authFavorArtList(ModelAndView mView, HttpServletRequest request) {
+	public ModelAndView userFavorArtList(ModelAndView mView, HttpServletRequest request) {
 		fService.getList(mView, request);
 		mView.setViewName("category/favorList");
 		return mView;

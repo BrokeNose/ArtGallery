@@ -13,9 +13,11 @@
 	} 
 	.thumbnail { 
 		position: relative;
-		 padding-top: 100%;
+		padding-top: 100%;
 		  /* 1:1 ratio */ 
-		  overflow: hidden; 
+		overflow: hidden; 
+		border:0;
+		border-radius: 0;
 	} 
 	.thumbnail .centered {
 	 	position: absolute; 
@@ -23,19 +25,33 @@
 	 	left: 0; 
 	 	right: 0; 
 	 	bottom: 0; 
-	 	-webkit-transform: translate(50%,50%); 
-	 	-ms-transform: translate(50%,50%); 
-	 	transform: translate(50%,50%); 
+	 	
 	 } 
 	.thumbnail .centered img { 
 		position: absolute; 
 		top: 0; 
 		left: 0; 
 		max-width: 100%; 
-		height: auto; 
-		-webkit-transform: translate(-50%,-50%); 
-		-ms-transform: translate(-50%,-50%); 
-		transform: translate(-50%,-50%); 
+		max-height:100%;
+		height:100%;
+		width:100%;
+				
+		 
+	}
+	.thumb_title1 {
+		position: absolute; 
+		bottom:5px;
+		z-index:10000;
+		color:#fff;
+		font-weight:bold;
+		left:5px;
+	}
+	.thumb_items {
+		position: absolute; 
+		bottom:5px;
+		z-index:2000;
+		color:#fff;
+		left:5px;
 	}
 
 </style>
@@ -48,9 +64,9 @@
 		
   	<%-- <div class="row">
   		<c:forEach var="dto" items="${list }">
-	  		<div class=".row.row-eq-height col-md-3 col-sm-6 col-xs-6" style="background-image: url('http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }');">
-		  		<a class="col-md-3 col-sm-6 col-xs-6" href="detail.do?seq=${dto.seq }&code=${dto.code }" style="background-image: url('http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }');">
-		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
+	  		<div class=".row.row-eq-height col-md-3 col-sm-6 col-xs-6" style="background-image: url('${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }');">
+		  		<a class="col-md-3 col-sm-6 col-xs-6" href="detail.do?seq=${dto.seq }&code=${dto.code }" style="background-image: url('${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }');">
+		  			<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
 		  			<p>${dto.title }</p>
 		  		</a>
 		  	</div>
@@ -61,8 +77,8 @@
 		<div class="thumbnail">
 			<div class="centered">
 				<a href="detail.do?seq=${dto.seq }&code=${dto.code }" title="${dto.title }">
-					<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }">
-					<p>${dto.title }</p>
+					<div class="thumb_title1">${dto.title }</div>
+					<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }">					
 				</a>
 			</div>
 		</div>

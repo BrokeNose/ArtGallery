@@ -15,7 +15,7 @@ public interface CategoryService {
 	//////////////////////////////////////////////////////////////////
 
 	public void getSearchList(HttpServletRequest request, ModelAndView mView);
-	public void getConfig();
+	public void getConfig(HttpServletRequest request);
 	
 	//Shin
 	public void insertForm(HttpServletRequest request, ModelAndView mView);
