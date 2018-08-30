@@ -16,7 +16,7 @@ public interface ArtService {
 	
 	//-------- hyung ----------------------
 	
-	public void getList(ModelAndView mView, ArtDto dto);
+	public void getList(HttpServletRequest request, ModelAndView mView, ArtDto dto);
 	public void getData(HttpServletRequest request, ModelAndView mView, ArtDto dto);
 	public void insert(HttpServletRequest request, ArtDto dto);
 	public void update(HttpServletRequest request, ArtDto dto);
@@ -24,6 +24,6 @@ public interface ArtService {
 	public int  getSequence();							// sequence값 가져오기
 	public void insertRel(int seq, String relData);		// 연계 텍스트 자료 분리해서 insert 하기
 	public void fileDelete(String realPath, String imagePath);	// 파일삭제
-	public void getConfig();
+	public void getConfig(HttpServletRequest request);
 	public String[] artRelTextMerge(List<ArtRelDto> list);
 }

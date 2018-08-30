@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -71,13 +70,15 @@
 		position: absolute;
 		bottom:23px;
 		left:10px;
-		font-weight:bold;
+		
+		 
 	}
 	.img_items {
 		color: #fff;
 		position: absolute;
 		bottom:5px;
 		left:10px;
+		
 	}
 </style>
 </head>
@@ -88,7 +89,7 @@
 		<div class="row">			
 				<a href="category/detail.do?seq=${today.seq }&code=A" class="">
 					<div class="content">
-						<div class="bkImg" style="background-image: url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${today.imagepath })"></div>
+						<div class="bkImg" style="background-image: url(${configDto.httpPath}${pageContext.request.contextPath }${today.imagepath })"></div>
 						<div class="title">
 							<span class="today">Today's Artist</span>
 							<h1 class="todayA">${today.name }</h1>
@@ -105,7 +106,7 @@
   			<c:forEach var="tmpA" items="${listA }">
 	  			<div class="col-md-2 col-sm-3 col-xs-6">
 	  				<a href="category/detail.do?seq=${tmpA.seq }&code=A">
-			  			<div class="img_preview" style="background:url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpA.imagepath });background-size: 100% 100%;">
+			  			<div class="img_preview" style="background:url(${configDto.httpPath}${pageContext.request.contextPath }${tmpA.imagepath });background-size: 100% 100%;">
 			  				<div class="img_textbg ">			  				
 			  				<div class="img_title">${tmpA.name }</div>
 			  				<div class="img_items">항목 ${tmpA.artcount }개</div>
@@ -124,7 +125,7 @@
 	  	<c:forEach var="tmpM" items="${listM }">
   			<div class="col-md-2 col-sm-3 col-xs-6">
   				<a href="category/detail.do?seq=${tmpM.seq }&code=M">
-		  			<div class="img_preview" style="background:url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpM.imagepath });background-size: 100% 100%;">
+		  			<div class="img_preview" style="background:url(${configDto.httpPath}${pageContext.request.contextPath }${tmpM.imagepath });background-size: 100% 100%;">
 		  				<div class="img_textbg ">	
 		  				<div class="img_title">${tmpM.name }</div>
 		  				<div class="img_items">항목 ${tmpM.artcount }개</div>
@@ -141,7 +142,7 @@
   	  	<c:forEach var="tmpP" items="${listP }">
   			<div class="col-md-2 col-sm-3 col-xs-6">
   				<a href="category/detail.do?seq=${tmpP.seq }&code=P">
-		  			<div class="img_preview" style="background:url(http://${configDto.ip}:8888${pageContext.request.contextPath }/${tmpP.imagepath });background-size: 100% 100%;">
+		  			<div class="img_preview" style="background:url(${configDto.httpPath}${pageContext.request.contextPath }${tmpP.imagepath });background-size: 100% 100%;">
 		  				<div class="img_textbg ">	
 		  				<div class="img_title">${tmpP.name }</div>
 		  				<div class="img_items">항목 ${tmpP.artcount }개</div>

@@ -104,15 +104,13 @@ CREATE TABLE T_Config(
         CONSTRAINT TConfig_pagerow_ck CHECK (pagerow > 0),
         displayrow NUMBER DEFAULT 5,
         CONSTRAINT TConfig_displayrow_ck CHECK (displayrow > 0),
-        section1 VARCHAR2(3),
-        section2 VARCHAR2(3),
         ip       VARCHAR2(15),
         uploadRoot VARCHAR2(50)
 );
 
 DELETE FROM T_CONFIG;
-INSERT INTO t_config(code, pagerow, displayrow, section1, section2, ip, uploadRoot)
-VALUES('1', 10, 5, '@@@', '|||', '192.168.0.200', '/upload');
+INSERT INTO t_config(code, pagerow, displayrow, ip, uploadRoot)
+VALUES('1', 10, 5, '192.168.0.200', '/upload');
 
 -------------------------------------------------------------------------
 drop view v_art;

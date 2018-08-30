@@ -15,10 +15,10 @@ public class HomeController {
 	private HomeService hService;
 	@RequestMapping(value = "/home.do")
 	public ModelAndView home(HttpServletRequest request, ModelAndView mView) {
-		/*
+		
 		String rPath = request.getSession().getServletContext().getRealPath("/upload");
 		System.out.println(rPath);
-		*/
+		
 		hService.getToday(request, mView);
 		hService.getListA(request, mView);
 		hService.getListM(request, mView);

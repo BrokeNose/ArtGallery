@@ -1,5 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
 html {
-  font-family: sans-serif;
+  font-family: 'Nanum Gothic','나눔고딕', sans-serif;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
   position: relative;
@@ -1076,7 +1077,7 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Nanum Gothic","나눔고딕", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
   color: #333;

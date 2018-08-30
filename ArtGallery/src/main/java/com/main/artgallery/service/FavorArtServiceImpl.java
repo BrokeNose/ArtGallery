@@ -16,14 +16,12 @@ public class FavorArtServiceImpl implements FavorArtService {
 	@Autowired
 	private FavorArtDao dao; 
 	@Autowired
-	private ConfigDao configDao;
-	
+	private ConfigService cfService;	
 	private ConfigDto configDto=null;
-	
 		
 	@Override
 	public void getList(ModelAndView mView, HttpServletRequest request) {
-		getConfig();
+		getConfig(request);
 		mView.addObject("configDto", configDto);
 		/*mView.addObject("totalRow", dao.getCount(dto));	//관심 작품 몇개인지 나타내기	*/
 		/*ArtDto dto= new ArtDto();*/
@@ -60,7 +58,9 @@ public class FavorArtServiceImpl implements FavorArtService {
 	}
 	
 	@Override
-	public void getConfig() {
-		configDto=configDao.getData("1");
+	public void getConfig(HttpServletRequest request) {
+		// ConfigService 에서 가져오면 request에 담겨져 있으므로 다시 가져온다.
+		cfService.getData(request, "1");
+		configDto=(ConfigDto)request.getAttribute("configDto");		
 	}
 }

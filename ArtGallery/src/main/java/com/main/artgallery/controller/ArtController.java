@@ -55,7 +55,7 @@ public class ArtController {
 	//관리자 작품 목록
 	@RequestMapping("/admin/art/list")
 	public ModelAndView adminArtList(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
-		aService.getList(mView, dto);
+		aService.getList(request, mView, dto);
 		mView.setViewName("admin/art/list");
 		return mView;
 	}
