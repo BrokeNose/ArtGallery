@@ -158,8 +158,8 @@
 </div><!-- /.modal -->
 <jsp:include page="../inc/footer.jsp" />
 <script>
-	var section1="${configDto.section1}";
-	var section2="${configDto.section2}";
+	var separator1="${separator1}";
+	var separator2="${separator2}";
 	
 	$("#btnCancel").click(function(){
 		var isOk=confirm("작성을 취소하시겠습니까?\r\n목록으로 되돌아갑니다.");
@@ -222,9 +222,9 @@
 		//선택된 연계정보 세팅
 		//console.log(category);
 		if ( category != undefined && category != '') {
-			var items=category.split(section1);
+			var items=category.split(separator1);
 			for(var i=0; i<items.length; i++){
-				var item=items[i].split(section2);	
+				var item=items[i].split(separator2);	
 				$("#selCategoryList").append(new Option(item[1], item[0]));
 			}
 		}
@@ -244,7 +244,7 @@
 				  "code": code},
 			success:function(data) {
 				$.each( data, function( idx, value ) {
-					$('#categoryList').append(new Option(value.name ,value.seq+section2+value.name));
+					$('#categoryList').append(new Option(value.name ,value.seq+separator2+value.name));
 				});
 			}
 		});
@@ -254,7 +254,7 @@
 	$("#btnCategorySelect").click(function(){
 		var items=$("#categoryList").val();		//선택한 options array
 		$.each(items, function(idx, value){
-			var item=value.split(section2);
+			var item=value.split(separator2);
 			if ( funcDupcheck(item[0]) == false ) {
 				$("#selCategoryList").append(new Option(item[1], item[0]));
 			}
@@ -298,7 +298,7 @@
 		var categoryTxt='';
 	
 		for(i=0; i<size; i++) {
-			category += section1 +objs[i].value +section2+objs[i].text;
+			category += separator1 +objs[i].value +separator2+objs[i].text;
 			categoryTxt += ','+objs[i].text;
 		}
 		console.log(category + " = " + categoryTxt);

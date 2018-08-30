@@ -80,7 +80,7 @@
 				<span style="font-size:30px;"><i class="fas fa-arrow-circle-right"></i></span></a>
 		</c:if></div>
 		<div class="text-center">
-			<img class="img_center" src="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }"/>
+			<img class="img_center" src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }"/>
 			<div class="zoom"><span style="font-size:30px;"><i id="iZoom" class="fas fa-search-plus"></i></span></div>	
 			
 		</div>			
@@ -130,7 +130,7 @@
 <div class="bigImage">
 	<div class="row">
 		<div class="text-center">
-			<img id="zoomImage" class="img_center" src="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }" onmousewheel="Picture()" />
+			<img id="zoomImage" class="img_center" src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" onmousewheel="Picture()" />
 		</div>
 	</div>
 </div>

@@ -64,9 +64,9 @@
 		
   	<%-- <div class="row">
   		<c:forEach var="dto" items="${list }">
-	  		<div class=".row.row-eq-height col-md-3 col-sm-6 col-xs-6" style="background-image: url('http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }');">
-		  		<a class="col-md-3 col-sm-6 col-xs-6" href="detail.do?seq=${dto.seq }&code=${dto.code }" style="background-image: url('http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }');">
-		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
+	  		<div class=".row.row-eq-height col-md-3 col-sm-6 col-xs-6" style="background-image: url('${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }');">
+		  		<a class="col-md-3 col-sm-6 col-xs-6" href="detail.do?seq=${dto.seq }&code=${dto.code }" style="background-image: url('${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }');">
+		  			<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
 		  			<p>${dto.title }</p>
 		  		</a>
 		  	</div>
@@ -78,7 +78,7 @@
 			<div class="centered">
 				<a href="detail.do?seq=${dto.seq }&code=${dto.code }" title="${dto.title }">
 					<div class="thumb_title1">${dto.title }</div>
-					<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }${dto.imagepath }">					
+					<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }">					
 				</a>
 			</div>
 		</div>

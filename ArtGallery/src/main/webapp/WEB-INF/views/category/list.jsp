@@ -69,9 +69,9 @@
 	</c:choose>
   	<div class="row">
   		<%-- <c:forEach var="dto" items="${list }">
-	  		<div class="col-md-3 col-sm-6 col-xs-6" style="background-image: url('http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }');">
-		  		<a class="col-md-3 col-sm-6 col-xs-6" href="detail.do?seq=${dto.seq }&code=${dto.code }" style="background-image: url('http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }');">
-		  			<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
+	  		<div class="col-md-3 col-sm-6 col-xs-6" style="background-image: url('${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }');">
+		  		<a class="col-md-3 col-sm-6 col-xs-6" href="detail.do?seq=${dto.seq }&code=${dto.code }" style="background-image: url('${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }');">
+		  			<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
 		  			<p>${dto.name }</p>
 		  			<strong>${dto.artcount }</strong>
 		  		</a>
@@ -86,8 +86,8 @@
 								<div class="thumb_title">${dto.name }</div>
 								<div class="thumb_items">항목 ${dto.artcount }개</div>
 							</div>
-							<img src="http://${configDto.ip}:8888${pageContext.request.contextPath }/${dto.imagepath }" />
-						</a>
+							<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" />
+						</a>						
 					</div>
 				</div>
 			</div>
