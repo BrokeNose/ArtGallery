@@ -13,7 +13,7 @@ import com.main.artgallery.exception.ForbiddenException;
 @Component
 public class AdminAuthAspect {
 	@Around("execution(org.springframework.web.servlet.ModelAndView admin*(..))")
-	public Object signinCheck(ProceedingJoinPoint joinPoint) throws Throwable {
+	public Object adminCheck(ProceedingJoinPoint joinPoint) throws Throwable {
 		//AOP 가 적용된 메소드에 전달된 인자 얻어오기
 		Object[] args=joinPoint.getArgs();
 		//반복문 돌면서 하나씩 추출해서
