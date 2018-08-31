@@ -7,6 +7,9 @@
 <title>detail</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/artgallery.css" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
+
+<script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
 <style>
 	.custom_div {
 		overflow:hidden;
@@ -107,36 +110,7 @@
 	    width: 70%;
 	    padding: 10px;
 	}		
-		/* .wrapper{
-			width: 100%;
-			height: 599px;
-			border: 1px solid red;
-			position: relative;
-			overflow: hidden;
-		}
-		.wrapper img{
-			width: 400px;
-			float: left;
-			position: absolute;
-			top: 0;
-		}
 		
-		.wrapper img:nth-child(1){
-			margin-left: 0px;
-		}
-		.wrapper img:nth-child(2){
-			margin-left: 400px;
-		}
-		.wrapper img:nth-child(3){
-			margin-left: 800px;
-		}
-		.wrapper img:nth-child(4){
-			margin-left: 1200px;
-		}
-		.wrapper img:nth-child(5){
-			margin-left: 1600px;
-		} */
-/* ----------------여기까지 son 시험용------------------ */
 
 	
 </style>
@@ -164,23 +138,12 @@
 	<br />
 	
 	<h4><i class="fas fa-kiss-wink-heart"></i> ${dto.name }의 다른 작품</h4>
-  	<div class="row">  		
-  		<%-- <c:forEach var="dto" items="${artlist  }">
-	  		<div class="col-md-3 col-sm-6 col-xs-6 row-eq-height">
-		  		<a href="../art/detail.do?cseq=${dto.cseq }&seq=${dto.seq }">
-		  			<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
-		  			<img src="<c:out value="${pageContext.request.contextPath }/${dto.imagepath }"/>" class="img-responsive" alt="Responsive image"/>
-		  			<p>${dto.name }</p>
-		  			<strong>${dto.artcount }</strong>
-		  		</a>
-		  	</div>
-  		</c:forEach> --%>
-  		
+  	<div class="row">  
   		<c:forEach var="dto" items="${artlist }">
-			<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">				
+			<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6 TT" title="${dto.title }">				
 				<div class="thumbnail">
 					<div class="centered">
-						<a href="../art/detail.do?cseq=${dto.cseq }&seq=${dto.seq }" title="${dto.title }">
+						<a href="../art/detail.do?cseq=${dto.cseq }&seq=${dto.seq }">
 							<div class="thumb_title1">${dto.title }</div>
 							<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" class="img-responsive img-thumb"/>
 						</a>
@@ -194,10 +157,10 @@
 			<h4><i class="fas fa-kiss-wink-heart"></i> 아티스트</h4>
 		  	<div class="row">
 		  		<div class="wrapper">
-					<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
+					<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6 TT"  title="${Adto.name }">
 						<div class="thumbnail">
 							<div class="centered">
-								<a href="category/detail.do?seq=${Adto.seq }" title="${Adto.name }">
+								<a href="category/detail.do?seq=${Adto.seq }">
 									<div class="thumb_title2">${Adto.name }</div>
 				  					<div class="thumb_items">항목 ${Adto.artcount }개</div>
 									<img src="${configDto.httpPath}${pageContext.request.contextPath }${Adto.imagepath }" class="img-responsive img-thumb">	
@@ -213,10 +176,10 @@
 		<h4><i class="fas fa-paint-brush"></i> 재료</h4>
 	  	<div class="row">
 	  		<c:forEach var="Mdto" items="${MRellist }">
-				<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
+				<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6 TT" title="${Mdto.name }" >
 					<div class="thumbnail">
 						<div class="centered">
-							<a href="category/detail.do?seq=${Mdto.seq }" title="${Mdto.name }">
+							<a href="category/detail.do?seq=${Mdto.seq }">
 								<img src="${configDto.httpPath}${pageContext.request.contextPath }${Mdto.imagepath }" class="img-responsive img-thumb"/>
 								<div class="thumb_title2">${Mdto.name }</div>
 								<div class="thumb_items">항목 ${Mdto.artcount }개</div>		  					
@@ -233,10 +196,10 @@
 		<h4><i class="fas fa-palette"></i> 화파</h4>
 		<div class="row">	
 	  		<c:forEach var="Pdto" items="${PRellist }">
-				<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
+				<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6 TT" title="${Pdto.name }">
 					<div class="thumbnail">
 						<div class="centered">					
-							<a href="category/detail.do?seq=${Pdto.seq }" title="${Pdto.name }">
+							<a href="category/detail.do?seq=${Pdto.seq }" >
 								<img src="${configDto.httpPath}${pageContext.request.contextPath }${Pdto.imagepath }" class="img-responsive img-thumb">
 								<div class="thumb_title2">${Pdto.name }</div>
 			  					<div class="thumb_items">항목 ${Pdto.artcount }개</div>
@@ -247,57 +210,16 @@
 			</c:forEach>
 		</div><!-- //화파 -->
 	</c:if>
-	
-
 </div><!-- //container -->
 <br />
-
+<script>
+$(function(){
+	$(".TT").tooltip({
+		trigger:"hover",
+		placement:"top"
+	});
+}); 
+</script>
 <jsp:include page="../footer.jsp"/>
-<!-- ----------------여기서부터 Son 시험용 ----------------------------------- -->
-	<%-- <button id="moveBtn">&laquo;</button>
-	<button id="nextBtn">&raquo;</button>
-	<div class="wrapper">
-		<c:forEach var="dto" items="${artlist }">
-			<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
-		</c:forEach>
-		
-	</div>
-	<script>
-		
-		//현재 보여주고 있는 이미지의 인덱스
-		var currentIndex=0;
-
-		$("#moveBtn").click(function(){
-
-			//만일 지금이 마지막 인덱스라면
-			if (currentIndex==0) {
-				alert("처음 사진  입니다.");
-				return; // 함수 종료
-			};
-			//인덱스 증가 시키기
-			currentIndex--;
-
-			$("img").animate({
-				left:"+=400px"
-			});
-		});
-
-		$("#nextBtn").click(function(){
-
-			//만일 지금이 마지막 인덱스라면
-			if (currentIndex==4) {
-				alert("끝 입니다.");
-				return; // 함수 종료
-			};
-			//인덱스 증가 시키기
-			currentIndex++;
-
-			$("img").animate({
-				left:"-=400px"
-			});
-		});
-	</script> --%>
-
-
 </body>
 </html>

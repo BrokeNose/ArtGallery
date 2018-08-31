@@ -1,3 +1,10 @@
+-- db 통으로 복사하면
+update t_config set ip='localhost' ;
+--형님 ip로 다시 변환
+update t_config set ip='192.168.0.200';
+
+--sequence 값 확인하기
+
 -- 8/30 다시 실행할 script
 
 DROP TABLE T_CONFIG;
@@ -14,6 +21,7 @@ CREATE TABLE T_Config(
 INSERT INTO t_config(code, pagerow, displayrow, ip, uploadRoot)
 VALUES('1', 10, 5, 'localhost', '/upload');
 
+SELECT * FROM T_CONFIG
 
 -- 형님 pc
 INSERT INTO t_config(code, pagerow, displayrow, ip, uploadRoot)
@@ -28,13 +36,11 @@ ALTER SEQUENCE TArt_seq INCREMENT BY 1;
 
 select max(seq) from t_category;
 select Tcategory_seq.nextval from dual;
-ALTER SEQUENCE Tcategory_seq INCREMENT BY 374;
+ALTER SEQUENCE Tcategory_seq INCREMENT BY 344;
 select Tcategory_seq.nextval from dual;
 ALTER SEQUENCE Tcategory_seq INCREMENT BY 1;
-
 --------------------------------------------------------------
 
-update t_config set uploadroot='localhost';
 
 update t_art set imagepath= replace(imagepath, '\', '/') where instr(imagepath, '\') > 0 ;
 update t_category set imagepath= replace(imagepath, '\', '/') where instr(imagepath, '\') > 0 ;
