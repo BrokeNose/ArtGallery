@@ -1,5 +1,7 @@
 -- db 통으로 복사하면
 update t_config set ip='localhost' ;
+--형님 ip로 다시 변환
+update t_config set ip='192.168.0.200';
 
 --sequence 값 확인하기
 
