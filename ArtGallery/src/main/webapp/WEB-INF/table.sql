@@ -164,3 +164,14 @@ SELECT  *
 	    				 WHERE  aseq IN ( SELECT aseq FROM t_artrel WHERE cseq=354 )
 	    			    )  
 
+
+	    			    
+/*
+ Data dump
+ C:\Users\acorn>exp userid=scott/tiger file='c:\ncs2018\exp.dmp' tables=(scott.t_art, 
+ t_config, t_category, t_artcomment, t_artrel, t_user, t_favorart, t_favorcategory)
+ 
+ 
+ Data import
+ C:\Users\acorn>imp userid=scott/tiger owner=scott file='c:\ncs2018\exp.dmp'
+*/	    			    

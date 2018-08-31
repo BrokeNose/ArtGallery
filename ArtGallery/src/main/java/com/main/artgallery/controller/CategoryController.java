@@ -42,6 +42,28 @@ public class CategoryController {
 		mView.setViewName("redirect:/admin/adminCategory.do");
 		return mView;
 	}
+	
+	@RequestMapping("/admin/updateform")
+	public	ModelAndView updateForm(HttpServletRequest request, ModelAndView mView) {
+		categoryService.updateForm(request, mView);
+		mView.setViewName("admin/category/updateform");
+		return mView;
+	}
+	
+	@RequestMapping("/admin/delete")
+	public ModelAndView delete(HttpServletRequest request, ModelAndView mView) {
+		categoryService.delete(request, mView);
+		mView.setViewName("redirect:/admin/adminCategory.do");
+		return mView;
+	}
+	
+	@RequestMapping("/admin/update")
+	public ModelAndView update(HttpServletRequest request, ModelAndView mView, @ModelAttribute CategoryDto dto) {
+		categoryService.update(request, dto);
+		mView.setViewName("redirect:/admin/adminCategory.do");
+		return mView;
+	}
+	
 
 	//Son
 	@RequestMapping("/category/list")
