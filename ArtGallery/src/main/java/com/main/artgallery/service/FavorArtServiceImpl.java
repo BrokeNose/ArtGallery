@@ -32,8 +32,8 @@ public class FavorArtServiceImpl implements FavorArtService {
 	}
 
 	@Override
-	public void getData(HttpServletRequest request, ModelAndView mView, FavorArtDto dto) {
-		mView.addObject("dto", dao.getData(dto));		
+	public void getDataPrevNext(HttpServletRequest request, ModelAndView mView, FavorArtDto dto) {
+		mView.addObject("dto", dao.getDataPrevNext(dto));		
 	}
 
 	@Override

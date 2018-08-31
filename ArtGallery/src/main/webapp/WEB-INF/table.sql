@@ -1,14 +1,3 @@
-ALTER SEQUENCE TCategory_seq INCREMENT BY 377;
-select TCategory_seq.nextval from dual;
-ALTER SEQUENCE TCategory_seq INCREMENT BY 1;
-select TCategory_seq.nextval from dual;
-
-ALTER SEQUENCE tart_seq INCREMENT BY 110;
-select tart_seq.nextval from dual;
-ALTER SEQUENCE tart_seq INCREMENT BY 1;
-select tart_seq.nextval from dual;
-
-
 CREATE TABLE T_Category(
 	seq NUMBER PRIMARY KEY,
 	code CHAR(1) DEFAULT 'A',
@@ -55,8 +44,6 @@ CREATE TABLE T_ArtRel(
 );
 
 CREATE UNIQUE INDEX IDX_TartRel_01 ON T_ArtRel(aseq, cseq);
-
-
 
 CREATE TABLE T_User(
 	id VARCHAR2(11) PRIMARY KEY,
@@ -137,29 +124,19 @@ and   a.seq=c.aseq(+)
 and   c.cseq=d.seq(+)
 order by a.seq;
 
+
 CREATE VIEW V_CATEGORY AS
 SELECT seq, code, name
      , DECODE(code, 'A','아티스트', 'P','화파', 'M','재료') codeName,imagepath
 	   , NVL((SELECT MAX(ROWNUM) FROM t_artrel a WHERE a.cseq=c.seq), 0) artCount
   FROM t_category c;
   
-DROP VIEW V_CATEGORY;
 
-  
-SELECT * FROM V_CATEGORY
-WHERE code='M';
-
+-- 192.168.0.200 아닌 pc 
+INSERT INTO t_config(code, pagerow, displayrow, ip, uploadRoot)
+VALUES('1', 10, 5, 'localhost', '/upload');
 
 
-
-<!-- 테스트 -->
-
-SELECT  * 
-		FROM    V_CATEGORY
-		WHERE   code='A' 
-		AND     seq != 354
-	    AND     seq IN ( SELECT DISTINCT cseq 
-	    				 FROM   t_artrel 
-	    				 WHERE  aseq IN ( SELECT aseq FROM t_artrel WHERE cseq=354 )
-	    			    )  
-
+-- 192.168.0.200 pc
+INSERT INTO t_config(code, pagerow, displayrow, ip, uploadRoot)
+VALUES('1', 10, 5, '192.168.0.200', '/upload');
