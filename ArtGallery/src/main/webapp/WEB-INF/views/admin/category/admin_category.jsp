@@ -58,6 +58,7 @@
 			<form action="adminCategory.do" class="form-inline" method="post" id="searchForm">
 				<input type="hidden" name="categoryType" value="${categoryType} }"/>
 				<div class="form-group">
+					<input type="hidden" name="categorytype" value="${categoryType }"/>
 					<select name="searchCondition" id="searchCondition" class="form-control">
 						<c:choose>
 							<c:when test="${categoryType eq 'A' }">
@@ -201,7 +202,7 @@
 <script>
 	//페이징처리
 	function goPage(pageNum){
-		location.href='adminCategory.do?searchKeyword=${searchKeyword}&searchCondition=${searchCondition}&pageNum='+pageNum;
+		location.href='adminCategory.do?categoryType=${categoryType}&searchKeyword=${searchKeyword}&searchCondition=${searchCondition}&pageNum='+pageNum;
 	}
 	
 	/*
