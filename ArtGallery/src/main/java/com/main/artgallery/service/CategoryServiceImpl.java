@@ -3,6 +3,7 @@ package com.main.artgallery.service;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -51,16 +52,18 @@ public class CategoryServiceImpl implements CategoryService {
 			dto.setCode(categoryType);
 		}
 		
+		String s = "name";
 		if(queryType != null) {
 			if(queryValue != null) {
 				if(queryType.equals("name")) {
 					dto.setName(queryValue);
 				} else {
+					s = "remark";
 					dto.setRemark(queryValue);
 				}
 			}
 		}
-
+		
 		int pageNum = 1;
 		if(pgNum != null) {
 			pageNum = Integer.parseInt(pgNum);
@@ -84,8 +87,6 @@ public class CategoryServiceImpl implements CategoryService {
 		//전체 row 의 갯수를 읽어온다.
 		int totalRow=dao.getCount(dto);
 		
-		System.out.println("totalRow: " + totalRow);
-		
 		//전체 페이지의 갯수 구하기
 		int totalPageCount=
 				(int)Math.ceil(totalRow/(double)configDto.getPagerow());
@@ -99,11 +100,21 @@ public class CategoryServiceImpl implements CategoryService {
 			endPageNum=totalPageCount; //보정해준다. 
 		}
 		
+		System.out.println("StartPageNum: "+startPageNum);
+		System.out.println("totalPageCount: "+totalPageCount);
+		System.out.println("endPageNum: "+endPageNum);
+		
+		
 		// 위에서 만든 CafeDto 에 추가 정보를 담는다. 
 		dto.setStartRowNum(startRowNum);
 		dto.setEndRowNum(endRowNum);		
 		
-		mView.addObject("list", dao.getListCategory(dto));
+		List<CategoryDto> listDto = dao.getListCategory(dto);
+		System.out.println("검색건수: "+listDto.size());
+		
+		mView.addObject("list", listDto);
+		
+		//mView.addObject("list", dao.getListCategory(dto));
 		mView.addObject("categoryType", categoryType);
 		// 페이징 처리에 관련된 값도 request 에 담기 
 		mView.addObject("pageNum", pageNum);

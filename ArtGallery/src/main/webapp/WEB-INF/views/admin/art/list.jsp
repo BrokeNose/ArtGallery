@@ -36,6 +36,9 @@
 	a:hover{
 		text-decoration: none;
 	}
+	tbody tr:hover {
+   		cursor: pointer;
+	}
 </style>
 </head>
 <body>
