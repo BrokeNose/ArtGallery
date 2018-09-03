@@ -34,7 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
 	
 	@Override
 	public void getList(HttpServletRequest request, ModelAndView mView) {
-		String categoryType = (String)request.getParameter("categorytype");
+		String categoryType = (String)request.getParameter("categoryType");
 		String queryType = (String)request.getParameter("searchCondition");
 		String queryValue = (String)request.getParameter("searchKeyword");
 		String pgNum = (String)request.getParameter("pageNum");
@@ -52,13 +52,11 @@ public class CategoryServiceImpl implements CategoryService {
 			dto.setCode(categoryType);
 		}
 		
-		String s = "name";
 		if(queryType != null) {
 			if(queryValue != null) {
 				if(queryType.equals("name")) {
 					dto.setName(queryValue);
 				} else {
-					s = "remark";
 					dto.setRemark(queryValue);
 				}
 			}
@@ -100,8 +98,16 @@ public class CategoryServiceImpl implements CategoryService {
 			endPageNum=totalPageCount; //보정해준다. 
 		}
 		
-		System.out.println("StartPageNum: "+startPageNum);
+		System.out.println("categoryType: " + categoryType);
+		System.out.println("queryType: " + queryType);
+		
+		System.out.println("pgNum: " + pgNum + "  ,  pageNum: " + pageNum);
+		System.out.println("totalRow: "+totalRow);
+		System.out.println("startRowNum: "+startRowNum);
+		System.out.println("endRowNum: "+endRowNum);
+		
 		System.out.println("totalPageCount: "+totalPageCount);
+		System.out.println("StartPageNum: "+startPageNum);
 		System.out.println("endPageNum: "+endPageNum);
 		
 		

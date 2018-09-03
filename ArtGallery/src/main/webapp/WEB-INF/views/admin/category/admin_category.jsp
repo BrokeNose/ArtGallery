@@ -58,7 +58,7 @@
 			<form action="adminCategory.do" class="form-inline" method="post" id="searchForm">
 				<input type="hidden" name="categoryType" value="${categoryType} }"/>
 				<div class="form-group">
-					<input type="hidden" name="categorytype" value="${categoryType }"/>
+					<input type="hidden" name="categoryType" value="${categoryType }"/>
 					<select name="searchCondition" id="searchCondition" class="form-control">
 						<c:choose>
 							<c:when test="${categoryType eq 'A' }">
@@ -169,14 +169,14 @@
 				
 				<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
 						<li class='<c:if test="${i eq pageNum }">active</c:if>'>
-							<a href="javascript: goPage(${i });">${i }</a>
+							<a href="javascript: goPage(${i });">${i }</a>  
 						</li>
 				</c:forEach>
 				
 				<c:choose>
 					<c:when test="${endPageNum lt totalPageCount }">
 						<li>
-							<a href="javascript: goPage(${endPageNum+1 });" aria-label="Next">
+							<a href="javascript: goPage(${endPageNum+1 });" aria-label="Next">  
 								<span aria-hidden="true">&raquo;</span>
 							</a>
 							<!--  <a href="javascript: goPage(${endPageNum+1 });">&raquo;</a>-->
@@ -202,6 +202,15 @@
 <script>
 	//페이징처리
 	function goPage(pageNum){
+		var categorytype = "${categoryType}";
+		var searchKeyword = "${searchKeyword}";
+		var searchCondition = "${searchCondition}";
+		
+		console.log("categoryType: " + categorytype);
+		console.log("searchKeyword: " + searchKeyword);
+		console.log("searchCondition: " + searchCondition);
+		console.log("pageNum: " + pageNum);
+		alert(categorytype);
 		location.href='adminCategory.do?categoryType=${categoryType}&searchKeyword=${searchKeyword}&searchCondition=${searchCondition}&pageNum='+pageNum;
 	}
 	
