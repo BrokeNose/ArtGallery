@@ -76,7 +76,7 @@
 	<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
 		<div class="thumbnail">
 			<div class="centered">
-				<a href="detail.do?seq=${dto.seq }&code=${dto.code }" title="${dto.title }">
+				<a href="detail.do?favor=1&seq=${dto.seq }" title="${dto.title }">
 					<div class="thumb_title1">${dto.title }</div>
 					<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }">					
 				</a>

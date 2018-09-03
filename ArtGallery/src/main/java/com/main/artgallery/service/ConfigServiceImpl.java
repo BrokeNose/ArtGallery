@@ -20,13 +20,14 @@ public class ConfigServiceImpl implements ConfigService {
 		String realPath=null;
 		String httpPath=null;
 		String DBip=dto.getIp();
-		
-//		String ip=request.getRemoteAddr();		
+
+// tomcat IPv4 방식 설정 참고 - http://www.leafcats.com/35		
+//		String ip=request.getRemoteAddr();	//127.0.0.1 을 가져옴 ㅠ
 //		System.out.println("dbip : " + DBip + "/ client ip : " + ip);
 //		if(ip.equals(DBip)) {
 //			DBip="localhost";
 //		}
-//		
+		
 		if (DBip.equals("localhost") ) {
 			// local 경로
 			realPath=request.getSession().getServletContext().getRealPath(dto.getUploadRoot());
@@ -44,5 +45,36 @@ public class ConfigServiceImpl implements ConfigService {
 		request.setAttribute("separator1", dto.Separator1);
 		request.setAttribute("separator2", dto.Separator2);
 	}
-
+	
+//	private String getIp(HttpServletRequest request) {
+//		 
+//        String ip = request.getHeader("X-Forwarded-For");
+// 
+//        System.out.println(">>>> X-FORWARDED-FOR : " + ip);
+// 
+//        if (ip == null) {
+//            ip = request.getHeader("Proxy-Client-IP");
+//            System.out.println(">>>> Proxy-Client-IP : " + ip);
+//        }
+//        if (ip == null) {
+//            ip = request.getHeader("WL-Proxy-Client-IP"); // 웹로직
+//            System.out.println(">>>> WL-Proxy-Client-IP : " + ip);
+//        }
+//        if (ip == null) {
+//            ip = request.getHeader("HTTP_CLIENT_IP");
+//            System.out.println(">>>> HTTP_CLIENT_IP : " + ip);
+//        }
+//        if (ip == null) {
+//            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+//            System.out.println(">>>> HTTP_X_FORWARDED_FOR : " + ip);
+//        }
+//        if (ip == null) {
+//            ip = request.getRemoteAddr();
+//        }
+//        
+//        System.out.println(">>>> Result : IP Address : "+ip);
+// 
+//        return ip;
+// 
+//    }
 }

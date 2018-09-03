@@ -39,4 +39,9 @@ public class FavorArtDaoImpl implements FavorArtDao{
 		session.delete("favorArt.delete", dto);			
 	}
 
+	@Override
+	public ArtDto getDataPrevNext(FavorArtDto dto) {
+		return  session.selectOne("favorArt.getDataPrevNext", dto);
+	}
+
 }

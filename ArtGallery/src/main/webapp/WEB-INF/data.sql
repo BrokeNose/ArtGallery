@@ -29,18 +29,19 @@ VALUES('1', 10, 5, '192.168.0.200', '/upload');
 
 select max(seq) from t_art;
 select TArt_seq.nextval from dual;
-ALTER SEQUENCE TArt_seq INCREMENT BY 109;
+ALTER SEQUENCE TArt_seq INCREMENT BY 180;
 select TArt_seq.nextval from dual;
 ALTER SEQUENCE TArt_seq INCREMENT BY 1;
 
 
 select max(seq) from t_category;
 select Tcategory_seq.nextval from dual;
-ALTER SEQUENCE Tcategory_seq INCREMENT BY 344;
+ALTER SEQUENCE Tcategory_seq INCREMENT BY 422;
 select Tcategory_seq.nextval from dual;
 ALTER SEQUENCE Tcategory_seq INCREMENT BY 1;
 --------------------------------------------------------------
 
+update t_config set ip='localhost';
 
 update t_art set imagepath= replace(imagepath, '\', '/') where instr(imagepath, '\') > 0 ;
 update t_category set imagepath= replace(imagepath, '\', '/') where instr(imagepath, '\') > 0 ;
@@ -49,8 +50,7 @@ update t_art set imagepath = '/'||imagepath where imagepath is not null and subs
 
 
 
-delete t_category wh
-ere seq >= 381 and seq <> 401;
+delete t_category where seq >= 381 and seq <> 401;
 
 select * from t_art where viewcount > 0;
 

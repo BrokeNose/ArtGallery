@@ -11,5 +11,5 @@ public interface FavorArtDao {
 	public FavorArtDto getData(FavorArtDto dto);
 	public void insert(FavorArtDto dto);
 	public void delete(FavorArtDto dto);
-	
+	public ArtDto getDataPrevNext(FavorArtDto dto);
 }
