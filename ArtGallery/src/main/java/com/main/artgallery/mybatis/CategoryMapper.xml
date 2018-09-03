@@ -35,11 +35,11 @@
 	
 	<!-- 변경 -->
 	<update id="update" parameterType="category">
-		UPDATE T_Category set name=#{name}
-		     , remark=#{remark}
-		     , imagepath=#{imagepath}
-		     , bdate=#{bdate}
-		     , ddate=#{ddate}
+		UPDATE T_Category set name=#{name, jdbcType=VARCHAR}
+		     , remark=#{remark, jdbcType=VARCHAR}
+		     , imagepath=#{imagepath, jdbcType=VARCHAR}
+		     , bdate=#{bdate, jdbcType=VARCHAR}
+		     , ddate=#{ddate, jdbcType=VARCHAR}
 		 WHERE seq=#{seq}
 	</update>
 	
@@ -48,6 +48,13 @@
 		DELETE FROM T_Category WHERE seq=#{seq}
 	</delete>
 	
+	<select id="getCount" parameterType="category" resultType="int">
+		SELECT count(seq)
+		  FROM   T_Category 
+		 <where>
+		 		code=#{code}
+		 </where>
+	</select>
 	
 
 	<select id="getListArtist" resultType="category">
@@ -66,15 +73,26 @@
 		 WHERE code='P'
 	</select>
 	<select id="getListCategory" parameterType="category" resultType="category">
+		SELECT result2.*
+		  FROM (SELECT result1.*, ROWNUM rnum
+		          FROM (SELECT <include refid="categoryColumn" />
+		                  FROM T_Category
+		                 WHERE code=#{code}
+		                 <if test="name != null">
+		                   AND UPPER(name) LIKE '%'||UPPER(#{name})||'%'
+		                 </if>
+		                 <if test="remark != null">
+		                   AND UPPER(remark) LIKE '%'||UPPER(#{remark})||'%'
+		                 </if>
+		               ) result1
+		  		 ) result2
+		 WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}	
+		 ORDER BY rnum			  		 
+	</select>
+	<select id="getDataSeq" parameterType="int" resultType="category">
 		SELECT <include refid="categoryColumn" />
 		  FROM T_Category
-		 WHERE code=#{code}
-		<if test="name != null">
-		   AND UPPER(name) LIKE '%'||UPPER(#{name})||'%'
-		</if>
-		<if test="remark != null">
-		   AND UPPER(remark) LIKE '%'||UPPER(#{remark})||'%'
-		</if>
+		 WHERE seq=#{seq}
 	</select>
 	
 	<!-- son -->
@@ -88,10 +106,6 @@
 		  FROM T_Category
 		  WHERE seq=#{seq}
 	</select>
-	
-	
-	
-	
 	
 	<select id="getSearchList" parameterType="category" resultType="category">
 		SELECT <include refid="categoryColumn" />

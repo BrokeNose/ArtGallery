@@ -40,7 +40,7 @@ public class ArtController {
 	public ModelAndView artDetail(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
 		request.setAttribute("adminMode", "N");		//관리자모드 아님
 		if (request.getParameter("favor") != null && request.getParameter("favor").equals("1")) {
-			//fService.getDataPrevNext(request, mView, dto);
+			fService.getData(request, mView);
 		} else {
 			aService.getData(request, mView, dto);
 		}

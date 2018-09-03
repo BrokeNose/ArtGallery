@@ -15,14 +15,29 @@ public class CategoryDto {
 	private int artcount;
 	private int viewcount;
 	
+	//Shin 추가
+    //페이징관련
+    private int startRowNum;
+	private int endRowNum;
+	private int prevNum; 	//이전글의 글번호
+	private int nextNum; 	//다음글의 글번호
+	private String sortField;	//목록 소트 구분자
+	private int rnum;		//oracle rownum
+	
+	// 검색, 페이징 관련
+	private String searchKeyword;	 // 검색어
+	private String searchCondition;  // 항목
+	private int pageNum;			 // 조회페이지	
+	
 	private MultipartFile file;	
 	
 
 	public CategoryDto() {}
 
-	//Son 추가한것 업데이트
+
 	public CategoryDto(int seq, String code, String name, String remark, String imagepath, String bdate, String ddate,
-			String codename, int artcount, int viewcount, MultipartFile file) {
+			String codename, int artcount, int viewcount, int startRowNum, int endRowNum, int prevNum, int nextNum,
+			String sortField, int rnum, String searchKeyword, String searchCondition, int pageNum, MultipartFile file) {
 		super();
 		this.seq = seq;
 		this.code = code;
@@ -34,6 +49,15 @@ public class CategoryDto {
 		this.codename = codename;
 		this.artcount = artcount;
 		this.viewcount = viewcount;
+		this.startRowNum = startRowNum;
+		this.endRowNum = endRowNum;
+		this.prevNum = prevNum;
+		this.nextNum = nextNum;
+		this.sortField = sortField;
+		this.rnum = rnum;
+		this.searchKeyword = searchKeyword;
+		this.searchCondition = searchCondition;
+		this.pageNum = pageNum;
 		this.file = file;
 	}
 
@@ -138,6 +162,96 @@ public class CategoryDto {
 	}
 
 
+	public int getStartRowNum() {
+		return startRowNum;
+	}
+
+
+	public void setStartRowNum(int startRowNum) {
+		this.startRowNum = startRowNum;
+	}
+
+
+	public int getEndRowNum() {
+		return endRowNum;
+	}
+
+
+	public void setEndRowNum(int endRowNum) {
+		this.endRowNum = endRowNum;
+	}
+
+
+	public int getPrevNum() {
+		return prevNum;
+	}
+
+
+	public void setPrevNum(int prevNum) {
+		this.prevNum = prevNum;
+	}
+
+
+	public int getNextNum() {
+		return nextNum;
+	}
+
+
+	public void setNextNum(int nextNum) {
+		this.nextNum = nextNum;
+	}
+
+
+	public String getSortField() {
+		return sortField;
+	}
+
+
+	public void setSortField(String sortField) {
+		this.sortField = sortField;
+	}
+
+
+	public int getRnum() {
+		return rnum;
+	}
+
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+
+
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+
+
+	public String getSearchCondition() {
+		return searchCondition;
+	}
+
+
+	public void setSearchCondition(String searchCondition) {
+		this.searchCondition = searchCondition;
+	}
+
+
+	public int getPageNum() {
+		return pageNum;
+	}
+
+
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+
+
 	public MultipartFile getFile() {
 		return file;
 	}
@@ -147,6 +261,4 @@ public class CategoryDto {
 		this.file = file;
 	}
 
-	
-	
 }

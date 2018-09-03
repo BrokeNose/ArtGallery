@@ -9,10 +9,10 @@
 		WHERE  id=#{id} AND aseq=#{aseq}
 	</select>
 
-	<select id="getDataPrevNext" parameterType="favorArtDto" resultType="artDto">
+	<select id="getDataPrevNext" parameterType="artDto" resultType="artDto">
 		SELECT *
 		FROM (
-				SELECT a.*,			
+				SELECT b.*,			
 					   LAG(seq,1,0) OVER (ORDER BY id, a.regdate DESC) AS prevNum,
 					   LEAD(seq,1,0) OVER (ORDER BY id, a.regdate DESC) AS nextNum 	
 				FROM   t_favorArt a, t_art b
