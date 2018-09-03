@@ -96,8 +96,11 @@ CREATE TABLE T_Config(
 );
 
 DELETE FROM T_CONFIG;
-INSERT INTO t_config(code, pagerow, displayrow, ip, uploadRoot)
-VALUES('1', 10, 5, '192.168.0.200', '/upload');
+INSERT INTO t_config(code, pagerow, displayrow, ip, uploadRoot) VALUES('1', 10, 5, '192.168.0.200', '/upload');
+
+<!-- 의견보내기 테이블  -->
+
+
 
 -------------------------------------------------------------------------
 drop view v_art;

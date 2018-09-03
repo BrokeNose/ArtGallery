@@ -45,7 +45,12 @@
 		color:#fff;
 		font-weight:bold;
 		left:5px;
+		overflow: hidden; 
+	 	text-overflow: ellipsis;
+	 	white-space: nowrap; 
+	 	width: 100%;
 	}
+	
 	.thumb_items {
 		position: absolute; 
 		bottom:5px;
