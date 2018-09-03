@@ -50,9 +50,12 @@
 	.zoom{		
 		position: relative;
 		left:100px;
-		top:-20px;
+		top:-20px; 
 		
-	}	
+	}
+	.zoom:hover{
+		cursor:pointer;
+	}
 	.multi-stage
 	{
 		max-width:none;
@@ -81,7 +84,7 @@
 		</c:if></div>
 		<div class="text-center">
 			<img class="img_center" src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }"/>
-			<div class="zoom"><span style="font-size:30px;"><i id="iZoom" class="fas fa-search-plus"></i></span></div>	
+			<div class="zoom"><span style="font-size:30px; ;color: #00f; background-color: #cecece"><i id="iZoom" class="fas fa-search-plus"></i></span></div>	
 			
 		</div>			
 	</div>
@@ -100,8 +103,8 @@
 			</c:otherwise>
 		</c:choose></h4>
 		
-		<a href="javascript:goFavorArt(${dto.seq });">
-			<span style="font-size:1.3em;color: #333;">
+		<a href="javascript:goFavorArt(${dto.seq });" title="관심작품">
+			<span style="font-size:1.3em;color: #333;margin-right:10px;">
 		<c:choose>
 			<c:when test="${isFavorArt eq 'Y' }">
 				<i id="iFavor" class="fas fa-heart"></i></span></a>	
@@ -110,6 +113,8 @@
 				<i id="iFavor" class="far fa-heart"></i></span></a>		
 			</c:otherwise>	
 		</c:choose>
+		<a href="javascript:goComment(${dto.seq });" title="댓글">
+			<span style="font-size:1.3em;color: #333;"><i class="fas fa-edit"></i></span></a>
 		<br />
 		<p class="info">
 <c:if test="${not empty mList }">재료 : </c:if>		
@@ -134,9 +139,60 @@
 		</div>
 	</div>
 </div>
+<!--  modal  -->
+<div class="modal fade" id="modalComment">
+	<!-- modal-lg  | default | modal-sm -->	
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span>&times;</span><span class="sr-only">모달 닫기</span></button>
+				<h4 class="modal-title">댓글(감상평)</h4>
+			</div>   				
+			<div class="modal-body">
+				<div class="comments">
+				
+					<!-- 댓글을 작성할수 있는 폼 -->
+					<div class="comment_form">
+						<form action="artComment_insert.do" method="post">
+							<input type="hidden" name="writer" value="${id }" />
+							<input type="hidden" name="seq" value="${dto.seq }"/>
+							<textarea name="content"></textarea>
+							<button type="submit">등록</button>
+						</form>
+					</div>
+				
+					<ul>
+						<c:forEach var="tmp" items="${commentList }">
+							<li class="comment" <c:if test="${tmp.num ne tmp.comment_group }">style="padding-left:50px;"</c:if> >
+								<c:if test="${tmp.num ne tmp.comment_group }">
+									<img class="reply_icon" src="${pageContext.request.contextPath }/resources/images/re.gif"/>
+								</c:if>	
+							
+								<dl>
+									<dt>
+										<img src="${pageContext.request.contextPath }/resources/images/user_image.gif"/>
+										<span>${tmp.writer }</span>
+										<span>${tmp.regdate }</span>										
+									</dt>
+									<dd>
+										<c:if test="${tmp.num ne tmp.comment_group }">
+											<i class="muted">${tmp.target_id }</i>
+											<br/>
+										</c:if>
+										<pre>${tmp.content }</pre>
+									</dd>
+								</dl>									
+							</li>
+						</c:forEach>
+					</ul>					
+				</div>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <jsp:include page="../footer.jsp"/>
-
-
 <script>
 	// 이미지 확대 시작 -------------------
 	var count = 10;
@@ -175,10 +231,15 @@
 			location.href="detail.do?<c:if test="${!empty param.cseq  }">cseq=${param.cseq}</c:if>&favor=${param.favor}&sortField=${param.sortField}&searchKeyword=${param.searchKeyword}&searchCondition=${param.searchCondition}&seq="+seq
 		}
 	}	
+
+	function goComment(seq){
+		//모달 보여주기
+		$("#modalComment").modal("show");
+	}
 	
+<c:choose>
+<c:when test="${!empty id}">	
 	function goFavorArt(seq){		
-	<c:choose>
-		<c:when test="${!empty id}">
 		$.ajax({
 			url:"favoriteArt.do",
 			method:"post",
@@ -195,13 +256,23 @@
 				}
 			}			
 		});
-		</c:when>
-		<c:otherwise>
-			alert("관심작품에 추가하려면, 로그인해야 합니다.");
-			return;
-		</c:otherwise>
-	</c:choose>
 	}
+	function commentInsert(seq){
+		
+	}
+</c:when>
+<c:otherwise>
+	function goFavorArt(seq){	
+		alert("관심작품에 추가하려면, 로그인해야 합니다.");
+		return;
+	}
+	function commentInsert(seq){
+		alert("댓글을 추가하려면, 로그인해야 합니다.");
+		return;		
+	}
+</c:otherwise>
+</c:choose>
+
 </script>
 </body>
 </html>
