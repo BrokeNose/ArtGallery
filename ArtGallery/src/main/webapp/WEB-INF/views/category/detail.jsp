@@ -160,7 +160,7 @@
 					<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6 TT"  title="${Adto.name }">
 						<div class="thumbnail">
 							<div class="centered">
-								<a href="category/detail.do?seq=${Adto.seq }">
+								<a href="detail.do?seq=${Adto.seq }">
 									<div class="thumb_title2">${Adto.name }</div>
 				  					<div class="thumb_items">항목 ${Adto.artcount }개</div>
 									<img src="${configDto.httpPath}${pageContext.request.contextPath }${Adto.imagepath }" class="img-responsive img-thumb">	
@@ -179,7 +179,7 @@
 				<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6 TT" title="${Mdto.name }" >
 					<div class="thumbnail">
 						<div class="centered">
-							<a href="category/detail.do?seq=${Mdto.seq }">
+							<a href="detail.do?seq=${Mdto.seq }">
 								<img src="${configDto.httpPath}${pageContext.request.contextPath }${Mdto.imagepath }" class="img-responsive img-thumb"/>
 								<div class="thumb_title2">${Mdto.name }</div>
 								<div class="thumb_items">항목 ${Mdto.artcount }개</div>		  					
@@ -199,7 +199,7 @@
 				<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6 TT" title="${Pdto.name }">
 					<div class="thumbnail">
 						<div class="centered">					
-							<a href="category/detail.do?seq=${Pdto.seq }" >
+							<a href="detail.do?seq=${Pdto.seq }" >
 								<img src="${configDto.httpPath}${pageContext.request.contextPath }${Pdto.imagepath }" class="img-responsive img-thumb">
 								<div class="thumb_title2">${Pdto.name }</div>
 			  					<div class="thumb_items">항목 ${Pdto.artcount }개</div>
