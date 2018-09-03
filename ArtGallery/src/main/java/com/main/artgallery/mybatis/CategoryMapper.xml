@@ -53,6 +53,12 @@
 		  FROM   T_Category 
 		 <where>
 		 		code=#{code}
+        <if test="name != null">
+          AND UPPER(name) LIKE '%'||UPPER(#{name})||'%'
+        </if>
+        <if test="remark != null">
+          AND UPPER(remark) LIKE '%'||UPPER(#{remark})||'%'
+        </if>
 		 </where>
 	</select>
 	
