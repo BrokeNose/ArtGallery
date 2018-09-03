@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="artComment">
+
+<!-- 작성자 : hyung -->
+
+	<!--  dynamic query  -->
+	<sql id="keywordWhere">
+		<trim prefix="" prefixOverrides="AND |OR ">
+			<if test="content != null">
+				OR UPPER(content) LIKE '%'||UPPER(#{content})||'%'
+			</if>
+			<if test="writer != null">
+				OR UPPER(writer) LIKE '%'||UPPER(#{writer})||'%'
+			</if>			
+		</trim>
+	</sql>
+	<sql id="artCommentWhere">
+		<where>		
+			<if test="searchCommentKeyword != null and searchCommentKeyword != ''">
+			(
+			<include refid="keywordWhere"/>								
+			)	
+			</if>			
+			<if test="seq != 0">
+				AND seq = #{seq}
+			</if>
+		</where>	
+	</sql>
+	<insert id="insert" parameterType="artCommentDto">
+		INSERT INTO T_ArtComment
+		(num, writer, content, target_id, seq, comment_group,
+		regdate)
+		VALUES(#{num}, #{writer}, #{content},
+		#{target_id}, #{seq}, #{comment_group}, SYSDATE)		
+	</insert>
+	
+	<select id="getSequence" resultType="int">
+		SELECT TArtComment_seq.NEXTVAL
+		FROM DUAL
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		DELETE 
+		FROM  t_artComment
+		WHERE num=#{num}
+	</delete>
+	<select id="getList" parameterType="artCommentDto" resultType="artCommentDto">
+		SELECT result1.*
+		FROM (
+				SELECT num, writer, content, target_id, seq, comment_group, 
+					TO_CHAR(regdate,'YYYY.MM.DD HH24:MI') regdate, 
+					rownum AS rnum
+				FROM T_ArtComment				
+				<include refid="artCommentWhere"/>
+				ORDER BY comment_group ASC, num ASC
+			) result1
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}	
+		ORDER BY rnum				
+	</select>
+	
+	<select id="getCount" parameterType="artCommentDto" resultType="int">
+		SELECT count(*)
+		FROM T_ArtComment
+		<include refid="artCommentWhere"/>
+	</select>
+</mapper>

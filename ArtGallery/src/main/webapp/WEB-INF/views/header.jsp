@@ -55,7 +55,6 @@
 <style>
 	.h_s {
 		display: none;
-		
 	}
 </style>
 <!-- search// -->

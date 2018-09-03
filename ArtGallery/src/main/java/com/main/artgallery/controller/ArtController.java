@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.main.artgallery.art.dto.ArtCommentDto;
 import com.main.artgallery.art.dto.ArtDto;
 import com.main.artgallery.service.ArtService;
 import com.main.artgallery.service.ConfigService;
 import com.main.artgallery.service.FavorArtService;
-
 
 @Controller
 public class ArtController {
@@ -32,7 +32,23 @@ public class ArtController {
 	
 	
 	//-------- Hyung ----------------------
+	//작품 댓글 등록
+	@RequestMapping("/art/comment_insert.do")
+	public ModelAndView userCommentInsert(HttpServletRequest request , @ModelAttribute ArtCommentDto dto) {
 	
+		aService.commentInsert(request,dto);;
+	
+		return new ModelAndView("redirect:/art/commentList.do?seq="+dto.getSeq());
+	}
+	
+	//작품 댓글 삭제
+	@RequestMapping("/art/comment_delete.do")
+	public ModelAndView userCommentDelete(HttpServletRequest request, @RequestParam int num) {
+		
+		aService.commentDelete(request, num);
+		int seq=(int)(request.getAttribute("seq"));
+		return new ModelAndView("redirect:/art/commentList.do?seq="+seq);
+	}
 	//작품 상세 정보 조회
 	@RequestMapping("/art/detail")
 	public ModelAndView artDetail(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {

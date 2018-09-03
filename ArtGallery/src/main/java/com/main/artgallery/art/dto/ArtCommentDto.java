@@ -4,15 +4,26 @@ public class ArtCommentDto {
 	private int num;
 	private String writer;
 	private String content;
-	private String target_id;
+	private String target_id;	// 사용안함
 	private int seq;			// t_art.seq
-	private int comment_group;	// 그룹별 t_artcomment.num
+	private int comment_group;	// 그룹별 t_artcomment.num, 사용안함
 	private String regdate; 
+
+    //페이징관련
+    private int startRowNum;
+	private int endRowNum;
+	private int rnum;		//oracle rownum
 	
+	// 검색, 페이징 관련
+	private String searchCommentKeyword;	 // 검색어
+	private String searchCommentCondition;  // 항목
+	private int commentCommentPageNum;			 // 조회페이지
+
 	public ArtCommentDto() {}
 
 	public ArtCommentDto(int num, String writer, String content, String target_id, int seq, int comment_group,
-			String regdate) {
+			String regdate, int startRowNum, int endRowNum, int rnum, String searchCommentKeyword, String searchCommentCondition,
+			int commentCommentPageNum) {
 		super();
 		this.num = num;
 		this.writer = writer;
@@ -21,6 +32,12 @@ public class ArtCommentDto {
 		this.seq = seq;
 		this.comment_group = comment_group;
 		this.regdate = regdate;
+		this.startRowNum = startRowNum;
+		this.endRowNum = endRowNum;
+		this.rnum = rnum;
+		this.searchCommentKeyword = searchCommentKeyword;
+		this.searchCommentCondition = searchCommentCondition;
+		this.commentCommentPageNum = commentCommentPageNum;
 	}
 
 	public int getNum() {
@@ -78,5 +95,53 @@ public class ArtCommentDto {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
-	
+
+	public int getStartRowNum() {
+		return startRowNum;
+	}
+
+	public void setStartRowNum(int startRowNum) {
+		this.startRowNum = startRowNum;
+	}
+
+	public int getEndRowNum() {
+		return endRowNum;
+	}
+
+	public void setEndRowNum(int endRowNum) {
+		this.endRowNum = endRowNum;
+	}
+
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+
+	public String getSearchCommentKeyword() {
+		return searchCommentKeyword;
+	}
+
+	public void setSearchCommentKeyword(String searchCommentKeyword) {
+		this.searchCommentKeyword = searchCommentKeyword;
+	}
+
+	public String getSearchCommentCondition() {
+		return searchCommentCondition;
+	}
+
+	public void setSearchCommentCondition(String searchCommentCondition) {
+		this.searchCommentCondition = searchCommentCondition;
+	}
+
+	public int getCommentPageNum() {
+		return commentCommentPageNum;
+	}
+
+	public void setCommentPageNum(int commentCommentPageNum) {
+		this.commentCommentPageNum = commentCommentPageNum;
+	}
+
 }
