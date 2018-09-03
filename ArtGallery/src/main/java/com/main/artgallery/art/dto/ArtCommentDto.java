@@ -5,8 +5,8 @@ public class ArtCommentDto {
 	private String writer;
 	private String content;
 	private String target_id;
-	private int seq;
-	private int comment_group;
+	private int seq;			// t_art.seq
+	private int comment_group;	// 그룹별 t_artcomment.num
 	private String regdate; 
 	
 	public ArtCommentDto() {}

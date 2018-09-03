@@ -33,6 +33,12 @@
 	code {
 	  font-size: 80%;
 	}
+	a:hover{
+		text-decoration: none;
+	}
+	tbody tr:hover {
+   		cursor: pointer;
+	}
 </style>
 </head>
 <body>
@@ -78,7 +84,7 @@
 			</thead>
 			<tbody>
 			<c:forEach var="dto" items="${list }">
-				<tr>
+				<tr id="t${dto.seq }">
 					<td>${dto.rnum }</td>
 					<td><a href="javascript:goDetail(${dto.seq });">${dto.title }</a></td>
 					<td>${dto.artist }</td>
@@ -143,6 +149,22 @@
 <script>
 	//$(function(){});
 	
+	$('table tbody tr:odd').css("backgroundColor","#fff");       // odd 홀수
+  	$('table tbody tr:even').css("backgroundColor","#f5f5fc");   // even 짝수
+  
+    $('table tbody tr').mouseover(function(){ 
+        $(this).css("backgroundColor","#ccc"); 
+    }); 
+    $('table tbody tr').mouseout(function(){ 
+   		$('table tbody tr:odd').css("backgroundColor","#fff");       // odd 홀수
+   	  	$('table tbody tr:even').css("backgroundColor","#f5f5fc");   // even 짝수
+    }); 
+    $('table tbody tr').click(function(){ 
+        var id=$(this).attr("id").substring(1);
+        goDetail(id);
+		//console.log(id);
+    });
+    
 	$("#btnInsert").click(function(){
 		location.href='insertform.do?searchKeyword=${searchKeyword}&searchCondition=${searchCondition}&pageNum=${pageNum}';			
 	});

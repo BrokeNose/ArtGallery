@@ -9,6 +9,22 @@
 		WHERE  id=#{id} AND aseq=#{aseq}
 	</select>
 
+	<select id="getDataPrevNext" parameterType="artDto" resultType="artDto">
+		SELECT *
+		FROM (
+				SELECT b.*,			
+					   LAG(seq,1,0) OVER (ORDER BY id, a.regdate DESC) AS prevNum,
+					   LEAD(seq,1,0) OVER (ORDER BY id, a.regdate DESC) AS nextNum 	
+				FROM   t_favorArt a, t_art b
+				WHERE  a.aseq = b.seq
+				<if test="id != null and id != '' ">
+					AND id=#{id}	
+				</if>
+				ORDER BY id, a.regdate DESC
+			  )
+		WHERE seq=#{aseq}
+	</select>
+
 <!-- ********************* 사용자 : son*********************** -->
 	<select id="getList" parameterType="favorArtDto" resultType="artDto">
 		SELECT b.*, a.*

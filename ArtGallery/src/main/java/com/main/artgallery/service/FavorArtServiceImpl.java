@@ -31,9 +31,15 @@ public class FavorArtServiceImpl implements FavorArtService {
 		mView.addObject("list", dao.getList(FAdto));		
 	}
 
+	//작품 상세 페이지 서비스. (관심작품)
 	@Override
-	public void getData(HttpServletRequest request, ModelAndView mView, FavorArtDto dto) {
-		mView.addObject("dto", dao.getData(dto));		
+	public void getData(HttpServletRequest request, ModelAndView mView) {
+		String id=(String)request.getSession().getAttribute("id");
+		int seq=Integer.parseInt(request.getParameter("seq"));
+		FavorArtDto dto=new FavorArtDto();
+		dto.setId(id);
+		dto.setAseq(seq);
+		mView.addObject("dto", dao.getDataPrevNext(dto));		
 	}
 
 	@Override
