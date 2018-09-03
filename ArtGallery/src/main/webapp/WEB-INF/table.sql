@@ -130,7 +130,10 @@ SELECT seq, code, name
      , DECODE(code, 'A','아티스트', 'P','화파', 'M','재료') codeName,imagepath
 	   , NVL((SELECT MAX(ROWNUM) FROM t_artrel a WHERE a.cseq=c.seq), 0) artCount
   FROM t_category c;
-  
+
+select * from v_category;
+
+DROP VIEW V_CATEGORY;
 
 -- 192.168.0.200 아닌 pc 
 INSERT INTO t_config(code, pagerow, displayrow, ip, uploadRoot)

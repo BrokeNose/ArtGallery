@@ -75,6 +75,7 @@
 					<input id="searchKeyword" value="${searchKeyword }" type="text" name="searchKeyword" class="form-control" placeholder="검색어..." />
 					<button id="search" class="btn btn-default">검색</button>
 				</div>
+
 				<div class="pull-right">
 					<c:choose>
 						<c:when test="${categoryType eq 'A' }">

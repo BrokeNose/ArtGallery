@@ -13,4 +13,5 @@ public interface UserDao {
 	public void leave(String id);
 	public void delete(String id);
 	public void changePwd(UserDto dto);
+	public UserDto userCount();
 }
