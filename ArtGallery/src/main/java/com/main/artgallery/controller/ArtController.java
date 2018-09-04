@@ -26,6 +26,7 @@ public class ArtController {
 	@Autowired
 	private ArtService aService;		// ArtService에서 T_ArtRel도 함께 관리합니다.
 	
+	
 	@Autowired
 	private ConfigService cService;
 	
