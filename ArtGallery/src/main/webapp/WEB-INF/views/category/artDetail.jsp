@@ -64,6 +64,54 @@
 		-webkit-column-gap:24px;
 		column-gap:24px
 	}
+	/* 댓글 ----- */
+	.comments{
+		overflow-y: scroll; 
+		height:350px;
+		clear: both;
+	}
+	.comments ul {
+		padding: 0;
+		margin: 0;
+		list-style-type: none;
+	}
+	.comments ul li{
+		border-top: 1px solid #888;
+	}
+	.comments dt{
+		margin-top: 5px;
+	}
+	.comments dd{
+		margin-left: 26px;
+	}
+	.muted{
+		color: #888;
+	}
+	.comment_form{
+		height: 100px;
+		margin-bottom: 15px;
+	}
+	.comment_form form textarea, .comment_form form button{
+		float: left;
+	}
+	.comments li{
+		clear: left;
+	}
+	.comment_form form textarea{
+		width: 90%;
+		height: 100px;
+	}
+	.comment_form form button{
+		height: 100px;
+	}
+	.loader{
+		position: fixed;
+		width:  99%;
+		left: 0;
+		bottom: 0;
+		text-align: right;
+		display: none;	/* 일단 숨기기 */
+	}
 		
 </style>
 </head>
@@ -149,43 +197,50 @@
 				<h4 class="modal-title">댓글(감상평)</h4>
 			</div>   				
 			<div class="modal-body">
-				<div class="comments">
 				
-					<!-- 댓글을 작성할수 있는 폼 -->
-					<div class="comment_form">
-						<form action="artComment_insert.do" method="post">
-							<input type="hidden" name="writer" value="${id }" />
-							<input type="hidden" name="seq" value="${dto.seq }"/>
-							<textarea name="content"></textarea>
-							<button type="submit">등록</button>
-						</form>
-					</div>
-				
-					<ul>
-						<c:forEach var="tmp" items="${commentList }">
-							<li class="comment" <c:if test="${tmp.num ne tmp.comment_group }">style="padding-left:50px;"</c:if> >
-								<c:if test="${tmp.num ne tmp.comment_group }">
-									<img class="reply_icon" src="${pageContext.request.contextPath }/resources/images/re.gif"/>
-								</c:if>	
-							
-								<dl>
-									<dt>
-										<img src="${pageContext.request.contextPath }/resources/images/user_image.gif"/>
-										<span>${tmp.writer }</span>
-										<span>${tmp.regdate }</span>										
-									</dt>
-									<dd>
-										<c:if test="${tmp.num ne tmp.comment_group }">
-											<i class="muted">${tmp.target_id }</i>
-											<br/>
-										</c:if>
-										<pre>${tmp.content }</pre>
-									</dd>
-								</dl>									
-							</li>
-						</c:forEach>
-					</ul>					
+				<!-- 댓글을 작성할수 있는 폼 -->
+				<div class="comment_form">
+					<form action="comment_insertJson.do" method="post">
+						<input type="hidden" name="writer" value="${id }" />
+						<input type="hidden" name="comment_group" value="0" />
+						<input type="hidden" name="seq" value="${dto.seq }"/>
+						
+						<textarea name="content"></textarea>
+						<button type="submit">등록</button>
+					</form>
 				</div>
+				
+				<div class="comments">
+					<ul>
+						<li class="comment-clone" style="display:none">
+							<dl>
+								<dt>
+									<span class="writer"></span>
+									<span class="regdate"></span>										
+								</dt>
+								<dd>
+									<span class="info"></span>
+								</dd>
+							</dl>									
+						</li>	
+					<c:forEach var="tmp" items="${commentList }">
+						<li class="comment">
+							<dl>
+								<dt>
+									<span>${tmp.writer }</span>
+									<span>${tmp.regdate }</span>										
+								</dt>
+								<dd>
+									<span class="info">${tmp.content }</span>
+								</dd>
+							</dl>									
+						</li>
+					</c:forEach>
+					</ul>	
+					<div class="loader">
+						<img src="${pageContext.request.contextPath }/resources/images/loader.gif" alt="로딩 이미지" />
+					</div>				
+				</div> <!-- .comments  -->
 			</div>
 			<div class="modal-footer">
 			</div>
@@ -194,6 +249,13 @@
 </div><!-- /.modal -->
 <jsp:include page="../footer.jsp"/>
 <script>
+	//작품 상세정보
+	function goDetail(seq){
+		if (seq>0){			
+			location.href="detail.do?<c:if test="${!empty param.cseq  }">cseq=${param.cseq}</c:if>&favor=${param.favor}&sortField=${param.sortField}&searchKeyword=${param.searchKeyword}&searchCondition=${param.searchCondition}&seq="+seq
+		}
+	}	
+
 	// 이미지 확대 시작 -------------------
 	var count = 10;
 	function Picture(){
@@ -226,20 +288,115 @@
 	
 	// 이미지 확대  끝 -------------------
 	
-	function goDetail(seq){
-		if (seq>0){			
-			location.href="detail.do?<c:if test="${!empty param.cseq  }">cseq=${param.cseq}</c:if>&favor=${param.favor}&sortField=${param.sortField}&searchKeyword=${param.searchKeyword}&searchCondition=${param.searchCondition}&seq="+seq
-		}
-	}	
-
+	
+	// 댓글 시작 --------------------
+	var cPageNum=${commentPageNum};
+	
 	function goComment(seq){
 		//모달 보여주기
 		$("#modalComment").modal("show");
 	}
 	
+	$(".comments").scroll( function() {
+		var elem = $(".comments");
+		
+		if ( elem[0].scrollHeight - elem.scrollTop() <= elem.outerHeight()) {
+			//console.log("elem[0].scrollHeight - elem.scrollTop() : " + ( elem[0].scrollHeight - elem.scrollTop() ) );
+			//console.log("elem.outerHeight() : " + elem.outerHeight());
+			loadComments(false);			
+		} 
+	});
+	
+	function loadComments(isFirst){
+		
+		$(".loader").show();
+		//.one("transitionend", function(){	});; hyung 모름
+		
+		var page=1;
+		if (isFirst) {
+			$(".comments ul").empty("");
+		} else {
+			page=cPageNum+1;
+		}
+		
+		$.ajax({
+			url:"commentListJson.do",
+			method:"post",
+			data:{"seq":${dto.seq},
+				  "commentPageNum": page},
+			success:function(data) {
+				if ( data.length == 0 )  {
+					alert('더이상 불러올 자료가 없습니다.');
+				} else {
+					cPageNum=page;	
+					$.each( data, function( idx, value ) {
+						var cloneli = $('.comment-clone').clone();
+						cloneli.find(".writer").text(value.writer);
+						cloneli.find(".regdate").text(value.regdate);
+						cloneli.find(".info").text(value.content);
+						cloneli.css("display","block").removeClass("comment-clone").addClass("comment");
+						console.log(cloneli);
+						$('.comments ul').append(cloneli);
+					});					
+				}
+			},
+			complete : function() {
+				$(".loader").hide();
+		    }
+		});
+	}
+	
+	//댓글 전송 이벤트가 일어 났을때 실행할 함수 등록
+	$(".comment_form > form").submit(function(){
+		
+		var writer=$("[name=writer]").val();		
+		if(writer==undefined||writer==""){//로그인 하지 않았으면
+			alert("댓글(감상평)을 추가하려면, 로그인해야 합니다.");
+			return false;//폼 전송 막기 
+		}
+		
+		var content=$("[name=content]").val();		
+		if(content==undefined||content<="    "){//작성글이 없으면
+			alert("댓글(감상평)을 작성해주세요.");
+			$("[name=content]").focus();
+			return false;//폼 전송 막기 
+		}
+		
+		// 추가
+		var isSuccess=false;
+		var param=$(this).serialize();	// this->form
+		$.ajax({
+			url:"comment_insertJson.do",
+			method:"post",
+			data: param,		//요청 파라미터
+			success:function(data) {
+				if(data.isSuccess=='Y'){
+					alert("등록했습니다.");
+					isSuccess=true;
+				} else {
+					alert("오류가 발생했습니다.\r\n다시 해주세요.");
+					return false;
+				}
+			},
+			complete : function() {
+				//추가ok
+				if ( !isSuccess )	return false;
+				
+				//댓글 로드
+				loadComments(true);
+				$("[name=content]").val("");
+				return false;//폼 전송 막기 
+		    }
+		});
+		
+	});
+	
+	// 댓글 시작 --------------------
+
+	// 관심작품 
+	function goFavorArt(seq){		
 <c:choose>
 <c:when test="${!empty id}">	
-	function goFavorArt(seq){		
 		$.ajax({
 			url:"favoriteArt.do",
 			method:"post",
@@ -256,22 +413,13 @@
 				}
 			}			
 		});
-	}
-	function commentInsert(seq){
-		
-	}
 </c:when>
 <c:otherwise>
-	function goFavorArt(seq){	
 		alert("관심작품에 추가하려면, 로그인해야 합니다.");
 		return;
-	}
-	function commentInsert(seq){
-		alert("댓글을 추가하려면, 로그인해야 합니다.");
-		return;		
-	}
 </c:otherwise>
 </c:choose>
+	}
 
 </script>
 </body>

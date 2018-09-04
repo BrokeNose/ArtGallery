@@ -1,6 +1,7 @@
 package com.main.artgallery.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.main.artgallery.art.dto.ArtCommentDto;
 import com.main.artgallery.art.dto.ArtDto;
+import com.main.artgallery.category.dto.CategoryDto;
 import com.main.artgallery.service.ArtService;
 import com.main.artgallery.service.ConfigService;
 import com.main.artgallery.service.FavorArtService;
@@ -33,14 +35,24 @@ public class ArtController {
 	
 	//-------- Hyung ----------------------
 	//작품 댓글 등록
-	@RequestMapping("/art/comment_insert.do")
-	public ModelAndView userCommentInsert(HttpServletRequest request , @ModelAttribute ArtCommentDto dto) {
-	
+	@RequestMapping("/art/comment_insertJson.do")
+	@ResponseBody
+	public Map<String, Object> userCommentInsert(HttpServletRequest request , @ModelAttribute ArtCommentDto dto) {	
 		aService.commentInsert(request,dto);;
-	
-		return new ModelAndView("redirect:/art/commentList.do?seq="+dto.getSeq());
+		
+		Map<String, Object> map=new HashMap<>();
+		map.put("isSuccess", true);
+		return map;
 	}
-	
+	//작품 댓글 목록 - ajax
+	@RequestMapping("/art/commentListJson.do")
+	@ResponseBody
+	public List<ArtCommentDto> commentList(HttpServletRequest request , ModelAndView mView, @ModelAttribute ArtCommentDto dto) {	
+		aService.getCommentList(request, mView, dto);
+		List<ArtCommentDto> list=(List<ArtCommentDto>)request.getAttribute("commentList");
+		//System.out.println("commentListJson.do");
+		return list;
+	}
 	//작품 댓글 삭제
 	@RequestMapping("/art/comment_delete.do")
 	public ModelAndView userCommentDelete(HttpServletRequest request, @RequestParam int num) {
