@@ -61,6 +61,7 @@ public class CategoryServiceImpl implements CategoryService {
 				}
 			}
 		}
+		if(queryValue == null) queryValue = "";
 		
 		int pageNum = 1;
 		if(pgNum != null) {
@@ -129,6 +130,7 @@ public class CategoryServiceImpl implements CategoryService {
 		mView.addObject("totalPageCount", totalPageCount);
 		// 전체 row 의 갯수도 전달하기
 		mView.addObject("totalRow", totalRow);
+		mView.addObject("searchKeyword", queryValue);
 	}
 	
 	//son

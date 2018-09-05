@@ -56,7 +56,7 @@
 	<div class="panel panel-default">
 	  <div class="panel-body">
 			<form action="adminCategory.do" class="form-inline" method="post" id="searchForm">
-				<input type="hidden" name="categoryType" value="${categoryType} }"/>
+				<input type="hidden" name="categoryType" value="${categoryType }"/>
 				<div class="form-group">
 					<input type="hidden" name="categoryType" value="${categoryType }"/>
 					<select name="searchCondition" id="searchCondition" class="form-control">
@@ -210,7 +210,6 @@
 		console.log("searchKeyword: " + searchKeyword);
 		console.log("searchCondition: " + searchCondition);
 		console.log("pageNum: " + pageNum);
-		alert(categorytype);
 		location.href='adminCategory.do?categoryType=${categoryType}&searchKeyword=${searchKeyword}&searchCondition=${searchCondition}&pageNum='+pageNum;
 	}
 	
