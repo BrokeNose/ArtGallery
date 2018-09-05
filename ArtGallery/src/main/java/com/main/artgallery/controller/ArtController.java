@@ -64,14 +64,20 @@ public class ArtController {
 	@RequestMapping("/art/detail")
 	public ModelAndView artDetail(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
 		request.setAttribute("adminMode", "N");		//관리자모드 아님
-		if (request.getParameter("favor") != null && request.getParameter("favor").equals("1")) {
-			fService.getData(request, mView);
-		} else {
-			aService.getData(request, mView, dto);
-		}
+		aService.getData(request, mView, dto);
 		mView.setViewName("category/artDetail");
 		return mView;
 	}
+	
+	//관심작품 상세 정보 조회 - 로그인 필수
+	@RequestMapping("/art/favariteDetail")
+	public ModelAndView userArtDetail(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
+		request.setAttribute("adminMode", "N");		//관리자모드 아님
+		aService.getData(request, mView, dto);
+		mView.setViewName("category/artDetail");
+		return mView;
+	}	
+	
 	//관심 작품 등록,삭제 처리
 	@RequestMapping("/art/favoriteArt")
 	@ResponseBody

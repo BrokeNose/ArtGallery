@@ -253,9 +253,14 @@
 <script>
 	//작품 상세정보
 	function goDetail(seq){
-		if (seq>0){			
-			location.href="detail.do?<c:if test="${!empty param.cseq  }">cseq=${param.cseq}</c:if>&favor=${param.favor}&sortField=${param.sortField}&searchKeyword=${param.searchKeyword}&searchCondition=${param.searchCondition}&seq="+seq
-		}
+<c:choose>
+<c:when test="${!empty param.favor}">
+		location.href="favariteDetail.do?favor=${param.favor}&seq="+seq
+</c:when>
+<c:otherwise>
+		location.href="detail.do?<c:if test="${!empty param.cseq  }">cseq=${param.cseq}</c:if>&sortField=${param.sortField}&searchKeyword=${param.searchKeyword}&searchCondition=${param.searchCondition}&seq="+seq
+</c:otherwise>
+</c:choose>
 	}	
 
 	// 이미지 확대 시작 -------------------
@@ -292,8 +297,14 @@
 	
 	
 	// 댓글 시작 --------------------
+<c:choose>
+<c:when test="${!empty commentPageNum}">
 	var cPageNum=${commentPageNum};
-	
+</c:when>
+<c:otherwise>
+	var cPageNum=0;
+</c:otherwise>
+</c:choose>
 	function goComment(seq){
 		//모달 보여주기
 		$("#modalComment").modal("show");
