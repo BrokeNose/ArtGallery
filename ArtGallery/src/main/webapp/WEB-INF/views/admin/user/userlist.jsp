@@ -89,8 +89,8 @@
 					<td>${tmp.id }</td>
 					<td>${tmp.email }</td>
 					<td>${tmp.regdate }</td>
-					<td>${tmp.roll }</td>
-					<td></td>
+					<td>${tmp.rollName }</td>
+					<td><c:if test="${!empty tmp.deldate }">O</c:if></td>
 				</tr>
 			
 			</c:forEach>
@@ -99,32 +99,60 @@
 	  	</tbody>
 	  </table>
 	</div>
-	<!-- Page navigation//
+	<!-- Page navigation// -->
 	<div class="text-center">
 		<nav aria-label="Page navigation">
-		  <ul class="pagination">
-		    <li>
-		      <a href="#" aria-label="Previous">
-		        <span aria-hidden="true">&laquo;</span>
-		      </a>
-		    </li>
-		    <li><a href="#">1</a></li>
-		    <li><a href="#">2</a></li>
-		    <li><a href="#">3</a></li>
-		    <li><a href="#">4</a></li>
-		    <li><a href="#">5</a></li>
-		    <li>
-		      <a href="#" aria-label="Next">
-		        <span aria-hidden="true">&raquo;</span>
-		      </a>
-		    </li>
-		  </ul>
+			<!-- 페이징 처리 -->
+			<ul class="pagination">
+				<c:choose>
+					<c:when test="${startPageNum ne 1 }">
+						<li>
+							<a href="javascript: goPage(${startPageNum-1 });" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li class="disabled">
+							<a href="javascript:" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+					</c:otherwise>
+				</c:choose>
+				<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+						<li class='<c:if test="${i eq pageNum }">active</c:if>'>
+							<a href="javascript: goPage(${i });">${i }</a>
+						</li>
+				</c:forEach>
+				<c:choose>
+					<c:when test="${endPageNum lt totalPageCount }">
+						<li>
+							<a href="javascript: goPage(${endPageNum+1 });" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+							<!--  <a href="javascript: goPage(${endPageNum+1 });">&raquo;</a>-->
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li class="disabled">
+							<a href="javascript:" class="muted" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					</c:otherwise>
+				</c:choose>		
+			</ul>
 		</nav>
 	</div>
-	 -->
 	<!-- //Page navigation -->
 </div>
-
+<script>
+	//페이징처리
+	function goPage(pageNum){
+		location.href='userlist.do?searchKeyword=${searchKeyword}&searchCondition=${searchCondition}&pageNum='+pageNum;
+	}
+</script>
 <jsp:include page="../inc/footer.jsp" />
 	
 </body>

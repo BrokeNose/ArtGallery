@@ -8,10 +8,9 @@
 		  FROM T_USER
 	</select>
 
-
-	<select id="getList" resultType="userDto">
-		SELECT id, email, roll, regdate, deldate
-		FROM T_User
+	<select id="getCount" parameterType="userDto" resultType="int">
+		SELECT MAX(ROWNUM)
+		FROM T_USER
 		<where>
 			<if test="id !=null">
 				OR id LIKE '%'||#{id}||'%'
@@ -20,6 +19,26 @@
 				OR email LIKE '%'||#{email}||'%'
 			</if>
 		</where>
+	</select>
+	<select id="getList" parameterType="userDto" resultType="userDto">
+		SELECT result1.*
+		FROM (
+				SELECT  id, email, roll, regdate, deldate, 
+						DECODE(roll, 'A', '관리자', 'S', '수퍼', 'U', '사용자','') AS rollname,
+						ROWNUM AS rnum
+				FROM T_User
+				<where>
+					<if test="id !=null">
+						OR id LIKE '%'||#{id}||'%'
+					</if>
+					<if test="email !=null">
+						OR email LIKE '%'||#{email}||'%'
+					</if>
+				</where>
+				ORDER BY id ASC
+			) result1
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}	
+		ORDER BY rnum	
 	</select>
 	<select id="isExist" parameterType="string" resultType="string">
 		SELECT id 

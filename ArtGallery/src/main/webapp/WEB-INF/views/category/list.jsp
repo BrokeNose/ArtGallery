@@ -94,9 +94,7 @@
 						<a href="detail.do?seq=${dto.seq }">													
 							<div class="thumb_title">${dto.name }</div>
 							<div class="thumb_items">항목 ${dto.artcount }개</div>	
-							<div class="overlay"><img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" /></div>				
-												
-							
+							<div class="overlay"><img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" /></div>						
 						</a>						
 					</div>
 				</div>

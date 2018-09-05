@@ -81,7 +81,9 @@
 		transform: scale(1.5);
 		
 	}
-	
+	body {
+	 padding-top: 70px;
+	 }
 </style>
 </head>
 <body>
