@@ -53,6 +53,16 @@
 		color:#fff;
 		left:5px;
 	}
+	.thumb_bg{
+		position: absolute;
+		bottom:0;
+		margin:0;
+		width: 100%;
+		height:100%;
+		background-color: rgba(0, 0, 0, 0.2);
+		z-index:5000;
+	}
+	body{padding-top: 70px;}
 </style>
 </head>
 <body>
@@ -76,8 +86,10 @@
 		<div class="thumbnail">
 			<div class="centered">
 				<a href="favoriteDetail.do?seq=${dto.seq }" title="${dto.title }">
-					<div class="thumb_title1">${dto.title }</div>
-					<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }">					
+					<div class="thumb_bg">		
+						<div class="thumb_title1">${dto.title }</div>							
+					</div>
+					<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" style="z-index:2000;">			
 				</a>
 			</div>
 		</div>

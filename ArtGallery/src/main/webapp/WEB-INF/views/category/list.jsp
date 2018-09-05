@@ -45,11 +45,19 @@
 	}
 	.thumb_items {
 		position: absolute; 
-		bottom:5px;
-		z-index:2000;
+		bottom:5px;		
 		color:#fff;
 		left:5px;
+		z-index:1000;
 	}
+	.overlay {
+		
+    	background-color: black;
+    	position: absolute;
+    	left: 0; top: 0; height: 100%; width: 100%;
+		
+	}
+	body{padding-top: 70px;}
 	
 
 </style>
@@ -80,14 +88,15 @@
   		</c:forEach> --%>
   		<c:forEach var="dto" items="${list }">
 			<div class="TT thumbnail-wrapper col-md-2 col-sm-3 col-xs-6"  title="${dto.name }">
-				<div class="thumbnail">
-					<div class="centered">
-						<a href="detail.do?seq=${dto.seq }"">
-							<div class="thumb_bg">
-								<div class="thumb_title">${dto.name }</div>
-								<div class="thumb_items">항목 ${dto.artcount }개</div>
-							</div>
-							<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" />
+				
+				<div class="thumbnail">				
+					<div class="centered">						
+						<a href="detail.do?seq=${dto.seq }">													
+							<div class="thumb_title">${dto.name }</div>
+							<div class="thumb_items">항목 ${dto.artcount }개</div>	
+							<div class="overlay"><img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" /></div>				
+												
+							
 						</a>						
 					</div>
 				</div>
