@@ -133,6 +133,7 @@ public class ArtServiceImpl implements ArtService {
 		String keyword=dto.getSearchKeyword();
 		String condition=dto.getSearchCondition();		
 		String adminMode=(String)request.getAttribute("adminMode");	// controller에서 setting
+		String favoriteMode=(String)request.getAttribute("favoriteMode");
 		
 		int seq = dto.getSeq();
 		
@@ -161,8 +162,17 @@ public class ArtServiceImpl implements ArtService {
 		//mView.addObject("configDto", configDto); - ConfigService에서 set 함.
 
 		//작품정보 가져오기
-		ArtDto resultDto=artDao.getData(dto);
-		
+		ArtDto resultDto=null;
+		if (favoriteMode != null && favoriteMode.equals("Y")) {	// 관심작품
+			String id=(String)request.getSession().getAttribute("id");
+			FavorArtDto fDto=new FavorArtDto();
+			fDto.setId(id);
+			fDto.setAseq(dto.getSeq());
+			resultDto= favorArtDao.getDataPrevNext(fDto);	
+		}else {
+			resultDto=artDao.getData(dto);
+		}
+
 		if (resultDto.getRemark() != null) {
 			int idx=resultDto.getRemark().indexOf(":");
 			//System.out.println("idx : " + idx + "=" + resultDto.getRemark().length());
@@ -517,24 +527,16 @@ public class ArtServiceImpl implements ArtService {
 		}
 		
 		//보여줄 페이지 데이터의 시작 ResultSet row 번호
-		int startRowNum=1+(pageNum-1)*configDto.getPagerow();
+		int pageRow=(int)( configDto.getPagerow() / 2);
+		int startRowNum=1+(pageNum-1)*pageRow;
 		//보여줄 페이지 데이터의 끝 ResultSet row 번호
-		int endRowNum=pageNum*configDto.getPagerow();
+		int endRowNum=pageNum*pageRow;
 		
 		//전체 row 의 갯수를 읽어온다.
 		int totalRow=artCommentDao.getCount(dto);
 		//전체 페이지의 갯수 구하기
 		int totalPageCount=
-				(int)Math.ceil(totalRow/(double)configDto.getPagerow());
-		//시작 페이지 번호
-		int startPageNum=
-			1+((pageNum-1)/configDto.getDisplayrow())*configDto.getDisplayrow();
-		//끝 페이지 번호
-		int endPageNum=startPageNum+configDto.getDisplayrow()-1;
-		//끝 페이지 번호가 잘못된 값이라면 
-		if(totalPageCount < endPageNum){
-			endPageNum=totalPageCount; //보정해준다. 
-		}
+				(int)Math.ceil(totalRow/(double)pageRow);
 		
 		// 위에서 만든 CafeDto 에 추가 정보를 담는다. 
 		dto.setStartRowNum(startRowNum);
@@ -543,13 +545,12 @@ public class ArtServiceImpl implements ArtService {
 		//1. FileDto 객체를 전달해서 파일 목록을 불러온다 
 		List<ArtCommentDto> commentList=artCommentDao.getList(dto);
 		
+		//System.out.println("commentList : " + commentList +"=" +  pageNum + "=" + totalPageCount);
 		//2. request 에 담고
-		mView.addObject("commentList", commentList);
+		request.setAttribute("commentList", commentList);
 		
 		// 페이징 처리에 관련된 값도 request 에 담기 
 		mView.addObject("commentPageNum", pageNum);
-		mView.addObject("startPageNum", startPageNum);
-		mView.addObject("endPageNum", endPageNum);
 		mView.addObject("totalPageCount", totalPageCount);
 		// 전체 row 의 갯수도 전달하기
 		mView.addObject("totalRow", totalRow);
@@ -557,6 +558,15 @@ public class ArtServiceImpl implements ArtService {
 
 	@Override
 	public void commentInsert(HttpServletRequest request, ArtCommentDto dto) {
+		//저장할 댓글의 번호를 미리 얻어낸다.
+		int seq=artCommentDao.getSequence();
+		//댓글을 DB 에 저장
+		dto.setNum(seq);
+		//댓글의 그룹 번호를 읽어온다. ( 0 or 다른 숫자가 들어있다 )
+		if(dto.getComment_group()==0) {//원글의 댓글인 경우
+			dto.setComment_group(seq);
+		}
+		//새 댓글을 저장한다.		
 		artCommentDao.insert(dto);
 	}
 

@@ -29,7 +29,7 @@
 	  padding-right: 15px;
 	  padding-left: 15px;
 	}
-	
+
 	code {
 	  font-size: 80%;
 	}

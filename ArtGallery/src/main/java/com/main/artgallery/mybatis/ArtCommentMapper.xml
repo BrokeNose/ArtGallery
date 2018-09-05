@@ -28,11 +28,8 @@
 		</where>	
 	</sql>
 	<insert id="insert" parameterType="artCommentDto">
-		INSERT INTO T_ArtComment
-		(num, writer, content, target_id, seq, comment_group,
-		regdate)
-		VALUES(#{num}, #{writer}, #{content},
-		#{target_id}, #{seq}, #{comment_group}, SYSDATE)		
+		INSERT INTO T_ArtComment (num, writer, content, target_id, seq, comment_group, regdate)
+		VALUES(#{num}, #{writer}, #{content}, #{target_id}, #{seq}, #{comment_group}, SYSDATE)		
 	</insert>
 	
 	<select id="getSequence" resultType="int">
@@ -42,7 +39,7 @@
 	
 	<delete id="delete" parameterType="int">
 		DELETE 
-		FROM  t_artComment
+		FROM  T_ArtComment
 		WHERE num=#{num}
 	</delete>
 	<select id="getList" parameterType="artCommentDto" resultType="artCommentDto">
@@ -53,7 +50,7 @@
 					rownum AS rnum
 				FROM T_ArtComment				
 				<include refid="artCommentWhere"/>
-				ORDER BY comment_group ASC, num ASC
+				ORDER BY seq ASC, num desc
 			) result1
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}	
 		ORDER BY rnum				
