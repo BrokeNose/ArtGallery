@@ -44,7 +44,7 @@
 	}
 	.bigImage{
 		position: absolute;
-		top:60px;
+		top:50px;
 		left:0;
 		right:0;
 		bottom:0;
@@ -60,8 +60,7 @@
 	}
 	.zoom:hover{
 		cursor:pointer;
-	}
-	
+	}	
 	.multi-stage
 	{
 		max-width:none;
