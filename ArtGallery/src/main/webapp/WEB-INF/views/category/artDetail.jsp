@@ -183,12 +183,14 @@
 		<br />
 		<p class="info">
 <c:if test="${not empty mList }">재료 : </c:if>		
-<c:forEach var="tmp" items="${mList }">
+<c:forEach var="tmp" items="${mList }"  varStatus="status">
+	<c:if test="${status.index > 0}">, </c:if> 
 	<a href="${pageContext.request.contextPath }/category/detail.do?code=M&seq=${tmp.cseq}">${tmp.name }</a>
 </c:forEach>
 		
 <c:if test="${not empty pList }"><br />화파 : </c:if>		
-<c:forEach var="tmp" items="${pList }">
+<c:forEach var="tmp" items="${pList }"  varStatus="status">
+	<c:if test="${status.index > 0}">, </c:if> 
 	<a href="${pageContext.request.contextPath }/category/detail.do?code=P&seq=${tmp.cseq}">${tmp.name }</a>
 </c:forEach>
 		</p>		
