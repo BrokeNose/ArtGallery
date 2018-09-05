@@ -36,8 +36,7 @@ public class UserServiceImpl implements UserService {
 			}
 			mView.addObject("searchKeyword", keyword);
 			mView.addObject("searchCondition", condition);
-		}
-		
+		}		
 		//T_config 환경변수 가져오기
 		getConfig(request);
 
