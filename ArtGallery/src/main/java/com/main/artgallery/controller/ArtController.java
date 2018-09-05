@@ -26,7 +26,6 @@ public class ArtController {
 	@Autowired
 	private ArtService aService;		// ArtService에서 T_ArtRel도 함께 관리합니다.
 	
-	
 	@Autowired
 	private ConfigService cService;
 	
@@ -39,8 +38,7 @@ public class ArtController {
 	@RequestMapping("/art/comment_insertJson.do")
 	@ResponseBody
 	public Map<String, Object> userCommentInsert(HttpServletRequest request , @ModelAttribute ArtCommentDto dto) {	
-		aService.commentInsert(request,dto);;
-		
+		aService.commentInsert(request,dto);		
 		Map<String, Object> map=new HashMap<>();
 		map.put("isSuccess", true);
 		return map;

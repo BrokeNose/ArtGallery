@@ -200,8 +200,9 @@
 				
 				<!-- 댓글을 작성할수 있는 폼 -->
 				<div class="comment_form">
-					<form action="comment_insertJson.do" method="post">
+					<form method="post">
 						<input type="hidden" name="writer" value="${id }" />
+						<input type="hidden" name="target_id" value="" />
 						<input type="hidden" name="comment_group" value="0" />
 						<input type="hidden" name="seq" value="${dto.seq }"/>
 						
@@ -211,6 +212,7 @@
 				</div>
 				
 				<div class="comments">
+					<div class="comments_count"></div>
 					<ul>
 						<li class="comment-clone" style="display:none">
 							<dl>
@@ -219,7 +221,7 @@
 									<span class="regdate"></span>										
 								</dt>
 								<dd>
-									<span class="info"></span>
+									<span class="info" style="white-space:pre-wrap;"></span>
 								</dd>
 							</dl>									
 						</li>	
@@ -231,7 +233,7 @@
 									<span>${tmp.regdate }</span>										
 								</dt>
 								<dd>
-									<span class="info">${tmp.content }</span>
+									<span class="info" style="white-space:pre-wrap;">${tmp.content }</span>
 								</dd>
 							</dl>									
 						</li>
@@ -314,7 +316,9 @@
 		
 		var page=1;
 		if (isFirst) {
+			var cloneli = $('.comment-clone').clone();			
 			$(".comments ul").empty("");
+			$('.comments ul').append(cloneli);
 		} else {
 			page=cPageNum+1;
 		}
@@ -370,25 +374,23 @@
 			method:"post",
 			data: param,		//요청 파라미터
 			success:function(data) {
-				if(data.isSuccess=='Y'){
+				if(data.isSuccess){
 					alert("등록했습니다.");
-					isSuccess=true;
+					isSuccess=true;					
+					//댓글 로드
+					loadComments(true);
+					$("[name=content]").val("");
+					return false;//폼 전송 막기 
 				} else {
 					alert("오류가 발생했습니다.\r\n다시 해주세요.");
 					return false;
 				}
 			},
 			complete : function() {
-				//추가ok
-				if ( !isSuccess )	return false;
-				
-				//댓글 로드
-				loadComments(true);
-				$("[name=content]").val("");
-				return false;//폼 전송 막기 
+				return false;
 		    }
 		});
-		
+		return false;
 	});
 	
 	// 댓글 시작 --------------------

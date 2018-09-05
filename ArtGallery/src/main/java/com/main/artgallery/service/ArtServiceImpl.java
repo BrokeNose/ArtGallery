@@ -552,12 +552,10 @@ public class ArtServiceImpl implements ArtService {
 		int seq=artCommentDao.getSequence();
 		//댓글을 DB 에 저장
 		dto.setNum(seq);
-		//System.out.println("seq : " + seq);
 		//댓글의 그룹 번호를 읽어온다. ( 0 or 다른 숫자가 들어있다 )
 		if(dto.getComment_group()==0) {//원글의 댓글인 경우
 			dto.setComment_group(seq);
 		}
-		//System.out.println("comment-group :" + dto.getComment_group());
 		//새 댓글을 저장한다.		
 		artCommentDao.insert(dto);
 	}
