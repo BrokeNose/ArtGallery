@@ -7,9 +7,6 @@
 <title>detail</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/artgallery.css" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
-
-<script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
-<script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
 <style>
 	.custom_div {
 		overflow:hidden;

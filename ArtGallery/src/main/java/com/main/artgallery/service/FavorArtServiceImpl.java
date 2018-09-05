@@ -43,12 +43,12 @@ public class FavorArtServiceImpl implements FavorArtService {
 		FavorArtDto dto2 = dao.getData(dto);
 		if (  dto2 != null && dto2.getId() != null) {
 			//System.out.println("favorite delete");
-			request.setAttribute("isFavor", "N");
+			request.setAttribute("isFavorInsert", "N");
 			dao.delete(dto);
 		} else {
 			//System.out.println("favorite insert");
 			dao.insert(dto);
-			request.setAttribute("isFavor", "Y");
+			request.setAttribute("isFavorInsert", "Y");
 		}
 	}
 	

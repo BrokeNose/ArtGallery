@@ -26,6 +26,11 @@
       max-height:500px;
       text-align:center;
    	}
+   	.relCategory a {
+   		text-decoration: none;
+   		color: rgb(51, 51, 51);
+   		font-weight: bold;
+   	}
 	.info
 	{   display: block;
 	    padding: 9.5px;
@@ -136,11 +141,13 @@
 			
 		</div>			
 	</div>
-	<div class="text-left">
+	<div class="relCategory text-left">
 		<h2>${dto.title }</h2>
-		<h4><c:forEach var="tmp" items="${aList }">
-			<b>${tmp.name }</b>
-			<c:set var="cyear" value="${tmp.bdate }/${tmp.ddate }"/> 
+		<h4>
+		<c:forEach var="tmp" items="${aList }" varStatus="status">
+			<c:if test="${status.index > 0}">, </c:if> 
+			<b><a href="../category/detail.do?seq=${tmp.cseq }">${tmp.name }</a></b>
+			<c:set var="cyear" value="${tmp.bdate }/${tmp.ddate }"/>
 		</c:forEach>
 		<c:choose>
 			<c:when test="${!empty dto.createyear }">
@@ -162,7 +169,15 @@
 			</c:otherwise>	
 		</c:choose>
 		<a href="javascript:goComment(${dto.seq });" title="댓글">
-			<span style="font-size:1.3em;color: #333;"><i class="fas fa-edit"></i></span></a>
+			<span style="font-size:1.3em;color: #333;">
+		<c:choose>
+			<c:when test="${totalRow > 0 }">
+				<i id="iComment" class="fas fa-comment-dots"></i></span></a>	
+			</c:when>
+			<c:otherwise>
+				<i id="iComment" class="far fa-comment-dots"></i></span></a>		
+			</c:otherwise>	
+		</c:choose>			
 		<br />
 		<p class="info">
 <c:if test="${not empty mList }">재료 : </c:if>		
@@ -254,8 +269,8 @@
 	//작품 상세정보
 	function goDetail(seq){
 <c:choose>
-<c:when test="${!empty param.favor}">
-		location.href="favariteDetail.do?favor=${param.favor}&seq="+seq
+<c:when test="${!empty favoriteMode and favoriteMode eq 'Y' }">
+		location.href="favoriteDetail.do?seq="+seq
 </c:when>
 <c:otherwise>
 		location.href="detail.do?<c:if test="${!empty param.cseq  }">cseq=${param.cseq}</c:if>&sortField=${param.sortField}&searchKeyword=${param.searchKeyword}&searchCondition=${param.searchCondition}&seq="+seq
@@ -387,7 +402,11 @@
 			success:function(data) {
 				if(data.isSuccess){
 					alert("등록했습니다.");
-					isSuccess=true;					
+					isSuccess=true;				
+					
+					$("#iComment").removeClass("far");
+					$("#iComment").addClass("fas");
+				
 					//댓글 로드
 					loadComments(true);
 					$("[name=content]").val("");
@@ -415,7 +434,7 @@
 			method:"post",
 			data:{"seq":seq},
 			success:function(data) {
-				if(data.isFavor=='Y'){
+				if(data.isFavorInsert=='Y'){
 					alert("관심작품에 등록했습니다.");
 					$("#iFavor").removeClass("far");
 					$("#iFavor").addClass("fas");
