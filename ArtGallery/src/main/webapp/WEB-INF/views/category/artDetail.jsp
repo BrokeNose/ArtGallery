@@ -139,9 +139,8 @@
 		</c:if></div>
 		<div class="text-center">
 			<img class="img_center" src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }"/>
-			<div class="zoom"><div class="zoom_bg"></div><span style="font-size:30px;color:#DC143C;"><i id="iZoom" class="fas fa-search-plus"></i></span></div></div>	
-			
-		</div>			
+			<div class="zoom"><div class="zoom_bg"></div><span style="font-size:30px;color:#DC143C;"><i id="iZoom" class="fas fa-search-plus"></i></span></div>
+		</div>	
 	</div>
 	<div class="relCategory text-left">
 		<h2>${dto.title }</h2>
