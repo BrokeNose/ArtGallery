@@ -31,8 +31,8 @@
    		color: rgb(51, 51, 51);
    		font-weight: bold;
    	}
-	.info
-	{   display: block;
+	.info	{
+		display: block;
 	    padding: 9.5px;
 	    margin: 0 0 10px;
 	    font-size: 15px;
@@ -46,7 +46,7 @@
 		position: absolute;
 		top:60px;
 		left:0;
-		right:0px;
+		right:0;
 		bottom:0;
 		background-color: #fff;
 		display: none;			
@@ -61,6 +61,7 @@
 	.zoom:hover{
 		cursor:pointer;
 	}
+	
 	.multi-stage
 	{
 		max-width:none;
@@ -117,6 +118,7 @@
 		text-align: right;
 		display: none;	/* 일단 숨기기 */
 	}
+	
 		
 </style>
 </head>
@@ -137,7 +139,7 @@
 		</c:if></div>
 		<div class="text-center">
 			<img class="img_center" src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }"/>
-			<div class="zoom"><span style="font-size:30px; ;color: #00f; background-color: #cecece"><i id="iZoom" class="fas fa-search-plus"></i></span></div>	
+			<div class="zoom"><div class="zoom_bg"></div><span style="font-size:30px;color:#DC143C;"><i id="iZoom" class="fas fa-search-plus"></i></span></div></div>	
 			
 		</div>			
 	</div>
