@@ -26,7 +26,7 @@ public class UserAuthAspect {
 					//로그인 정보가 없다면 여기가 수행된다.
 					ModelAndView mView=new ModelAndView();
 					//query 문자열 읽어오기
-					// a=xxx&b=xxx&c=xxx
+					//a=xxx&b=xxx&c=xxx
 					String query=request.getQueryString();
 					//원래 가야할 요청명
 					String url=null;

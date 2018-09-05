@@ -56,8 +56,8 @@ public class CategoryDaoImpl implements CategoryDao{
 
 
 	@Override
-	public void update(int seq) {
-		session.update("category.update",seq);
+	public void update(CategoryDto dto) {
+		session.update("category.update",dto);
 		
 	}
 
@@ -94,15 +94,15 @@ public class CategoryDaoImpl implements CategoryDao{
 	}
 
 	@Override
-	public void getCount(int count) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
 	public List<CategoryDto> getListCategory(CategoryDto dto) {
-		// TODO Auto-generated method stub
 		return session.selectList("category.getListCategory", dto);
+	}
+	
+	@Override
+	public CategoryDto getDataSeq(int seq) {
+		// TODO Auto-generated method stub
+		return session.selectOne("category.getDataSeq", seq);
 	}
 
 	@Override
@@ -115,6 +115,12 @@ public class CategoryDaoImpl implements CategoryDao{
 	public void addViewCount(int seq) {
 		session.update("category.addViewCount", seq);
 		
+	}
+
+	@Override
+	public int getCount(CategoryDto dto) {
+		// TODO Auto-generated method stub
+		return session.selectOne("category.getCount", dto);
 	}
 		
 }

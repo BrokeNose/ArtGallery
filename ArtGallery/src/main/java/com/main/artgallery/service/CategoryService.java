@@ -17,7 +17,12 @@ public interface CategoryService {
 	public void getSearchList(HttpServletRequest request, ModelAndView mView);
 	public void getConfig(HttpServletRequest request);
 	
+	
 	//Shin
 	public void insertForm(HttpServletRequest request, ModelAndView mView);
 	public void insert(HttpServletRequest request, CategoryDto dto);
+	public void updateForm(HttpServletRequest request, ModelAndView mView);
+	public void delete(HttpServletRequest request, ModelAndView mView);
+	public void update(HttpServletRequest request, CategoryDto dto);
+	public void fileDelete(String realPath, String imagePath);	// 파일삭제
 }

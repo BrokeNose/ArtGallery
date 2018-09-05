@@ -7,6 +7,10 @@
 <title>list</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/artgallery.css" />
 <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
+
+<!-- tooltip용 css,js 파일 로딩 -->
+<script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
 <style>	
 	.thumbnail { 
 		position: relative;
@@ -50,6 +54,7 @@
 		color:#fff;
 		left:5px;
 	}
+	
 
 </style>
 </head>
@@ -78,10 +83,10 @@
 		  	</div>
   		</c:forEach> --%>
   		<c:forEach var="dto" items="${list }">
-			<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
+			<div class="TT thumbnail-wrapper col-md-2 col-sm-3 col-xs-6"  title="${dto.name }">
 				<div class="thumbnail">
 					<div class="centered">
-						<a href="detail.do?seq=${dto.seq }" title="${dto.name }">
+						<a href="detail.do?seq=${dto.seq }"">
 							<div class="thumb_bg">
 								<div class="thumb_title">${dto.name }</div>
 								<div class="thumb_items">항목 ${dto.artcount }개</div>
@@ -95,6 +100,17 @@
 	</div><!-- //아티스트 -->
 
 </div>
+
+
+<script>
+	$(function(){
+		$(".TT").tooltip({
+			trigger:"hover",
+			placement:"top"
+		});
+	}); 
+	
+</script>
 
 
 <jsp:include page="../footer.jsp"/>

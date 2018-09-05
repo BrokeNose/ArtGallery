@@ -32,6 +32,13 @@
 	code {
 	  font-size: 80%;
 	}
+	
+	
+	tbody tr:hover {
+    background-color: #ffff99;
+    cursor: pointer;
+	}	
+	
 </style>
 </head>
 <body>
@@ -51,6 +58,7 @@
 			<form action="adminCategory.do" class="form-inline" method="post" id="searchForm">
 				<input type="hidden" name="categoryType" value="${categoryType} }"/>
 				<div class="form-group">
+					<input type="hidden" name="categorytype" value="${categoryType }"/>
 					<select name="searchCondition" id="searchCondition" class="form-control">
 						<c:choose>
 							<c:when test="${categoryType eq 'A' }">
@@ -68,6 +76,7 @@
 					<input id="searchKeyword" value="${searchKeyword }" type="text" name="searchKeyword" class="form-control" placeholder="검색어..." />
 					<button id="search" class="btn btn-default">검색</button>
 				</div>
+
 				<div class="pull-right">
 					<c:choose>
 						<c:when test="${categoryType eq 'A' }">
@@ -87,7 +96,7 @@
 	</div><!-- /panel -->
 	
 	<div class="table-responsive">
-	  <table class="table table-bordered">
+	  <table id="myTable" class="table table-bordered">
 	  	<thead>
 	  		<tr>
 	  			<c:choose>
@@ -132,36 +141,84 @@
 			  		</c:choose>
 		  		</tr>
 	  		</c:forEach>
-	  	
 	  	</tbody>
 	  </table>
 	</div>
+	
 	<!-- Page navigation// -->
 	<div class="text-center">
 		<nav aria-label="Page navigation">
-		  <ul class="pagination">
-		    <li>
-		      <a href="#" aria-label="Previous">
-		        <span aria-hidden="true">&laquo;</span>
-		      </a>
-		    </li>
-		    <li><a href="#">1</a></li>
-		    <li><a href="#">2</a></li>
-		    <li><a href="#">3</a></li>
-		    <li><a href="#">4</a></li>
-		    <li><a href="#">5</a></li>
-		    <li>
-		      <a href="#" aria-label="Next">
-		        <span aria-hidden="true">&raquo;</span>
-		      </a>
-		    </li>
-		  </ul>
+			<!-- 페이징 처리 -->
+			<ul class="pagination">
+				<c:choose>
+					<c:when test="${startPageNum ne 1 }">
+						<li>
+							<a href="javascript: goPage(${startPageNum-1 });" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li class="disabled">
+							<a href="javascript:" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+					</c:otherwise>
+				</c:choose>
+				
+				<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+						<li class='<c:if test="${i eq pageNum }">active</c:if>'>
+							<a href="javascript: goPage(${i });">${i }</a>
+						</li>
+				</c:forEach>
+				
+				<c:choose>
+					<c:when test="${endPageNum lt totalPageCount }">
+						<li>
+							<a href="javascript: goPage(${endPageNum+1 });" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+							<!--  <a href="javascript: goPage(${endPageNum+1 });">&raquo;</a>-->
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li class="disabled">
+							<a href="javascript:" class="muted" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					</c:otherwise>
+				</c:choose>		
+			</ul>
 		</nav>
 	</div>
-	<!-- //Page navigation -->
+	<!-- //Page navigation -->	
+	
 </div>
 
 <jsp:include page="../inc/footer.jsp" />
 
+<script>
+	//페이징처리
+	function goPage(pageNum){
+		location.href='adminCategory.do?categoryType=${categoryType}&searchKeyword=${searchKeyword}&searchCondition=${searchCondition}&pageNum='+pageNum;
+	}
+	
+	/*
+	//수정폼이동
+	function goDetail(seq){
+		location.href='updateform.do?pageNum=${pageNum}&searchKeyword=${searchKeyword}&searchCondition=${searchCondition}&seq='+seq;
+	}
+	*/
+	
+	$("tbody tr").click(function(){
+    // 현재 클릭된 Row(<tr>)
+    var tr = $(this);
+    var td = tr.children();
+		var seq = td.eq(0).text();
+		location.href = "updateform.do?categoryType=${categoryType}&seq="+seq;
+	});
+</script>
 </body>
 </html>

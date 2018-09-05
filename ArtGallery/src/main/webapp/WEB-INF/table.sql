@@ -1,14 +1,3 @@
-ALTER SEQUENCE TCategory_seq INCREMENT BY 377;
-select TCategory_seq.nextval from dual;
-ALTER SEQUENCE TCategory_seq INCREMENT BY 1;
-select TCategory_seq.nextval from dual;
-
-ALTER SEQUENCE tart_seq INCREMENT BY 110;
-select tart_seq.nextval from dual;
-ALTER SEQUENCE tart_seq INCREMENT BY 1;
-select tart_seq.nextval from dual;
-
-
 CREATE TABLE T_Category(
 	seq NUMBER PRIMARY KEY,
 	code CHAR(1) DEFAULT 'A',
@@ -56,8 +45,6 @@ CREATE TABLE T_ArtRel(
 
 CREATE UNIQUE INDEX IDX_TartRel_01 ON T_ArtRel(aseq, cseq);
 
-
-
 CREATE TABLE T_User(
 	id VARCHAR2(11) PRIMARY KEY,
 	pwd VARCHAR2(60),
@@ -93,6 +80,31 @@ CREATE TABLE T_ArtComment(
 	comment_group NUMBER, -- 원글에 달린 댓글 내에서의 그룹번호
 	regdate DATE -- 댓글 등록일 
 );
+
+insert into t_artComment (num, writer,content, target_id, seq, comment_group, regdate)
+values(TArtComment_seq.nextval, 'hyung', '1  test test test', null, 31, 1, sysdate);
+insert into t_artComment (num, writer,content, target_id, seq, comment_group, regdate)
+values(TArtComment_seq.nextval, 'hyung', '2  test test test', null, 31, 2, sysdate);
+insert into t_artComment (num, writer,content, target_id, seq, comment_group, regdate)
+values(TArtComment_seq.nextval, 'hyung', '3  test test test', null, 31, 3, sysdate);
+insert into t_artComment (num, writer,content, target_id, seq, comment_group, regdate)
+values(TArtComment_seq.nextval, 'hyung', '4  test test test', null, 31, 4, sysdate);
+insert into t_artComment (num, writer,content, target_id, seq, comment_group, regdate)
+values(TArtComment_seq.nextval, 'hyung', '5  test test test', null, 31, 5, sysdate);
+insert into t_artComment (num, writer,content, target_id, seq, comment_group, regdate)
+values(TArtComment_seq.nextval, 'hyung', '6  test test test', null, 31, 6, sysdate);
+insert into t_artComment (num, writer,content, target_id, seq, comment_group, regdate)
+values(TArtComment_seq.nextval, 'hyung', '7  test test test', null, 31, 7, sysdate);
+insert into t_artComment (num, writer,content, target_id, seq, comment_group, regdate)
+values(TArtComment_seq.nextval, 'hyung', '8  test test test', null, 31, 8, sysdate);
+insert into t_artComment (num, writer,content, target_id, seq, comment_group, regdate)
+values(TArtComment_seq.nextval, 'hyung', '9  test test test', null, 31, 9, sysdate);
+insert into t_artComment (num, writer,content, target_id, seq, comment_group, regdate)
+values(TArtComment_seq.nextval, 'hyung', '10  test test test', null, 31, 10, sysdate);
+
+
+select * from t_artcomment;
+
 
 CREATE SEQUENCE TArtComment_seq;
 
@@ -137,18 +149,25 @@ and   a.seq=c.aseq(+)
 and   c.cseq=d.seq(+)
 order by a.seq;
 
+
 CREATE VIEW V_CATEGORY AS
 SELECT seq, code, name
      , DECODE(code, 'A','아티스트', 'P','화파', 'M','재료') codeName,imagepath
 	   , NVL((SELECT MAX(ROWNUM) FROM t_artrel a WHERE a.cseq=c.seq), 0) artCount
   FROM t_category c;
-  
+
+select * from v_category;
+
 DROP VIEW V_CATEGORY;
 
-  
-SELECT * FROM V_CATEGORY
-WHERE code='M';
+-- 192.168.0.200 아닌 pc 
+INSERT INTO t_config(code, pagerow, displayrow, ip, uploadRoot)
+VALUES('1', 10, 5, 'localhost', '/upload');
 
+
+-- 192.168.0.200 pc
+INSERT INTO t_config(code, pagerow, displayrow, ip, uploadRoot)
+VALUES('1', 10, 5, '192.168.0.200', '/upload');
 
 
 
@@ -163,3 +182,14 @@ SELECT  *
 	    				 WHERE  aseq IN ( SELECT aseq FROM t_artrel WHERE cseq=354 )
 	    			    )  
 
+
+	    			    
+/*
+ Data dump
+ C:\Users\acorn>exp userid=scott/tiger file='c:\ncs2018\exp.dmp' tables=(scott.t_art, 
+ t_config, t_category, t_artcomment, t_artrel, t_user, t_favorart, t_favorcategory)
+ 
+ 
+ Data import
+ C:\Users\acorn>imp userid=scott/tiger owner=scott file='c:\ncs2018\exp.dmp'
+*/	    			    

@@ -27,7 +27,9 @@
 		          </ul>
 	        </li>
 	       	<li><a id="showBtn" href="#">의견보내기 </a></li>
-	        <li class="disabled"><a href="#">shop</a></li>
+	       	<c:if test="${not empty id}">
+       			<li><a href="${pageContext.request.contextPath }/auction/house.do">경매</a></li>
+	        </c:if>
         </ul>
       	<ul class="nav navbar-nav navbar-right">
       		<c:choose>
@@ -53,7 +55,6 @@
 <style>
 	.h_s {
 		display: none;
-		
 	}
 </style>
 <!-- search// -->

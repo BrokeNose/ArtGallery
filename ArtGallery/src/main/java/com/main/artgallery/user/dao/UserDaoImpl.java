@@ -55,4 +55,9 @@ public class UserDaoImpl implements UserDao {
 	public void changePwd(UserDto dto) {
 		session.update("user.changePwd", dto);
 	}
+	@Override
+	public UserDto userCount() {
+		// TODO Auto-generated method stub
+		return session.selectOne("user.userCount");
+	}
 }
