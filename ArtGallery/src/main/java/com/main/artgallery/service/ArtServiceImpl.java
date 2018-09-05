@@ -133,6 +133,7 @@ public class ArtServiceImpl implements ArtService {
 		String keyword=dto.getSearchKeyword();
 		String condition=dto.getSearchCondition();		
 		String adminMode=(String)request.getAttribute("adminMode");	// controller에서 setting
+		String favoriteMode=(String)request.getAttribute("favoriteMode");
 		
 		int seq = dto.getSeq();
 		
@@ -161,8 +162,17 @@ public class ArtServiceImpl implements ArtService {
 		//mView.addObject("configDto", configDto); - ConfigService에서 set 함.
 
 		//작품정보 가져오기
-		ArtDto resultDto=artDao.getData(dto);
-		
+		ArtDto resultDto=null;
+		if (favoriteMode != null && favoriteMode.equals("Y")) {	// 관심작품
+			String id=(String)request.getSession().getAttribute("id");
+			FavorArtDto fDto=new FavorArtDto();
+			fDto.setId(id);
+			fDto.setAseq(dto.getSeq());
+			resultDto= favorArtDao.getDataPrevNext(fDto);	
+		}else {
+			resultDto=artDao.getData(dto);
+		}
+
 		if (resultDto.getRemark() != null) {
 			int idx=resultDto.getRemark().indexOf(":");
 			//System.out.println("idx : " + idx + "=" + resultDto.getRemark().length());
