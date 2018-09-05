@@ -50,10 +50,20 @@
 	.thumb_items {
 		position: absolute; 
 		bottom:5px;
-		z-index:2000;
+		
 		color:#fff;
 		left:5px;
 	}
+	.thumb_bg{
+		position: absolute;
+		bottom:0;
+		margin:0;
+		width: 100%;
+		height:100%;
+		background-color: rgba(0, 0, 0, 0.2);
+		z-index:10000;
+	}
+	body{padding-top: 70px;}
 	
 
 </style>
@@ -87,11 +97,13 @@
 				<div class="thumbnail">
 					<div class="centered">
 						<a href="detail.do?seq=${dto.seq }"">
-							<div class="thumb_bg">
+						
+							<div class="thumb_bg">								
 								<div class="thumb_title">${dto.name }</div>
-								<div class="thumb_items">항목 ${dto.artcount }개</div>
+								<div class="thumb_items">항목 ${dto.artcount }개</div>								
 							</div>
-							<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" />
+							<div><img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" style="z-index:2000;"/></div>
+							
 						</a>						
 					</div>
 				</div>

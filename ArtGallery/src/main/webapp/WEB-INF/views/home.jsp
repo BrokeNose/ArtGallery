@@ -112,8 +112,7 @@
 			  				<div class="img_textbg">			  				
 			  				<div class="img_title">${tmpA.name }</div>
 			  				<div class="img_items">항목 ${tmpA.artcount }개</div>
-			  				</div>
-			  				
+			  				</div>			  				
 			  			</div>
 			  		</a>
 	  			</div>
