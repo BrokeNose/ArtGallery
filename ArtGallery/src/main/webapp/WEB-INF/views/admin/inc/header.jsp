@@ -19,9 +19,9 @@
         <li class="dropdown <c:if test="${param.navMenu eq 'category' }">active</c:if>">
           <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">카테고리<span class="caret"></span></a>
           <ul id="categorySelect" class="dropdown-menu">
-            <li><a href="${pageContext.request.contextPath }/admin/adminCategory.do?categorytype=A">아티스트</a></li>
-            <li><a href="${pageContext.request.contextPath }/admin/adminCategory.do?categorytype=M">재료</a></li>
-            <li><a href="${pageContext.request.contextPath }/admin/adminCategory.do?categorytype=P">화파</a></li>
+            <li><a href="${pageContext.request.contextPath }/admin/adminCategory.do?categoryType=A">아티스트</a></li>
+            <li><a href="${pageContext.request.contextPath }/admin/adminCategory.do?categoryType=M">재료</a></li>
+            <li><a href="${pageContext.request.contextPath }/admin/adminCategory.do?categoryType=P">화파</a></li>
           </ul>
         </li>       
         <li class='<c:if test="${param.navMenu eq 'user' }">active</c:if>'><a href="${pageContext.request.contextPath }/admin/user/userlist.do">회원</a></li> 

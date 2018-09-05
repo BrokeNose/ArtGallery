@@ -100,13 +100,13 @@
 					  <div class="form-group">
 					    <label class="col-sm-2 control-label">재료명</label>
 					    <div class="col-sm-10">
-					      	<input type="text" class="form-control" id="name" name="name">
+					      	<input type="text" class="form-control" id="name" name="name" value="${dto.name }">
 					    </div>
 					  </div>
 					  <div class="form-group">
 					  	<label class="col-sm-2 control-label">비고</label>
 							<div class="col-sm-10">
-							    <textarea name="remark" id="remark" class="form-control" rows="8"></textarea>
+							    <textarea name="remark" id="remark" class="form-control" rows="8">${dto.remark }</textarea>
 							</div>
 					  </div>
 					  
@@ -124,13 +124,13 @@
 					  <div class="form-group">
 					    <label class="col-sm-2 control-label">화파명</label>
 					    <div class="col-sm-10">
-					      	<input type="text" class="form-control" id="name" name="name">
+					      	<input type="text" class="form-control" id="name" name="name" value="${dto.name }">
 					    </div>
 					  </div>
 					  <div class="form-group">
 					  	<label class="col-sm-2 control-label">비고</label>
 							<div class="col-sm-10">
-							    <textarea name="remark" id="remark" class="form-control" rows="8"></textarea>
+							    <textarea name="remark" id="remark" class="form-control" rows="8">${dto.remark }</textarea>
 							</div>
 					  </div>
 					  <div class="form-group">
