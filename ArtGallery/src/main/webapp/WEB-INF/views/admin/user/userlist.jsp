@@ -85,7 +85,7 @@
 	  	<tbody>
 		  	<c:forEach var="tmp" items="${list }">
 				<tr>
-					<td></td>				
+					<td>${tmp.rnum }</td>				
 					<td>${tmp.id }</td>
 					<td>${tmp.email }</td>
 					<td>${tmp.regdate }</td>
