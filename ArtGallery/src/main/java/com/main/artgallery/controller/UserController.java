@@ -49,17 +49,18 @@ public class UserController {
 		return map;
 	}
 	@RequestMapping("/user/signin_form")
-	public ModelAndView signin_form(@RequestParam(defaultValue="") String url, HttpServletRequest request) {
-		if(url.equals("")) {
-			url=request.getContextPath()+"/";
-		}
+	public ModelAndView signin_form(HttpServletRequest request) {
+		String query=request.getQueryString();
+		String url=query.substring(4);
 		ModelAndView mView=new ModelAndView();
 		mView.addObject("url", url);
 		mView.setViewName("user/signin_form");
 		return mView;
 	}
 	@RequestMapping("/user/signin")
-	public ModelAndView signin(@ModelAttribute UserDto dto, @RequestParam String url, HttpSession session) {
+	public ModelAndView signin(@ModelAttribute UserDto dto, HttpServletRequest request, HttpSession session) {
+		String query=request.getQueryString();
+		String url=query.substring(4);
 		ModelAndView mView=new ModelAndView();
 		uService.signIn(mView, dto, session);
 		mView.addObject("url", url);
