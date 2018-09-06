@@ -51,8 +51,7 @@
 		        <c:if test="${!empty opinionCount and opinionCount > 0 }">
 		        	<span class="badge" style="position:absolute;right:-5px;margin-right:10px;margin-top:10px;background-color: #cc0000;">${opinionCount }</span>		        	
 	    	    </c:if>	        	
-	        </c:if>
-	        	               
+	        </c:if>	        	               
       	</ul>
     </div>
   </div>
