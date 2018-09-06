@@ -64,9 +64,9 @@
  		<a class="navbar-brand" href="#" id="search_close">
 	      	<span style="color: #333;"><i class="fas fa-arrow-left"></i> </span>
 	    </a>
-		<form class="navbar-form navbar-left" role="search">
+		<form class="navbar-form navbar-left" role="search" action="result.do" >
 		  <div class="form-group">
-		    <input type="text" class="form-control" placeholder="Search">
+		    <input type="text" class="form-control" placeholder="Search" id="searchKeyword" name="searchKeyword" value="${param.searchKeyword }">
 		  </div>
 		  <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>		
 		</form>		

@@ -11,7 +11,7 @@ import com.main.artgallery.art.dto.ArtRelDto;
 
 public interface ArtService {
 	//-------- Son ----------------------
-
+	public void getSearchList(HttpServletRequest request, ModelAndView mView);
 	
 	
 	//-------- hyung ----------------------

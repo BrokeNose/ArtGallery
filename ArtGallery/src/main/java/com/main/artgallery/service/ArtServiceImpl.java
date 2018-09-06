@@ -451,5 +451,15 @@ public class ArtServiceImpl implements ArtService {
 		result[0]=code;
 		result[1]=text;
 		return result;
-	}	
+	}
+
+	@Override
+	public void getSearchList(HttpServletRequest request, ModelAndView mView) {
+		//T_config 환경변수 가져오기
+		getConfig(request);
+		mView.addObject("configDto", configDto);
+		String SearchKeyword=(String)request.getParameter("searchKeyword");
+		mView.addObject("list",artDao.getSearchList(SearchKeyword));
+		
+	}
 }
