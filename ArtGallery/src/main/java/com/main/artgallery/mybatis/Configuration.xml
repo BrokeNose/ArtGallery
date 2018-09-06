@@ -11,6 +11,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.main.artgallery.art.dto.ArtCommentDto" alias="artCommentDto"/>
 		<typeAlias type="com.main.artgallery.config.dto.ConfigDto" alias="configDto"/>
 		<typeAlias type="com.main.artgallery.favorart.dto.FavorArtDto" alias="favorArtDto"/>
+		<typeAlias type="com.main.artgallery.opinion.dto.OpinionDto" alias="opinionDto"/>
+		<typeAlias type="com.main.artgallery.opinion.dto.OpinionCommentDto" alias="opinionCommentDto"/>
 	</typeAliases>	
 	<mappers>
 		<mapper resource="com/main/artgallery/mybatis/CategoryMapper.xml"/>
@@ -20,5 +22,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="com/main/artgallery/mybatis/ArtCommentMapper.xml"/>
 		<mapper resource="com/main/artgallery/mybatis/ConfigMapper.xml"/>
 		<mapper resource="com/main/artgallery/mybatis/FavorArtMapper.xml"/>
+		<mapper resource="com/main/artgallery/mybatis/OpinionMapper.xml"/>
+		<mapper resource="com/main/artgallery/mybatis/OpinionCommentMapper.xml"/>
 	</mappers>
 </configuration>

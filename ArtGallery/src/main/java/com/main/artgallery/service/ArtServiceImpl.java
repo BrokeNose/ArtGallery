@@ -108,7 +108,7 @@ public class ArtServiceImpl implements ArtService {
 			endPageNum=totalPageCount; //보정해준다. 
 		}
 		
-		// 위에서 만든 CafeDto 에 추가 정보를 담는다. 
+		// 위에서 만든 Dto 에 추가 정보를 담는다. 
 		dto.setStartRowNum(startRowNum);
 		dto.setEndRowNum(endRowNum);
 		
@@ -527,7 +527,7 @@ public class ArtServiceImpl implements ArtService {
 		}
 		
 		//보여줄 페이지 데이터의 시작 ResultSet row 번호
-		int pageRow=(int)( configDto.getPagerow() / 2);
+		int pageRow=3;
 		int startRowNum=1+(pageNum-1)*pageRow;
 		//보여줄 페이지 데이터의 끝 ResultSet row 번호
 		int endRowNum=pageNum*pageRow;
@@ -538,7 +538,7 @@ public class ArtServiceImpl implements ArtService {
 		int totalPageCount=
 				(int)Math.ceil(totalRow/(double)pageRow);
 		
-		// 위에서 만든 CafeDto 에 추가 정보를 담는다. 
+		// 위에서 만든 Dto 에 추가 정보를 담는다. 
 		dto.setStartRowNum(startRowNum);
 		dto.setEndRowNum(endRowNum);
 		

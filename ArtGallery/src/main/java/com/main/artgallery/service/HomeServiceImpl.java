@@ -13,6 +13,7 @@ import com.main.artgallery.category.dao.CategoryDao;
 import com.main.artgallery.category.dto.CategoryDto;
 import com.main.artgallery.config.dao.ConfigDao;
 import com.main.artgallery.config.dto.ConfigDto;
+import com.main.artgallery.opinion.dao.OpinionDao;
 
 @Service
 public class HomeServiceImpl implements HomeService {
@@ -21,6 +22,9 @@ public class HomeServiceImpl implements HomeService {
 	@Autowired
 	private ConfigService cfService;	
 	private ConfigDto configDto=null;
+	@Autowired
+	private OpinionDao opinionDao;
+
 	@Override
 	public void getToday(HttpServletRequest request, ModelAndView mView) {
 		getConfig(request);
@@ -53,4 +57,9 @@ public class HomeServiceImpl implements HomeService {
 		cfService.getData(request, "1");
 		configDto=(ConfigDto)request.getAttribute("configDto");		
 	}
+//	@Override
+//	public void getOpinionCount(HttpServletRequest request) {
+//		int opinionCount=opinionDao.getCountNoView();
+//		request.setAttribute("opinionCount", opinionCount);
+//	}
 }

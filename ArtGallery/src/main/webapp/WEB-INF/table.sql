@@ -1,3 +1,32 @@
+insert into t_opinion values (1,'ddd','dd','ddd',0, sysdate);
+delete from t_opinion;
+
+select * from t_opinion;
+
+drop table T_opinion;
+CREATE TABLE T_opinion(
+	num NUMBER PRIMARY KEY, -- 글번호
+	writer VARCHAR2(11), --  작성자
+	title	VARCHAR2(100),	-- 제목
+	content CLOB, --  내용
+	viewcount number,
+	regdate	DATE -- 작성일
+);
+
+CREATE SEQUENCE TOpinion_seq;
+
+-- 댓글 정보를 저장할 테이블
+CREATE TABLE T_opinionComment(
+	num NUMBER PRIMARY KEY, -- 댓글의 글번호
+	writer VARCHAR2(11), -- 댓글 작성자
+	content VARCHAR2(500), -- 댓글 내용
+	target_id VARCHAR2(11), -- 댓글의 대상이 되는 아이디(글작성자)
+	ref_group NUMBER, -- 댓글 그룹번호  t_opinion.num
+	comment_group NUMBER, -- 원글에 달린 댓글 내에서의 그룹번호
+	regdate DATE -- 댓글 등록일 
+);
+
+
 CREATE TABLE T_Category(
 	seq NUMBER PRIMARY KEY,
 	code CHAR(1) DEFAULT 'A',
