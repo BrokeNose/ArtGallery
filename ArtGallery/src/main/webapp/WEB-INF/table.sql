@@ -81,6 +81,31 @@ CREATE TABLE T_ArtComment(
 	regdate DATE -- 댓글 등록일 
 );
 
+insert into t_artComment (num, writer,content, target_id, seq, comment_group, regdate)
+values(TArtComment_seq.nextval, 'hyung', '1  test test test', null, 31, 1, sysdate);
+insert into t_artComment (num, writer,content, target_id, seq, comment_group, regdate)
+values(TArtComment_seq.nextval, 'hyung', '2  test test test', null, 31, 2, sysdate);
+insert into t_artComment (num, writer,content, target_id, seq, comment_group, regdate)
+values(TArtComment_seq.nextval, 'hyung', '3  test test test', null, 31, 3, sysdate);
+insert into t_artComment (num, writer,content, target_id, seq, comment_group, regdate)
+values(TArtComment_seq.nextval, 'hyung', '4  test test test', null, 31, 4, sysdate);
+insert into t_artComment (num, writer,content, target_id, seq, comment_group, regdate)
+values(TArtComment_seq.nextval, 'hyung', '5  test test test', null, 31, 5, sysdate);
+insert into t_artComment (num, writer,content, target_id, seq, comment_group, regdate)
+values(TArtComment_seq.nextval, 'hyung', '6  test test test', null, 31, 6, sysdate);
+insert into t_artComment (num, writer,content, target_id, seq, comment_group, regdate)
+values(TArtComment_seq.nextval, 'hyung', '7  test test test', null, 31, 7, sysdate);
+insert into t_artComment (num, writer,content, target_id, seq, comment_group, regdate)
+values(TArtComment_seq.nextval, 'hyung', '8  test test test', null, 31, 8, sysdate);
+insert into t_artComment (num, writer,content, target_id, seq, comment_group, regdate)
+values(TArtComment_seq.nextval, 'hyung', '9  test test test', null, 31, 9, sysdate);
+insert into t_artComment (num, writer,content, target_id, seq, comment_group, regdate)
+values(TArtComment_seq.nextval, 'hyung', '10  test test test', null, 31, 10, sysdate);
+
+
+select * from t_artcomment;
+
+
 CREATE SEQUENCE TArtComment_seq;
 
 DROP TABLE T_CONFIG;

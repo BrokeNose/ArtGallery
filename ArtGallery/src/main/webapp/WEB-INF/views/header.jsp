@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fixed-top" >
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -40,13 +40,16 @@
 					<li><a href="${pageContext.request.contextPath }/art/favorArtList.do" title="관심작품"><span style="font-size:1.3em;color: #333;"><i class="fas fa-heart"></i></span></a></li>
       			</c:when>
       			<c:otherwise>
-      				<li><a href="${pageContext.request.contextPath }/user/signin_form.do?url=${url }" title="로그인"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user"></i></span></a></li>
+      				<li><a id="signinForm" href="#" title="로그인"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user"></i></span></a></li>
 	        		<li><a href="${pageContext.request.contextPath }/user/signup_form.do" title="회원가입"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-plus"></i></span></a></li>
       			</c:otherwise>
       		</c:choose>
 	        <li><a href="#" title="검색" id="search_icon"><span style="font-size:1.3em;color: #333;"><i class="fas fa-search"></i></span></a></li>
 	       	<c:if test="${roll eq 'A' }">
-	        	<li><a href="${pageContext.request.contextPath }/admin/home.do" title="관리자"><span style="font-size:1.3em;color: #333;"><i class="fas fa-users-cog"></i></span></a></li>
+	        	<li style="margin-right:10px"><a href="${pageContext.request.contextPath }/admin/home.do" title="관리자"><span style="font-size:1.3em;color: #333;"><i class="fas fa-users-cog"></i></span></a>
+	        	</li>
+	        	<span class="badge" style="position:absolute;right:-5px;margin-right:10px;margin-top:10px;background-color: #cc0000;">14</span>
+	        	
 	        </c:if>
       	</ul>
     </div>
@@ -55,7 +58,6 @@
 <style>
 	.h_s {
 		display: none;
-		
 	}
 </style>
 <!-- search// -->
@@ -94,6 +96,12 @@
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
 <script>
+	$("#signinForm").click(function(){
+		var currentPathname=$(location).attr('pathname');
+		var currentParam=$(location).attr('search');
+		var currentUrl=currentPathname+currentParam;
+		$("#signinForm").attr("href", "${pageContext.request.contextPath }/user/signin_form.do?url="+currentUrl)
+	});
 	
 	//모달이 완전히 보여졌을때 실행할 함수 등록
 	$("#myModal").on("shown.bs.modal", function(){});

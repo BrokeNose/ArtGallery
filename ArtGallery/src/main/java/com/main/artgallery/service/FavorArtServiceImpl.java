@@ -31,17 +31,6 @@ public class FavorArtServiceImpl implements FavorArtService {
 		mView.addObject("list", dao.getList(FAdto));		
 	}
 
-	//작품 상세 페이지 서비스. (관심작품)
-	@Override
-	public void getData(HttpServletRequest request, ModelAndView mView) {
-		String id=(String)request.getSession().getAttribute("id");
-		int seq=Integer.parseInt(request.getParameter("seq"));
-		FavorArtDto dto=new FavorArtDto();
-		dto.setId(id);
-		dto.setAseq(seq);
-		mView.addObject("dto", dao.getDataPrevNext(dto));		
-	}
-
 	@Override
 	public void update(HttpServletRequest request) {
 		
@@ -54,12 +43,12 @@ public class FavorArtServiceImpl implements FavorArtService {
 		FavorArtDto dto2 = dao.getData(dto);
 		if (  dto2 != null && dto2.getId() != null) {
 			//System.out.println("favorite delete");
-			request.setAttribute("isFavor", "N");
+			request.setAttribute("isFavorInsert", "N");
 			dao.delete(dto);
 		} else {
 			//System.out.println("favorite insert");
 			dao.insert(dto);
-			request.setAttribute("isFavor", "Y");
+			request.setAttribute("isFavorInsert", "Y");
 		}
 	}
 	

@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.main.artgallery.config.dto.ConfigDto;
 import com.main.artgallery.user.dao.UserDao;
 import com.main.artgallery.user.dto.UserDto;
 
@@ -18,21 +19,70 @@ import com.main.artgallery.user.dto.UserDto;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao dao;
+	
+	@Autowired
+	private ConfigService cfService;	
+	private ConfigDto configDto=null;
+	
 	@Override
 	public void getList(HttpServletRequest request, ModelAndView mView, UserDto dto) {
-		String keyword=request.getParameter("keyword");
-		String condition=request.getParameter("condition");
+		String keyword=request.getParameter("searchKeyword");
+		String condition=request.getParameter("searchCondition");
 		if(keyword!=null) {
 			if(condition.equals("id")) {
 				dto.setId(keyword);
 			} else if(condition.equals("email")) {
 				dto.setEmail(keyword);
 			}
-			mView.addObject("keyword", keyword);
-			mView.addObject("condition", condition);
+			mView.addObject("searchKeyword", keyword);
+			mView.addObject("searchCondition", condition);
+		}		
+		//T_config 환경변수 가져오기
+		getConfig(request);
+
+		//보여줄 페이지의 번호
+		int pageNum=dto.getPageNum();	// null인 경우 0 이 됨.
+		if(pageNum == 0){
+			pageNum=1;
 		}
+		
+		//유저가 3개씩 출력
+		configDto.setPagerow(3);
+		
+		//보여줄 페이지 데이터의 시작 ResultSet row 번호
+		int startRowNum=1+(pageNum-1)*configDto.getPagerow();
+		//보여줄 페이지 데이터의 끝 ResultSet row 번호
+		int endRowNum=pageNum*configDto.getPagerow();
+		
+		//전체 row 의 갯수를 읽어온다.
+		int totalRow=dao.getCount(dto);
+		//전체 페이지의 갯수 구하기
+		int totalPageCount=
+				(int)Math.ceil(totalRow/(double)configDto.getPagerow());
+		//시작 페이지 번호
+		int startPageNum=
+			1+((pageNum-1)/configDto.getDisplayrow())*configDto.getDisplayrow();
+		//끝 페이지 번호
+		int endPageNum=startPageNum+configDto.getDisplayrow()-1;
+		//끝 페이지 번호가 잘못된 값이라면 
+		if(totalPageCount < endPageNum){
+			endPageNum=totalPageCount; //보정해준다. 
+		}
+		
+		// 위에서 만든 userDto 에 추가 정보를 담는다. 
+		dto.setStartRowNum(startRowNum);
+		dto.setEndRowNum(endRowNum);	
+		
 		List<UserDto> list=dao.getList(dto);
 		mView.addObject("list", list);
+		
+		// 페이징 처리에 관련된 값도 request 에 담기 
+		mView.addObject("pageNum", pageNum);
+		mView.addObject("startPageNum", startPageNum);
+		mView.addObject("endPageNum", endPageNum);
+		mView.addObject("totalPageCount", totalPageCount);
+		// 전체 row 의 갯수도 전달하기
+		mView.addObject("totalRow", totalRow);
 	}
 	@Override
 	public boolean canUseId(String id) {
@@ -49,14 +99,22 @@ public class UserServiceImpl implements UserService {
 	public void signIn(ModelAndView mView, UserDto dto, HttpSession session) {
 		UserDto resultDto=dao.getData(dto.getId());
 		boolean isSigninSuccess=false;
-		if(resultDto!=null) {
+		String msg=null;
+		if(resultDto==null) {
+			msg="아이디가 존재하지 않습니다.";
+		} else if(resultDto.getDeldate()!=null) {
+			msg="탈퇴한 아이디입니다.";
+		} else {
 			isSigninSuccess=BCrypt.checkpw(dto.getPwd(), resultDto.getPwd());
-		}
-		if(isSigninSuccess) {
-			session.setAttribute("id", dto.getId());
-			session.setAttribute("roll", resultDto.getRoll());
-		}
+			if(isSigninSuccess) {
+				session.setAttribute("id", dto.getId());
+				session.setAttribute("roll", resultDto.getRoll());
+			} else {
+				msg="비밀번호를 확인하세요";
+			}
+		} 
 		mView.addObject("isSigninSuccess", isSigninSuccess);
+		mView.addObject("msg", msg);
 	}
 	@Override
 	public void info(ModelAndView mView, HttpSession session) {
@@ -102,5 +160,12 @@ public class UserServiceImpl implements UserService {
 	public void delete(ModelAndView mView, HttpSession session) {
 		String id=(String)session.getAttribute("id");
 		dao.delete(id);
+	}
+	@Override
+	public void getConfig(HttpServletRequest request) {
+		// ConfigService 에서 가져오면 request에 담겨져 있으므로 다시 가져온다.
+		cfService.getData(request, "1");
+		configDto=(ConfigDto)request.getAttribute("configDto");		
+		//System.out.println(configDto.getRealPath() + "-" + configDto.getHttpPath());
 	}
 }

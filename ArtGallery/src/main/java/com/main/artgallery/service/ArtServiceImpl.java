@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.main.artgallery.art.dao.ArtCommentDao;
 import com.main.artgallery.art.dao.ArtDao;
+import com.main.artgallery.art.dto.ArtCommentDto;
 import com.main.artgallery.art.dto.ArtDto;
 import com.main.artgallery.art.dao.ArtRelDao;
 import com.main.artgallery.art.dto.ArtRelDto;
@@ -32,6 +34,9 @@ public class ArtServiceImpl implements ArtService {
 	@Autowired
 	private ArtRelDao artRelDao;
 
+	@Autowired
+	private ArtCommentDao artCommentDao;
+	
 	@Autowired
 	private FavorArtDao favorArtDao;
 
@@ -128,6 +133,9 @@ public class ArtServiceImpl implements ArtService {
 		String keyword=dto.getSearchKeyword();
 		String condition=dto.getSearchCondition();		
 		String adminMode=(String)request.getAttribute("adminMode");	// controller에서 setting
+		String favoriteMode=(String)request.getAttribute("favoriteMode");
+		
+		int seq = dto.getSeq();
 		
 		if(keyword != null) {//검색어가 전달된 경우 
 			if(condition.equals("titleRemark")) {//제목+비고
@@ -154,8 +162,17 @@ public class ArtServiceImpl implements ArtService {
 		//mView.addObject("configDto", configDto); - ConfigService에서 set 함.
 
 		//작품정보 가져오기
-		ArtDto resultDto=artDao.getData(dto);
-		
+		ArtDto resultDto=null;
+		if (favoriteMode != null && favoriteMode.equals("Y")) {	// 관심작품
+			String id=(String)request.getSession().getAttribute("id");
+			FavorArtDto fDto=new FavorArtDto();
+			fDto.setId(id);
+			fDto.setAseq(dto.getSeq());
+			resultDto= favorArtDao.getDataPrevNext(fDto);	
+		}else {
+			resultDto=artDao.getData(dto);
+		}
+
 		if (resultDto.getRemark() != null) {
 			int idx=resultDto.getRemark().indexOf(":");
 			//System.out.println("idx : " + idx + "=" + resultDto.getRemark().length());
@@ -169,7 +186,7 @@ public class ArtServiceImpl implements ArtService {
 		}
 		//연계정보 가져오기
 		ArtRelDto relDto=new ArtRelDto();
-		relDto.setAseq(dto.getSeq());
+		relDto.setAseq(seq);
 		
 		relDto.setCode("A");;
 		List<ArtRelDto> aList=artRelDao.getList(relDto);
@@ -195,23 +212,28 @@ public class ArtServiceImpl implements ArtService {
 			mView.addObject("painterTxt", rtn[1]);		
 		} else {
 			//조회수 증가
-			artDao.addViewCount(dto.getSeq());
+			artDao.addViewCount(seq);
+			
+			// 관심작품 등록 여부
+			String id=(String)request.getSession().getAttribute("id");
+			String isFavorArt="N";
+			if ( id != null && !(id.equals(""))) {
+				FavorArtDto fDto=new FavorArtDto();
+				fDto.setAseq(seq);
+				fDto.setId(id);
+				FavorArtDto fDto2=favorArtDao.getData(fDto);
+				if ( fDto2 != null && fDto2.getId() != null ) {
+					isFavorArt="Y";
+				}
+			}
+			mView.addObject("isFavorArt", isFavorArt);
+			
+			// 댓글 목록 가져오기
+			getCommentList(request, mView);
+			
 		}
 		
-		// 관심작품 등록 여부
-		String id=(String)request.getSession().getAttribute("id");
-		String isFavorArt="N";
-		if ( id != null && !(id.equals(""))) {
-			FavorArtDto fDto=new FavorArtDto();
-			fDto.setAseq(dto.getSeq());
-			fDto.setId(id);
-			FavorArtDto fDto2=favorArtDao.getData(fDto);
-			if ( fDto2 != null && fDto2.getId() != null ) {
-				isFavorArt="Y";
-			}
-		}
-		// request에 담기
-		mView.addObject("isFavorArt", isFavorArt);
+		// request에 담기		
 		mView.addObject("dto", resultDto);	// 작품 정보
 		mView.addObject("aList", aList);	// 아티스트 연계
 		mView.addObject("mList", mList);	// 재료 연계
@@ -453,6 +475,106 @@ public class ArtServiceImpl implements ArtService {
 		return result;
 	}
 
+	// service에서 호출하는 댓글 목록
+	@Override
+	public void getCommentList(HttpServletRequest request, ModelAndView mView) {		
+		ArtCommentDto dto=new ArtCommentDto();
+		
+		// 작품번호
+		if(request.getParameter("seq") != null && !request.getParameter("seq").equals("")) {
+			dto.setSeq(Integer.parseInt(request.getParameter("seq")));
+		}
+	
+		//검색어
+		String keyword=request.getParameter("searchCommentKeyword");
+		String condition=request.getParameter("searchCommentCondition");		
+		dto.setSearchCommentKeyword(keyword);
+		dto.setSearchCommentCondition(condition);
+				
+		//보여줄 페이지의 번호
+		String pageNum=request.getParameter("commentPageNum");
+		if(pageNum == null){
+			dto.setCommentPageNum(1);
+		} else {
+			dto.setCommentPageNum(Integer.parseInt(pageNum));
+		}
+		
+		getCommentList(request, mView, dto);
+	}
+
+	// controller에서 호출하는 댓글 목록
+	@Override
+	public void getCommentList(HttpServletRequest request, ModelAndView mView, ArtCommentDto dto) {
+
+		String keyword=dto.getSearchCommentKeyword();
+		String condition=dto.getSearchCommentCondition();		
+		
+		if(keyword != null) {//검색어가 전달된 경우 
+			if(condition.equals("content")) {// 내용
+				dto.setContent(keyword);
+			}else if(condition.equals("writer")) {// 작성자
+				dto.setWriter(keyword);
+			}
+			//list.jsp 에서 필요한 내용 담기
+			mView.addObject("searchCommentKeyword", condition);
+			mView.addObject("searchKeyword", keyword);
+		}
+		
+		//보여줄 페이지의 번호
+		int pageNum=dto.getCommentPageNum();	// null인 경우 0 이 됨.
+		if(pageNum == 0){
+			pageNum=1;
+		}
+		
+		//보여줄 페이지 데이터의 시작 ResultSet row 번호
+		int pageRow=(int)( configDto.getPagerow() / 2);
+		int startRowNum=1+(pageNum-1)*pageRow;
+		//보여줄 페이지 데이터의 끝 ResultSet row 번호
+		int endRowNum=pageNum*pageRow;
+		
+		//전체 row 의 갯수를 읽어온다.
+		int totalRow=artCommentDao.getCount(dto);
+		//전체 페이지의 갯수 구하기
+		int totalPageCount=
+				(int)Math.ceil(totalRow/(double)pageRow);
+		
+		// 위에서 만든 CafeDto 에 추가 정보를 담는다. 
+		dto.setStartRowNum(startRowNum);
+		dto.setEndRowNum(endRowNum);
+		
+		//1. FileDto 객체를 전달해서 파일 목록을 불러온다 
+		List<ArtCommentDto> commentList=artCommentDao.getList(dto);
+		
+		//System.out.println("commentList : " + commentList +"=" +  pageNum + "=" + totalPageCount);
+		//2. request 에 담고
+		request.setAttribute("commentList", commentList);
+		
+		// 페이징 처리에 관련된 값도 request 에 담기 
+		mView.addObject("commentPageNum", pageNum);
+		mView.addObject("totalPageCount", totalPageCount);
+		// 전체 row 의 갯수도 전달하기
+		mView.addObject("totalRow", totalRow);
+	}
+
+	@Override
+	public void commentInsert(HttpServletRequest request, ArtCommentDto dto) {
+		//저장할 댓글의 번호를 미리 얻어낸다.
+		int seq=artCommentDao.getSequence();
+		//댓글을 DB 에 저장
+		dto.setNum(seq);
+		//댓글의 그룹 번호를 읽어온다. ( 0 or 다른 숫자가 들어있다 )
+		if(dto.getComment_group()==0) {//원글의 댓글인 경우
+			dto.setComment_group(seq);
+		}
+		//새 댓글을 저장한다.		
+		artCommentDao.insert(dto);
+	}
+
+	@Override
+	public void commentDelete(HttpServletRequest request, int num) {
+		artCommentDao.delete(num);
+	}	
+	
 	@Override
 	public void getSearchList(HttpServletRequest request, ModelAndView mView) {
 		//T_config 환경변수 가져오기

@@ -58,7 +58,16 @@
 		color:#fff;
 		left:5px;
 	}
-
+	.thumb_bg{
+		position: absolute;
+		bottom:0;
+		margin:0;
+		width: 100%;
+		height:100%;
+		background-color: rgba(0, 0, 0, 0.2);
+		z-index:5000;
+	}
+	body{padding-top: 70px;}
 </style>
 </head>
 <body>
@@ -70,7 +79,7 @@
   	<%-- <div class="row">
   		<c:forEach var="dto" items="${list }">
 	  		<div class=".row.row-eq-height col-md-3 col-sm-6 col-xs-6" style="background-image: url('${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }');">
-		  		<a class="col-md-3 col-sm-6 col-xs-6" href="detail.do?seq=${dto.seq }&code=${dto.code }" style="background-image: url('${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }');">
+		  		<a class="col-md-3 col-sm-6 col-xs-6" href="favoriteDetail.do?seq=${dto.seq }&code=${dto.code }" style="background-image: url('${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }');">
 		  			<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
 		  			<p>${dto.title }</p>
 		  		</a>
@@ -81,9 +90,11 @@
 	<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
 		<div class="thumbnail">
 			<div class="centered">
-				<a href="detail.do?favor=1&seq=${dto.seq }" title="${dto.title }">
-					<div class="thumb_title1">${dto.title }</div>
-					<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }">					
+				<a href="favoriteDetail.do?seq=${dto.seq }" title="${dto.title }">
+					<div class="thumb_bg">		
+						<div class="thumb_title1">${dto.title }</div>							
+					</div>
+					<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" style="z-index:2000;">			
 				</a>
 			</div>
 		</div>

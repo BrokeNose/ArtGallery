@@ -21,7 +21,7 @@
 	<c:otherwise>
 		<div class="text-center "><br /><br /><br /><br /><br /><br />
 		<span style="font-size:30px;"><i class="fas fa-grin-beam-sweat"></i></span>
-		<br /><p>아이디 혹은 비밀번호를 확인하세요.</p><br /><br />
+		<br /><p>${msg }</p><br /><br />
 		<a href="signin_form.do?url=${url }" class="btn btn-default btn-lg" role="button">확인</a>
 		</div>
 	</c:otherwise>

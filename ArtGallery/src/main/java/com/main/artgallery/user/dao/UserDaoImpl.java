@@ -17,6 +17,10 @@ public class UserDaoImpl implements UserDao {
 		return session.selectList("user.getList", dto);
 	}
 	@Override
+	public int getCount(UserDto dto) {
+		return session.selectOne("user.getCount", dto);
+	}
+	@Override
 	public boolean canUseId(String id) {
 		String result=session.selectOne("user.isExist", id);
 		if(result==null) {

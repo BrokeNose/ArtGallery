@@ -51,18 +51,17 @@
 	}
 	.img_preview {
 		width: 100%;
-		height:200px;
-		
+		height:200px;		
 		background-origin: content-box;
-		
+		z-index:-2000;
 	}
 	.img_textbg {
 		position: absolute;
 		bottom:0;
-		margin:5px;
-		width: 96%;
-		height:45px;
-		background-color: rgba(0, 0, 0, 0.5);
+		margin:0;
+		width: 100%;
+		height:100%;
+		background-color: rgba(0, 0, 0, 0.2);
 		
 	}
 	.img_title {
@@ -70,16 +69,21 @@
 		position: absolute;
 		bottom:23px;
 		left:10px;
-		
-		 
+			 
 	}
 	.img_items {
 		color: #fff;
 		position: absolute;
 		bottom:5px;
-		left:10px;
+		left:10px;		
+	}
+	a.mOverB:hover .child {
+		transform: scale(1.5);
 		
 	}
+	body {
+	 padding-top: 70px;
+	 }
 </style>
 </head>
 <body>
@@ -105,13 +109,12 @@
   		<div class="wrapper">
   			<c:forEach var="tmpA" items="${listA }">
 	  			<div class="col-md-2 col-sm-3 col-xs-6">
-	  				<a href="category/detail.do?seq=${tmpA.seq }&code=A">
-			  			<div class="img_preview" style="background:url(${configDto.httpPath}${pageContext.request.contextPath }${tmpA.imagepath });background-size: 100% 100%;">
-			  				<div class="img_textbg ">			  				
+	  				<a href="category/detail.do?seq=${tmpA.seq }&code=A" class="mOverB">
+			  			<div class="img_preview" style="background:url(${configDto.httpPath}${pageContext.request.contextPath }${tmpA.imagepath });background-size: 100% 100%;   ">
+			  				<div class="img_textbg">			  				
 			  				<div class="img_title">${tmpA.name }</div>
 			  				<div class="img_items">항목 ${tmpA.artcount }개</div>
-			  				</div>
-			  				
+			  				</div>			  				
 			  			</div>
 			  		</a>
 	  			</div>

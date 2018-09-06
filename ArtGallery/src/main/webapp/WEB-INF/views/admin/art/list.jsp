@@ -29,7 +29,8 @@
 	  padding-right: 15px;
 	  padding-left: 15px;
 	}
-	
+
+
 	code {
 	  font-size: 80%;
 	}
@@ -70,7 +71,7 @@
 		</div><!-- /panel-body -->
 	</div><!-- /panel -->
 	<div class="table-responsive">
-		<table class="table table-bordered">
+		<table class="table table-bordered table-hover">
 			<thead>
 				<tr>
 					<td>#</td>
@@ -149,16 +150,7 @@
 <script>
 	//$(function(){});
 	
-	$('table tbody tr:odd').css("backgroundColor","#fff");       // odd 홀수
-  	$('table tbody tr:even').css("backgroundColor","#f5f5fc");   // even 짝수
-  
-    $('table tbody tr').mouseover(function(){ 
-        $(this).css("backgroundColor","#ccc"); 
-    }); 
-    $('table tbody tr').mouseout(function(){ 
-   		$('table tbody tr:odd').css("backgroundColor","#fff");       // odd 홀수
-   	  	$('table tbody tr:even').css("backgroundColor","#f5f5fc");   // even 짝수
-    }); 
+
     $('table tbody tr').click(function(){ 
         var id=$(this).attr("id").substring(1);
         goDetail(id);

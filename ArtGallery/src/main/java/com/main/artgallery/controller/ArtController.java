@@ -1,6 +1,7 @@
 package com.main.artgallery.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,11 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.main.artgallery.art.dto.ArtCommentDto;
 import com.main.artgallery.art.dto.ArtDto;
+import com.main.artgallery.category.dto.CategoryDto;
 import com.main.artgallery.service.ArtService;
 import com.main.artgallery.service.ConfigService;
 import com.main.artgallery.service.FavorArtService;
-
 
 @Controller
 public class ArtController {
@@ -32,27 +34,60 @@ public class ArtController {
 	
 	
 	//-------- Hyung ----------------------
-	
+	//작품 댓글 등록
+	@RequestMapping("/art/comment_insertJson.do")
+	@ResponseBody
+	public Map<String, Object> userCommentInsert(HttpServletRequest request , @ModelAttribute ArtCommentDto dto) {	
+		aService.commentInsert(request,dto);		
+		Map<String, Object> map=new HashMap<>();
+		map.put("isSuccess", true);
+		return map;
+	}
+	//작품 댓글 목록 - ajax
+	@RequestMapping("/art/commentListJson.do")
+	@ResponseBody
+	public List<ArtCommentDto> commentList(HttpServletRequest request , ModelAndView mView, @ModelAttribute ArtCommentDto dto) {	
+		aService.getCommentList(request, mView, dto);
+		List<ArtCommentDto> list=(List<ArtCommentDto>)request.getAttribute("commentList");
+		//System.out.println("commentListJson.do");
+		return list;
+	}
+	//작품 댓글 삭제
+	@RequestMapping("/art/comment_delete.do")
+	public ModelAndView userCommentDelete(HttpServletRequest request, @RequestParam int num) {
+		
+		aService.commentDelete(request, num);
+		int seq=(int)(request.getAttribute("seq"));
+		return new ModelAndView("redirect:/art/commentList.do?seq="+seq);
+	}
 	//작품 상세 정보 조회
 	@RequestMapping("/art/detail")
 	public ModelAndView artDetail(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
 		request.setAttribute("adminMode", "N");		//관리자모드 아님
-		if (request.getParameter("favor") != null && request.getParameter("favor").equals("1")) {
-			fService.getData(request, mView);
-		} else {
-			aService.getData(request, mView, dto);
-		}
+		request.setAttribute("favoriteMode", "N");	//관심작품 no
+		aService.getData(request, mView, dto);
 		mView.setViewName("category/artDetail");
 		return mView;
 	}
+	
+	//관심작품 상세 정보 조회 - 로그인 필수
+	@RequestMapping("/art/favoriteDetail")
+	public ModelAndView userArtDetail(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
+		request.setAttribute("adminMode", "N");		//관리자모드 아님
+		request.setAttribute("favoriteMode", "Y");	//관심작품 Yes
+		aService.getData(request, mView, dto);
+		mView.setViewName("category/artDetail");
+		return mView;
+	}	
+	
 	//관심 작품 등록,삭제 처리
 	@RequestMapping("/art/favoriteArt")
 	@ResponseBody
 	public Map<String, Object> authFavoriteArt(HttpServletRequest request) {
 		fService.update(request);		
-		String isFavor=(String)request.getAttribute("isFavor");		
+		String isFavorInsert=(String)request.getAttribute("isFavorInsert");		
 		Map<String, Object> map=new HashMap<>();
-		map.put("isFavor", isFavor);
+		map.put("isFavorInsert", isFavorInsert);
 		return map;
 	}
 

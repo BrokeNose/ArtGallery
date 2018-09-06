@@ -53,10 +53,10 @@
 		  FROM   T_Category 
 		 <where>
 		 		code=#{code}
-        <if test="name != null">
+        <if test="name != null and name != ''">
           AND UPPER(name) LIKE '%'||UPPER(#{name})||'%'
         </if>
-        <if test="remark != null">
+        <if test="remark != null and remark != ''">
           AND UPPER(remark) LIKE '%'||UPPER(#{remark})||'%'
         </if>
 		 </where>
@@ -83,13 +83,15 @@
 		  FROM (SELECT result1.*, ROWNUM rnum
 		          FROM (SELECT <include refid="categoryColumn" />
 		                  FROM T_Category
-		                 WHERE code=#{code}
-		                 <if test="name != null">
-		                   AND UPPER(name) LIKE '%'||UPPER(#{name})||'%'
-		                 </if>
-		                 <if test="remark != null">
-		                   AND UPPER(remark) LIKE '%'||UPPER(#{remark})||'%'
-		                 </if>
+		                 <where>
+		                 		code=#{code}
+			                 <if test="name != null and name != ''">
+			                   AND UPPER(name) LIKE '%'||UPPER(#{name})||'%'
+			                 </if>
+			                 <if test="remark != null and remark != ''">
+			                   AND UPPER(remark) LIKE '%'||UPPER(#{remark})||'%'
+			                 </if>
+		                 </where>
 		               ) result1
 		  		 ) result2
 		 WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}	

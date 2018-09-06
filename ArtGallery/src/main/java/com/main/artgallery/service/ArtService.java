@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import com.main.artgallery.art.dto.ArtCommentDto;
 import com.main.artgallery.art.dto.ArtDto;
 import com.main.artgallery.art.dto.ArtRelDto;
 
@@ -26,4 +27,10 @@ public interface ArtService {
 	public void fileDelete(String realPath, String imagePath);	// 파일삭제
 	public void getConfig(HttpServletRequest request);
 	public String[] artRelTextMerge(List<ArtRelDto> list);
+	
+	// artcomment
+	public void getCommentList(HttpServletRequest request, ModelAndView mView);
+	public void getCommentList(HttpServletRequest request, ModelAndView mView, ArtCommentDto dto);
+	public void commentInsert(HttpServletRequest request, ArtCommentDto dto);
+	public void commentDelete(HttpServletRequest request, int num);	
 }

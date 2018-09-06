@@ -19,4 +19,5 @@ public interface UserService {
 	public void changePwd(String pwd, HttpSession session);
 	public void leave(ModelAndView mView, HttpSession session);
 	public void delete(ModelAndView mView, HttpSession session);
+	public void getConfig(HttpServletRequest request);
 }

@@ -6,6 +6,7 @@ import com.main.artgallery.user.dto.UserDto;
 
 public interface UserDao {
 	public List<UserDto> getList(UserDto dto);
+	public int getCount(UserDto dto);
 	public boolean canUseId(String id);
 	public boolean insert(UserDto dto);
 	public UserDto getData(String id);
