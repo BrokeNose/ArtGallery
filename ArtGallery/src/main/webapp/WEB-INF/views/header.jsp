@@ -48,9 +48,7 @@
 	       	<c:if test="${roll eq 'A' }">
 	        	<li style="margin-right:10px"><a href="${pageContext.request.contextPath }/admin/home.do" title="관리자"><span style="font-size:1.3em;color: #333;"><i class="fas fa-users-cog"></i></span></a>
 	        	</li>
-		        <c:if test="${!empty opinionCount and opinionCount > 0 }">
-		        	<span class="badge" style="position:absolute;right:-5px;margin-right:10px;margin-top:10px;background-color: #cc0000;">${opinionCount }</span>		        	
-	    	    </c:if>	        	
+	        	<span class="badge" style="position:absolute;right:-5px;margin-right:10px;margin-top:10px;background-color: #cc0000;"></span>		        	
 	        </c:if>	        	               
       	</ul>
     </div>
@@ -63,7 +61,6 @@
 </style>
 <!-- search// -->
 <div id="search_box" class="h_s"> 	
-
  	<div class="navbar-header" style="; width:100%;">
  		<a class="navbar-brand" href="#" id="search_close">
 	      	<span style="color: #333;"><i class="fas fa-arrow-left"></i> </span>
@@ -128,5 +125,19 @@
 		confirm("로그아웃 됐습니다.");
 		location.href="${pageContext.request.contextPath }/user/signout.do";
 	};
+	
+<c:if test="${!empty id && !empty roll && roll ne 'U' }">
+	$.ajax({
+		url:"${pageContext.request.contextPath }/opinion/count.do",
+		method:"get",
+		success:function(data) {
+			if ( data.opinionCount > 0 )  {
+				$(".badge").text(data.opinionCount);				
+			}else {
+				$(".badge").text("");
+			}
+		}
+	});
+</c:if>	
 
 </script>

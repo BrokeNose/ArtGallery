@@ -1,11 +1,15 @@
 package com.main.artgallery.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.main.artgallery.opinion.dto.OpinionCommentDto;
@@ -92,20 +96,15 @@ public class OpinionController {
 		//view 페이지로 forward 이동
 		return new ModelAndView("opinion/list");
 	}
+	
+	//카페 글 목록 보기 요청 처리 
+	@RequestMapping("/opinion/count.do")
+	@ResponseBody
+	public Map<String, Object> getCount(HttpServletRequest request) {		
+		opinionService.getCountNoView(request);
+		int opinionCount=(int)request.getAttribute("opinionCount");
+		Map<String, Object> map=new HashMap<>();
+		map.put("opinionCount", opinionCount);
+		return map;
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

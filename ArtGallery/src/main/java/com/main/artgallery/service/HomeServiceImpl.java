@@ -57,9 +57,4 @@ public class HomeServiceImpl implements HomeService {
 		cfService.getData(request, "1");
 		configDto=(ConfigDto)request.getAttribute("configDto");		
 	}
-	@Override
-	public void getOpinionCount(HttpServletRequest request) {
-		int opinionCount=opinionDao.getCountNoView();
-		request.setAttribute("opinionCount", opinionCount);
-	}
 }
