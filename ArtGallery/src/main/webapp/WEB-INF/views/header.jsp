@@ -48,11 +48,10 @@
 	       	<c:if test="${roll eq 'A' }">
 	        	<li style="margin-right:10px"><a href="${pageContext.request.contextPath }/admin/home.do" title="관리자"><span style="font-size:1.3em;color: #333;"><i class="fas fa-users-cog"></i></span></a>
 	        	</li>
-		        <c:if test="${!empty HeaderOpinionCount and HeaderOpinionCount > 0 }">
-		        	<span class="badge" style="position:absolute;right:-5px;margin-right:10px;margin-top:10px;background-color: #cc0000;">${HeaderOpinionCount }</span>
+		        <c:if test="${!empty opinionCount and opinionCount > 0 }">
+		        	<span class="badge" style="position:absolute;right:-5px;margin-right:10px;margin-top:10px;background-color: #cc0000;">${opinionCount }</span>		        	
 	    	    </c:if>	        	
-	        </c:if>
-	        ${HeaderOpinionCount } - ${headerUrl} 
+	        </c:if>       
       	</ul>
     </div>
   </div>

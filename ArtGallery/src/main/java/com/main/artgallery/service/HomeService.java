@@ -10,5 +10,5 @@ public interface HomeService {
 	public void getListM(HttpServletRequest request, ModelAndView mView);
 	public void getListP(HttpServletRequest request, ModelAndView mView);
 	public void getConfig(HttpServletRequest request);
-	//public void getOpinionCount(HttpServletRequest request);
+	public void getOpinionCount(HttpServletRequest request);
 }

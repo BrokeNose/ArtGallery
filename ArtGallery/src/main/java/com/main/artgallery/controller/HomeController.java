@@ -23,7 +23,7 @@ public class HomeController {
 		hService.getListA(request, mView);
 		hService.getListM(request, mView);
 		hService.getListP(request, mView);
-		//hService.getOpinionCount(request);
+		hService.getOpinionCount(request);
 		mView.setViewName("home");
 		return mView;
 	}

@@ -226,7 +226,7 @@ public class OpinionServiceImpl implements OpinionService{
 	@Override
 	public void getCountNoView(HttpServletRequest request) {
 		int opinionCount=opinionDao.getCountNoView();
-		request.setAttribute("headerOpinionCount", opinionCount);
+		request.setAttribute("opinionCount", opinionCount);
 	}
 	
 }
