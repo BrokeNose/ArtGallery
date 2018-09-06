@@ -9,6 +9,7 @@ public interface ArtDao {
 
 	//-------- Son ----------------------
 	public List<ArtDto> getArtList(ArtDto dto);
+	public List<ArtDto> getSearchList(String SearchKeyword);
 
 	
 	//-------- hyung ----------------------

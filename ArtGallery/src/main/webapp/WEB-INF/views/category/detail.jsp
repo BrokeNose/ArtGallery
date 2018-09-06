@@ -7,6 +7,7 @@
 <title>detail</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/artgallery.css" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
+
 <style>
 	.custom_div {
 		overflow:hidden;
@@ -86,6 +87,11 @@
 		color:#fff;
 		font-weight:bold;
 		left:5px;
+		/* 글씨 긴거 줄여주는 css */
+		overflow: hidden; 
+	 	text-overflow: ellipsis;
+	 	white-space: nowrap; 
+	 	width: 100%;
 	}
 	.thumb_title2 {
 		position: absolute; 
@@ -171,7 +177,10 @@
 						<div class="thumbnail">
 							<div class="centered">
 								<a href="detail.do?seq=${Adto.seq }">
+<<<<<<< HEAD
+=======
 								<div class="thumb_bg">	
+>>>>>>> branch 'master' of https://github.com/SonDaewon/ArtGallery.git
 									<div class="thumb_title2">${Adto.name }</div>
 				  					<div class="thumb_items">항목 ${Adto.artcount }개</div>
 				  				</div>
@@ -192,7 +201,11 @@
 					<div class="thumbnail">
 						<div class="centered">
 							<a href="detail.do?seq=${Mdto.seq }">
+<<<<<<< HEAD
+								<img src="${configDto.httpPath}${pageContext.request.contextPath }${Mdto.imagepath }" class="img-responsive img-thumb"/>
+=======
 							<div class="thumb_bg">	
+>>>>>>> branch 'master' of https://github.com/SonDaewon/ArtGallery.git
 								<div class="thumb_title2">${Mdto.name }</div>
 								<div class="thumb_items">항목 ${Mdto.artcount }개</div>	
 							</div>
@@ -215,7 +228,11 @@
 					<div class="thumbnail">
 						<div class="centered">					
 							<a href="detail.do?seq=${Pdto.seq }" >
+<<<<<<< HEAD
+								<img src="${configDto.httpPath}${pageContext.request.contextPath }${Pdto.imagepath }" class="img-responsive img-thumb">
+=======
 							<div class="thumb_bg">	
+>>>>>>> branch 'master' of https://github.com/SonDaewon/ArtGallery.git
 								<div class="thumb_title2">${Pdto.name }</div>
 			  					<div class="thumb_items">항목 ${Pdto.artcount }개</div>
 			  				</div>

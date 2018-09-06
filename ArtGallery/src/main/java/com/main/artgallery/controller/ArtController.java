@@ -154,4 +154,11 @@ public class ArtController {
 		mView.setViewName("category/favorList");
 		return mView;
 	}
+	
+	@RequestMapping("/result")
+	public ModelAndView AllSearchList(ModelAndView mView, HttpServletRequest request) {
+		aService.getSearchList(request, mView);
+		mView.setViewName("category/result");
+		return mView;
+	}
 }

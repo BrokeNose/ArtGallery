@@ -150,16 +150,20 @@ CREATE TABLE T_Config(
 );
 
 DELETE FROM T_CONFIG;
-INSERT INTO t_config(code, pagerow, displayrow, ip, uploadRoot)
-VALUES('1', 10, 5, '192.168.0.200', '/upload');
+INSERT INTO t_config(code, pagerow, displayrow, ip, uploadRoot) VALUES('1', 10, 5, '192.168.0.200', '/upload');
+
+<!-- 의견보내기 테이블  -->
+
+
 
 -------------------------------------------------------------------------
 drop view v_art;
 
 CREATE VIEW V_ART AS
-select a.seq, a.title, a.createyear, a.artsize, a.remark, a.imagepath, nvl(a.viewcount, 0) viewcount, a.regdate,
+select a.seq, a.title, a.createyear, a.artsize, a.remark, a.imagepath, nvl(a.viewcount, 0) viewcount, a.regdate, 
 	   b.artist, b.painter, b.material,
-	   d.seq as cseq, d.code, d.name
+	   d.seq as cseq, d.code, d.name,
+	   d.remark as categoryRemark, d.bdate as bdate, d.ddate as ddate
 from t_art a, 
 	(
 		select aseq, max(decode(code, 'A', val)) artist, max(decode(code, 'P', val)) painter, max(decode(code, 'M', val)) material
@@ -178,6 +182,8 @@ and   a.seq=c.aseq(+)
 and   c.cseq=d.seq(+)
 order by a.seq;
 
+SELECT DISTINCT TITLE, SEQ, CREATEYEAR, ARTSIZE, IMAGEPATH, VIEWCOUNT, REGDATE, ARTIST, PAINTER, MATERIAL, CSEQ, CODE
+FROM V_ART ;
 
 CREATE VIEW V_CATEGORY AS
 SELECT seq, code, name
@@ -186,9 +192,38 @@ SELECT seq, code, name
   FROM t_category c;
 
 select * from v_category;
+select * from v_ART;
+<!-- --------------------------손대원 검색 작업중------------------------------------- -->
+CREATE VIEW V_SEARCH AS
+select a.seq, a.title, a.createyear, a.artsize, a.remark, a.imagepath, nvl(a.viewcount, 0) viewcount, a.regdate, 
+	   b.artist, b.painter, b.material,
+	   d.seq as cseq, d.code, d.name,
+	  
+from t_art a, 
+	(
+		select aseq, max(decode(code, 'A', val)) artist, max(decode(code, 'P', val)) painter, max(decode(code, 'M', val)) material
+		from (
+			select  b.code, a.aseq, 
+			        substr(xmlagg(xmlelement(a,',' || b.name) order by nvl(a.sortseq, 999), b.name).extract('//text()'), 2) val
+			  from  t_artrel a, t_category b
+			where a.cseq=b.seq
+			group by b.code, a.aseq
+			) b
+		group by aseq
+		order by aseq
+	) b, t_artrel c, t_category d
+where a.seq=b.aseq(+)
+and   a.seq=c.aseq(+)
+and   c.cseq=d.seq(+)
 
-DROP VIEW V_CATEGORY;
+order by a.seq;
 
+SELECT * FROM V_CATEGORY;
+
+SELECT  * FROM V_SEARCH;
+DROP VIEW V_SEARCH;as
+<!-- and (d.remark like '%김홍%' or d.bdate like '%김홍%' ) 이걸 참고해서 search mapper 만들기 -->
+<!-- ******************************************************************** -->
 -- 192.168.0.200 아닌 pc 
 INSERT INTO t_config(code, pagerow, displayrow, ip, uploadRoot)
 VALUES('1', 10, 5, 'localhost', '/upload');
@@ -222,3 +257,14 @@ SELECT  *
  Data import
  C:\Users\acorn>imp userid=scott/tiger owner=scott file='c:\ncs2018\exp.dmp'
 */	    			    
+	    			    
+	    			    
+SELECT DISTINCT TITLE, SEQ, CREATEYEAR,
+ ARTSIZE, IMAGEPATH, VIEWCOUNT, REGDATE,
+  ARTIST, PAINTER, MATERIAL, CSEQ, CODE
+FROM V_ART 
+WHERE UPPER(artist) LIKE '%'||UPPER('종이')||'%'
+	OR UPPER(painter) LIKE '%'||UPPER('종이')||'%'
+	OR UPPER(material) LIKE '%'||UPPER('종이')||'%'
+	OR UPPER(title) LIKE '%'||UPPER('종이')||'%'
+	OR createyear LIKE '%'||'종이'||'%'

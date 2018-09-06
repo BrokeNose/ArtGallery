@@ -58,43 +58,37 @@
 		color:#fff;
 		left:5px;
 	}
-	.thumb_bg{
-		position: absolute;
-		bottom:0;
-		margin:0;
-		width: 100%;
-		height:100%;
-		background-color: rgba(0, 0, 0, 0.2);
-		z-index:5000;
-	}
-	body{padding-top: 70px;}
+
 </style>
 </head>
 <body>
 <jsp:include page="../header.jsp"/>
 <div class="container">
+	<c:if test="">
+		<h4><i class="fas fa-heart"></i> 검색 내용 입니다.</h4>
+	</c:if>
 	
-	<h4><i class="fas fa-heart"></i> 관심작품</h4>
 		
-  	<%-- <div class="row">
-  		<c:forEach var="dto" items="${list }">
-	  		<div class=".row.row-eq-height col-md-3 col-sm-6 col-xs-6" style="background-image: url('${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }');">
-		  		<a class="col-md-3 col-sm-6 col-xs-6" href="favoriteDetail.do?seq=${dto.seq }&code=${dto.code }" style="background-image: url('${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }');">
-		  			<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" class="img-responsive" alt="Responsive image"/>
-		  			<p>${dto.title }</p>
-		  		</a>
-		  	</div>
-  		</c:forEach>
-	</div><!-- //아티스트 --> --%>
+  	
 	<c:forEach var="dto" items="${list }">
 	<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
 		<div class="thumbnail">
 			<div class="centered">
-				<a href="favoriteDetail.do?seq=${dto.seq }" title="${dto.title }">
-					<div class="thumb_bg">		
-						<div class="thumb_title1">${dto.title }</div>							
-					</div>
-					<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" style="z-index:2000;">			
+				<a href="detail.do" title="${dto.title }">
+					<div class="thumb_title1">${dto.title }</div>
+					<div class="thumb_items"> ${dto.title }</div>
+					<div class="thumb_items"> ${dto.seq }</div>
+					<div class="thumb_items"> ${dto.createyear}</div>
+					<div class="thumb_items"> ${dto.artsize }</div>
+					<div class="thumb_items"> ${dto.imagepath }</div>
+					<div class="thumb_items"> ${dto.viewcount}</div>
+					<div class="thumb_items"> ${dto.regdate }</div>
+					<div class="thumb_items"> ${dto.artist }</div>
+					<div class="thumb_items"> ${dto.painter }</div>
+					<div class="thumb_items"> ${dto.material }</div>
+					<div class="thumb_items"> ${dto.cseq }</div>
+					<div class="thumb_items"> ${dto.code }</div>
+					<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }">					
 				</a>
 			</div>
 		</div>

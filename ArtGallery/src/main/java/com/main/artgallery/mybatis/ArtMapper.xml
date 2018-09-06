@@ -28,7 +28,23 @@
 			<if test="remark != null">
 				OR UPPER(remark) LIKE '%'||UPPER(#{remark})||'%'
 			</if>
+			<!--  -->
+			<if test="createyear != null">
+				OR createyear LIKE '%'||#{createyear}||'%'
+			</if>
+			<if test="artsize != null">
+				OR artsize LIKE '%'||#{
+			</if>
 		</trim>
+	</sql>
+	<sql id="SearchWhere">
+		<if test="searchKeyword != null">
+			UPPER(artist) LIKE '%'||UPPER(#{searchKeyword})||'%'
+			OR UPPER(painter) LIKE '%'||UPPER(#{searchKeyword})||'%'
+			OR UPPER(material) LIKE '%'||UPPER(#{searchKeyword})||'%'
+			OR UPPER(title) LIKE '%'||UPPER(#{searchKeyword})||'%'
+			OR createyear LIKE '%'||#{searchKeyword}||'%'
+		</if>
 	</sql>
 	<sql id="artWhere">
 		<where>		
@@ -126,4 +142,16 @@
 		SET    viewcount=nvl(viewcount,0)+1
 		WHERE  seq=#{seq}
 	</update>
+	
+	<select id="mainSearchList" parameterType="string" resultType="artDto">
+		SELECT DISTINCT TITLE, SEQ, CREATEYEAR,
+		 ARTSIZE, IMAGEPATH, VIEWCOUNT, REGDATE,
+		  ARTIST, PAINTER, MATERIAL, CSEQ, CODE
+		FROM V_ART 
+		WHERE UPPER(artist) LIKE '%'||UPPER(#{searchKeyword})||'%'
+			OR UPPER(painter) LIKE '%'||UPPER(#{searchKeyword})||'%'
+			OR UPPER(material) LIKE '%'||UPPER(#{searchKeyword})||'%'
+			OR UPPER(title) LIKE '%'||UPPER(#{searchKeyword})||'%'
+			OR createyear LIKE '%'||#{searchKeyword}||'%';
+	</select>
 </mapper>

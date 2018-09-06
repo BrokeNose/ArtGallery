@@ -63,4 +63,10 @@ public class ArtDaoImpl implements ArtDao {
 	public void addViewCount(int seq) {
 		session.update("art.addViewCount", seq);
 	}
+
+	@Override
+	public List<ArtDto> getSearchList(String SearchKeyword) {
+		
+		return session.selectList("art.SearchWhere",SearchKeyword);
+	}
 }

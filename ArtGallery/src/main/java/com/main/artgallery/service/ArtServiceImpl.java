@@ -574,4 +574,14 @@ public class ArtServiceImpl implements ArtService {
 	public void commentDelete(HttpServletRequest request, int num) {
 		artCommentDao.delete(num);
 	}	
+	
+	@Override
+	public void getSearchList(HttpServletRequest request, ModelAndView mView) {
+		//T_config 환경변수 가져오기
+		getConfig(request);
+		mView.addObject("configDto", configDto);
+		String SearchKeyword=(String)request.getParameter("searchKeyword");
+		mView.addObject("list",artDao.getSearchList(SearchKeyword));
+		
+	}
 }

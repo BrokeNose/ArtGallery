@@ -27,6 +27,12 @@ public class ArtDto {
     private String code;	//A, P, M
     private String name;
     
+    /*
+     * 통합검색 받아내야할 것들
+     * title, seq, createyear, artsize, imagepath, viewcount, regdate, artist, painter, material, cseq, code
+     * 
+     */ 
+    
     //페이징관련
     private int startRowNum;
 	private int endRowNum;
