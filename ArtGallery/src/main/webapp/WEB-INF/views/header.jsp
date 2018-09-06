@@ -63,6 +63,7 @@
 </style>
 <!-- search// -->
 <div id="search_box" class="h_s"> 	
+
  	<div class="navbar-header" style="; width:100%;">
  		<a class="navbar-brand" href="#" id="search_close">
 	      	<span style="color: #333;"><i class="fas fa-arrow-left"></i> </span>
