@@ -40,7 +40,7 @@
 					<li><a href="${pageContext.request.contextPath }/art/favorArtList.do" title="관심작품"><span style="font-size:1.3em;color: #333;"><i class="fas fa-heart"></i></span></a></li>
       			</c:when>
       			<c:otherwise>
-      				<li><a href="${pageContext.request.contextPath }/user/signin_form.do?url=${url }" title="로그인"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user"></i></span></a></li>
+      				<li><a id="signinForm" href="#" title="로그인"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user"></i></span></a></li>
 	        		<li><a href="${pageContext.request.contextPath }/user/signup_form.do" title="회원가입"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-plus"></i></span></a></li>
       			</c:otherwise>
       		</c:choose>
@@ -98,6 +98,12 @@
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
 <script>
+	$("#signinForm").click(function(){
+		var currentPathname=$(location).attr('pathname');
+		var currentParam=$(location).attr('search');
+		var currentUrl=currentPathname+currentParam;
+		$("#signinForm").attr("href", "${pageContext.request.contextPath }/user/signin_form.do?url="+currentUrl)
+	});
 	
 	//모달이 완전히 보여졌을때 실행할 함수 등록
 	$("#myModal").on("shown.bs.modal", function(){});

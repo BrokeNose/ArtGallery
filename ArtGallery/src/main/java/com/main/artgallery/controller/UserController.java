@@ -52,6 +52,9 @@ public class UserController {
 	public ModelAndView signin_form(@RequestParam(defaultValue="") String url, HttpServletRequest request) {
 		if(url.equals("")) {
 			url=request.getContextPath()+"/";
+		} else {
+			String query=request.getQueryString();
+			url=query.substring(4);
 		}
 		ModelAndView mView=new ModelAndView();
 		mView.addObject("url", url);
@@ -59,7 +62,13 @@ public class UserController {
 		return mView;
 	}
 	@RequestMapping("/user/signin")
-	public ModelAndView signin(@ModelAttribute UserDto dto, @RequestParam String url, HttpSession session) {
+	public ModelAndView signin(@ModelAttribute UserDto dto, HttpServletRequest request, @RequestParam String url, HttpSession session) {
+		if(url.equals("")) {
+			url=request.getContextPath()+"/";
+		} else {
+			String query=request.getQueryString();
+			url=query.substring(4);
+		}
 		ModelAndView mView=new ModelAndView();
 		uService.signIn(mView, dto, session);
 		mView.addObject("url", url);
@@ -103,7 +112,7 @@ public class UserController {
 	@RequestMapping("/user/leave")
 	public ModelAndView userLeave(HttpServletRequest request, ModelAndView mView) {
 		uService.leave(mView, request.getSession());
-		mView.setViewName("user/leave");
+		mView.setViewName("redirect:../");
 		return mView;
 	}
 	@RequestMapping("/admin/user/delete")

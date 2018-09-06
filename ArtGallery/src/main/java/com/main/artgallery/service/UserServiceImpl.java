@@ -99,14 +99,22 @@ public class UserServiceImpl implements UserService {
 	public void signIn(ModelAndView mView, UserDto dto, HttpSession session) {
 		UserDto resultDto=dao.getData(dto.getId());
 		boolean isSigninSuccess=false;
-		if(resultDto!=null) {
+		String msg=null;
+		if(resultDto==null) {
+			msg="아이디가 존재하지 않습니다.";
+		} else if(resultDto.getDeldate()!=null) {
+			msg="탈퇴한 아이디입니다.";
+		} else {
 			isSigninSuccess=BCrypt.checkpw(dto.getPwd(), resultDto.getPwd());
-		}
-		if(isSigninSuccess) {
-			session.setAttribute("id", dto.getId());
-			session.setAttribute("roll", resultDto.getRoll());
-		}
+			if(isSigninSuccess) {
+				session.setAttribute("id", dto.getId());
+				session.setAttribute("roll", resultDto.getRoll());
+			} else {
+				msg="비밀번호를 확인하세요";
+			}
+		} 
 		mView.addObject("isSigninSuccess", isSigninSuccess);
+		mView.addObject("msg", msg);
 	}
 	@Override
 	public void info(ModelAndView mView, HttpSession session) {
