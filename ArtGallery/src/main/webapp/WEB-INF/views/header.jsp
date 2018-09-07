@@ -26,7 +26,7 @@
 		            <li><a href="${pageContext.request.contextPath }/category/list.do?soncategorytype=P">화파</a></li>		           
 		          </ul>
 	        </li>
-	       	<li><a id="showBtn" href="#">의견보내기 </a></li>
+	       	<li><a href="${pageContext.request.contextPath }/opinion/list.do">의견보내기 </a></li>
 	       	<c:if test="${not empty id}">
        			<li><a href="${pageContext.request.contextPath }/auction/house.do">경매</a></li>
 	        </c:if>
@@ -73,25 +73,6 @@
 		</form>		
  	</div> 	
 </div>
-<!-- modal// -->
-<div class="modal fade" id="myModal">
-	<!-- modal-lg  | default | modal-sm -->	
-	<div class="modal-dialog modal-sm"> <!--크기옵션 xs md lg-->
-		<div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal"><span>&times;</span><span class="sr-only">모달 닫기</span></button>
-	        <h4 class="modal-title">의견보내기</h4>
-	      </div>
-	      <div class="modal-body">
-	        <textarea class="form-control" rows="10"></textarea>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-	        <button type="button" class="btn btn-primary">의견보내기</button>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
 <script>
@@ -101,17 +82,6 @@
 		var currentUrl=currentPathname+currentParam;
 		$("#signinForm").attr("href", "${pageContext.request.contextPath }/user/signin_form.do?url="+currentUrl)
 	});
-	
-	//모달이 완전히 보여졌을때 실행할 함수 등록
-	$("#myModal").on("shown.bs.modal", function(){});
-	//모달이 완전히 숨겨졌을때 실행할 함수 등록
-	$("#myModal").on("hidden.bs.modal", function(){});
-
-
-	$("#showBtn").click(function(){
-		$("#myModal").modal("show");	
-	});
-	
 	//search box open
 	$("#search_icon").click(function() {
 		$("#search_box").css("display","block").animate({top:"0px"});

@@ -27,14 +27,9 @@ public class OpinionServiceImpl implements OpinionService{
 	
 	@Override
 	public void getList(HttpServletRequest request) {
-		/*
-		 *  request 에 검색 keyword 가 전달 될수도 있고 안될수도 있다.
-		 *  1. 전달 안되는 경우 : home 에서 목록보기를 누른경우
-		 *  2. 전달 되는 경우 : list.do 에서 검색어를 입력후 form 전송한
-		 *     경우. 
-		 *  3. 전달 되는 경우 : 이미 검색을 한 상태에서 페이지 링크를 
-		 *     누른경우
-		 */
+		//관리자모드 여부
+		String adminMode=(String)request.getAttribute("adminMode");	// controller에서 setting
+		
 		//검색과 관련된 파라미터를 읽어와 본다.
 		String keyword=request.getParameter("keyword");
 		String condition=request.getParameter("condition");		
@@ -53,6 +48,12 @@ public class OpinionServiceImpl implements OpinionService{
 			//list.jsp 에서 필요한 내용 담기
 			request.setAttribute("condition", condition);
 			request.setAttribute("keyword", keyword);
+		}
+		
+		// 관리자 모드가 아니면 자기 아이디만 조회되도록 처리
+		if(!adminMode.equals("Y")) {
+			String id=(String)request.getSession().getAttribute("id");
+			dto.setWriter(id);
 		}
 		
 		//보여줄 페이지의 번호
@@ -122,6 +123,8 @@ public class OpinionServiceImpl implements OpinionService{
 
 	@Override
 	public void detail(HttpServletRequest request) {
+		String adminMode=(String)request.getAttribute("adminMode");	// controller에서 setting
+		
 		//1. 파라미터로 전달되는 글번호 읽어오기
 		int num=Integer.parseInt(request.getParameter("num"));
 		//검색과 관련된 파라미터를 읽어와 본다.
@@ -148,8 +151,12 @@ public class OpinionServiceImpl implements OpinionService{
 		
 		//2. OpinionDao 를 이용해서 글정보를 읽어와서
 		OpinionDto resultDto=opinionDao.getData(dto);
-		// 글 조회수 올리기
-		opinionDao.addViewCount(num);
+		
+		// 관리자 모드인 경우만 조회수 증가
+		if(adminMode.equals("Y")) {
+			// 글 조회수 올리기
+			opinionDao.addViewCount(num);			
+		}
 	
 		//3. request 에 담고
 		request.setAttribute("dto", resultDto);

@@ -17,7 +17,7 @@ public class HomeController {
 	public ModelAndView home(HttpServletRequest request, ModelAndView mView) {
 		
 		String rPath = request.getSession().getServletContext().getRealPath("/upload");
-		System.out.println(rPath);
+		System.out.println("rPath : "+ rPath);
 		
 		hService.getToday(request, mView);
 		hService.getListA(request, mView);

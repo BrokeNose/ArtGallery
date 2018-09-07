@@ -1,31 +1,35 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>opinion/insertform.jsp</title>
-<!-- SmartEditor 관련 javascript 로딩 -->
+<title>의견보내기</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/artgallery.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
 <script src="${pageContext.request.contextPath }/SmartEditor/js/HuskyEZCreator.js"></script>
 </head>
 <body>
-<h3>카페 새글 입력 페이지 입니다.</h3>
-<form action="insert.do" method="post">
-	<label for="writer">작성자</label>
-	<input type="text" id="writer" 
-		value="${id }" disabled="disabled"/><br/>
-	<label for="title">제목</label>
-	<input type="text" name="title" id="title"/><br/>
-	<textarea name="content" id="content" 
-	style="width:766px;height:412px;display:none"></textarea>
-	<div>
-		<input type="button" onclick="pasteHTML();" value="본문에 내용 넣기" />
-		<input type="button" onclick="showHTML();" value="본문 내용 가져오기" />
-		<input type="button" onclick="submitContents(this);" value="서버로 내용 전송" />
-		<input type="button" onclick="setDefaultFont();" value="기본 폰트 지정하기 (궁서_24)" />
-	</div>	
-</form>
+<jsp:include page="../header.jsp"/>
+<div class="container">
+	<h4><i class="fas fa-kiss-wink-heart"></i> 의견보내기</h4>
+	<form method="post" id="form1">
+		<label for="writer">작성자</label>
+		<input type="text" id="writer" 
+			value="${id }" disabled="disabled"/><br/>
+		<label for="title">제목</label>
+		<input type="text" name="title" id="title"/><br/>
+		<textarea name="content" id="content" 
+		style="width:766px;height:412px;display:none"></textarea>
+		<div>
+			<input type="button" onclick="pasteHTML();" value="본문에 내용 넣기" />
+			<input type="button" onclick="showHTML();" value="본문 내용 가져오기" />
+			<input type="button" onclick="submitContents(this);" value="서버로 내용 전송" />
+			<input type="button" onclick="setDefaultFont();" value="기본 폰트 지정하기 (궁서_24)" />
+		</div>	
+	</form>
+</div>
+<jsp:include page="../footer.jsp"/>	
 <script>
 var oEditors = [];
 //추가 글꼴 목록
@@ -64,7 +68,24 @@ function submitContents(elClickedObj) {
 	// 에디터의 내용에 대한 값 검증은 이곳에서 document.getElementById("ir1").value를 이용해서 처리하면 됩니다.
 	
 	try {
-		elClickedObj.form.submit();
+
+		var isSuccess=false;
+		var param=$("#form1").serialize();	// this->form
+		$.ajax({
+			url:"insert.do",
+			method:"post",
+			data: param,		//요청 파라미터
+			success:function(data) {
+				if(data.isSuccess){
+					alert("등록했습니다.");
+					location.href="list.do";
+				} else {
+					alert("오류가 발생했습니다.\r\n다시 해주세요.");
+				}
+		    }
+		});
+		
+		//elClickedObj.form.submit();
 	} catch(e) {}
 }
 function setDefaultFont() {
@@ -72,6 +93,7 @@ function setDefaultFont() {
 	var nFontSize = 24;
 	oEditors.getById["content"].setDefaultFont(sDefaultFont, nFontSize);
 }
+
 </script>
 </body>
 </html>

@@ -1,13 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>   
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/views/opinion/detail.jsp</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
+<title>의견보내기</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/artgallery.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
 <style>
 	.content{
 		border: 1px solid #888888;
@@ -18,10 +17,6 @@
 	}
 	.comment{
 		position: relative;
-	}
-	/* 댓글에 댓글을 다는 폼은 일단 숨겨 놓기 */
-	.comment form{
-		display: none;
 	}
 	.comments ul {
 		padding: 0;
@@ -47,49 +42,16 @@
 	}
 	.muted{
 		color: #888;
-	}
-	.comments form textarea, .comments form button{
-		float: left;
-	}
+	}	
 	.comments li{
 		clear: left;
-	}
-	.comments form textarea{
-		width: 500px;
-		height: 100px;
-	}
-	.comments form button{
-		height: 100px;
 	}
 </style>
 </head>
 <body>
+<jsp:include page="../header.jsp"/>
 <div class="container">
-	<c:if test="${not empty keyword }">
-		<p> 검색어 : <strong>${keyword }</strong> 에 대한 자세히 보기</p>
-	</c:if>
-	<a href="list.do">글 전체 목록보기</a>
-	<div>
-		<c:if test="${dto.prevNum ne 0}">
-			<a href="detail.do?num=${dto.prevNum }&condition=${condition}&keyword=${keyword}">이전글</a> |
-		</c:if>
-		<c:if test="${dto.nextNum ne 0}">
-			<a href="detail.do?num=${dto.nextNum }&condition=${condition}&keyword=${keyword}">다음글</a>
-		</c:if>
-	</div>
-	<h3>글 자세히 보기 페이지</h3>
-	<c:if test="${sessionScope.id eq dto.writer }">
-		<a href="updateform.do?num=${dto.num }">수정</a>
-		<a href="javascript:deleteConfirm()">삭제</a>
-		<script>
-			function deleteConfirm(){
-				var isDelete=confirm("글을 삭제 하시겠습니까?");
-				if(isDelete){
-					location.href="private/delete.do?num=${dto.num}";
-				}
-			}
-		</script>
-	</c:if>
+	<h4><i class="fas fa-kiss-wink-heart"></i> 의견보내기</h4>
 	<table>
 		<tr>
 			<th>글번호</th>
@@ -105,6 +67,33 @@
 		</tr>
 	</table>
 	<div class="content">${dto.content }</div>
+	
+	<c:if test="${sessionScope.id eq dto.writer }">
+		<a href="updateform.do?num=${dto.num }" class="btn btn-primary">수정</a>
+		<a href="javascript:deleteConfirm()" class="btn btn-info">삭제</a>
+		<script>
+			function deleteConfirm(){
+				var isDelete=confirm("글을 삭제 하시겠습니까?");
+				if(isDelete){
+					var isSuccess=false;
+					$.ajax({
+						url:"delete.do",
+						method:"get",
+						data: {num: ${dto.num}},		//요청 파라미터
+						success:function(data) {
+							if(data.isSuccess){
+								alert("삭제했습니다.");
+								location.href="list.do";
+							} else {
+								alert("오류가 발생했습니다.\r\n다시 해주세요.");
+							}
+					    }
+					});
+				}
+			}
+		</script>
+	</c:if>
+	
 	<!-- 댓글에 관련된 UI -->
 	<div class="comments">
 		<ul>
@@ -118,9 +107,7 @@
 						<dt>
 							<img src="${pageContext.request.contextPath }/resources/images/user_image.gif"/>
 							<span>${tmp.writer }</span>
-							<span>${tmp.regdate }</span>
-							<a href="javascript:" class="reply_link">답글</a> |
-							<a href="">신고</a>
+							<span>${tmp.regdate }</span>							
 						</dt>
 						<dd>
 							<c:if test="${tmp.num ne tmp.comment_group }">
@@ -129,36 +116,10 @@
 							</c:if>
 							<pre>${tmp.content }</pre>
 						</dd>
-					</dl>
-					<form action="comment_insert.do" method="post">
-						<!-- 덧글 작성자 -->
-						<input type="hidden" name="writer" value="${id }"/>
-						<!-- 덧글 그룹 -->
-						<input type="hidden" name="ref_group" value="${dto.num }" />
-						<!-- 덧글 대상 -->
-						<input type="hidden" name="target_id" value="${tmp.writer }" />
-						<input type="hidden" name="comment_group" value="${tmp.comment_group }" />
-						<textarea name="content"></textarea>
-						<button type="submit">등록</button>
-					</form>		
+					</dl>	
 				</li>
 			</c:forEach>
-		</ul>
-	
-		
-		<!-- 원글에 댓글을 작성할수 있는 폼 -->
-		<div class="comment_form">
-			<form action="comment_insert.do" method="post">
-				<input type="hidden" name="writer" 
-					value="${id }" />
-				<input type="hidden" name="ref_group" 
-					value="${dto.num }"/>
-				<input type="hidden" name="target_id" 
-					value="${dto.writer }"/>
-				<textarea name="content"></textarea>
-				<button type="submit">등록</button>
-			</form>
-		</div>
+		</ul>	
 	</div>					
 </div>
 
