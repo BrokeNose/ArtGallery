@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="opinion">
+
+<!-- 작성자 : hyung -->
+
+	<sql id="opinionColumn">
+		num,writer,title,content,viewCount,
+		TO_CHAR(regdate,'YYYY.MM.DD AM HH:MI') AS regdate
+	</sql>
+
+	<insert id="insert" parameterType="opinionDto">
+		INSERT INTO t_opinion
+		(num, writer, title, content, viewCount, regdate)
+		VALUES(TOpinion_seq.NEXTVAL, #{writer}, #{title},
+			#{content}, #{viewCount}, SYSDATE)
+	</insert>
+	
+	<select id="getCount" parameterType="opinionDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM t_opinion
+		<where>
+			<if test="writer != null">
+				OR writer LIKE '%'||#{writer}||'%'
+			</if>
+			<if test="title != null">
+				OR title LIKE '%'||#{title}||'%'
+			</if>
+			<if test="content !=null">
+				OR content LIKE '%'||#{content}||'%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="getList" parameterType="opinionDto" resultType="opinionDto">
+		SELECT result2.*, 
+		       (SELECT COUNT(*) FROM t_opinionComment b WHERE b.ref_group=result2.num) AS commentCount
+		FROM (SELECT result1.*, ROWNUM rnum
+			  FROM ( SELECT <include refid="opinionColumn"/>
+					FROM t_opinion
+					<where>
+						<if test="writer != null">
+							OR writer LIKE '%'||#{writer}||'%'
+						</if>
+						<if test="title != null">
+							OR title LIKE '%'||#{title}||'%'
+						</if>
+						<if test="content !=null">
+							OR content LIKE '%'||#{content}||'%'
+						</if>
+					</where>
+					ORDER BY num DESC ) result1
+			  ) result2
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+		ORDER BY rnum
+	</select>
+	
+	<select id="getData" parameterType="opinionDto" resultType="opinionDto">
+		SELECT result1.*
+		FROM ( SELECT <include refid="opinionColumn"/>,
+				LAG(num, 1, 0) OVER(ORDER BY num DESC) prevNum,
+				LEAD(num, 1, 0) OVER(ORDER BY num DESC) nextNum
+			 FROM t_opinion
+			 <where>
+				<if test="writer != null">
+					OR writer LIKE '%'||#{writer}||'%'
+				</if>
+				<if test="title != null">
+					OR title LIKE '%'||#{title}||'%'
+				</if>
+				<if test="content !=null">
+					OR content LIKE '%'||#{content}||'%'
+				</if>
+			</where>
+			 ORDER BY num DESC ) result1
+		WHERE num=#{num}			
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM t_opinion
+		WHERE num=#{num}
+	</delete>
+	
+	<update id="update" parameterType="opinionDto">
+		UPDATE t_opinion
+		SET title=#{title},content=#{content}
+		WHERE num=#{num}
+	</update>
+	
+	<update id="addViewCount" parameterType="int">
+		UPDATE t_opinion
+		SET viewCount=viewCount+1
+		WHERE num=#{num}
+	</update>
+	
+	<!-- 답변 안 달린 글의 갯수.  -->
+	<select id="getCountNoView" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM   t_opinion a
+		WHERE  nvl(viewcount,0)=0
+	</select>
+</mapper>

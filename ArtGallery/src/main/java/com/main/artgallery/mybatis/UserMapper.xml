@@ -21,22 +21,23 @@
 		</where>
 	</select>
 	<select id="getList" parameterType="userDto" resultType="userDto">
-		SELECT result1.*
-		FROM (
-				SELECT  id, email, roll, regdate, deldate, 
-						DECODE(roll, 'A', '관리자', 'S', '수퍼', 'U', '사용자','') AS rollname,
-						ROWNUM AS rnum
-				FROM T_User
-				<where>
-					<if test="id !=null">
-						OR id LIKE '%'||#{id}||'%'
-					</if>
-					<if test="email !=null">
-						OR email LIKE '%'||#{email}||'%'
-					</if>
-				</where>
-				ORDER BY id ASC
-			) result1
+		SELECT result2.*
+		FROM ( SELECT result1.*, ROWNUM AS rnum
+			   FROM (
+						SELECT  id, email, roll, regdate, deldate, 
+								DECODE(roll, 'A', '관리자', 'S', '수퍼', 'U', '사용자','') AS rollname
+						FROM T_User
+						<where>
+							<if test="id !=null">
+								OR id LIKE '%'||#{id}||'%'
+							</if>
+							<if test="email !=null">
+								OR email LIKE '%'||#{email}||'%'
+							</if>
+						</where>
+						ORDER BY id ASC
+					) result1
+				) result2
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}	
 		ORDER BY rnum	
 	</select>

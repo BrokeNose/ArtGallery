@@ -70,9 +70,12 @@
 		column-gap:24px
 	}
 	/* 댓글 ----- */
+	#modalComment{
+		top: 25%;
+	}
 	.comments{
 		overflow-y: scroll; 
-		height:350px;
+		height:300px;
 		clear: both;
 	}
 	.comments ul {

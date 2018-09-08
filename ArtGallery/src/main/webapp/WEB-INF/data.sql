@@ -1,3 +1,24 @@
+-- db dump 시 작업
+
+delete from t_art;
+delete from T_ArtRel;
+delete from T_User;
+
+delete from T_FavorArt;
+delete from T_ArtComment;
+delete from t_config;
+
+
+-- cmd imp 실행
+
+update t_config set ip='localhost';
+
+
+------------------------------------------------------------------------
+select * from t_category where imagepath is not null;
+
+
+
 -- db 통으로 복사하면
 update t_config set ip='localhost' ;
 --형님 ip로 다시 변환
@@ -27,6 +48,12 @@ SELECT * FROM T_CONFIG
 INSERT INTO t_config(code, pagerow, displayrow, ip, uploadRoot)
 VALUES('1', 10, 5, '192.168.0.200', '/upload');
 
+update t_art set imagepath= replace(imagepath, '\', '/') where instr(imagepath, '\') > 0 ;
+update t_category set imagepath= replace(imagepath, '\', '/') where instr(imagepath, '\') > 0 ;
+update t_category set imagepath = '/'||imagepath where imagepath is not null and substr(imagepath, 0,1) != '/';
+update t_art set imagepath = '/'||imagepath where imagepath is not null and substr(imagepath, 0,1) != '/';
+
+
 select max(seq) from t_art;
 select TArt_seq.nextval from dual;
 ALTER SEQUENCE TArt_seq INCREMENT BY 180;
@@ -41,12 +68,6 @@ select Tcategory_seq.nextval from dual;
 ALTER SEQUENCE Tcategory_seq INCREMENT BY 1;
 --------------------------------------------------------------
 
-update t_config set ip='localhost';
-
-update t_art set imagepath= replace(imagepath, '\', '/') where instr(imagepath, '\') > 0 ;
-update t_category set imagepath= replace(imagepath, '\', '/') where instr(imagepath, '\') > 0 ;
-update t_category set imagepath = '/'||imagepath where imagepath is not null and substr(imagepath, 0,1) != '/';
-update t_art set imagepath = '/'||imagepath where imagepath is not null and substr(imagepath, 0,1) != '/';
 
 
 

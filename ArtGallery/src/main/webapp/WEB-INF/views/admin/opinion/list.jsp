@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자 작품</title>
+<title>관리자 의견보내기</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
 <style>
@@ -45,27 +45,24 @@
 <body>
 <div class="container-fluid">
 	<jsp:include page="../inc/header.jsp">
-		<jsp:param name="navMenu" value="art"/>
+		<jsp:param name="navMenu" value="opinion"/>
 	</jsp:include>	
-	<h4><span class="glyphicon glyphicon-th" aria-hidden="true"></span>&nbsp; 작품리스트 </h4>
+	<h4><span class="glyphicon glyphicon-th" aria-hidden="true"></span>&nbsp; 의견리스트 </h4>
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<form class="form-inline" action="list.do" method="post">
 				<div class="form-group">
 					<select name="searchCondition" id="searchCondition" class="form-control">
-						<option value="title" 		<c:if test="${searchCondition eq 'title' }">selected</c:if>>작품명</option>
-						<option value="remark" 		<c:if test="${searchCondition eq 'remark' }">selected</c:if>>비고</option>
-						<option value="titleRemark" <c:if test="${searchCondition eq 'titleRemark' }">selected</c:if>>작품명+비고</option>
-						<option value="artist" 		<c:if test="${searchCondition eq 'artist' }">selected</c:if>>아티스트</option>
-						<option value="material" 	<c:if test="${searchCondition eq 'material' }">selected</c:if>>재료</option>
-						<option value="painter" 	<c:if test="${searchCondition eq 'painter' }">selected</c:if>>화파</option>
+						<option value="writer" 		<c:if test="${searchCondition eq 'writer' }">selected</c:if>>작성</option>
+						<option value="title" 		<c:if test="${searchCondition eq 'title' }">selected</c:if>>제목</option>
+						<option value="content" 		<c:if test="${searchCondition eq 'content' }">selected</c:if>>내용</option>
+						<option value="titleContent" <c:if test="${searchCondition eq 'titleContent' }">selected</c:if>>제목+내용</option>
 					</select>
 					<input value="${searchKeyword }" type="text" name="searchKeyword" class="form-control" placeholder="검색어..." />
 					<button class="btn btn-default" type="submit">검색</button>
 					&nbsp;&nbsp;&nbsp;&nbsp;항목수 : ${totalRow }건
 				</div>
 				<div class="pull-right">
-					<button id="btnInsert" type="button" class="btn btn-primary">작품등록</button>
 				</div>	  
 			</form>
 		</div><!-- /panel-body -->
@@ -74,25 +71,21 @@
 		<table class="table table-bordered table-hover">
 			<thead>
 				<tr>
-					<td>#</td>
-					<td width="40%">작품명</td>
-					<td>아티스트</td>
-					<td>제작년도</td>
-					<td>사이즈</td>
-					<td>재료</td>
-					<td>화파</td>
+					<th>#</th>
+					<th width="50%">제목</th>
+					<th>작성자</th>
+					<th>조회수</th>
+					<th>등록일</th>
 				</tr>				  		
 			</thead>
 			<tbody>
-			<c:forEach var="tmp" items="${list }">
-				<tr id="t${tmp.seq }">
-					<td>${tmp.rnum }</td>
-					<td><a href="javascript:goDetail(${tmp.seq });">${tmp.title }</a></td>
-					<td>${tmp.artist }</td>
-					<td>${tmp.createyear }</td>
-					<td>${tmp.artsize }</td>
-					<td>${tmp.material }</td>
-					<td>${tmp.painter }</td>
+			<c:forEach var="dto" items="${list }">
+				<tr id="t${dto.num }">
+					<td>${dto.rnum }</td>
+					<td><a href="javascript:goDetail(${dto.num });">${dto.title }</a></td>
+					<td>${dto.writer }</td>
+					<td>${dto.viewCount }</td>
+					<td>${dto.regdate }</td>
 				</tr>	
 			</c:forEach>
 			</tbody>
@@ -156,17 +149,13 @@
         goDetail(id);
 		//console.log(id);
     });
-    
-	$("#btnInsert").click(function(){
-		location.href='insertform.do?searchKeyword=${searchKeyword}&searchCondition=${searchCondition}&pageNum=${pageNum}';			
-	});
 	//페이징처리
 	function goPage(pageNum){
 		location.href='list.do?searchKeyword=${searchKeyword}&searchCondition=${searchCondition}&pageNum='+pageNum;
 	}
 	//수정폼이동
-	function goDetail(seq){
-		location.href='updateform.do?pageNum=${pageNum}&searchKeyword=${searchKeyword}&searchCondition=${searchCondition}&seq='+seq;
+	function goDetail(num){
+		location.href='detail.do?pageNum=${pageNum}&searchKeyword=${searchKeyword}&searchCondition=${searchCondition}&num='+num;
 	}
 </script>
 </body>

@@ -1,3 +1,41 @@
+delete from t_category;
+delete from t_art;
+delete from T_ArtRel;
+delete from T_User;
+
+delete from T_FavorArt;
+delete from T_ArtComment;
+delete from t_config;
+
+insert into t_opinion values (1,'ddd','dd','ddd',0, sysdate);
+delete from t_opinion;
+
+select * from t_opinion;
+
+drop table T_opinion;
+CREATE TABLE T_opinion(
+	num NUMBER PRIMARY KEY, -- 글번호
+	writer VARCHAR2(11), --  작성자
+	title	VARCHAR2(100),	-- 제목
+	content CLOB, --  내용
+	viewcount number,
+	regdate	DATE -- 작성일
+);
+
+CREATE SEQUENCE TOpinion_seq;
+
+-- 댓글 정보를 저장할 테이블
+CREATE TABLE T_opinionComment(
+	num NUMBER PRIMARY KEY, -- 댓글의 글번호
+	writer VARCHAR2(11), -- 댓글 작성자
+	content VARCHAR2(500), -- 댓글 내용
+	target_id VARCHAR2(11), -- 댓글의 대상이 되는 아이디(글작성자)
+	ref_group NUMBER, -- 댓글 그룹번호  t_opinion.num
+	comment_group NUMBER, -- 원글에 달린 댓글 내에서의 그룹번호
+	regdate DATE -- 댓글 등록일 
+);
+
+
 CREATE TABLE T_Category(
 	seq NUMBER PRIMARY KEY,
 	code CHAR(1) DEFAULT 'A',
@@ -16,7 +54,6 @@ CREATE UNIQUE INDEX IDX_TCategory_01 ON T_Category(code, name, seq);
 
 CREATE UNIQUE INDEX IDX_TCategory_02 ON T_Category(code, viewcount desc, name, seq);
 
-
 CREATE TABLE T_Art(
 	seq NUMBER PRIMARY KEY,
 	title VARCHAR2(200),
@@ -34,7 +71,6 @@ CREATE UNIQUE INDEX IDX_Tart_01 ON T_Art(title asc, seq desc);
 CREATE UNIQUE INDEX IDX_Tart_02 ON T_Art(regdate desc, seq desc);
 
 CREATE INDEX IDX_Tart_03 ON T_Art(viewcount desc, title desc);
-
 
 CREATE TABLE T_ArtRel(
   	cseq NUMBER,
@@ -69,6 +105,14 @@ CREATE TABLE T_FavorCategory(
 );
 
 ----------------------------------------------------------------------
+delete from t_category;
+delete from t_art;
+delete from T_ArtRel;
+delete from T_User;
+
+delete from T_FavorArt;
+delete from T_ArtComment;
+delete from t_config;
 
 -- 댓글 정보를 저장할 테이블
 CREATE TABLE T_ArtComment(
@@ -228,7 +272,7 @@ SELECT  *
  
  
  Data import
- C:\Users\acorn>imp userid=scott/tiger owner=scott file='c:\ncs2018\exp.dmp'
+ C:\Users\acorn>imp userid=scott/tiger file='c:\ncs2018\exp.dmp' commit=y ignore=y full=y
 */	    			    
 	    			    
 

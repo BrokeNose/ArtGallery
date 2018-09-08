@@ -224,7 +224,6 @@
 							<a href="detail.do?seq=${Pdto.seq }" >
 								<img src="${configDto.httpPath}${pageContext.request.contextPath }${Pdto.imagepath }" class="img-responsive img-thumb">
 							<div class="thumb_bg">	
-
 								<div class="thumb_title2 TT" title="${Pdto.name }">${Pdto.name }</div>
 			  					<div class="thumb_items TT" title="항목 ${Pdto.artcount }개">항목 ${Pdto.artcount }개</div>
 			  				</div>

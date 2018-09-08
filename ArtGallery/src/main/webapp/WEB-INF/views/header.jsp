@@ -26,7 +26,7 @@
 		            <li><a href="${pageContext.request.contextPath }/category/list.do?soncategorytype=P">화파</a></li>		           
 		          </ul>
 	        </li>
-	       	<li><a id="showBtn" href="#">의견보내기 </a></li>
+	       	<li><a href="${pageContext.request.contextPath }/opinion/list.do">의견보내기 </a></li>
 	       	<c:if test="${not empty id}">
        			<li><a href="${pageContext.request.contextPath }/auction/house.do">경매</a></li>
 	        </c:if>
@@ -49,9 +49,8 @@
 
 	        	<li style="margin-right:10px"><a href="${pageContext.request.contextPath }/admin/home.do" title="관리자"><span style="font-size:1.3em;color: #333;"><i class="fas fa-users-cog"></i></span></a>
 	        	</li>
-	        	<span class="badge" style="position:absolute;right:-5px;margin-right:10px;margin-top:10px;background-color: #cc0000;">14</span>
-	        	
-	        </c:if>
+	        	<span class="badge" style="position:absolute;right:-5px;margin-right:10px;margin-top:10px;background-color: #cc0000;"></span>		        	
+	        </c:if>	        	               
       	</ul>
     </div>
   </div>
@@ -106,9 +105,6 @@
 		var currentUrl=currentPathname+currentParam;
 		$("#signinForm").attr("href", "${pageContext.request.contextPath }/user/signin_form.do?url="+currentUrl)
 	});
-	
-
-	
 	//모달이 완전히 보여졌을때 실행할 함수 등록
 	$("#myModal").on("shown.bs.modal", function(){});
 	//모달이 완전히 숨겨졌을때 실행할 함수 등록
@@ -118,7 +114,6 @@
 	$("#showBtn").click(function(){
 		$("#myModal").modal("show");	
 	});
-	
 	
 	//search box open
 	$("#search_icon").click(function() {
@@ -136,6 +131,20 @@
 		confirm("로그아웃 됐습니다.");
 		location.href="${pageContext.request.contextPath }/user/signout.do";
 	};
+	
+<c:if test="${!empty id && !empty roll && roll ne 'U' }">
+	$.ajax({
+		url:"${pageContext.request.contextPath }/opinion/count.do",
+		method:"get",
+		success:function(data) {
+			if ( data.opinionCount > 0 )  {
+				$(".badge").text(data.opinionCount);				
+			}else {
+				$(".badge").text("");
+			}
+		}
+	});
+</c:if>	
 
 </script>
 
