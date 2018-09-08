@@ -154,12 +154,12 @@
 	<h4><i class="fas fa-kiss-wink-heart"></i> ${dto.name }의 다른 작품</h4>
   	<div class="row">  
   		<c:forEach var="dto" items="${artlist }">
-			<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6 TT" title="${dto.title }">				
+			<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6 ">				
 				<div class="thumbnail">
 					<div class="centered">
 						<a href="../art/detail.do?cseq=${dto.cseq }&seq=${dto.seq }">
 							<div class="thumb_bg">	
-							<div class="thumb_title1">${dto.title }</div>
+							<div class="thumb_title1 TT" title="${dto.title }">${dto.title }</div>
 							</div>
 							<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" class="img-responsive img-thumb"/>
 						</a>
@@ -173,16 +173,13 @@
 	  	<div class="row">
 			<c:forEach var="Adto" items="${ARellist }">
 		  		<div class="wrapper">
-					<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6 TT"  title="${Adto.name }">
+					<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6" >
 						<div class="thumbnail">
 							<div class="centered">
 								<a href="detail.do?seq=${Adto.seq }">
-<<<<<<< HEAD
-=======
 								<div class="thumb_bg">	
->>>>>>> branch 'master' of https://github.com/SonDaewon/ArtGallery.git
-									<div class="thumb_title2">${Adto.name }</div>
-				  					<div class="thumb_items">항목 ${Adto.artcount }개</div>
+									<div class="thumb_title2 TT" title="${Adto.name }">${Adto.name }</div>
+				  					<div class="thumb_items TT" title="항목 ${Adto.artcount }개">항목 ${Adto.artcount }개</div>
 				  				</div>
 									<img src="${configDto.httpPath}${pageContext.request.contextPath }${Adto.imagepath }" class="img-responsive img-thumb">	
 								</a>
@@ -197,17 +194,14 @@
 		<h4><i class="fas fa-paint-brush"></i> 재료</h4>
 	  	<div class="row">
 	  		<c:forEach var="Mdto" items="${MRellist }">
-				<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6 TT" title="${Mdto.name }" >
+				<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6" title="${Mdto.name }" >
 					<div class="thumbnail">
 						<div class="centered">
 							<a href="detail.do?seq=${Mdto.seq }">
-<<<<<<< HEAD
 								<img src="${configDto.httpPath}${pageContext.request.contextPath }${Mdto.imagepath }" class="img-responsive img-thumb"/>
-=======
 							<div class="thumb_bg">	
->>>>>>> branch 'master' of https://github.com/SonDaewon/ArtGallery.git
-								<div class="thumb_title2">${Mdto.name }</div>
-								<div class="thumb_items">항목 ${Mdto.artcount }개</div>	
+								<div class="thumb_title2 TT" title="${Mdto.name }">${Mdto.name }</div>
+								<div class="thumb_items TT" title="항목 ${Mdto.artcount }개">항목 ${Mdto.artcount }개</div>	
 							</div>
 							<img src="${configDto.httpPath}${pageContext.request.contextPath }${Mdto.imagepath }" class="img-responsive img-thumb"/>
 									  					
@@ -228,13 +222,11 @@
 					<div class="thumbnail">
 						<div class="centered">					
 							<a href="detail.do?seq=${Pdto.seq }" >
-<<<<<<< HEAD
 								<img src="${configDto.httpPath}${pageContext.request.contextPath }${Pdto.imagepath }" class="img-responsive img-thumb">
-=======
 							<div class="thumb_bg">	
->>>>>>> branch 'master' of https://github.com/SonDaewon/ArtGallery.git
-								<div class="thumb_title2">${Pdto.name }</div>
-			  					<div class="thumb_items">항목 ${Pdto.artcount }개</div>
+
+								<div class="thumb_title2 TT" title="${Pdto.name }">${Pdto.name }</div>
+			  					<div class="thumb_items TT" title="항목 ${Pdto.artcount }개">항목 ${Pdto.artcount }개</div>
 			  				</div>
 							<img src="${configDto.httpPath}${pageContext.request.contextPath }${Pdto.imagepath }" class="img-responsive img-thumb">
 								

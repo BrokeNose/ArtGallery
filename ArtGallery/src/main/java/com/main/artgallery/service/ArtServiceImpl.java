@@ -17,6 +17,7 @@ import com.main.artgallery.art.dto.ArtCommentDto;
 import com.main.artgallery.art.dto.ArtDto;
 import com.main.artgallery.art.dao.ArtRelDao;
 import com.main.artgallery.art.dto.ArtRelDto;
+import com.main.artgallery.category.dto.CategoryDto;
 import com.main.artgallery.config.dto.ConfigDto;
 import com.main.artgallery.favorart.dao.FavorArtDao;
 import com.main.artgallery.favorart.dto.FavorArtDto;
@@ -580,8 +581,27 @@ public class ArtServiceImpl implements ArtService {
 		//T_config 환경변수 가져오기
 		getConfig(request);
 		mView.addObject("configDto", configDto);
+		
+		//카테고리 검색
 		String SearchKeyword=(String)request.getParameter("searchKeyword");
+		CategoryDto cDto = artDao.getSearchCategory(SearchKeyword);
+		if ( cDto !=null && cDto.getSeq() > 0 ) {	//결과가 있으면
+			
+			ArtDto aDto =new ArtDto(); 
+			aDto.setCseq(cDto.getSeq());
+			aDto.setStartRowNum(1);
+			aDto.setEndRowNum(3);
+			
+			List<ArtDto> list2=artDao.getList(aDto);
+			mView.addObject("artResult",list2);
+		}
+		mView.addObject("cateDto",cDto);
+		
+	
+		
+		//작품 LIST
 		mView.addObject("list",artDao.getSearchList(SearchKeyword));
+		mView.addObject("searchKeyword",SearchKeyword);
 		
 	}
 }

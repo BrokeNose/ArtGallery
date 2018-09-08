@@ -58,45 +58,96 @@
 		color:#fff;
 		left:5px;
 	}
-
+	.overlay {
+		
+    	background-color: black;
+    	position: absolute;
+    	left: 0; top: 0; height: 100%; width: 100%;
+		
+	}
+	body{padding-top: 70px;}
 </style>
 </head>
 <body>
 <jsp:include page="../header.jsp"/>
 <div class="container">
-	<c:if test="">
-		<h4><i class="fas fa-heart"></i> 검색 내용 입니다.</h4>
+	<c:if test="${not empty searchKeyword }">
+		<h4><strong>${searchKeyword }</strong> 검색 내용 입니다.</h4>
+	</c:if>
+	<br />
+	<c:if test="${empty list }">
+		<h3>검색 결과가 없습니다.</h3>
 	</c:if>
 	
-		
-  	
+	<c:if test="${not empty cateDto && not empty artResult}">
+	
+			<div class="thumbnail-wrapper col-md-6 col-sm-6 col-xs-12">
+				<h3>${cateDto.name }</h3>
+				<p>${cateDto.remark }</p>
+				<%-- <p>${cateDto.seq }</p>
+				<p>${cateDto.code }</p>
+				<p>${cateDto.codename }</p>
+				<p>${cateDto.imagepath }</p>
+				<p>${cateDto.artcount }</p> --%>
+			</div>
+			<div class="thumbnail-wrapper col-md-6 col-sm-6 col-xs-12">
+				<c:forEach var="tmp" items="${artResult }">
+					<div class="thumnail-wrapper col-md-4 col-sm-4 col-xs-4">
+						<div class="thumbnail">				
+							<div class="centered">		
+								<a href="detail.do?seq=${cateDto.seq }">													
+									<div class="thumb_title TT" title="${tmp.title }">${tmp.title }</div>
+									<div class="overlay"><img src="${configDto.httpPath}${pageContext.request.contextPath }${tmp.imagepath }" /></div>						
+								</a>	
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+	<hr />	
+	</c:if>
+	
+
+  	<c:if test="${not empty list }">
+  		<h3><strong>${searchKeyword }</strong> 키워드의 관련 작품들 입니다.</h3>
+  	</c:if>
 	<c:forEach var="dto" items="${list }">
 	<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
 		<div class="thumbnail">
 			<div class="centered">
-				<a href="detail.do" title="${dto.title }">
-					<div class="thumb_title1">${dto.title }</div>
-					<div class="thumb_items"> ${dto.title }</div>
-					<div class="thumb_items"> ${dto.seq }</div>
-					<div class="thumb_items"> ${dto.createyear}</div>
-					<div class="thumb_items"> ${dto.artsize }</div>
-					<div class="thumb_items"> ${dto.imagepath }</div>
-					<div class="thumb_items"> ${dto.viewcount}</div>
-					<div class="thumb_items"> ${dto.regdate }</div>
-					<div class="thumb_items"> ${dto.artist }</div>
-					<div class="thumb_items"> ${dto.painter }</div>
-					<div class="thumb_items"> ${dto.material }</div>
-					<div class="thumb_items"> ${dto.cseq }</div>
-					<div class="thumb_items"> ${dto.code }</div>
+				<a href="detail.do?seq=${dto.seq }&cseq=${dto.cseq}" title="${dto.title }">
 					<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }">					
 				</a>
 			</div>
 		</div>
 	</div>
+	<%-- <p>title: ${dto.title }</p>
+	<p>seq: ${dto.seq }</p>
+	<p>createyear: ${dto.createyear}</p>
+	<p>artsize: ${dto.artsize }</p>
+	<p>imagepath: ${dto.imagepath }</p>
+	<p>viewcount ${dto.viewcount}</p>
+	<p>regdate ${dto.regdate }</p>
+	<p>artist ${dto.artist }</p>
+	<p>painter ${dto.painter }</p>
+	<p>material: ${dto.material }</p>
+	
+	<p>code: ${dto.code }</p> --%>
+	<%-- <p>cseq: ${dto.cseq }</p> --%>
 	</c:forEach>
+	
+	
 
 </div>
-
+<script>
+	$(function(){
+		$(".TT").tooltip({
+			trigger:"hover",
+			placement:"top"
+		});
+	}); 
+	
+</script>
 
 <jsp:include page="../footer.jsp"/>
 </body>

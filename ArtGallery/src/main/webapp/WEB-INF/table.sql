@@ -158,10 +158,12 @@ FROM V_ART ;
 
 CREATE VIEW V_CATEGORY AS
 SELECT seq, code, name
-     , DECODE(code, 'A','아티스트', 'P','화파', 'M','재료') codeName,imagepath
+     , DECODE(code, 'A','아티스트', 'P','화파', 'M','재료') codeName,imagepath,remark
 	   , NVL((SELECT MAX(ROWNUM) FROM t_artrel a WHERE a.cseq=c.seq), 0) artCount
   FROM t_category c;
 
+DROP VIEW V_CATEGORY;
+  
 select * from v_category;
 select * from v_ART;
 <!-- --------------------------손대원 검색 작업중------------------------------------- -->
@@ -192,7 +194,7 @@ order by a.seq;
 SELECT * FROM V_CATEGORY;
 
 SELECT  * FROM V_SEARCH;
-DROP VIEW V_SEARCH;as
+DROP VIEW V_SEARCH;
 <!-- and (d.remark like '%김홍%' or d.bdate like '%김홍%' ) 이걸 참고해서 search mapper 만들기 -->
 <!-- ******************************************************************** -->
 -- 192.168.0.200 아닌 pc 
@@ -229,13 +231,15 @@ SELECT  *
  C:\Users\acorn>imp userid=scott/tiger owner=scott file='c:\ncs2018\exp.dmp'
 */	    			    
 	    			    
-	    			    
+
+
+		
 SELECT DISTINCT TITLE, SEQ, CREATEYEAR,
- ARTSIZE, IMAGEPATH, VIEWCOUNT, REGDATE,
-  ARTIST, PAINTER, MATERIAL, CSEQ, CODE
-FROM V_ART 
-WHERE UPPER(artist) LIKE '%'||UPPER('종이')||'%'
-	OR UPPER(painter) LIKE '%'||UPPER('종이')||'%'
-	OR UPPER(material) LIKE '%'||UPPER('종이')||'%'
-	OR UPPER(title) LIKE '%'||UPPER('종이')||'%'
-	OR createyear LIKE '%'||'종이'||'%'
+		 ARTSIZE, IMAGEPATH, VIEWCOUNT, REGDATE,
+		  ARTIST, PAINTER, MATERIAL ,cseq
+		FROM V_ART 
+		WHERE UPPER(artist) LIKE '%'||UPPER('종')||'%'
+			OR UPPER(painter) LIKE '%'||UPPER('종')||'%'
+			OR UPPER(material) LIKE '%'||UPPER('종')||'%'
+			OR UPPER(title) LIKE '%'||UPPER('종')||'%'
+			OR createyear LIKE '%'||'종'||'%'

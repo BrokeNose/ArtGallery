@@ -143,15 +143,4 @@
 		WHERE  seq=#{seq}
 	</update>
 	
-	<select id="mainSearchList" parameterType="string" resultType="artDto">
-		SELECT DISTINCT TITLE, SEQ, CREATEYEAR,
-		 ARTSIZE, IMAGEPATH, VIEWCOUNT, REGDATE,
-		  ARTIST, PAINTER, MATERIAL, CSEQ, CODE
-		FROM V_ART 
-		WHERE UPPER(artist) LIKE '%'||UPPER(#{searchKeyword})||'%'
-			OR UPPER(painter) LIKE '%'||UPPER(#{searchKeyword})||'%'
-			OR UPPER(material) LIKE '%'||UPPER(#{searchKeyword})||'%'
-			OR UPPER(title) LIKE '%'||UPPER(#{searchKeyword})||'%'
-			OR createyear LIKE '%'||#{searchKeyword}||'%';
-	</select>
 </mapper>

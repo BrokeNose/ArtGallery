@@ -155,7 +155,7 @@ public class ArtController {
 		return mView;
 	}
 	
-	@RequestMapping("/result")
+	@RequestMapping("/category/result")
 	public ModelAndView AllSearchList(ModelAndView mView, HttpServletRequest request) {
 		aService.getSearchList(request, mView);
 		mView.setViewName("category/result");

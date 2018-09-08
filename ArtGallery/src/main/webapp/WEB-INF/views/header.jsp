@@ -40,12 +40,13 @@
 					<li><a href="${pageContext.request.contextPath }/art/favorArtList.do" title="관심작품"><span style="font-size:1.3em;color: #333;"><i class="fas fa-heart"></i></span></a></li>
       			</c:when>
       			<c:otherwise>
-      				<li><a id="signinForm" href="#" title="로그인"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user"></i></span></a></li>
+      				<li><a href="${pageContext.request.contextPath }/user/signin_form.do?url=${url }" title="로그인"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user"></i></span></a></li>
 	        		<li><a href="${pageContext.request.contextPath }/user/signup_form.do" title="회원가입"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-plus"></i></span></a></li>
       			</c:otherwise>
       		</c:choose>
-	        <li><a href="#" title="검색" id="search_icon"><span style="font-size:1.3em;color: #333;"><i class="fas fa-search"></i></span></a></li>
+        <li><a href="#" title="검색" id="search_icon"><span style="font-size:1.3em;color: #333;"><i class="fas fa-search"></i></span></a></li>
 	       	<c:if test="${roll eq 'A' }">
+
 	        	<li style="margin-right:10px"><a href="${pageContext.request.contextPath }/admin/home.do" title="관리자"><span style="font-size:1.3em;color: #333;"><i class="fas fa-users-cog"></i></span></a>
 	        	</li>
 	        	<span class="badge" style="position:absolute;right:-5px;margin-right:10px;margin-top:10px;background-color: #cc0000;">14</span>
@@ -58,6 +59,8 @@
 <style>
 	.h_s {
 		display: none;
+		
+		z-index: 999;
 	}
 </style>
 <!-- search// -->
@@ -66,7 +69,7 @@
  		<a class="navbar-brand" href="#" id="search_close">
 	      	<span style="color: #333;"><i class="fas fa-arrow-left"></i> </span>
 	    </a>
-		<form class="navbar-form navbar-left" role="search" action="result.do" >
+		<form class="navbar-form navbar-left" role="search" action="${pageContext.request.contextPath }/category/result.do" >
 		  <div class="form-group">
 		    <input type="text" class="form-control" placeholder="Search" id="searchKeyword" name="searchKeyword" value="${param.searchKeyword }">
 		  </div>
@@ -74,6 +77,7 @@
 		</form>		
  	</div> 	
 </div>
+
 <!-- modal// -->
 <div class="modal fade" id="myModal">
 	<!-- modal-lg  | default | modal-sm -->	
@@ -103,6 +107,8 @@
 		$("#signinForm").attr("href", "${pageContext.request.contextPath }/user/signin_form.do?url="+currentUrl)
 	});
 	
+
+	
 	//모달이 완전히 보여졌을때 실행할 함수 등록
 	$("#myModal").on("shown.bs.modal", function(){});
 	//모달이 완전히 숨겨졌을때 실행할 함수 등록
@@ -113,12 +119,16 @@
 		$("#myModal").modal("show");	
 	});
 	
+	
 	//search box open
 	$("#search_icon").click(function() {
-		$("#search_box").css("display","block").animate({top:"0px"});
+		
+		$("#search_box").css("display","block").css("z-index","10000").animate({top:"0px"});
+		
 	});
 	//search box close
 	$("#search_close").click(function() {
+		console.log("클릭 취소됨");
 		$("#search_box").css("display","none").animate({top:"-60px"});
 	});
 	
@@ -128,3 +138,4 @@
 	};
 
 </script>
+

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="search">
+
+	
+	<select id="mainSearchList" parameterType="String" resultType="artDto">
+		SELECT DISTINCT TITLE, SEQ, CREATEYEAR,
+		 ARTSIZE, IMAGEPATH, VIEWCOUNT, REGDATE,
+		  ARTIST, PAINTER, MATERIAL, CSEQ
+		FROM V_ART 
+		WHERE UPPER(artist) LIKE '%'||UPPER(#{SearchKeyword})||'%'
+			OR UPPER(painter) LIKE '%'||UPPER(#{SearchKeyword})||'%'
+			OR UPPER(material) LIKE '%'||UPPER(#{SearchKeyword})||'%'
+			OR UPPER(title) LIKE '%'||UPPER(#{SearchKeyword})||'%'
+			OR createyear LIKE '%'||#{SearchKeyword}||'%'
+		
+	</select>
+	
+	<!-- 에 가장 근접한 검색결과 -->
+	<select id="mainSearchCategory" resultType="category" parameterType="String">
+		SELECT * FROM V_CATEGORY
+		WHERE name=#{SearchKeyword} AND <![CDATA[  artCount > 0  ]]>
+	</select>
+	
+	
+	
+</mapper>

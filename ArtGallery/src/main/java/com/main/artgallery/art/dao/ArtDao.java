@@ -3,6 +3,7 @@ package com.main.artgallery.art.dao;
 import java.util.List;
 
 import com.main.artgallery.art.dto.ArtDto;
+import com.main.artgallery.category.dto.CategoryDto;
 
 
 public interface ArtDao {
@@ -10,7 +11,7 @@ public interface ArtDao {
 	//-------- Son ----------------------
 	public List<ArtDto> getArtList(ArtDto dto);
 	public List<ArtDto> getSearchList(String SearchKeyword);
-
+	public CategoryDto getSearchCategory(String SearchKeyword);
 	
 	//-------- hyung ----------------------
 

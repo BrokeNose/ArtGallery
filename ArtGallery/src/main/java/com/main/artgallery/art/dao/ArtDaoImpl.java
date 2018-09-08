@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.main.artgallery.art.dto.ArtDto;
+import com.main.artgallery.category.dto.CategoryDto;
 
 /*
  * 작성자 : hyung
@@ -67,6 +68,12 @@ public class ArtDaoImpl implements ArtDao {
 	@Override
 	public List<ArtDto> getSearchList(String SearchKeyword) {
 		
-		return session.selectList("art.SearchWhere",SearchKeyword);
+		return session.selectList("search.mainSearchList",SearchKeyword);
+	}
+
+	@Override
+	public CategoryDto getSearchCategory(String SearchKeyword) {
+		
+		return session.selectOne("search.mainSearchCategory", SearchKeyword);
 	}
 }
