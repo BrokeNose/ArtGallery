@@ -33,7 +33,8 @@
 	</select>
 	
 	<select id="getList" parameterType="opinionDto" resultType="opinionDto">
-		SELECT *
+		SELECT result2.*, 
+		       (SELECT COUNT(*) FROM t_opinionComment b WHERE b.ref_group=result2.num) AS commentCount
 		FROM (SELECT result1.*, ROWNUM rnum
 			  FROM ( SELECT <include refid="opinionColumn"/>
 					FROM t_opinion
@@ -49,8 +50,9 @@
 						</if>
 					</where>
 					ORDER BY num DESC ) result1
-			  )
+			  ) result2
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+		ORDER BY rnum
 	</select>
 	
 	<select id="getData" parameterType="opinionDto" resultType="opinionDto">

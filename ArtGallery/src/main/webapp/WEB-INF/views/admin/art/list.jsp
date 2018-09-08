@@ -84,15 +84,15 @@
 				</tr>				  		
 			</thead>
 			<tbody>
-			<c:forEach var="dto" items="${list }">
-				<tr id="t${dto.seq }">
-					<td>${dto.rnum }</td>
-					<td><a href="javascript:goDetail(${dto.seq });">${dto.title }</a></td>
-					<td>${dto.artist }</td>
-					<td>${dto.createyear }</td>
-					<td>${dto.artsize }</td>
-					<td>${dto.material }</td>
-					<td>${dto.painter }</td>
+			<c:forEach var="tmp" items="${list }">
+				<tr id="t${tmp.seq }">
+					<td>${tmp.rnum }</td>
+					<td><a href="javascript:goDetail(${tmp.seq });">${tmp.title }</a></td>
+					<td>${tmp.artist }</td>
+					<td>${tmp.createyear }</td>
+					<td>${tmp.artsize }</td>
+					<td>${tmp.material }</td>
+					<td>${tmp.painter }</td>
 				</tr>	
 			</c:forEach>
 			</tbody>

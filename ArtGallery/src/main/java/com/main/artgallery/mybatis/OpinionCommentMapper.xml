@@ -25,4 +25,10 @@
 		WHERE ref_group=#{num}
 		ORDER BY comment_group ASC, num ASC			
 	</select>
+	
+	<delete id="delete" parameterType="int">
+		DELETE 
+		FROM   t_opinionComment
+		WHERE ref_group=#{num}
+	</delete>
 </mapper>

@@ -7,13 +7,20 @@
 <title>의견보내기</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/artgallery.css" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
+<style>
+	a:hover{
+		text-decoration: none;
+	}
+	tbody tr:hover {
+   		cursor: pointer;
+	}
+</style>
 </head>
 <body>
 <jsp:include page="../header.jsp"/>
 <div class="container">
-	
 	<div class="panel panel-default">
-		<div class="panel-body">
+		<div class="panel-body form-inline">
 			<div class="form-group">
 				<h4><i class="fas fa-kiss-wink-heart"></i> 의견보내기&nbsp;(${totalRow }건)</h4>
 			</div>
@@ -22,28 +29,26 @@
 			</div>	
 		</div><!-- /panel-body -->
 	</div><!-- /panel -->
-	<table class="table table-bordered">
+	<table class="table table-bordered table-hover">
 		<thead>
 			<tr>
 				<th>번호</th>
 				<th width="50%">제목</th>
-				<th>조회수</th>
+				<th>답변수</th>
 				<th>등록일</th>
-				<th>삭제</th>
+				<!-- <th>삭제</th> -->
 			</tr>	
 		</thead>
 		<tbody>
 		<c:forEach var="tmp" items="${list }">
-			<tr>
+			<tr id="t${tmp.num }">
 				<td>${tmp.rnum }</td>
-				<td><a href="detail.do?num=${tmp.num }">${tmp.title }</a></td>
-				<td>${tmp.viewCount }</td>
+				<td><a href="javascript: goDetail(${tmp.num })">${tmp.title }</a></td>
+				<td>${tmp.commentCount }</td>
 				<td>${tmp.regdate }</td>
-				<td>
-					<c:if test="${tmp.writer eq id }">
-						<a href="javascript:deleteConfirm(${tmp.rnum }, ${tmp.num })">삭제</a>
-					</c:if>
-				</td>
+				<!-- <td>
+						<a href="javascript:deleteConfirm(${tmp.rnum }, ${tmp.num })">삭제</a>					
+				</td> -->
 			</tr>
 		</c:forEach>
 		</tbody>
@@ -55,7 +60,17 @@
 		location.href='insertform.do';			
 	});
 
-	//삭제 확인을 하는 함수 
+    $('table tbody tr').click(function(){ 
+    	var id=$(this).attr("id").substring(1);
+        goDetail(id);
+		//console.log(id);
+    });
+    
+    function goDetail(num){
+    	location.href="detail.do?num="+num;
+    }
+    
+	/* //삭제 확인을 하는 함수 
 	function deleteConfirm(rnum, num){
 		var isDelete=confirm(rnum+"번 글을 삭제 하시겠습니까?");
 		if(isDelete){
@@ -75,6 +90,7 @@
 			});
 		}
 	}
+	*/
 </script>
 </body>
 </html>

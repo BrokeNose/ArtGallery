@@ -177,10 +177,7 @@
 						<div class="thumbnail">
 							<div class="centered">
 								<a href="detail.do?seq=${Adto.seq }">
-<<<<<<< HEAD
-=======
 								<div class="thumb_bg">	
->>>>>>> branch 'master' of https://github.com/SonDaewon/ArtGallery.git
 									<div class="thumb_title2">${Adto.name }</div>
 				  					<div class="thumb_items">항목 ${Adto.artcount }개</div>
 				  				</div>
@@ -201,11 +198,8 @@
 					<div class="thumbnail">
 						<div class="centered">
 							<a href="detail.do?seq=${Mdto.seq }">
-<<<<<<< HEAD
 								<img src="${configDto.httpPath}${pageContext.request.contextPath }${Mdto.imagepath }" class="img-responsive img-thumb"/>
-=======
 							<div class="thumb_bg">	
->>>>>>> branch 'master' of https://github.com/SonDaewon/ArtGallery.git
 								<div class="thumb_title2">${Mdto.name }</div>
 								<div class="thumb_items">항목 ${Mdto.artcount }개</div>	
 							</div>
@@ -228,11 +222,8 @@
 					<div class="thumbnail">
 						<div class="centered">					
 							<a href="detail.do?seq=${Pdto.seq }" >
-<<<<<<< HEAD
 								<img src="${configDto.httpPath}${pageContext.request.contextPath }${Pdto.imagepath }" class="img-responsive img-thumb">
-=======
-							<div class="thumb_bg">	
->>>>>>> branch 'master' of https://github.com/SonDaewon/ArtGallery.git
+							<div class="thumb_bg">
 								<div class="thumb_title2">${Pdto.name }</div>
 			  					<div class="thumb_items">항목 ${Pdto.artcount }개</div>
 			  				</div>

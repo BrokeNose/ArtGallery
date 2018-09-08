@@ -32,12 +32,10 @@ public class OpinionCommentDaoImpl implements OpinionCommentDao{
 		
 		return session.selectList("opinionComment.getList", ref_group);
 	}
+
+	@Override
+	public void delete(int ref_group) {
+		session.delete("opinionComment.delete", ref_group);
+	}
 	
 }
-
-
-
-
-
-
-

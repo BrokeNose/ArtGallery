@@ -7,6 +7,8 @@ public class OpinionDto {
 	private String content;
 	private int viewCount;
 	private String regdate;
+	
+	private int commentCount;
 
     //페이징관련
     private int startRowNum;
@@ -24,8 +26,8 @@ public class OpinionDto {
 	public OpinionDto() {}
 
 	public OpinionDto(int num, String writer, String title, String content, int viewCount, String regdate,
-			int startRowNum, int endRowNum, int prevNum, int nextNum, String sortField, int rnum, String searchKeyword,
-			String searchCondition, int pageNum) {
+			int commentCount, int startRowNum, int endRowNum, int prevNum, int nextNum, String sortField, int rnum,
+			String searchKeyword, String searchCondition, int pageNum) {
 		super();
 		this.num = num;
 		this.writer = writer;
@@ -33,6 +35,7 @@ public class OpinionDto {
 		this.content = content;
 		this.viewCount = viewCount;
 		this.regdate = regdate;
+		this.commentCount = commentCount;
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
 		this.prevNum = prevNum;
@@ -90,6 +93,14 @@ public class OpinionDto {
 
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
+	}
+
+	public int getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
 	}
 
 	public int getStartRowNum() {

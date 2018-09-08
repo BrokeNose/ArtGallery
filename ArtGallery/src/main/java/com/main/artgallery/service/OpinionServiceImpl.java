@@ -212,7 +212,8 @@ public class OpinionServiceImpl implements OpinionService{
 		}
 		
 		//2. 삭제하기 
-		opinionDao.delete(num);
+		opinionCommentDao.delete(num);	// 댓글삭제
+		opinionDao.delete(num);			// 의견 삭제
 	}
 
 	@Override

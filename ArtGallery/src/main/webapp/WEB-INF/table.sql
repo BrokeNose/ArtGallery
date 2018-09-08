@@ -1,3 +1,12 @@
+delete from t_category;
+delete from t_art;
+delete from T_ArtRel;
+delete from T_User;
+
+delete from T_FavorArt;
+delete from T_ArtComment;
+delete from t_config;
+
 insert into t_opinion values (1,'ddd','dd','ddd',0, sysdate);
 delete from t_opinion;
 
@@ -45,7 +54,6 @@ CREATE UNIQUE INDEX IDX_TCategory_01 ON T_Category(code, name, seq);
 
 CREATE UNIQUE INDEX IDX_TCategory_02 ON T_Category(code, viewcount desc, name, seq);
 
-
 CREATE TABLE T_Art(
 	seq NUMBER PRIMARY KEY,
 	title VARCHAR2(200),
@@ -63,7 +71,6 @@ CREATE UNIQUE INDEX IDX_Tart_01 ON T_Art(title asc, seq desc);
 CREATE UNIQUE INDEX IDX_Tart_02 ON T_Art(regdate desc, seq desc);
 
 CREATE INDEX IDX_Tart_03 ON T_Art(viewcount desc, title desc);
-
 
 CREATE TABLE T_ArtRel(
   	cseq NUMBER,
@@ -98,6 +105,14 @@ CREATE TABLE T_FavorCategory(
 );
 
 ----------------------------------------------------------------------
+delete from t_category;
+delete from t_art;
+delete from T_ArtRel;
+delete from T_User;
+
+delete from T_FavorArt;
+delete from T_ArtComment;
+delete from t_config;
 
 -- 댓글 정보를 저장할 테이블
 CREATE TABLE T_ArtComment(
@@ -255,7 +270,7 @@ SELECT  *
  
  
  Data import
- C:\Users\acorn>imp userid=scott/tiger owner=scott file='c:\ncs2018\exp.dmp'
+ C:\Users\acorn>imp userid=scott/tiger file='c:\ncs2018\exp.dmp' commit=y ignore=y full=y
 */	    			    
 	    			    
 	    			    

@@ -11,6 +11,7 @@ public interface OpinionCommentDao {
 	public void insert(OpinionCommentDto dto);
 	//인자로 전달되는 그룹에 해당하는 댓글 목록을 리턴하는 메소드 
 	public List<OpinionCommentDto> getList(int ref_group);
+	public void delete(int ref_group);
 }
 
 

@@ -13,20 +13,35 @@
 <jsp:include page="../header.jsp"/>
 <div class="container">
 	<h4><i class="fas fa-kiss-wink-heart"></i> 의견보내기</h4>
-	<form method="post" id="form1">
-		<label for="writer">작성자</label>
-		<input type="text" id="writer" 
-			value="${id }" disabled="disabled"/><br/>
-		<label for="title">제목</label>
-		<input type="text" name="title" id="title"/><br/>
-		<textarea name="content" id="content" 
-		style="width:766px;height:412px;display:none"></textarea>
-		<div>
-			<input type="button" onclick="pasteHTML();" value="본문에 내용 넣기" />
-			<input type="button" onclick="showHTML();" value="본문 내용 가져오기" />
-			<input type="button" onclick="submitContents(this);" value="서버로 내용 전송" />
-			<input type="button" onclick="setDefaultFont();" value="기본 폰트 지정하기 (궁서_24)" />
-		</div>	
+	<form class="form-horizontal" method="post" id="form1">
+		<div class="panel panel-default">	  
+			<div class="panel-body">
+				<div class="form-group">
+			    	<label for="writer" class="col-sm-1 control-label">작성자</label>
+			    	<div class="col-sm-10">
+			      		<input type="text" class="form-control" id="writer" value="${id }" disabled="disabled"/>
+			    	</div>
+			  	</div>				
+				<div class="form-group">
+			    	<label for="title" class="col-sm-1 control-label">제목</label>
+			    	<div class="col-sm-10">
+			      		<input type="text" class="form-control" name="title" id="title"/>
+			    	</div>
+			  	</div>
+				<div class="form-group">
+			    	<div class="col-sm-12">
+						<textarea name="content" id="content" style="height:340px;display:none"></textarea>
+			    	</div>
+			  	</div>				
+			</div>			
+			<!-- button // -->
+			<div class="text-center">
+				<input type="button" onclick="pasteHTML();" value="본문에 내용 넣기" />
+				<input type="button" onclick="showHTML();" value="본문 내용 가져오기" />
+				<input type="button" onclick="submitContents(this);" value="저장" />
+				<input type="button" onclick="setDefaultFont();" value="기본 폰트 지정하기 (궁서_24)" />
+			</div>
+		</div><!-- //panel  -->	
 	</form>
 </div>
 <jsp:include page="../footer.jsp"/>	
