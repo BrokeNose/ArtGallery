@@ -5,28 +5,6 @@
 	<sql id="categoryColumn">
 		seq, code, name, remark, imagepath, bdate, ddate
 	</sql>
-	<!--  
-	<insert id="insert" parameterType="category">
-		<choose>
-			<when test="bdate == null and ddate == null">
-				INSERT INTO T_Category(seq, code, name, remark, imagepath)
-				VALUES(TCategory_seq.NEXTVAL, #{code}, #{name}, #{remark}, #{imagepath})
-			</when>
-			<when test="bdate == null">
-				INSERT INTO T_Category(seq, code, name, remark, imagepath, ddate)
-				VALUES(TCategory_seq.NEXTVAL, #{code}, #{name}, #{remark}, #{imagepath}, #{ddate})
-			</when>
-			<when test="ddate == null">
-				INSERT INTO T_Category(seq, code, name, remark, imagepath, bdate)
-				VALUES(TCategory_seq.NEXTVAL, #{code}, #{name}, #{remark}, #{imagepath}, #{bdate})
-			</when>
-			<otherwise>
-				INSERT INTO T_Category(seq, code, name, remark, imagepath, bdate, ddate)
-				VALUES(TCategory_seq.NEXTVAL, #{code}, #{name}, #{remark}, #{imagepath}, #{bdate}, #{ddate})
-			</otherwise>
-		</choose>
-	</insert>
-	-->
 	<insert id="insert" parameterType="category">
 			INSERT INTO T_Category(seq, code, name, remark, imagepath, bdate, ddate)
 			VALUES(TCategory_seq.NEXTVAL, #{code}, #{name}, #{remark, jdbcType=VARCHAR}, #{imagepath}, #{bdate, jdbcType=VARCHAR}, #{ddate, jdbcType=VARCHAR})

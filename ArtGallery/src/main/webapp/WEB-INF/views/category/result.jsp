@@ -115,7 +115,7 @@
 	<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
 		<div class="thumbnail">
 			<div class="centered">
-				<a href="${pageContext.request.contextPath }/art/detail.do?cseq=${dto.cseq}&seq=${dto.seq }" title="${dto.title }">
+				<a href="${pageContext.request.contextPath }/art/searchDetail.do?&searchKeyword=${searchKeyword }&seq=${dto.seq }" title="${dto.title }">
 					<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }">					
 				</a>
 			</div>
@@ -133,7 +133,6 @@
 	<p>material: ${dto.material }</p>
 	
 	<p>code: ${dto.code }</p> --%>
-	<%-- <p>cseq: ${dto.cseq }</p> --%>
 	</c:forEach>
 	
 	

@@ -64,7 +64,6 @@ public class ArtController {
 	@RequestMapping("/art/detail")
 	public ModelAndView artDetail(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
 		request.setAttribute("adminMode", "N");		//관리자모드 아님
-		request.setAttribute("favoriteMode", "N");	//관심작품 no
 		aService.getData(request, mView, dto);
 		mView.setViewName("category/artDetail");
 		return mView;
@@ -73,12 +72,20 @@ public class ArtController {
 	//관심작품 상세 정보 조회 - 로그인 필수
 	@RequestMapping("/art/favoriteDetail")
 	public ModelAndView userArtDetail(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
-		request.setAttribute("adminMode", "N");		//관리자모드 아님
-		request.setAttribute("favoriteMode", "Y");	//관심작품 Yes
+		request.setAttribute("listMode", "favorite");	//관심작품모드
 		aService.getData(request, mView, dto);
 		mView.setViewName("category/artDetail");
 		return mView;
 	}	
+	
+	//통합검색 목록 상세 정보 조회 - 로그인 필수
+	@RequestMapping("/art/searchDetail")
+	public ModelAndView artDetail2(HttpServletRequest request, ModelAndView mView, @ModelAttribute ArtDto dto) {
+		request.setAttribute("listMode", "search");		//통합검색
+		aService.getData(request, mView, dto);
+		mView.setViewName("category/artDetail");
+		return mView;
+	}
 	
 	//관심 작품 등록,삭제 처리
 	@RequestMapping("/art/favoriteArt")

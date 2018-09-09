@@ -274,10 +274,13 @@
 	//작품 상세정보
 	function goDetail(seq){
 <c:choose>
-<c:when test="${!empty favoriteMode and favoriteMode eq 'Y' }">
+<c:when test="${!empty listMode and listMode eq 'favorite' }">
 		location.href="favoriteDetail.do?seq="+seq
 </c:when>
-<c:otherwise>
+<c:when test="${!empty listMode and listMode eq 'search' }">
+		location.href="searchDetail.do?searchKeyword=${param.searchKeyword}&seq="+seq
+</c:when>
+		<c:otherwise>
 		location.href="detail.do?<c:if test="${!empty param.cseq  }">cseq=${param.cseq}</c:if>&sortField=${param.sortField}&searchKeyword=${param.searchKeyword}&searchCondition=${param.searchCondition}&seq="+seq
 </c:otherwise>
 </c:choose>

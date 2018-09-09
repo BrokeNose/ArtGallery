@@ -134,12 +134,20 @@ public class ArtServiceImpl implements ArtService {
 		String keyword=dto.getSearchKeyword();
 		String condition=dto.getSearchCondition();		
 		String adminMode=(String)request.getAttribute("adminMode");	// controller에서 setting
-		String favoriteMode=(String)request.getAttribute("favoriteMode");
+		String listMode=(String)request.getAttribute("listMode");	// controller에서 setting, favorite, search
+		if(adminMode==null) {
+			adminMode="N";
+		}
+		if(listMode==null) {
+			listMode="";
+		}
+		
 		
 		int seq = dto.getSeq();
 		
 		if(keyword != null) {//검색어가 전달된 경우 
-			if(condition.equals("titleRemark")) {//제목+비고
+			if ( condition == null) {
+			}else if(condition.equals("titleRemark")) {//제목+비고
 				dto.setTitle(keyword);
 				dto.setRemark(keyword);
 			}else if(condition.equals("title")) {//제목
@@ -164,12 +172,14 @@ public class ArtServiceImpl implements ArtService {
 
 		//작품정보 가져오기
 		ArtDto resultDto=null;
-		if (favoriteMode != null && favoriteMode.equals("Y")) {	// 관심작품
+		if (listMode != null && listMode.equals("favorite")) {	// 관심작품
 			String id=(String)request.getSession().getAttribute("id");
 			FavorArtDto fDto=new FavorArtDto();
 			fDto.setId(id);
 			fDto.setAseq(dto.getSeq());
 			resultDto= favorArtDao.getDataPrevNext(fDto);	
+		}else if (listMode != null && listMode.equals("search")) {	// 통합검색
+			resultDto=artDao.getSearchData(dto);
 		}else {
 			resultDto=artDao.getData(dto);
 		}
@@ -589,6 +599,7 @@ public class ArtServiceImpl implements ArtService {
 			
 			ArtDto aDto =new ArtDto(); 
 			aDto.setCseq(cDto.getSeq());
+			aDto.setSortField("3");		// viewcount sort
 			aDto.setStartRowNum(1);
 			aDto.setEndRowNum(3);
 			
@@ -597,7 +608,6 @@ public class ArtServiceImpl implements ArtService {
 		}
 		mView.addObject("cateDto",cDto);
 		
-	
 		
 		//작품 LIST
 		mView.addObject("list",artDao.getSearchList(SearchKeyword));

@@ -12,7 +12,7 @@ public interface ArtDao {
 	public List<ArtDto> getArtList(ArtDto dto);
 	public List<ArtDto> getSearchList(String SearchKeyword);
 	public CategoryDto getSearchCategory(String SearchKeyword);
-	
+	public ArtDto getSearchData(ArtDto dto);
 	//-------- hyung ----------------------
 
 	public List<ArtDto> getList(ArtDto dto);

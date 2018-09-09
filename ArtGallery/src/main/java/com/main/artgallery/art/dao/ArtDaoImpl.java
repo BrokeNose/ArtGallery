@@ -76,4 +76,9 @@ public class ArtDaoImpl implements ArtDao {
 		
 		return session.selectOne("search.mainSearchCategory", SearchKeyword);
 	}
+
+	@Override
+	public ArtDto getSearchData(ArtDto dto) {
+		return session.selectOne("search.mainSearchData", dto);
+	}
 }

@@ -1,3 +1,8 @@
+SELECT result2.* FROM (SELECT result1.*, ROWNUM rnum FROM
+(SELECT DISTINCT seq, title, createyear, artsize, imagepath, viewcount, TO_CHAR(regdate,'YYYY.MM.DD HH24:MI') AS regdate, 
+artist, painter, material FROM v_art WHERE cseq = 127 ORDER BY regdate DESC, seq DESC ) 
+result1 ORDER BY regdate DESC, seq DESC ) result2 WHERE rnum BETWEEN 1 AND 3 ORDER BY rnum 
+
 delete from t_category;
 delete from t_art;
 delete from T_ArtRel;
@@ -200,6 +205,7 @@ order by a.seq;
 SELECT DISTINCT TITLE, SEQ, CREATEYEAR, ARTSIZE, IMAGEPATH, VIEWCOUNT, REGDATE, ARTIST, PAINTER, MATERIAL, CSEQ, CODE
 FROM V_ART ;
 
+drop view v_category;
 CREATE VIEW V_CATEGORY AS
 SELECT seq, code, name
      , DECODE(code, 'A','아티스트', 'P','화파', 'M','재료') codeName,imagepath,remark

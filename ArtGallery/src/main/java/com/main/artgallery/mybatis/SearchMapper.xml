@@ -1,27 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="search">
-
+	
+	<sql id="whereSql">
+		WHERE UPPER(artist) LIKE '%'||UPPER(#{searchKeyword})||'%'
+			OR UPPER(painter) LIKE '%'||UPPER(#{searchKeyword})||'%'
+			OR UPPER(material) LIKE '%'||UPPER(#{searchKeyword})||'%'
+			OR UPPER(title) LIKE '%'||UPPER(#{searchKeyword})||'%'
+			OR createyear LIKE '%'||#{searchKeyword}||'%'	
+	</sql>
+	<sql id="orderSql">
+		ORDER BY regdate DESC, seq DESC
+	</sql>
 	
 	<select id="mainSearchList" parameterType="String" resultType="artDto">
 		SELECT DISTINCT TITLE, SEQ, CREATEYEAR,
-		 ARTSIZE, IMAGEPATH, VIEWCOUNT, REGDATE,
-		  ARTIST, PAINTER, MATERIAL, CSEQ
+						ARTSIZE, IMAGEPATH, VIEWCOUNT, REGDATE,
+						ARTIST, PAINTER, MATERIAL
 		FROM V_ART 
-		WHERE UPPER(artist) LIKE '%'||UPPER(#{SearchKeyword})||'%'
-			OR UPPER(painter) LIKE '%'||UPPER(#{SearchKeyword})||'%'
-			OR UPPER(material) LIKE '%'||UPPER(#{SearchKeyword})||'%'
-			OR UPPER(title) LIKE '%'||UPPER(#{SearchKeyword})||'%'
-			OR createyear LIKE '%'||#{SearchKeyword}||'%'
-		
+		<include refid="whereSql"/>	
+		<include refid="orderSql"/>			
 	</select>
 	
 	<!-- 에 가장 근접한 검색결과 -->
 	<select id="mainSearchCategory" resultType="category" parameterType="String">
-		SELECT * FROM V_CATEGORY
-		WHERE name=#{SearchKeyword} AND <![CDATA[  artCount > 0  ]]>
+		SELECT seq, code, name, codeName, imagePath, artcount,
+			  <![CDATA[ SUBSTR(remark, 1, 400) || CASE WHEN LENGTH(remark) <= 400 THEN '' ELSE '...' END AS remark ]]>
+		FROM V_CATEGORY
+		WHERE UPPER(name)=UPPER(#{searchKeyword}) AND <![CDATA[  artCount > 0  ]]>
 	</select>
 	
-	
+	<select id="mainSearchData" parameterType="artDto" resultType="artDto">
+		SELECT result2.*, ( select remark from t_art where seq=#{seq}) AS remark
+		FROM   (
+				SELECT result1.*, 
+					   LAG(seq,1,0) OVER ( <include refid="orderSql"/> ) AS prevNum,
+					   LEAD(seq,1,0) OVER ( <include refid="orderSql"/> ) AS nextNum
+				FROM (	SELECT DISTINCT TITLE, SEQ, CREATEYEAR,
+										ARTSIZE, IMAGEPATH, VIEWCOUNT, REGDATE,
+										ARTIST, PAINTER, MATERIAL
+						FROM V_ART 
+						<include refid="whereSql"/>	
+						<include refid="orderSql"/>	
+					 ) result1
+				<include refid="orderSql"/>
+				) result2
+		WHERE  seq=#{seq}
+	</select>	
 	
 </mapper>
