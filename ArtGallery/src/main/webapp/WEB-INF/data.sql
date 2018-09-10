@@ -28,19 +28,6 @@ update t_config set ip='192.168.0.200';
 
 --sequence 값 확인하기
 
--- 8/30 다시 실행할 script
-
-DROP TABLE T_CONFIG;
-CREATE TABLE T_Config(
-        code char(1) DEFAULT '1' PRIMARY KEY,
-        pagerow NUMBER DEFAULT 5,
-        CONSTRAINT TConfig_pagerow_ck CHECK (pagerow > 0),
-        displayrow NUMBER DEFAULT 5,
-        CONSTRAINT TConfig_displayrow_ck CHECK (displayrow > 0),
-        ip       VARCHAR2(15),
-        uploadRoot VARCHAR2(50)
-);
-
 INSERT INTO t_config(code, pagerow, displayrow, ip, uploadRoot)
 VALUES('1', 10, 5, 'localhost', '/upload');
 
