@@ -2,14 +2,20 @@
 
 delete from t_art;
 delete from T_ArtRel;
-delete from T_User;
-
-delete from T_FavorArt;
 delete from T_ArtComment;
+delete from T_User;
+delete from T_FavorArt;
+delete from T_FAVORCATEGORY;
+delete from t_opnion;
+delete from T_OPINIONCOMMENT
 delete from t_config;
+delete from T_CATEGORY;
 
 
 -- cmd imp 실행
+--imp userid=scott/tiger file='c:\ncs2018\exp.dmp' commit=y ignore=y full=y
+
+
 
 update t_config set ip='localhost';
 
