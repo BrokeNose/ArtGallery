@@ -35,7 +35,6 @@
 	
 	
 	tbody tr:hover {
-    background-color: #ffff99;
     cursor: pointer;
 	}	
 	
@@ -96,7 +95,7 @@
 	</div><!-- /panel -->
 	
 	<div class="table-responsive">
-	  <table id="myTable" class="table table-bordered">
+	  <table id="myTable" class="table table-bordered table-hover">
 	  	<thead>
 	  		<tr>
 	  			<c:choose>

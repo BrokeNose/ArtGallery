@@ -26,7 +26,7 @@ select * from t_category where imagepath is not null;
 
 
 -- db 통으로 복사하면
-update t_config set ip='localhost' ;
+update t_config set ip='localhost';
 --형님 ip로 다시 변환
 update t_config set ip='192.168.0.200';
 

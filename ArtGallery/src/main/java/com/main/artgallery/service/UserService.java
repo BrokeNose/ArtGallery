@@ -18,6 +18,7 @@ public interface UserService {
 	public boolean isValidPwd(String inputPwd, HttpSession session);
 	public void changePwd(String pwd, HttpSession session);
 	public void leave(ModelAndView mView, HttpSession session);
-	public void delete(ModelAndView mView, HttpSession session);
+	public void leave2(String id);
+	public void delete(String id);
 	public void getConfig(HttpServletRequest request);
 }

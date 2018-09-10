@@ -19,7 +19,7 @@
 		    <label for="id" class="col-sm-2 control-label">아이디</label>
 		    <div class="col-sm-9">
 		      <input type="hidden" name="id" value="${id }"/>
-		      <input type="text" class="form-control" id="id" disabled value="${id }"/>
+		      <input type="text" class="form-control" id="id" value="${id }" disabled/>
 		    </div>
 		  </div>
 		  <div class="form-group">
