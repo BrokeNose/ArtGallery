@@ -27,14 +27,11 @@
 		          </ul>
 	        </li>
 	       	<li><a href="${pageContext.request.contextPath }/opinion/list.do">의견보내기 </a></li>
-	       	<c:if test="${not empty id}">
-       			<li><a href="${pageContext.request.contextPath }/auction/house.do">경매</a></li>
-	        </c:if>
         </ul>
       	<ul class="nav navbar-nav navbar-right">
       		<c:choose>
       			<c:when test="${not empty id }">      		
-      				<li><a ><strong>${id }</strong>님 반갑습니다.</a></li>
+      				<li><a href="${pageContext.request.contextPath }/user/info.do" title="회원정보"><strong>${id }</strong>님 반갑습니다.</a></li>
       				<li><a href="javascript:signOut()" title="로그아웃"><span style="font-size:1.3em;color: #333;"><i class="fas fa-sign-out-alt"></i></span></a></li>
       				<li><a href="${pageContext.request.contextPath }/user/info.do" title="회원정보"><span style="font-size:1.3em;color: #333;"><i class="fas fa-user-tie"></i></span></a></li>
 					<li><a href="${pageContext.request.contextPath }/art/favorArtList.do" title="관심작품"><span style="font-size:1.3em;color: #333;"><i class="fas fa-heart"></i></span></a></li>
