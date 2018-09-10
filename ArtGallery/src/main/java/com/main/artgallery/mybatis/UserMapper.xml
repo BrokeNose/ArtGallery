@@ -58,7 +58,7 @@
 	</select>
 	<update id="update" parameterType="userDto">
 		UPDATE T_User 
-		SET email=#{email}, roll=#{roll}
+		SET id=#{id}, email=#{email}, roll=#{roll}, deldate=#{deldate}
 		WHERE id=#{id}
 	</update>
 	<update id="changePwd" parameterType="userDto">

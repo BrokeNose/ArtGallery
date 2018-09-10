@@ -115,9 +115,19 @@ public class UserController {
 		mView.setViewName("redirect:../");
 		return mView;
 	}
+	@RequestMapping("/admin/user/update")
+	public String adminUpdate(HttpServletRequest request, @ModelAttribute UserDto dto) {
+		uService.update(dto);
+		return "redirect:userlist.do";
+	}
+	@RequestMapping("/admin/user/leave")
+	public String adminLeave(HttpServletRequest request, @RequestParam String id) {
+		uService.leave2(id);
+		return "redirect:userlist.do";
+	}
 	@RequestMapping("/admin/user/delete")
-	public ModelAndView adminDelete(HttpServletRequest request, ModelAndView mView) {
-		uService.delete(mView, request.getSession());
-		return mView;
+	public String adminDelete(HttpServletRequest request, @RequestParam String id) {
+		uService.delete(id);
+		return "redirect:userlist.do";
 	}
 }

@@ -32,77 +32,6 @@
 	code {
 	  font-size: 80%;
 	}
-	.table-responsive {
-		width: 100%;
-		min-height: .01%;
-		overflow-x: auto;
-	}
-	div.table {
-		width: 100%;
-	  	max-width: 100%;
-	  	margin-bottom: 1rem;
-	  	background-color: transparent;
-		display: table;
-		border-spacing: 0;
- 		border-collapse: collapse;
- 		border: 1px solid #ddd;
-	}
-	div.table > div.thead > div.tr > div.th, 
-	div.table > div.tbody > div.tr > div.td, 
-	div.table > div.tbody > form.tr > div.td {
-		padding: 8px;
-		line-height: 1.42857143;
-		vertical-align: top;
-		border-top: 1px solid #ddd;
-	}
-	div.table > div.thead > div.tr > div.th {
-		vertical-align: bottom;
-		border-bottom: 2px solid #ddd;
-	}
-	div.table > div.thead:first-child > div.tr:first-child > div.th{
-		border-top: 0;
-	}
-	div.table-bordered {
-		border: 1px solid #ddd;
-	}
-	div.table-bordered > div.thead > div.tr > div.th, 
-	div.table-bordered > div.tbody > div.tr > div.td, 
-	div.table-bordered > div.tbody > form.tr > div.td {
-		border: 1px solid #ddd;
-	}
-	div.table-bordered > div.thead > div.tr > div.th {
-		border-bottom-width: 2px;
-	}
-	.table-responsive > div.table {
-    	margin-bottom: 0;
-  	}
-	div.thead {
-		display: table-header-group;
-	}
-	div.thead > div.td {
-		border-bottom-width: 2px;
-	}
-	div.tbody {
-		display: table-row-group;
-	}
-	div.tr {
-		display: table-row;
-	}
-	form.tr {
-		display: table-row;
-	}
-	div.th {
-		display: table-cell;
-		padding: 0;
-		text-align: left;
-	}
-	div.td {
-		display: table-cell;
-		padding: 0;
-	}
-	form.updateForm {
-		display: none;
-	}
 </style>
 </head>
 <body>
@@ -142,47 +71,36 @@
 	  </div><!-- /panel-body -->
 	</div><!-- /panel -->
 	<div class="table-responsive">
-	  <div class="table table-bordered">
-		<div class="thead">
-			<div class="tr">
-				<div class="th">#</div>
-				<div class="th">아이디</div>
-				<div class="th">이메일</div>
-				<div class="th">등록일</div>
-				<div class="th">권한</div>
-				<div class="th">탈퇴 여부</div>
-				<div class="th">수정</div>
-				<div class="th">탈퇴</div>
-				<div class="th">삭제</div>
-			</div>
-		</div>
+	  <table class="table table-bordered">
+	  	<thead>
+	  		<tr>	  				
+	  			<td>#</td>
+	  			<td>아이디</td>
+	  			<td>이메일</td>
+	  			<td>등록일</td>
+	  			<td>관리자여부</td>
+	  			<td>탈퇴여부</td>
+	  			<td>수정</td>
+	  			<td>탈퇴</td>
+	  			<td>삭제</td>
+	  		</tr>	  		  		
+	  	</thead>
 	  	<c:forEach var="tmp" items="${list }">
-	  	<div class="tbody">
-			<div class="tr">
-				<div class="td">${tmp.rnum }</div>
-				<div class="td">${tmp.id }</div>
-				<div class="td">${tmp.email }</div>
-				<div class="td">${tmp.regdate }</div>
-				<div class="td">${tmp.rollName }</div>
-				<div class="td"><c:if test="${!empty tmp.deldate }">O</c:if></div>
-				<div class="td"><a href="javascript:" class="toggleForm">수정</a></div>
-				<div class="td"><a href="leave.do?id=${tmp.id }">탈퇴</a></div>
-				<div class="td"><a href="javascript:deleteConfirm('${tmp.id }')">삭제</a></div>
-			</div>
-  			<form class="tr updateForm" action="update.do">
-				<div class="td"><input type="hidden" name="rnum" value="${tmp.rnum }"/></div>
-				<div class="td"><input type="text" name="id" value="${tmp.id }"/></div>
-				<div class="td"><input type="text" name="email" value="${tmp.email }"/></div>
-				<div class="td"><input type="hidden" name="regdate" value="${tmp.regdate }"/></div>
-				<div class="td"><input type="text" name="roll" value="${tmp.roll }"/></div>
-				<div class="td"><input type="text" name="deldate" value="${tmp.deldate }"/></div>
-				<div class="td"><button type="submit" class="btn btn-primary">완료</button></div>
-				<div class="td"></div>
-				<div class="td"></div>
-			</form>
-		</div>
+  		<tbody>
+			<tr>
+				<td>${tmp.rnum }</td>				
+				<td>${tmp.id }</td>
+				<td>${tmp.email }</td>
+				<td>${tmp.regdate }</td>
+				<td>${tmp.rollName }</td>
+				<td><c:if test="${!empty tmp.deldate }">O</c:if></td>
+				<td><a href="">수정</a></td>
+				<td><a href="leave.do?id=${tmp.id }">탈퇴</a></td>
+				<td><a href="delete.do?id=${tmp.id }">삭제</a></td>
+			</tr>
+		</tbody>
 		</c:forEach>
-	  </div>
+	  </table>
 	</div>
 	<!-- Page navigation// -->
 	<div class="text-center">
@@ -234,26 +152,8 @@
 </div>
 <script>
 	//페이징처리
-	function goPage(pageNum) {
+	function goPage(pageNum){
 		location.href='userlist.do?searchKeyword=${searchKeyword}&searchCondition=${searchCondition}&pageNum='+pageNum;
-	}
-	//정보 수정
-	//수정 폼 보이기
-	$(".toggleForm").click(function() {
-		if($(this).text()=="수정") {
-			$(this).text("취소");
-			$(this).parent().parent().parent().find(".updateForm").css("display", "table-row");
-		} else {
-			$(this).text("수정");
-			$(this).parent().parent().parent().find(".updateForm").css("display", "none");
-		}
-	});
-	//삭제 함수
-	function deleteConfirm(id) {
-		var isDelete=confirm("이 사용자 정보를 삭제하시겠습니까?");
-		if(isDelete) {
-			location.href="delete.do?id="+id;
-		}
 	}
 </script>
 <jsp:include page="../inc/footer.jsp" />

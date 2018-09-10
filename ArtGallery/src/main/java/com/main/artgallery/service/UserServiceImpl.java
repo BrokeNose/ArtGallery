@@ -157,8 +157,11 @@ public class UserServiceImpl implements UserService {
 		mView.addObject("msg", id+" 회원님 탈퇴됐습니다.");
 	}
 	@Override
-	public void delete(ModelAndView mView, HttpSession session) {
-		String id=(String)session.getAttribute("id");
+	public void leave2(String id) {
+		dao.leave(id);
+	}
+	@Override
+	public void delete(String id) {
 		dao.delete(id);
 	}
 	@Override
