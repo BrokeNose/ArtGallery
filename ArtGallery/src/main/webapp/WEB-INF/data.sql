@@ -1,29 +1,24 @@
 
 -- db dump 시 작업
 
-delete from t_art;
+delete from T_Art;
 delete from T_ArtRel;
 delete from T_ArtComment;
 delete from T_User;
 delete from T_FavorArt;
-delete from T_FAVORCATEGORY;
-delete from t_opnion;
-delete from T_OPINIONCOMMENT
-delete from t_config;
-delete from T_CATEGORY;
-
+delete from T_FavorCategory;
+delete from T_Opinion;
+delete from T_OpinionComment
+delete from T_Config;
+delete from T_Category;
 
 -- cmd imp 실행
 --imp userid=scott/tiger file='c:\ncs2018\exp.dmp' commit=y ignore=y full=y
 
-
-
 update t_config set ip='localhost';
-
 
 ------------------------------------------------------------------------
 select * from t_category where imagepath is not null;
-
 
 
 -- db 통으로 복사하면
