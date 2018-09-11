@@ -288,8 +288,4 @@ SELECT DISTINCT TITLE, SEQ, CREATEYEAR,
 		 ARTSIZE, IMAGEPATH, VIEWCOUNT, REGDATE,
 		  ARTIST, PAINTER, MATERIAL ,cseq
 		FROM V_ART 
-		WHERE UPPER(artist) LIKE '%'||UPPER('종')||'%'
-			OR UPPER(painter) LIKE '%'||UPPER('종')||'%'
-			OR UPPER(material) LIKE '%'||UPPER('종')||'%'
-			OR UPPER(title) LIKE '%'||UPPER('종')||'%'
-			OR createyear LIKE '%'||'종'||'%'
+		WHERE UPPER(NVL(artist,'')||NVL(painter,'')||NVL(material,'')||NVL(title,'')||NVL(createyear,'')) LIKE '%'||UPPER('종')||'%';

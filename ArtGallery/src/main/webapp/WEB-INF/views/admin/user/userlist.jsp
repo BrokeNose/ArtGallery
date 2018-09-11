@@ -171,7 +171,7 @@
 			</div>
   			<form class="tr updateForm" action="update.do">
 				<div class="td"><input type="hidden" name="rnum" value="${tmp.rnum }"/></div>
-				<div class="td"><input type="text" name="id" value="${tmp.id }"/></div>
+				<div class="td"><input type="hidden" name="id" value="${tmp.id }"/></div>
 				<div class="td"><input type="text" name="email" value="${tmp.email }"/></div>
 				<div class="td"><input type="hidden" name="regdate" value="${tmp.regdate }"/></div>
 				<div class="td"><input type="text" name="roll" value="${tmp.roll }"/></div>

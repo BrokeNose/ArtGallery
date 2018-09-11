@@ -112,7 +112,7 @@
 	  				<a href="category/detail.do?seq=${tmpA.seq }&code=A" class="mOverB">
 			  			<div class="img_preview" style="background:url(${configDto.httpPath}${pageContext.request.contextPath }${tmpA.imagepath });background-size: 100% 100%;   ">
 			  				<div class="img_textbg">			  				
-			  				<div class="img_title">${tmpA.name }</div>
+			  				<div class="img_title TT" title="tmpA.name">${tmpA.name }</div>
 			  				<div class="img_items">항목 ${tmpA.artcount }개</div>
 			  				</div>			  				
 			  			</div>
@@ -130,7 +130,7 @@
   				<a href="category/detail.do?seq=${tmpM.seq }&code=M">
 		  			<div class="img_preview" style="background:url(${configDto.httpPath}${pageContext.request.contextPath }${tmpM.imagepath });background-size: 100% 100%;">
 		  				<div class="img_textbg ">	
-		  				<div class="img_title">${tmpM.name }</div>
+		  				<div class="img_title TT" title="${tmpM.name }">${tmpM.name }</div>
 		  				<div class="img_items">항목 ${tmpM.artcount }개</div>
 		  				</div>
 		  			</div>
@@ -147,7 +147,7 @@
   				<a href="category/detail.do?seq=${tmpP.seq }&code=P">
 		  			<div class="img_preview" style="background:url(${configDto.httpPath}${pageContext.request.contextPath }${tmpP.imagepath });background-size: 100% 100%;">
 		  				<div class="img_textbg ">	
-		  				<div class="img_title">${tmpP.name }</div>
+		  				<div class="img_title TT" title="${tmpP.name }">${tmpP.name }</div>
 		  				<div class="img_items">항목 ${tmpP.artcount }개</div>
 		  				</div>
 		  			</div>
@@ -160,5 +160,13 @@
 <br />
 
 <jsp:include page="footer.jsp"/>
+<script>
+$(function(){
+	$(".TT").tooltip({
+		trigger:"hover",
+		placement:"top"
+	});
+}); 
+</script>
 </body>
 </html>

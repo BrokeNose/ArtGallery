@@ -3,11 +3,9 @@
 <mapper namespace="search">
 	
 	<sql id="whereSql">
-		WHERE UPPER(artist) LIKE '%'||UPPER(#{searchKeyword})||'%'
-			OR UPPER(painter) LIKE '%'||UPPER(#{searchKeyword})||'%'
-			OR UPPER(material) LIKE '%'||UPPER(#{searchKeyword})||'%'
-			OR UPPER(title) LIKE '%'||UPPER(#{searchKeyword})||'%'
-			OR createyear LIKE '%'||#{searchKeyword}||'%'	
+		WHERE UPPER(
+			NVL(artist,'')||NVL(painter,'')||NVL(material,'')||NVL(title,'')||NVL(createyear,'')) 
+			LIKE '%'||UPPER(#{searchKeyword})||'%';
 	</sql>
 	<sql id="orderSql">
 		ORDER BY regdate DESC, seq DESC
