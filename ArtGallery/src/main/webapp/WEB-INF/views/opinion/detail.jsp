@@ -9,8 +9,8 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
 <style>
 	.content{
-		border: 1px solid #888888;
-		box-shadow: 5px 5px 5px #888888;
+		border: 1px solid #ddd;
+		
 		margin-top:15px;
 		margin-bottom:15px;
 		padding:15px;
@@ -77,8 +77,10 @@
 	<div class="content">${dto.content }</div>
 	
 	<c:if test="${sessionScope.id eq dto.writer }">
-		<a href="updateform.do?num=${dto.num }" class="btn btn-primary">수정</a>
-		<a href="javascript:deleteConfirm()" class="btn btn-info">삭제</a>
+		<div class="text-center">
+		<a href="updateform.do?num=${dto.num }" class="btn btn-default">수정</a>
+		<a href="javascript:deleteConfirm()" class="btn btn-primary">삭제</a>
+		</div>
 		<script>
 			function deleteConfirm(){
 				var isDelete=confirm("글을 삭제 하시겠습니까?");

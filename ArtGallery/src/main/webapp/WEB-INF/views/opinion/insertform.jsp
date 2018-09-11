@@ -34,16 +34,18 @@
 			    	</div>
 			  	</div>				
 			</div>			
-			<!-- button // -->
-			<div class="text-center">
-				<input type="button" onclick="pasteHTML();" value="본문에 내용 넣기" />
-				<input type="button" onclick="showHTML();" value="본문 내용 가져오기" />
-				<input type="button" onclick="submitContents(this);" value="저장" />
-				<input type="button" onclick="setDefaultFont();" value="기본 폰트 지정하기 (궁서_24)" />
-			</div>
+			
 		</div><!-- //panel  -->	
+		<!-- button // -->
+			<div class="text-center">
+				<input type="button" onclick="pasteHTML();" value="본문에 내용 넣기" class="btn btn-default"/>
+				<input type="button" onclick="showHTML();" value="본문 내용 가져오기" class="btn btn-default"/>				
+				<input type="button" onclick="setDefaultFont();" value="기본 폰트 지정하기 (궁서_24)" class="btn btn-default"/>
+				<input type="button" onclick="submitContents(this);" value="저장" class="btn btn-primary"/>
+			</div>
 	</form>
 </div>
+<br /><br />
 <jsp:include page="../footer.jsp"/>	
 <script>
 var oEditors = [];

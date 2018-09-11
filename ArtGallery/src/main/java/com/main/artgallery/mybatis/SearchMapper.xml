@@ -5,7 +5,7 @@
 	<sql id="whereSql">
 		WHERE UPPER(
 			NVL(artist,'')||NVL(painter,'')||NVL(material,'')||NVL(title,'')||NVL(createyear,'')) 
-			LIKE '%'||UPPER(#{searchKeyword})||'%';
+			LIKE '%'||UPPER(#{searchKeyword})||'%'
 	</sql>
 	<sql id="orderSql">
 		ORDER BY regdate DESC, seq DESC
