@@ -60,13 +60,13 @@
 	</sql>
 	<sql id="artSort">		
 		<choose>
-			<when test='sortField == null or sortField == "" or sortField == "1" '>
+			<when test='sortField == null or sortField == "" or sortField == 1 '>
 				ORDER BY regdate DESC, seq DESC
 			</when>
-			<when test='sortField == 2'>	<!--  service에서 "2"로 넣어주면 비교할때도 "2" 로 비교해야함. -->
+			<when test="sortField == 2">	<!--  service에서 "2"로 넣어주면 비교할때도 "2" 로 비교해야함. -->
 				ORDER BY title ASC, seq DESC
 			</when>
-			<when test='sortField == 3'>
+			<when test="sortField == 3">	<!-- sortField가 String type 이지만 숫자인 경우 숫자로 비교 가능함 -->
 				ORDER BY viewcount DESC, title ASC
 			</when>
 			<otherwise>

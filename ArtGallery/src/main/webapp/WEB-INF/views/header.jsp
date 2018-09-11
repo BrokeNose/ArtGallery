@@ -67,7 +67,7 @@
  		<a class="navbar-brand" href="#" id="search_close">
 	      	<span style="color: #333;"><i class="fas fa-arrow-left"></i> </span>
 	    </a>
-		<form class="navbar-form navbar-left" role="search" action="${pageContext.request.contextPath }/category/result.do" >
+		<form id="topSearchForm" class="navbar-form navbar-left" role="search" action="${pageContext.request.contextPath }/category/result.do" >
 		  <div class="form-group">
 		    <input type="text" class="form-control" placeholder="Search" id="searchKeyword" name="searchKeyword" value="${param.searchKeyword }">
 		  </div>
@@ -130,6 +130,18 @@
 		confirm("로그아웃 됐습니다.");
 		location.href="${pageContext.request.contextPath }/user/signout.do";
 	};
+	
+	$("#topSearchForm").submit(function(){
+		var keyword=$("#searchKeyword").val().trim();
+		if( keyword <= "   ") {
+			alert("검색어를 입력해주세요.");
+			return false;
+		}
+		if( keyword == "%") {
+			alert("%는 검색할 수 없습니다.");
+			return false;
+		}
+	});
 	
 <c:if test="${!empty id && !empty roll && roll ne 'U' }">
 	$.ajax({

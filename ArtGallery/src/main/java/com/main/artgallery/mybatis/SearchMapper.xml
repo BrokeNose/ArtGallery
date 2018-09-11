@@ -5,13 +5,13 @@
 	<sql id="whereSql">
 		WHERE UPPER(
 			NVL(artist,'')||NVL(painter,'')||NVL(material,'')||NVL(title,'')||NVL(createyear,'')) 
-			LIKE '%'||UPPER(#{searchKeyword})||'%';
+			LIKE '%'||UPPER(#{searchKeyword})||'%'
 	</sql>
 	<sql id="orderSql">
 		ORDER BY regdate DESC, seq DESC
 	</sql>
 	
-	<select id="mainSearchList" parameterType="String" resultType="artDto">
+	<select id="mainSearchList_old" parameterType="String" resultType="artDto">
 		SELECT DISTINCT TITLE, SEQ, CREATEYEAR,
 						ARTSIZE, IMAGEPATH, VIEWCOUNT, REGDATE,
 						ARTIST, PAINTER, MATERIAL
@@ -19,7 +19,29 @@
 		<include refid="whereSql"/>	
 		<include refid="orderSql"/>			
 	</select>
+
+	<select id="getCount" parameterType="artDto" resultType="int">
+		SELECT NVL(COUNT(DISTINCT seq), 0)
+		FROM   v_art 
+		<include refid="whereSql"/>		
+	</select>
 	
+	<select id="mainSearchList" parameterType="artDto" resultType="artDto">
+		SELECT result2.*
+		FROM   (SELECT result1.*, ROWNUM rnum
+				FROM   (SELECT DISTINCT TITLE, SEQ, CREATEYEAR,
+										ARTSIZE, IMAGEPATH, VIEWCOUNT, REGDATE,
+										ARTIST, PAINTER, MATERIAL
+						FROM V_ART 
+						<include refid="whereSql"/>	
+						<include refid="orderSql"/>	
+						) result1
+				<include refid="orderSql"/>
+				) result2
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}	
+		ORDER BY rnum	
+	</select>
+		
 	<!-- 에 가장 근접한 검색결과 -->
 	<select id="mainSearchCategory" resultType="category" parameterType="String">
 		SELECT seq, code, name, codeName, imagePath, artcount,

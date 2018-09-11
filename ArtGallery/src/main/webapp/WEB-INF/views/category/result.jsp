@@ -70,29 +70,28 @@
 </head>
 <body>
 <jsp:include page="../header.jsp"/>
-<div class="container">
-	<c:if test="${not empty searchKeyword }">
-		<h4><strong>${searchKeyword }</strong> 검색 내용 입니다.</h4>
-	</c:if>
-	<br />
-	<c:if test="${empty list }">
-		<h3>검색 결과가 없습니다.</h3>
-	</c:if>
-	
-	<c:if test="${not empty cateDto && not empty artResult}">
-	
-			<div class="thumbnail-wrapper col-md-6 col-sm-6 col-xs-12">
+<div class="resultContainer container">
+	<div class="row">
+		<c:if test="${not empty searchKeyword }">
+			<h4><i class="fas fa-search"></i> 검색어: <strong>${searchKeyword }</strong>로 검색하셨습니다.</h4>
+		</c:if>
+		<c:if test="${empty list }">
+			<h3>검색 결과가 없습니다.</h3>
+		</c:if>
+		<br />
+		<c:if test="${not empty cateDto && not empty artResult}">	
+			<div class="col-md-6 col-sm-6 col-xs-12">
 				<h3>${cateDto.name }</h3>
 				<p>${cateDto.remark }</p>
-				<%-- <p>${cateDto.seq }</p>
-				<p>${cateDto.code }</p>
-				<p>${cateDto.codename }</p>
-				<p>${cateDto.imagepath }</p>
-				<p>${cateDto.artcount }</p> --%>
+					<%-- <p>${cateDto.seq }</p>
+					<p>${cateDto.code }</p>
+					<p>${cateDto.codename }</p>
+					<p>${cateDto.imagepath }</p>
+					<p>${cateDto.artcount }</p> --%>
 			</div>
-			<div class="thumbnail-wrapper col-md-6 col-sm-6 col-xs-12">
+			<div class="col-md-6 col-sm-6 col-xs-12">
 				<c:forEach var="tmp" items="${artResult }">
-					<div class="thumnail-wrapper col-md-4 col-sm-4 col-xs-4">
+					<div class="col-md-4 col-sm-4 col-xs-4">
 						<div class="thumbnail">				
 							<div class="centered">		
 								<a href="detail.do?seq=${cateDto.seq }">													
@@ -104,15 +103,26 @@
 					</div>
 				</c:forEach>
 			</div>
-	<hr />	
-	</c:if>
+		
+		<hr style="width:100%;border-top: 2px solid #999;"/>	
+		
+		</c:if>
+	</div>
 	
-
+	<div class="row">
   	<c:if test="${not empty list }">
-  		<h3><strong>${searchKeyword }</strong> 키워드의 관련 작품들 입니다.</h3>
+  		<h3><strong>${searchKeyword }</strong> 키워드의 관련 작품들 입니다.  (${totalRow } 건)</h3>
   	</c:if>
+  	<div id="clone" class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6"  style="display:none">
+		<div class="thumbnail">
+			<div class="centered">
+				<a href=""><img src=""></a>
+			</div>
+		</div>
+	</div>
+	
 	<c:forEach var="dto" items="${list }">
-	<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6">
+	<div class="col-md-2 col-sm-3 col-xs-6">
 		<div class="thumbnail">
 			<div class="centered">
 				<a href="${pageContext.request.contextPath }/art/searchDetail.do?&searchKeyword=${searchKeyword }&seq=${dto.seq }" title="${dto.title }">
@@ -134,7 +144,7 @@
 	
 	<p>code: ${dto.code }</p> --%>
 	</c:forEach>
-	
+	</div>
 	
 
 </div>
@@ -146,6 +156,69 @@
 		});
 	}); 
 	
+	var pageNum=${pageNum};
+	var isLoading=false;
+	
+	$(window).on("scroll", function(){
+		
+		if(pageNum==0)	return;
+		
+		//console.log("scroll");
+
+		// 위쪽으로 스크롤된 길이 구하기
+		var scrollTop=$(window).scrollTop();
+		// window 높이
+		var windowHeight=$(window).height();
+		// document 높이
+		var documentHeight=$(document).height();
+
+		// 출력해보기
+		$("#sTop").text("scrollTop:"+scrollTop);
+		$("#wHeight").text("windowHeight:"+windowHeight);
+		$("#dHeight").text("documentHeight:"+documentHeight);
+
+		// 바닥까지(문서의 끝) 스크롤 했는지 여부
+		var isBottom=(documentHeight-50)<=scrollTop+windowHeight;
+	
+		if (isBottom){
+			
+			if ( isLoading ) return;
+			isLoading=true;
+			
+			var page=pageNum+1;
+			
+			$.ajax({
+				url:"resultJson.do",
+				method:"get",
+				data:{"searchKeyword":"${searchKeyword}",
+					  "pageNum": page},
+				success:function(data) {
+					if ( data.length == 0 )  {
+						pageNum=0;
+						//alert('더이상 불러올 자료가 없습니다.');
+					} else {
+						pageNum=page;	
+						$.each( data, function( idx, value ) {
+							console.log(value.title);
+							url1="${pageContext.request.contextPath }/art/searchDetail.do?searchKeyword=${searchKeyword }&seq="+value.seq;
+							url2="${configDto.httpPath}"+"${pageContext.request.contextPath }"+value.imagepath;
+							var cloneDiv = $('#clone').clone();
+							cloneDiv.find("a").attr("href", url1);
+							cloneDiv.find("a").attr("title", value.title);
+							cloneDiv.find("img").attr("src", url2);
+							cloneDiv.css("display","block").attr("id", "");
+							cloneDiv.appendTo(".resultContainer").hide().fadeIn(idx+"00");
+						});
+						
+					}
+				},
+				complete: function(){
+					isLoading=false;
+				}
+			});
+		}
+
+	});
 </script>
 
 <jsp:include page="../footer.jsp"/>
