@@ -207,7 +207,7 @@
 							cloneDiv.find("a").attr("title", value.title);
 							cloneDiv.find("img").attr("src", url2);
 							cloneDiv.css("display","block").attr("id", "");
-							cloneDiv.appendTo(".resultContainer").hide().fadeIn(idx+"00");
+							cloneDiv.appendTo(".resultContainer").hide().fadeIn(idx*500);
 						});
 						
 					}

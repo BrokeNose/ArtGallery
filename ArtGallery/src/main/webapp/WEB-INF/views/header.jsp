@@ -60,7 +60,9 @@
 		
 		z-index: 999;
 	}
+	
 </style>
+
 <!-- search// -->
 <div id="search_box" class="h_s"> 	
  	<div class="navbar-header" style="; width:100%;">
