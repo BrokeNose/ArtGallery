@@ -21,7 +21,7 @@
 		<include refid="whereSql"/>	
 		<include refid="orderSql"/>			
 	</select>
-	
+
 	<!-- 에 가장 근접한 검색결과 -->
 	<select id="mainSearchCategory" resultType="category" parameterType="String">
 		SELECT seq, code, name, codeName, imagePath, artcount,
