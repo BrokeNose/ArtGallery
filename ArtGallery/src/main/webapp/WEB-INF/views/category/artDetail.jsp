@@ -373,7 +373,7 @@
 						cloneli.find(".regdate").text(value.regdate);
 						cloneli.find(".info").text(value.content);
 						cloneli.css("display","block").removeClass("comment-clone").addClass("comment");
-						console.log(cloneli);
+						//console.log(cloneli);
 						$('.comments ul').append(cloneli);
 					});					
 				}

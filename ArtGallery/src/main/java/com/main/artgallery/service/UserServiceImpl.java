@@ -46,9 +46,6 @@ public class UserServiceImpl implements UserService {
 			pageNum=1;
 		}
 		
-		//유저가 3개씩 출력
-		configDto.setPagerow(3);
-		
 		//보여줄 페이지 데이터의 시작 ResultSet row 번호
 		int startRowNum=1+(pageNum-1)*configDto.getPagerow();
 		//보여줄 페이지 데이터의 끝 ResultSet row 번호

@@ -26,7 +26,9 @@
 		            <li><a href="${pageContext.request.contextPath }/category/list.do?soncategorytype=P">화파</a></li>		           
 		          </ul>
 	        </li>
+
 	       	<li><a href="${pageContext.request.contextPath }/opinion/list.do">의견보내기 </a></li>
+
         </ul>
       	<ul class="nav navbar-nav navbar-right">
       		<c:choose>

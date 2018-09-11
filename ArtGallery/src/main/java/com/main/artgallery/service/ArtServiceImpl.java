@@ -588,30 +588,86 @@ public class ArtServiceImpl implements ArtService {
 	
 	@Override
 	public void getSearchList(HttpServletRequest request, ModelAndView mView) {
+		
+		String json=(String)request.getAttribute("json");
+		if(json==null) {
+			json="";
+		}
+		
 		//T_config 환경변수 가져오기
 		getConfig(request);
 		mView.addObject("configDto", configDto);
 		
-		//카테고리 검색
 		String SearchKeyword=(String)request.getParameter("searchKeyword");
-		CategoryDto cDto = artDao.getSearchCategory(SearchKeyword);
-		if ( cDto !=null && cDto.getSeq() > 0 ) {	//결과가 있으면
+		if ( !json.equals("Y") ) {			//카테고리 검색
 			
-			ArtDto aDto =new ArtDto(); 
-			aDto.setCseq(cDto.getSeq());
-			aDto.setSortField("3");		// viewcount sort
-			aDto.setStartRowNum(1);
-			aDto.setEndRowNum(3);
-			
-			List<ArtDto> list2=artDao.getList(aDto);
-			mView.addObject("artResult",list2);
+			CategoryDto cDto = artDao.getSearchCategory(SearchKeyword);
+			if ( cDto !=null && cDto.getSeq() > 0 ) {	//결과가 있으면
+				ArtDto aDto =new ArtDto(); 
+				
+				aDto.setCseq(cDto.getSeq());
+				aDto.setSortField("3");		// viewcount sort
+				aDto.setStartRowNum(1);
+				aDto.setEndRowNum(3);
+				
+				List<ArtDto> list2=artDao.getList(aDto);
+				mView.addObject("artResult",list2);
+			}
+			mView.addObject("cateDto",cDto);
 		}
-		mView.addObject("cateDto",cDto);
 		
+		ArtDto dto =new ArtDto(); 
+		dto.setSearchKeyword(SearchKeyword);
+
+		//보여줄 페이지의 번호
+		int pageNum=1;
+		
+		if(request.getParameter("pageNum") != null && !request.getParameter("pageNum").equals("")){
+			pageNum=Integer.parseInt(request.getParameter("pageNum"));;
+		}
+		
+		int pageBasicRow=12;
+		int pageRow=pageBasicRow;
+		if ( pageNum==1) {
+			pageRow=pageBasicRow*2;
+		}
+		
+		//보여줄 페이지 데이터의 시작 ResultSet row 번호
+		int startRowNum=1+(pageNum-1)*pageRow;
+		//보여줄 페이지 데이터의 끝 ResultSet row 번호
+		int endRowNum=pageNum*pageRow;
+		if ( pageNum > 1 ) {
+			endRowNum=endRowNum+pageBasicRow;
+			startRowNum=startRowNum+pageBasicRow;
+		}
+		System.out.println("pageNum : " + pageNum + " startRowNum : "+ startRowNum + " = endRowNum : "+endRowNum);
+		
+		//전체 row 의 갯수를 읽어온다.
+		int totalRow=artDao.getSearchCount(dto);
+		//전체 페이지의 갯수 구하기
+		int totalPageCount=(int)Math.ceil(totalRow/(double)pageRow);
+		//시작 페이지 번호
+		int startPageNum=
+			1+((pageNum-1)/configDto.getDisplayrow())*configDto.getDisplayrow();
+		//끝 페이지 번호
+		int endPageNum=startPageNum+configDto.getDisplayrow()-1;
+		//끝 페이지 번호가 잘못된 값이라면 
+		if(totalPageCount < endPageNum){
+			endPageNum=totalPageCount; //보정해준다. 
+		}
+		
+		// 위에서 만든 Dto 에 추가 정보를 담는다. 
+		dto.setStartRowNum(startRowNum);
+		dto.setEndRowNum(endRowNum);
 		
 		//작품 LIST
-		mView.addObject("list",artDao.getSearchList(SearchKeyword));
-		mView.addObject("searchKeyword",SearchKeyword);
+		request.setAttribute("list",artDao.getSearchList(dto));
 		
+		mView.addObject("searchKeyword",SearchKeyword);
+		mView.addObject("pageNum", pageNum);
+		mView.addObject("totalPageCount", totalPageCount);
+		// 전체 row 의 갯수도 전달하기
+		mView.addObject("totalRow", totalRow);
+
 	}
 }
