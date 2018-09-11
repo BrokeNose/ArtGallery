@@ -112,7 +112,7 @@
 	  				<a href="category/detail.do?seq=${tmpA.seq }&code=A" class="mOverB">
 			  			<div class="img_preview" style="background:url(${configDto.httpPath}${pageContext.request.contextPath }${tmpA.imagepath });background-size: 100% 100%;   ">
 			  				<div class="img_textbg">			  				
-			  				<div class="img_title TT" title="tmpA.name">${tmpA.name }</div>
+			  				<div class="img_title TT" title="${tmpA.name }">${tmpA.name }</div>
 			  				<div class="img_items">항목 ${tmpA.artcount }개</div>
 			  				</div>			  				
 			  			</div>

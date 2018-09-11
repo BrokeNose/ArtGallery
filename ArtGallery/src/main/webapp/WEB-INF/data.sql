@@ -12,11 +12,13 @@ delete from T_OpinionComment
 delete from T_Config;
 delete from T_Category;
 
+
 -- cmd imp 실행
 --imp userid=scott/tiger file='c:\ncs2018\exp.dmp' commit=y ignore=y full=y
 
 update t_config set ip='localhost';
 
+update t_config set uploadroot='/upload';
 ------------------------------------------------------------------------
 select * from t_category where imagepath is not null;
 
