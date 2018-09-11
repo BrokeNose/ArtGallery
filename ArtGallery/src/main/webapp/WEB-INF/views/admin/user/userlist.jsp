@@ -100,6 +100,9 @@
 		display: table-cell;
 		padding: 0;
 	}
+	.table-hover > div.tbody > div.tr:hover {
+	  background-color: #f5f5f5;
+	}
 	form.updateForm {
 		display: none;
 	}
@@ -142,7 +145,7 @@
 	  </div><!-- /panel-body -->
 	</div><!-- /panel -->
 	<div class="table-responsive">
-	  <div class="table table-bordered">
+	  <div class="table table-bordered table-hover">
 		<div class="thead">
 			<div class="tr">
 				<div class="th">#</div>

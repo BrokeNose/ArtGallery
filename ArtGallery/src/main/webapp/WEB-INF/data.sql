@@ -1,22 +1,24 @@
+
 -- db dump 시 작업
 
-delete from t_art;
+delete from T_Art;
 delete from T_ArtRel;
-delete from T_User;
-
-delete from T_FavorArt;
 delete from T_ArtComment;
-delete from t_config;
-
+delete from T_User;
+delete from T_FavorArt;
+delete from T_FavorCategory;
+delete from T_Opinion;
+delete from T_OpinionComment
+delete from T_Config;
+delete from T_Category;
 
 -- cmd imp 실행
+--imp userid=scott/tiger file='c:\ncs2018\exp.dmp' commit=y ignore=y full=y
 
 update t_config set ip='localhost';
 
-
 ------------------------------------------------------------------------
 select * from t_category where imagepath is not null;
-
 
 
 -- db 통으로 복사하면
@@ -25,19 +27,6 @@ update t_config set ip='localhost';
 update t_config set ip='192.168.0.200';
 
 --sequence 값 확인하기
-
--- 8/30 다시 실행할 script
-
-DROP TABLE T_CONFIG;
-CREATE TABLE T_Config(
-        code char(1) DEFAULT '1' PRIMARY KEY,
-        pagerow NUMBER DEFAULT 5,
-        CONSTRAINT TConfig_pagerow_ck CHECK (pagerow > 0),
-        displayrow NUMBER DEFAULT 5,
-        CONSTRAINT TConfig_displayrow_ck CHECK (displayrow > 0),
-        ip       VARCHAR2(15),
-        uploadRoot VARCHAR2(50)
-);
 
 INSERT INTO t_config(code, pagerow, displayrow, ip, uploadRoot)
 VALUES('1', 10, 5, 'localhost', '/upload');

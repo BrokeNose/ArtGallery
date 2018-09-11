@@ -18,6 +18,20 @@ delete from t_opinion;
 select * from t_opinion;
 
 drop table T_opinion;
+
+-- 8/30 다시 실행할 script
+
+DROP TABLE T_CONFIG;
+CREATE TABLE T_Config(
+        code char(1) DEFAULT '1' PRIMARY KEY,
+        pagerow NUMBER DEFAULT 5,
+        CONSTRAINT TConfig_pagerow_ck CHECK (pagerow > 0),
+        displayrow NUMBER DEFAULT 5,
+        CONSTRAINT TConfig_displayrow_ck CHECK (displayrow > 0),
+        ip       VARCHAR2(15),
+        uploadRoot VARCHAR2(50)
+);
+
 CREATE TABLE T_opinion(
 	num NUMBER PRIMARY KEY, -- 글번호
 	writer VARCHAR2(11), --  작성자
@@ -27,7 +41,7 @@ CREATE TABLE T_opinion(
 	regdate	DATE -- 작성일
 );
 
-CREATE SEQUENCE TOpinion_seq;
+CREATE SEQUENCE Topinion_seq;
 
 -- 댓글 정보를 저장할 테이블
 CREATE TABLE T_opinionComment(
@@ -173,8 +187,6 @@ DELETE FROM T_CONFIG;
 INSERT INTO t_config(code, pagerow, displayrow, ip, uploadRoot) VALUES('1', 10, 5, '192.168.0.200', '/upload');
 
 <!-- 의견보내기 테이블  -->
-
-
 
 -------------------------------------------------------------------------
 drop view v_art;
