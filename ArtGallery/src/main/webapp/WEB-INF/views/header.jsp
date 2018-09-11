@@ -78,25 +78,6 @@
  	</div> 	
 </div>
 
-<!-- modal// -->
-<div class="modal fade" id="myModal">
-	<!-- modal-lg  | default | modal-sm -->	
-	<div class="modal-dialog modal-sm"> <!--크기옵션 xs md lg-->
-		<div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal"><span>&times;</span><span class="sr-only">모달 닫기</span></button>
-	        <h4 class="modal-title">의견보내기</h4>
-	      </div>
-	      <div class="modal-body">
-	        <textarea class="form-control" rows="10"></textarea>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-	        <button type="button" class="btn btn-primary">의견보내기</button>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
 <script>
@@ -105,15 +86,6 @@
 		var currentParam=$(location).attr('search');
 		var currentUrl=currentPathname+currentParam;
 		$("#signinForm").attr("href", "${pageContext.request.contextPath }/user/signin_form.do?url="+currentUrl)
-	});
-	//모달이 완전히 보여졌을때 실행할 함수 등록
-	$("#myModal").on("shown.bs.modal", function(){});
-	//모달이 완전히 숨겨졌을때 실행할 함수 등록
-	$("#myModal").on("hidden.bs.modal", function(){});
-
-
-	$("#showBtn").click(function(){
-		$("#myModal").modal("show");	
 	});
 	
 	//search box open
@@ -145,7 +117,7 @@
 		}
 	});
 	
-<c:if test="${!empty id && !empty roll && roll ne 'U' }">
+<c:if test="${!empty id && !empty roll && roll eq 'A' }">
 	$.ajax({
 		url:"${pageContext.request.contextPath }/opinion/count.do",
 		method:"get",

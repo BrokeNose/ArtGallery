@@ -110,43 +110,42 @@
 	</div>
 	
 	<div class="row">
-  	<c:if test="${not empty list }">
-  		<h3><strong>${searchKeyword }</strong> 키워드의 관련 작품들 입니다.  (${totalRow } 건)</h3>
-  	</c:if>
-  	<div id="clone" class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6"  style="display:none">
-		<div class="thumbnail">
-			<div class="centered">
-				<a href=""><img src=""></a>
+	  	<c:if test="${not empty list }">
+	  		<h3><strong>${searchKeyword }</strong> 키워드의 관련 작품들 입니다.  (${totalRow } 건)</h3>
+	  	</c:if>
+		<div id="clone" class="col-md-2 col-sm-3 col-xs-6" style="display:none">
+			<div class="thumbnail">
+				<div class="centered">
+					<a href=""><img src=""></a>
+				</div>
 			</div>
 		</div>
-	</div>
 	
-	<c:forEach var="dto" items="${list }">
-	<div class="col-md-2 col-sm-3 col-xs-6">
-		<div class="thumbnail">
-			<div class="centered">
-				<a href="${pageContext.request.contextPath }/art/searchDetail.do?&searchKeyword=${searchKeyword }&seq=${dto.seq }" title="${dto.title }">
-					<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }">					
-				</a>
+		
+		<c:forEach var="dto" items="${list }">
+		<div class="col-md-2 col-sm-3 col-xs-6">
+			<div class="thumbnail">
+				<div class="centered">
+					<a href="${pageContext.request.contextPath }/art/searchDetail.do?&searchKeyword=${searchKeyword }&seq=${dto.seq }" title="${dto.title }">
+						<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }">					
+					</a>
+				</div>
 			</div>
 		</div>
+		<%-- <p>title: ${dto.title }</p>
+		<p>seq: ${dto.seq }</p>
+		<p>createyear: ${dto.createyear}</p>
+		<p>artsize: ${dto.artsize }</p>
+		<p>imagepath: ${dto.imagepath }</p>
+		<p>viewcount ${dto.viewcount}</p>
+		<p>regdate ${dto.regdate }</p>
+		<p>artist ${dto.artist }</p>
+		<p>painter ${dto.painter }</p>
+		<p>material: ${dto.material }</p>
+		
+		<p>code: ${dto.code }</p> --%>
+		</c:forEach>
 	</div>
-	<%-- <p>title: ${dto.title }</p>
-	<p>seq: ${dto.seq }</p>
-	<p>createyear: ${dto.createyear}</p>
-	<p>artsize: ${dto.artsize }</p>
-	<p>imagepath: ${dto.imagepath }</p>
-	<p>viewcount ${dto.viewcount}</p>
-	<p>regdate ${dto.regdate }</p>
-	<p>artist ${dto.artist }</p>
-	<p>painter ${dto.painter }</p>
-	<p>material: ${dto.material }</p>
-	
-	<p>code: ${dto.code }</p> --%>
-	</c:forEach>
-	</div>
-	
-
 </div>
 <script>
 	$(function(){
@@ -171,11 +170,6 @@
 		var windowHeight=$(window).height();
 		// document 높이
 		var documentHeight=$(document).height();
-
-		// 출력해보기
-		$("#sTop").text("scrollTop:"+scrollTop);
-		$("#wHeight").text("windowHeight:"+windowHeight);
-		$("#dHeight").text("documentHeight:"+documentHeight);
 
 		// 바닥까지(문서의 끝) 스크롤 했는지 여부
 		var isBottom=(documentHeight-50)<=scrollTop+windowHeight;
@@ -207,7 +201,7 @@
 							cloneDiv.find("a").attr("title", value.title);
 							cloneDiv.find("img").attr("src", url2);
 							cloneDiv.css("display","block").attr("id", "");
-							cloneDiv.appendTo(".resultContainer").hide().fadeIn(idx*500);
+							cloneDiv.appendTo(".resultContainer .row").hide().fadeIn(idx*400);
 						});
 						
 					}
