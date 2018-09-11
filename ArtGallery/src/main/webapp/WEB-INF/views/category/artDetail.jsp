@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
 <style type="text/css">
 	.arrow_left {
-		padding-top:250px;
+		padding-top: 250px;
 		display: inline-block;
 		float:left;
 		width:30px;			
