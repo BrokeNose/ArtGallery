@@ -1,3 +1,7 @@
+select * from t_config;
+
+update t_config set uploadroot='/upload';
+
 -- db dump 시 작업
 
 delete from T_Art;
