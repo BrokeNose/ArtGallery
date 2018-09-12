@@ -125,7 +125,7 @@
 								<br/>
 							</c:if>
 							<div class="panel panel-default">
-  								<div class="panel-body">${tmp.content }</div>
+  								<div class="panel-body" style="white-space:pre-wrap;">${tmp.content }</div>
   							</div>
 						</dd>
 					</dl>	
