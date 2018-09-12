@@ -33,8 +33,8 @@
 	}
 	
 	.content{
-		border: 1px solid #888888;
-		box-shadow: 5px 5px 5px #888888;
+		border: 1px solid #ddd;
+		
 		margin-top:15px;
 		margin-bottom:15px;
 		padding:15px;
@@ -70,14 +70,7 @@
 	.comments li{
 		clear: both;
 	}
-	.comments form textarea{
-		width: 500px;
-		height: 100px;
-	}
-	.comments form button{
-		height: 100px;
-	}
-		
+	
 </style>
 </head>
 <body>
@@ -109,7 +102,7 @@
 				<li class="comment">
 					<dl>
 						<dt>
-							<img src="${pageContext.request.contextPath }/resources/images/user_image.gif"/>
+							<i class="fas fa-reply"></i>
 							<span>${tmp.writer }</span>
 							<span>${tmp.regdate }</span>							
 						</dt>
@@ -118,7 +111,9 @@
 								<i class="muted">${tmp.target_id }</i>
 								<br/>
 							</c:if>
-							<pre>${tmp.content }</pre>
+							<div class="panel panel-default">
+  								<div class="panel-body">${tmp.content }</div>
+  							</div>
 						</dd>
 					</dl>	
 				</li>
@@ -126,14 +121,19 @@
 		</ul>	
 		
 		<!-- 원글에 댓글을 작성할수 있는 폼 -->
+		<hr />
 		<div class="comment_form">
-		<h3>답변</h3>
-			<form action="comment_insert.do" method="post">
+		<h5><i class="fas fa-reply-all"></i> 답변쓰기</h5>
+			<form action="comment_insert.do" method="post" >
 				<input type="hidden" name="writer"  value="${id }" />
 				<input type="hidden" name="ref_group"  value="${dto.num }"/>
 				<input type="hidden" name="target_id" value="${dto.writer }"/>
-				<textarea name="content"></textarea>
-				<button type="submit">등록</button>
+				
+				<textarea name="content" class="form-control" rows="3"></textarea>
+				<div class="text-center ">
+				<br />
+				<button type="submit" class="btn btn-primary btn-lg" >등록</button>
+				</div>
 			</form>
 		</div>
 	</div>					

@@ -106,16 +106,16 @@
 		
 	<!-- 댓글에 관련된 UI -->
 	<div class="comments">
-		<ul>
+		<ul class="media-list">
 			<c:forEach var="tmp" items="${commentList }">
 				<li class="comment" <c:if test="${tmp.num ne tmp.comment_group }">style="padding-left:50px;"</c:if> >
 					<c:if test="${tmp.num ne tmp.comment_group }">
 						<img class="reply_icon" src="${pageContext.request.contextPath }/resources/images/re.gif"/>
-					</c:if>	
+					</c:if>					
 				
 					<dl>
 						<dt>
-							<img src="${pageContext.request.contextPath }/resources/images/user_image.gif"/>
+							<i class="fas fa-reply"></i>
 							<span>${tmp.writer }</span>
 							<span>${tmp.regdate }</span>							
 						</dt>
@@ -124,10 +124,14 @@
 								<i class="muted">${tmp.target_id }</i>
 								<br/>
 							</c:if>
-							<pre>${tmp.content }</pre>
+							<div class="panel panel-default">
+  								<div class="panel-body">${tmp.content }</div>
+  							</div>
 						</dd>
 					</dl>	
 				</li>
+				
+				
 			</c:forEach>
 		</ul>	
 	</div>					
