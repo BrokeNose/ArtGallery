@@ -56,7 +56,7 @@
 		position: relative;
 		left:100px;
 		top:-20px; 
-		
+		width: 80%;
 	}
 	.zoom:hover{
 		cursor:pointer;
@@ -141,7 +141,7 @@
 		</c:if></div>
 		<div class="text-center">
 			<img class="img_center" src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }"/>
-			<div class="zoom"><div class="zoom_bg"></div><span style="font-size:30px;color:#DC143C;"><i id="iZoom" class="fas fa-search-plus"></i></span></div>
+			<div class="zoom"><span style="font-size:30px;color:#DC143C;"><i id="iZoom" class="fas fa-search-plus"></i></span></div>
 		</div>	
 	</div>
 	<div class="relCategory text-left">
@@ -373,7 +373,7 @@
 						cloneli.find(".regdate").text(value.regdate);
 						cloneli.find(".info").text(value.content);
 						cloneli.css("display","block").removeClass("comment-clone").addClass("comment");
-						console.log(cloneli);
+						//console.log(cloneli);
 						$('.comments ul').append(cloneli);
 					});					
 				}

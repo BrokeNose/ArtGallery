@@ -67,7 +67,7 @@
  		<a class="navbar-brand" href="#" id="search_close">
 	      	<span style="color: #333;"><i class="fas fa-arrow-left"></i> </span>
 	    </a>
-		<form class="navbar-form navbar-left" role="search" action="${pageContext.request.contextPath }/category/result.do" >
+		<form id="topSearchForm" class="navbar-form navbar-left" role="search" action="${pageContext.request.contextPath }/category/result.do" >
 		  <div class="form-group">
 		    <input type="text" class="form-control" placeholder="Search" id="searchKeyword" name="searchKeyword" value="${param.searchKeyword }">
 		  </div>
@@ -76,25 +76,6 @@
  	</div> 	
 </div>
 
-<!-- modal// -->
-<div class="modal fade" id="myModal">
-	<!-- modal-lg  | default | modal-sm -->	
-	<div class="modal-dialog modal-sm"> <!--크기옵션 xs md lg-->
-		<div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal"><span>&times;</span><span class="sr-only">모달 닫기</span></button>
-	        <h4 class="modal-title">의견보내기</h4>
-	      </div>
-	      <div class="modal-body">
-	        <textarea class="form-control" rows="10"></textarea>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-	        <button type="button" class="btn btn-primary">의견보내기</button>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.3.1.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/bootstrap.js"></script>
 <script>
@@ -103,15 +84,6 @@
 		var currentParam=$(location).attr('search');
 		var currentUrl=currentPathname+currentParam;
 		$("#signinForm").attr("href", "${pageContext.request.contextPath }/user/signin_form.do?url="+currentUrl)
-	});
-	//모달이 완전히 보여졌을때 실행할 함수 등록
-	$("#myModal").on("shown.bs.modal", function(){});
-	//모달이 완전히 숨겨졌을때 실행할 함수 등록
-	$("#myModal").on("hidden.bs.modal", function(){});
-
-
-	$("#showBtn").click(function(){
-		$("#myModal").modal("show");	
 	});
 	
 	//search box open
@@ -131,7 +103,19 @@
 		location.href="${pageContext.request.contextPath }/user/signout.do";
 	};
 	
-<c:if test="${!empty id && !empty roll && roll ne 'U' }">
+	$("#topSearchForm").submit(function(){
+		var keyword=$("#searchKeyword").val().trim();
+		if( keyword <= "   ") {
+			alert("검색어를 입력해주세요.");
+			return false;
+		}
+		if( keyword == "%") {
+			alert("%는 검색할 수 없습니다.");
+			return false;
+		}
+	});
+	
+<c:if test="${!empty id && !empty roll && roll eq 'A' }">
 	$.ajax({
 		url:"${pageContext.request.contextPath }/opinion/count.do",
 		method:"get",

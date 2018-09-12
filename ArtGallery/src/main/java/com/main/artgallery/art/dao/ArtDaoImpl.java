@@ -66,9 +66,9 @@ public class ArtDaoImpl implements ArtDao {
 	}
 
 	@Override
-	public List<ArtDto> getSearchList(String SearchKeyword) {
+	public List<ArtDto> getSearchList(ArtDto dto) {
 		
-		return session.selectList("search.mainSearchList",SearchKeyword);
+		return session.selectList("search.mainSearchList",dto);
 	}
 
 	@Override
@@ -80,5 +80,10 @@ public class ArtDaoImpl implements ArtDao {
 	@Override
 	public ArtDto getSearchData(ArtDto dto) {
 		return session.selectOne("search.mainSearchData", dto);
+	}
+
+	@Override
+	public int getSearchCount(ArtDto dto) {
+		return session.selectOne("search.getCount", dto);
 	}
 }

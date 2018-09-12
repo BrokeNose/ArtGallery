@@ -285,8 +285,7 @@ SELECT  *
 	    			    
 /*
  Data dump
- C:\Users\acorn>exp userid=scott/tiger file='c:\ncs2018\exp.dmp' tables=(scott.t_art, 
- t_config, t_category, t_artcomment, t_artrel, t_user, t_favorart, t_favorcategory)
+ C:\Users\acorn>exp userid=scott/tiger file='c:\ncs2018\exp.dmp' tables=(scott.t_art, t_config, t_category, t_artcomment, t_artrel, t_user, t_favorart, t_favorcategory)
  
  
  Data import

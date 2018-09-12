@@ -168,4 +168,13 @@ public class ArtController {
 		mView.setViewName("category/result");
 		return mView;
 	}
-}
+	
+	@RequestMapping("/category/resultJson")
+	@ResponseBody
+	public List<ArtDto> AllSearchListJson(ModelAndView mView, HttpServletRequest request) {
+		request.setAttribute("json", "Y");
+		aService.getSearchList(request, mView);
+		List<ArtDto> list=(List<ArtDto>)request.getAttribute("list");
+		//System.out.println("list : " + list);
+		return list;
+	}}
