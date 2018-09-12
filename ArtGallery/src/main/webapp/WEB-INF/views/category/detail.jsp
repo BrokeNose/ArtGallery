@@ -158,7 +158,7 @@
 					<div class="centered">
 						<a href="../art/detail.do?cseq=${dto.cseq }&seq=${dto.seq }">
 							<div class="thumb_bg">	
-							<div class="thumb_title1 TT" title="${dto.title }">${dto.title }</div>
+								<div class="thumb_title1 TT" title="${dto.title }">${dto.title }</div>
 							</div>
 							<img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" class="img-responsive img-thumb"/>
 						</a>
@@ -176,10 +176,10 @@
 						<div class="thumbnail">
 							<div class="centered">
 								<a href="detail.do?seq=${Adto.seq }">
-								<div class="thumb_bg">	
-									<div class="thumb_title2 TT" title="${Adto.name }">${Adto.name }</div>
-				  					<div class="thumb_items TT" title="항목 ${Adto.artcount }개">항목 ${Adto.artcount }개</div>
-				  				</div>
+									<div class="thumb_bg">	
+										<div class="thumb_title2 TT" title="${Adto.name }">${Adto.name }</div>
+					  					<div class="thumb_items">항목 ${Adto.artcount }개</div>
+					  				</div>
 									<img src="${configDto.httpPath}${pageContext.request.contextPath }${Adto.imagepath }" class="img-responsive img-thumb">	
 								</a>
 							</div>
@@ -189,51 +189,51 @@
 			</c:forEach>
 		</div><!-- //아티스트 -->
 	</c:if>
-  	<c:if test="${not empty MRellist }">
+	
+	<c:if test="${not empty MRellist }">
 		<h4><i class="fas fa-paint-brush"></i> 재료</h4>
 	  	<div class="row">
-	  		<c:forEach var="Mdto" items="${MRellist }">
-				<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6" title="${Mdto.name }" >
-					<div class="thumbnail">
-						<div class="centered">
-							<a href="detail.do?seq=${Mdto.seq }">
-								<img src="${configDto.httpPath}${pageContext.request.contextPath }${Mdto.imagepath }" class="img-responsive img-thumb"/>
-							<div class="thumb_bg">	
-								<div class="thumb_title2 TT" title="${Mdto.name }">${Mdto.name }</div>
-								<div class="thumb_items TT" title="항목 ${Mdto.artcount }개">항목 ${Mdto.artcount }개</div>	
+			<c:forEach var="Mdto" items="${MRellist }">
+		  		<div class="wrapper">
+					<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6" >
+						<div class="thumbnail">
+							<div class="centered">
+								<a href="detail.do?seq=${Mdto.seq }">
+									<div class="thumb_bg">	
+										<div class="thumb_title2 TT" title="${Mdto.name }">${Mdto.name }</div>
+					  					<div class="thumb_items">항목 ${Mdto.artcount }개</div>
+					  				</div>
+									<img src="${configDto.httpPath}${pageContext.request.contextPath }${Mdto.imagepath }" class="img-responsive img-thumb">	
+								</a>
 							</div>
-							<img src="${configDto.httpPath}${pageContext.request.contextPath }${Mdto.imagepath }" class="img-responsive img-thumb"/>
-									  					
-							</a>
 						</div>
 					</div>
-					
-				</div>
-			</c:forEach>	 
-		</div><!-- //재료 -->
-	</c:if>
-	<c:if test="${not empty PRellist }">
-		<!-- 화파 -->
-		<h4><i class="fas fa-palette"></i> 화파</h4>
-		<div class="row">	
-	  		<c:forEach var="Pdto" items="${PRellist }">
-				<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6 TT" title="${Pdto.name }">
-					<div class="thumbnail">
-						<div class="centered">					
-							<a href="detail.do?seq=${Pdto.seq }" >
-								<img src="${configDto.httpPath}${pageContext.request.contextPath }${Pdto.imagepath }" class="img-responsive img-thumb">
-							<div class="thumb_bg">	
-								<div class="thumb_title2 TT" title="${Pdto.name }">${Pdto.name }</div>
-			  					<div class="thumb_items TT" title="항목 ${Pdto.artcount }개">항목 ${Pdto.artcount }개</div>
-			  				</div>
-							<img src="${configDto.httpPath}${pageContext.request.contextPath }${Pdto.imagepath }" class="img-responsive img-thumb">
-								
-							</a>
-						</div>
-					</div>
-				</div>
+				</div>	
 			</c:forEach>
-		</div><!-- //화파 -->
+		</div><!-- //아티스트 -->
+	</c:if>
+	
+	<c:if test="${not empty PRellist }">
+		<h4><i class="fas fa-palette"></i> 화파</h4>
+	  	<div class="row">
+			<c:forEach var="Pdto" items="${PRellist }">
+		  		<div class="wrapper">
+					<div class="thumbnail-wrapper col-md-2 col-sm-3 col-xs-6" >
+						<div class="thumbnail">
+							<div class="centered">
+								<a href="detail.do?seq=${Pdto.seq }">
+									<div class="thumb_bg">	
+										<div class="thumb_title2 TT" title="${Pdto.name }">${Pdto.name }</div>
+					  					<div class="thumb_items">항목 ${Pdto.artcount }개</div>
+					  				</div>
+									<img src="${configDto.httpPath}${pageContext.request.contextPath }${Pdto.imagepath }" class="img-responsive img-thumb">	
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</c:forEach>
+		</div><!-- //아티스트 -->
 	</c:if>
 </div><!-- //container -->
 <br />
