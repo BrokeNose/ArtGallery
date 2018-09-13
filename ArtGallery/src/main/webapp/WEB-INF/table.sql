@@ -104,11 +104,16 @@ CREATE TABLE T_User(
 	id VARCHAR2(11) PRIMARY KEY,
 	pwd VARCHAR2(60),
 	email VARCHAR2(50),
-	roll CHAR(1) DEFAULT 'U', --관리자 여부
-	CONSTRAINT TUser_roll_ck CHECK (roll in ('A', 'U')),
+	role CHAR(1) DEFAULT 'U', --관리자 여부
+	CONSTRAINT TUser_role_ck CHECK (role in ('A', 'U')),
 	regdate DATE DEFAULT SYSDATE, --최초 아이디 만든 날짜
 	delDate DATE --아이디 삭제한 날짜
 );
+
+ALTER TABLE T_User RENAME COLUMN roll TO role;
+
+
+select * from t_user;
 
 CREATE TABLE T_FavorArt(
 	id VARCHAR2(11),
