@@ -95,7 +95,7 @@
 					<div class="centered">						
 						<a href="detail.do?seq=${dto.seq }">													
 							<div class="thumb_title TT" title="${dto.name }">${dto.name }</div>
-							<div class="thumb_items TT" title="항목 ${dto.artcount }개">항목 ${dto.artcount }개</div>	
+							<div class="thumb_items">항목 ${dto.artcount }개</div>	
 							<div class="overlay"><img src="${configDto.httpPath}${pageContext.request.contextPath }${dto.imagepath }" /></div>						
 						</a>						
 					</div>
