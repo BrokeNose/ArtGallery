@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
 	<select id="userCount" resultType="userDto">
-		SELECT sum(decode(roll, 'U', 1)) as userCount
-		     , sum(decode(roll, 'A', 1)) as adminCount
+		SELECT sum(decode(role, 'U', 1)) as userCount
+		     , sum(decode(role, 'A', 1)) as adminCount
 		     , count(id) as allCount
 		  FROM T_USER
 	</select>
@@ -24,8 +24,8 @@
 		SELECT result2.*
 		FROM ( SELECT result1.*, ROWNUM AS rnum
 			   FROM (
-						SELECT  id, email, roll, regdate, deldate, 
-								DECODE(roll, 'A', '관리자', 'S', '수퍼', 'U', '사용자','') AS rollname
+						SELECT  id, email, role, regdate, deldate, 
+								DECODE(role, 'A', '관리자', 'S', '수퍼', 'U', '사용자','') AS rolename
 						FROM T_User
 						<where>
 							<if test="id !=null">
@@ -48,17 +48,20 @@
 	</select>
 	<insert id="insert" parameterType="userDto">
   		INSERT INTO T_User 
-		(id, pwd, email, roll, regdate) 
-		VALUES(#{id}, #{pwd}, #{email}, #{roll}, SYSDATE)
+		(id, pwd, email, role, regdate) 
+		VALUES(#{id}, #{pwd}, #{email}, #{role}, SYSDATE)
 	</insert>
 	<select id="getData" parameterType="string" resultType="userDto">
-		SELECT id, pwd, email, roll, regdate, deldate 
+		SELECT id, pwd, email, role, regdate, deldate 
   		FROM T_User 
   		WHERE id=#{id}
 	</select>
 	<update id="update" parameterType="userDto">
 		UPDATE T_User 
-		SET id=#{id}, email=#{email}, roll=#{roll}, deldate=#{deldate}
+		SET  email=#{email}, role=#{role}
+		<if test="deldate == null || deldate == ''">
+			,deldate=''
+		</if>		
 		WHERE id=#{id}
 	</update>
 	<update id="changePwd" parameterType="userDto">
