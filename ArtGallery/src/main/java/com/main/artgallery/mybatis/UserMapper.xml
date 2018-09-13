@@ -58,9 +58,9 @@
 	</select>
 	<update id="update" parameterType="userDto">
 		UPDATE T_User 
-		SET  email=#{email}, role=#{role}
+		SET email=#{email}, role=#{role}
 		<if test="deldate == null || deldate == ''">
-			,deldate=''
+			, deldate=''
 		</if>		
 		WHERE id=#{id}
 	</update>

@@ -167,9 +167,9 @@
 				<div class="td">${tmp.email }</div>
 				<div class="td">${tmp.regdate }</div>
 				<div class="td">${tmp.roleName }</div>
-				<div class="td"><c:if test="${!empty tmp.deldate }">O</c:if></div>
+				<div class="td"><c:if test="${not empty tmp.deldate }">O</c:if></div>
 				<div class="td"><a href="javascript:" class="toggleForm">수정</a></div>
-				<div class="td"><a href="leave.do?id=${tmp.id }">탈퇴</a></div>
+				<div class="td"><c:if test="${empty tmp.deldate }"><a href="leave.do?id=${tmp.id }">탈퇴</a></c:if></div>
 				<div class="td"><a href="javascript:deleteConfirm('${tmp.id }')">삭제</a></div>
 			</div>
   			<form class="tr updateForm" action="update.do">
