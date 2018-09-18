@@ -82,8 +82,8 @@
 		
 	}
 	body {
-	 padding-top: 70px;
-	 }
+		padding-top: 70px;
+	}
 </style>
 </head>
 <body>
@@ -158,7 +158,6 @@
 </div><!-- //container -->
 
 <br />
-
 <jsp:include page="footer.jsp"/>
 <script>
 $(function(){
