@@ -105,7 +105,7 @@ public class UserServiceImpl implements UserService {
 			isSigninSuccess=BCrypt.checkpw(dto.getPwd(), resultDto.getPwd());
 			if(isSigninSuccess) {
 				session.setAttribute("id", dto.getId());
-				session.setAttribute("roll", resultDto.getRoll());
+				session.setAttribute("role", resultDto.getRole());
 			} else {
 				msg="비밀번호를 확인하세요";
 			}

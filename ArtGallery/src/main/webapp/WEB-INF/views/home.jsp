@@ -104,7 +104,7 @@
 	</section>
 	<br />
   	<!-- 아티스트 -->
-  	<h4><i class="fas fa-kiss-wink-heart"></i> 아티스트</h4>
+  	<h4><a href="${pageContext.request.contextPath }/category/list.do?soncategorytype=A"><i class="fas fa-kiss-wink-heart"></i> 아티스트</a></h4>
   	<div class="row">
   		<div class="wrapper">
   			<c:forEach var="tmpA" items="${listA }">
@@ -123,7 +123,7 @@
 	</div><!-- //아티스트 -->
 	<!-- 재료 -->
 	<br />
-  	<h4><i class="fas fa-paint-brush"></i> 재료</h4>
+  	<h4><a href="${pageContext.request.contextPath }/category/list.do?soncategorytype=M"><i class="fas fa-paint-brush"></i> 재료</a></h4>
   	<div class="row">	  	
 	  	<c:forEach var="tmpM" items="${listM }">
   			<div class="col-md-2 col-sm-3 col-xs-6">
@@ -140,7 +140,7 @@
 	</div><!-- //재료 -->
 	<!-- 화파 -->
 	<br />
-  	<h4><i class="fas fa-palette"></i> 화파</h4>
+  	<h4><a href="${pageContext.request.contextPath }/category/list.do?soncategorytype=P"><i class="fas fa-palette"></i> 화파</a></h4>
   	<div class="row">
   	  	<c:forEach var="tmpP" items="${listP }">
   			<div class="col-md-2 col-sm-3 col-xs-6">

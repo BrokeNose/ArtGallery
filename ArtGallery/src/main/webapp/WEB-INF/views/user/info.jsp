@@ -30,7 +30,7 @@
 		  </div>
 		  <div class="form-group">
 		    <div class="col-sm-9">
-		      <input type="hidden" class="form-control" name="roll" id="roll" value="${dto.roll }"/>
+		      <input type="hidden" class="form-control" name="role" id="role" value="${dto.role }"/>
 		    </div>
 		  </div>
 		  <div class="panel-footer text-center">

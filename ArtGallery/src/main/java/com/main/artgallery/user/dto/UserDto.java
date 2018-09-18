@@ -4,10 +4,10 @@ public class UserDto {
 	private String id;
 	private String pwd;
 	private String email;
-	private String roll;
+	private String role;
 	private String regdate;
 	private String deldate;
-	private String rollName;
+	private String roleName;
 	
 	private int userCount;
 	private int adminCount;
@@ -27,17 +27,17 @@ public class UserDto {
 	public UserDto() {}
 
 
-	public UserDto(String id, String pwd, String email, String roll, String regdate, String deldate, String rollName,
+	public UserDto(String id, String pwd, String email, String role, String regdate, String deldate, String roleName,
 			int userCount, int adminCount, int allCount, int startRowNum, int endRowNum, int rnum, String searchKeyword,
 			String searchCondition, int pageNum) {
 		super();
 		this.id = id;
 		this.pwd = pwd;
 		this.email = email;
-		this.roll = roll;
+		this.role = role;
 		this.regdate = regdate;
 		this.deldate = deldate;
-		this.rollName = rollName;
+		this.roleName = roleName;
 		this.userCount = userCount;
 		this.adminCount = adminCount;
 		this.allCount = allCount;
@@ -80,13 +80,13 @@ public class UserDto {
 	}
 
 
-	public String getRoll() {
-		return roll;
+	public String getRole() {
+		return role;
 	}
 
 
-	public void setRoll(String roll) {
-		this.roll = roll;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 
@@ -110,13 +110,13 @@ public class UserDto {
 	}
 
 
-	public String getRollName() {
-		return rollName;
+	public String getRoleName() {
+		return roleName;
 	}
 
 
-	public void setRollName(String rollName) {
-		this.rollName = rollName;
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 
 

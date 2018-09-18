@@ -44,7 +44,7 @@
       			</c:otherwise>
       		</c:choose>
         <li><a href="#" title="검색" id="search_icon"><span style="font-size:1.3em;color: #333;"><i class="fas fa-search"></i></span></a></li>
-	       	<c:if test="${roll eq 'A' }">
+	       	<c:if test="${role eq 'A' }">
 
 	        	<li style="margin-right:10px"><a href="${pageContext.request.contextPath }/admin/home.do" title="관리자"><span style="font-size:1.3em;color: #333;"><i class="fas fa-users-cog"></i></span></a>
 	        	</li>
@@ -117,7 +117,7 @@
 		}
 	});
 	
-<c:if test="${!empty id && !empty roll && roll eq 'A' }">
+<c:if test="${!empty id && !empty role && role eq 'A' }">
 	$.ajax({
 		url:"${pageContext.request.contextPath }/opinion/count.do",
 		method:"get",

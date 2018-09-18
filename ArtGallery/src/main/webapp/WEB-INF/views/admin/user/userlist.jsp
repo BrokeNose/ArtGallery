@@ -166,10 +166,10 @@
 				<div class="td">${tmp.id }</div>
 				<div class="td">${tmp.email }</div>
 				<div class="td">${tmp.regdate }</div>
-				<div class="td">${tmp.rollName }</div>
-				<div class="td"><c:if test="${!empty tmp.deldate }">O</c:if></div>
+				<div class="td">${tmp.roleName }</div>
+				<div class="td"><c:if test="${not empty tmp.deldate }">O</c:if></div>
 				<div class="td"><a href="javascript:" class="toggleForm">수정</a></div>
-				<div class="td"><a href="leave.do?id=${tmp.id }">탈퇴</a></div>
+				<div class="td"><c:if test="${empty tmp.deldate }"><a href="leave.do?id=${tmp.id }">탈퇴</a></c:if></div>
 				<div class="td"><a href="javascript:deleteConfirm('${tmp.id }')">삭제</a></div>
 			</div>
   			<form class="tr updateForm" action="update.do">
@@ -177,7 +177,7 @@
 				<div class="td"><input type="hidden" name="id" value="${tmp.id }"/></div>
 				<div class="td"><input type="text" name="email" value="${tmp.email }"/></div>
 				<div class="td"><input type="hidden" name="regdate" value="${tmp.regdate }"/></div>
-				<div class="td"><input type="text" name="roll" value="${tmp.roll }"/></div>
+				<div class="td"><input type="text" name="role" value="${tmp.role }"/></div>
 				<div class="td"><input type="text" name="deldate" value="${tmp.deldate }"/></div>
 				<div class="td"><button type="submit" class="btn btn-primary">완료</button></div>
 				<div class="td"></div>
