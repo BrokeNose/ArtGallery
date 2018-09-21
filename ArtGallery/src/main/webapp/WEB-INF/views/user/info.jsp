@@ -4,14 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>info</title>
+<title>회원 정보</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/artgallery.css" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
 </head>
 <body>
 <jsp:include page="../header.jsp"/>
 <div class="container">
-	<h4><i class="fas fa-user-tie"></i> 회원정보</h4>
+	<h4><i class="fas fa-user-tie"></i>회원 정보</h4>
 	<div class="panel panel-default">
 	  <div class="panel-body">
 	  	<form action="update.do" method="post" class="form-horizontal">

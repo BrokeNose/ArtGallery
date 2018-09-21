@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>error/500.jsp</title>
+<title>error 500</title>
 <style>
 	.btn {
 	  display: inline-block;
