@@ -61,7 +61,6 @@ public class UserDaoImpl implements UserDao {
 	}
 	@Override
 	public UserDto userCount() {
-		// TODO Auto-generated method stub
 		return session.selectOne("user.userCount");
 	}
 }

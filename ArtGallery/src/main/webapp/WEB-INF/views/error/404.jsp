@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>error/404.jsp</title>
+<title>error 404</title>
 <style>
 	.btn {
 	  display: inline-block;

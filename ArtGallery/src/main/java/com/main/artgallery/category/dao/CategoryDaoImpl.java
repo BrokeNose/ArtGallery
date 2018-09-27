@@ -101,7 +101,6 @@ public class CategoryDaoImpl implements CategoryDao{
 	
 	@Override
 	public CategoryDto getDataSeq(int seq) {
-		// TODO Auto-generated method stub
 		return session.selectOne("category.getDataSeq", seq);
 	}
 
@@ -119,7 +118,6 @@ public class CategoryDaoImpl implements CategoryDao{
 
 	@Override
 	public int getCount(CategoryDto dto) {
-		// TODO Auto-generated method stub
 		return session.selectOne("category.getCount", dto);
 	}
 		

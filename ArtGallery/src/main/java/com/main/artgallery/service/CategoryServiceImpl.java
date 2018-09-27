@@ -221,7 +221,6 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public void delete(HttpServletRequest request, ModelAndView mView) {
-		// TODO Auto-generated method stub
 		int seq = Integer.parseInt((String)request.getParameter("seq"));
 		dao.delete(seq);
 		String categoryType = (String)request.getParameter("categoryType");
@@ -281,7 +280,6 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public void updateForm(HttpServletRequest request, ModelAndView mView) {
-		// TODO Auto-generated method stub
 		String categoryType = (String)request.getParameter("categoryType");
 		int seq = Integer.parseInt((String)request.getParameter("seq"));
 		CategoryDto dto = dao.getDataSeq(seq);
@@ -292,7 +290,6 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public void update(HttpServletRequest request, CategoryDto dto) {
-		// TODO Auto-generated method stub
 		getConfig(request);
 		
 		//파일 등록 처리
@@ -351,7 +348,6 @@ public class CategoryServiceImpl implements CategoryService {
 	
 	@Override
 	public void fileDelete(String realPath, String imagePath) {
-		// TODO Auto-generated method stub
 		String path=realPath + imagePath.substring(configDto.getUploadRoot().length());
 
 		//System.out.println(imagePath.substring(dto.getUploadRoot().length()));
