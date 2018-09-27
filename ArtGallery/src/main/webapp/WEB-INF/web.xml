@@ -60,4 +60,13 @@
 		<error-code>500</error-code>
 		<location>/error/500.do</location>
 	</error-page>
+	
+	<!-- log4j 설정 -->
+	<context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>/WEB-INF/log4j.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+    </listener> 
 </web-app>
